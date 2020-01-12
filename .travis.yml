@@ -5,8 +5,10 @@ python:
     - "3.5"
     - "3.6"
     - "3.7"
-    - "pypy3"
 
+virtualenv:
+  system_site_packages: true
+  
 matrix:
   include:
     - name: "MacOS py36"
@@ -21,12 +23,13 @@ env:
   global:
     - TWINE_USERNAME=mcuntz
 
-before_script:
+install:
     - python3 -m pip install -r tests/requirements_test.txt
+    - python3 -m pip install -r docs/requirements.txt
 
 script:
   # create wheels
-  - sudo $PIP install cibuildwheel==0.11.1
+  - sudo python3 -m pip install cibuildwheel==0.11.1
   - cibuildwheel --output-dir wheelhouse
   # create source dist for pypi and create coverage (only once for linux py3.6)
   - |
@@ -34,6 +37,7 @@ script:
       rm -rf dist
       python3 -m pip install -U setuptools
       python3 -m pip install pytest-cov coveralls
+      python3 -m pip install numpy scipy six schwimmbad
       python3 -m pip install -r docs/requirements.txt
       python3 setup.py sdist
       python3 -m pytest --cov pyeee --cov-report term-missing -v tests/
