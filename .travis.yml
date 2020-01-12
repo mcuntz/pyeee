@@ -1,22 +1,21 @@
 language: python
 
+python: 3.8
+
 jobs:
   include:
     # perform a linux build
     - services: docker
-      python: 3
       env:
         - COVER="on"
     # and a mac build
     - os: osx
       language: shell
-      python: 3
       env:
         - COVER="on"
     # and a windows build
     - os: windows
       language: shell
-      python: 3
       env:
         - COVER="off"
       before_install:
