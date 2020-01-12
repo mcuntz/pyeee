@@ -14,6 +14,9 @@ env:
   global:
     - TWINE_USERNAME=mcuntz
 
+before_script:
+    - pip install -r tests/requirements_test.txt
+
 script:
   # create wheels
   - sudo $PIP install cibuildwheel==0.11.1
@@ -45,3 +48,5 @@ notifications:
   email:
     recipients:
     - mc@macu.de
+
+sudo: False
