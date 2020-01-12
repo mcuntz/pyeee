@@ -5,4 +5,5 @@ coveralls
 pytest-cov
 numpy
 scipy
+six
 schwimmbad
