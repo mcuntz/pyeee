@@ -37,15 +37,15 @@ env:
     # Note: TWINE_PASSWORD is set in Travis settings
 
 install:
-    - python3 -m pip install -U pip
-    - python3 -m pip install -U setuptools
-    - python3 -m pip install -U pytest
-    - python3 -m pip install -U pytest-cov
-    - python3 -m pip install -U coveralls
-    - python3 -m pip install -r tests/requirements_test.txt
-    - python3 -m pip install -r docs/requirements.txt
-    - python3 -m pip install cibuildwheel
-    - python3 -m pip install twine
+    - python -m pip install -U pip
+    - python -m pip install -U setuptools
+    - python -m pip install -U pytest
+    - python -m pip install -U pytest-cov
+    - python -m pip install -U coveralls
+    - python -m pip install -r tests/requirements_test.txt
+    - python -m pip install -r docs/requirements.txt
+    - python -m pip install cibuildwheel
+    - python -m pip install twine
 
 script:
   # create wheels
@@ -54,24 +54,24 @@ script:
   - |
     if [[ $COVER == "on" ]]; then
       rm -rf dist
-      python3 setup.py sdist
-      python3 -m pytest --cov pyeee --cov-report term-missing -v tests/
-      python3 -m coveralls
+      python setup.py sdist
+      python -m pytest --cov pyeee --cov-report term-missing -v tests/
+      python -m coveralls
     fi
 
 after_script:
   # pypi test upload always
-  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
-  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
+  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
+  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
 
 after_success:
   # pypi upload (test always, official on TAG)
-  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
-  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
+  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
+  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
   - |
     if [[ $TRAVIS_TAG ]]; then
-      python3 -m twine upload --skip-existing wheelhouse/*.whl
-      python3 -m twine upload --skip-existing dist/*.tar.gz
+      python -m twine upload --skip-existing wheelhouse/*.whl
+      python -m twine upload --skip-existing dist/*.tar.gz
     fi
 
 notifications:
