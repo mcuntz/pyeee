@@ -43,10 +43,11 @@ script:
   - python -m cibuildwheel --output-dir wheelhouse
   # create source dist for pypi and create coverage
   - |
-    if [[ $COVER == "on" ]]; then
+    if [[ $COVER == "on" ]] ; then
       python -m pip install -U pytest
       python -m pip install -U pytest-cov
       python -m pip install -U coveralls
+      python -m pip install -r tests/requirements_test.txt
       rm -rf dist
       python setup.py sdist
       python -m pytest --cov pyeee --cov-report term-missing -v tests/
@@ -57,11 +58,16 @@ after_success:
   # pypi upload (test always, official on TAG)
   - python -m pip install -U twine
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
-  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
   - |
-    if [[ $TRAVIS_TAG ]]; then
+    if [[ $COVER == "on" ]] ; then
+      python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
+    fi
+  - |
+    if [[ $TRAVIS_TAG ]] ; then
       python -m twine upload --skip-existing wheelhouse/*.whl
-      python -m twine upload --skip-existing dist/*.tar.gz
+      if [[ $COVER == "on" ]] ; then
+        python -m twine upload --skip-existing dist/*.tar.gz
+      fi
     fi
 
 notifications:
