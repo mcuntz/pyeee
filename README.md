@@ -12,8 +12,7 @@ Res Research, 2015).
 [![Build Status](https://travis-ci.org/mcuntz/pyeee.svg?branch=master)](https://travis-ci.org/mcuntz/pyeee)
 [![Build status](https://ci.appveyor.com/api/projects/status/oik6h65n0xdy4h4j/branch/master?svg=true)](https://ci.appveyor.com/project/mcuntz/pyeee)
 [![Coverage Status](https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master)](https://coveralls.io/github/mcuntz/pyeee?branch=master)
-[![Documentation Status](https://readthedocs.org/projects/docs/badge/?version=latest)](https://pyeee.readthedocs.org/en/latest/)
-
+[![Documentation Status](https://readthedocs.org/projects/pyeee/badge/?version=latest)](https://pyeee.readthedocs.io/en/latest/?badge=latest)
 
 ## About pyeee
 

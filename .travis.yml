@@ -12,7 +12,7 @@ matrix:
 
 env:
   global:
-    - TWINE_USERNAME=YOUR_TWINE_USERNAME
+    - TWINE_USERNAME=mcuntz
 
 script:
   # create wheels
