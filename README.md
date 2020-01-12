@@ -10,7 +10,7 @@ Res Research, 2015).
 [![PyPI version](https://badge.fury.io/py/pyeee.svg)](https://badge.fury.io/py/pyeee)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mcuntz/pyeee/LICENSE)
 [![Build Status](https://travis-ci.org/mcuntz/pyeee.svg?branch=master)](https://travis-ci.org/mcuntz/pyeee)
-[![Build status](https://ci.appveyor.com/api/projects/status/oik6h65n0xdy4h4j/branch/master?svg=true)](https://ci.appveyor.com/project/mcuntz/pyeee)
+<!-- [![Build status](https://ci.appveyor.com/api/projects/status/bc57psfpa0676i4d/branch/master?svg=true)](https://ci.appveyor.com/project/mcuntz/pyeee) -->
 [![Coverage Status](https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master)](https://coveralls.io/github/mcuntz/pyeee?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/pyeee/badge/?version=latest)](https://pyeee.readthedocs.io/en/latest/?badge=latest)
 

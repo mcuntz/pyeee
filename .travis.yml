@@ -23,9 +23,16 @@ env:
   global:
     - TWINE_USERNAME=mcuntz
 
+before_install:
+    - python3 -m pip install -U pip
+    - python3 -m pip install -U pytest
+    - python3 -m pip install -U pytest-cov
+    - python3 -m pip install -U coveralls
+
 install:
     - python3 -m pip install -r tests/requirements_test.txt
     - python3 -m pip install -r docs/requirements.txt
+    - python3 install .
 
 script:
   # create wheels
@@ -37,12 +44,19 @@ script:
       rm -rf dist
       python3 -m pip install -U setuptools
       python3 -m pip install pytest-cov coveralls
-      python3 -m pip install numpy scipy six schwimmbad
+      python3 -m pip install numpy scipy six
+      python3 -m pip install schwimmbad
       python3 -m pip install -r docs/requirements.txt
       python3 setup.py sdist
       python3 -m pytest --cov pyeee --cov-report term-missing -v tests/
       python3 -m coveralls
     fi
+
+after_script:
+  # pypi upload (test allways)
+  - python3 -m pip install twine
+  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
+  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
 
 after_success:
   # pypi upload (test allways and official on TAG)
