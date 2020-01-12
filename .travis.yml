@@ -1,13 +1,5 @@
 language: python
 
-python:
-    - "2.7"
-    - "3.4"
-    - "3.5"
-    - "3.6"
-    - "3.7"
-    - "3.8"
-
 virtualenv:
   system_site_packages: true
 
@@ -37,19 +29,19 @@ env:
     # Note: TWINE_PASSWORD is set in Travis settings
 
 install:
-    - python -m pip install -U pip
-    - python -m pip install -U setuptools
-    - python -m pip install -U pytest
-    - python -m pip install -U pytest-cov
-    - python -m pip install -U coveralls
-    - python -m pip install -r tests/requirements_test.txt
-    - python -m pip install -r docs/requirements.txt
-    - python -m pip install cibuildwheel
-    - python -m pip install twine
+  - python -m pip install -U pip
+  - python -m pip install -U setuptools
+  - python -m pip install -U pytest
+  - python -m pip install -U pytest-cov
+  - python -m pip install -U coveralls
+  - python -m pip install -r tests/requirements_test.txt
+  - python -m pip install -r docs/requirements.txt
+  - python -m pip install cibuildwheel
+  - python -m pip install twine
 
 script:
   # create wheels
-  - cibuildwheel --output-dir wheelhouse
+  - python -m cibuildwheel --output-dir wheelhouse
   # create source dist for pypi and create coverage
   - |
     if [[ $COVER == "on" ]]; then
@@ -61,11 +53,13 @@ script:
 
 after_script:
   # pypi test upload always
+  - python -m pip install -U twine
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
 
 after_success:
   # pypi upload (test always, official on TAG)
+  - python -m pip install -U twine
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
   - |
@@ -80,6 +74,7 @@ notifications:
     - mc@macu.de
 
 deploy:
+  provider: pypi
   user: mcuntz
   password:
     secure: AMQ6+uKypcRqM2qB+oqsqtIWIBsyR0Gnhue14vJHquvmHHHq/4RoGOoUZHhDFdNTe7C2xBTmVPqhJvyBLnGYJ2jJVKAqlvH1IsxW6n1BcY8cCr2nG81XHZzTl0OAEpaWDg9k3GjdrD8KZW7O/EdEb4V5qHJyMdVnXz22Ls0DdBcgITOCdxS7wPqmCKYu0qzVk+JTSOc86JUZ1fp2q1DZd9RDT6GRzLuFLe2kIXrQKvZFI3bG97SYKh+m6v8bnXZpqYN1s8EqKRtKwGR0Jr94YgD3awjLGfzqOLjwg2PjTnlzYwu9uQlupAkv93gWexuqWzVoy4ctmPHEBF+ifu9HVN8svJmoiK2aJ8DgPGkqe62JNxCRZtK1utWpDXblP6apyTT1qiOlxwFuFUlWk/zv0V9/Pcrz/8yTDp6KrkH+6kCypq/ql80mwsLxIbPuRgLQa0zzGnGMIR3XS5zGd9kms2IoBh14lES72vyvbZ0K9waGcEBehPdh624mR3MsOY2Ex9fibLG1UMRYjmk9fkWz5sXpSDwiJzHvlD8rtQ4PIvCIaPpIN8OtbidAts3vJ7WvK90ok0GwAI4gyVT/YRTp43xoPnEGQ1j1Hlf7vFejpUfi1dw+FkwScPC4yLAvbP5BHHI49neCeE3H3e0vC5J4cV0vvLStTx4aYnFjhAlZN4Y=
