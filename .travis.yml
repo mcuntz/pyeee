@@ -1,12 +1,19 @@
 language: python
 
+python:
+    - "3.4"
+    - "3.5"
+    - "3.6"
+    - "3.7"
+    - "pypy3"
+
 matrix:
   include:
     - name: "MacOS py36"
       os: osx
       language: generic
       env:
-        - PIP=pip
+        - PIP=pip3
         - CIBW_BUILD="cp36-*"
         - COVER="on"
 
@@ -15,7 +22,7 @@ env:
     - TWINE_USERNAME=mcuntz
 
 before_script:
-    - pip install -r tests/requirements_test.txt
+    - python3 -m pip install -r tests/requirements_test.txt
 
 script:
   # create wheels
@@ -25,23 +32,23 @@ script:
   - |
     if [[ $COVER == "on" ]]; then
       rm -rf dist
-      python -m pip install -U setuptools
-      python -m pip install pytest-cov coveralls
-      python -m pip install -r docs/requirements.txt
-      python setup.py sdist
-      python -m pytest --cov pyeee --cov-report term-missing -v tests/
-      python -m coveralls
+      python3 -m pip install -U setuptools
+      python3 -m pip install pytest-cov coveralls
+      python3 -m pip install -r docs/requirements.txt
+      python3 setup.py sdist
+      python3 -m pytest --cov pyeee --cov-report term-missing -v tests/
+      python3 -m coveralls
     fi
 
 after_success:
   # pypi upload (test allways and official on TAG)
-  - python -m pip install twine
-  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
-  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
+  - python3 -m pip install twine
+  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
+  - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
   - |
     if [[ $TRAVIS_TAG ]]; then
-      python -m twine upload --skip-existing wheelhouse/*.whl
-      python -m twine upload --skip-existing dist/*.tar.gz
+      python3 -m twine upload --skip-existing wheelhouse/*.whl
+      python3 -m twine upload --skip-existing dist/*.tar.gz
     fi
 
 notifications:
