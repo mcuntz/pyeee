@@ -1,66 +1,71 @@
 language: python
 
 python:
+    - "2.7"
     - "3.4"
     - "3.5"
     - "3.6"
     - "3.7"
+    - "3.8"
 
 virtualenv:
   system_site_packages: true
-  
-matrix:
+
+jobs:
   include:
-    - name: "MacOS py36"
-      os: osx
-      language: generic
+    # perform a linux build
+    - services: docker
       env:
-        - PIP=pip3
-        - CIBW_BUILD="cp36-*"
         - COVER="on"
+    # and a mac build
+    - os: osx
+      language: shell
+      env:
+        - COVER="on"
+    # and a windows build
+    - os: windows
+      language: shell
+      env:
+        - COVER="off"
+      before_install:
+        - choco install python --version 3.8.0
+        - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
 
 env:
   global:
     - TWINE_USERNAME=mcuntz
+    # Note: TWINE_PASSWORD is set in Travis settings
 
-before_install:
+install:
     - python3 -m pip install -U pip
+    - python3 -m pip install -U setuptools
     - python3 -m pip install -U pytest
     - python3 -m pip install -U pytest-cov
     - python3 -m pip install -U coveralls
-
-install:
     - python3 -m pip install -r tests/requirements_test.txt
     - python3 -m pip install -r docs/requirements.txt
-    - python3 -m pip install .
+    - python3 -m pip install cibuildwheel
+    - python3 -m pip install twine
 
 script:
   # create wheels
-  - sudo python3 -m pip install cibuildwheel==0.11.1
   - cibuildwheel --output-dir wheelhouse
-  # create source dist for pypi and create coverage (only once for linux py3.6)
+  # create source dist for pypi and create coverage
   - |
     if [[ $COVER == "on" ]]; then
       rm -rf dist
-      python3 -m pip install -U setuptools
-      python3 -m pip install pytest-cov coveralls
-      python3 -m pip install numpy scipy six
-      python3 -m pip install schwimmbad
-      python3 -m pip install -r docs/requirements.txt
       python3 setup.py sdist
       python3 -m pytest --cov pyeee --cov-report term-missing -v tests/
       python3 -m coveralls
     fi
 
 after_script:
-  # pypi upload (test allways)
-  - python3 -m pip install twine
+  # pypi test upload always
   - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
   - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
 
 after_success:
-  # pypi upload (test allways and official on TAG)
-  - python3 -m pip install twine
+  # pypi upload (test always, official on TAG)
   - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
   - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
   - |
@@ -73,8 +78,6 @@ notifications:
   email:
     recipients:
     - mc@macu.de
-
-sudo: False
 
 deploy:
   user: mcuntz
