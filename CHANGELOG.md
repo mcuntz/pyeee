@@ -10,4 +10,4 @@ All notable changes after its initial development up to January 2020 will be doc
 
 ### Changes
 
-[Unreleased]: https://github.com/mcuntz/pyeee/compare/v0.1...HEAD
+[Unreleased]: https://github.com/mcuntz/pyeee/compare/v0.2...HEAD
