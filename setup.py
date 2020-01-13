@@ -34,7 +34,7 @@ def find_version(*file_paths):
 DOCLINES = "A Python library providing parameter screening of computational models using the Morris method of Elementary Effects or its extension of Efficient Elementary Effects by Cuntz, Mai et al. (Water Res Research, 2015)."
 README = open("README.md").read()
 CLASSIFIERS = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Science/Research",
@@ -50,7 +50,7 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 2",
     "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering",
-    "Topic :: Software Development",
+    "Topic :: Computational Model Development",
     "Topic :: Utilities",
 ]
 
@@ -61,7 +61,7 @@ setup(
     version=VERSION,
     maintainer="Matthias Cuntz",
     maintainer_email="mc@macu.de",
-    description=DOCLINES[0],
+    description=DOCLINES,
     long_description=README,
     long_description_content_type="text/markdown",
     author="Matthias Cuntz",
