@@ -28,7 +28,7 @@ __all__ = ['tee']
 
 def tee(*args, **kwargs):
     """
-    Prints arguments on screen and in file, like \*nix tee utility.
+    Prints arguments on screen and in file, like Unix/Linux tee utility.
         
     Calls print function twice, once with the keyword file and once without, i.e. prints on sys.stdout.
 

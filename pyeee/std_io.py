@@ -24,6 +24,7 @@ Released under the MIT License; see LICENSE file for details.
 * New standard_parameter_reader/_writer that read/write single values per parameter, Jan 2020, Matthias Cuntz
 * Swapped names and params in call to sub_names_params_files* to be compatible with new generic exe_wrapper, Jan 2020, Matthias Cuntz
 * Call standard_parameter_writer with 2 or 3 arguments, i.e. pid given or not, Jan 2020, Matthias Cuntz
+* Make all strings raw strings in sub_names_params_files_* routines to deal with regular expressions, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -249,6 +250,7 @@ def sub_names_params_files_case(files, pid, params, names):
     Modified, Matthias Cuntz, Apr 2018 - use msub_files
               Matthias Cuntz, Dec 2019 - Sphinx docstring
               Matthias Cuntz, Jan 2020 - swap names and params in argument list
+              Matthias Cuntz, Jan 2020 - make all raw strings for regular expressions
     """
     # assert list of files
     if isinstance(files, str): files = [files]
@@ -256,11 +258,11 @@ def sub_names_params_files_case(files, pid, params, names):
     # make dict for msub with dict[pattern] = replacement
     dd = {}
     for i, p in enumerate(params):
-        nep = names[i]+"\s*=\s*[a-zA-Z0-9_.+-]*" # name = value
-        k = r"^(\s*)"+nep                        # beginning of string
-        dd[k] = r"\1"+names[i]+" = {:.14e}".format(params[i])
-        k = r"(\n+\s*)"+nep                      # after newline
-        dd[k] = r"\1"+names[i]+" = {:.14e}".format(params[i])
+        nep = names[i]+r"\s*=\s*[a-zA-Z0-9_.+-]*" # name = value
+        k = r"^(\s*)"+nep                         # beginning of string
+        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
+        k = r"(\n+\s*)"+nep                       # after newline
+        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
 
     # replace in each file
     msub_files(files, dd, pid)
@@ -313,6 +315,7 @@ def sub_names_params_files_ignorecase(files, pid, params, names):
     Modified, Matthias Cuntz, Apr 2018 - use msub_files
               Matthias Cuntz, Dec 2019 - Sphinx docstring
               Matthias Cuntz, Jan 2020 - swap names and params in argument list
+              Matthias Cuntz, Jan 2020 - make all raw strings for regular expressions
     """
     # assert list of files
     if isinstance(files, str): files = [files]
@@ -320,11 +323,11 @@ def sub_names_params_files_ignorecase(files, pid, params, names):
     # make dict for msub with dict[pattern] = replacement
     dd = {}
     for i, p in enumerate(params):
-        nep = names[i]+"\s*=\s*[a-zA-Z0-9_.+-]*" # name = value
-        k = r"^(\s*)"+nep                        # beginning of string
-        dd[k] = r"\1"+names[i]+" = {:.14e}".format(params[i])
-        k = r"(\n+\s*)"+nep                      # after newline
-        dd[k] = r"\1"+names[i]+" = {:.14e}".format(params[i])
+        nep = names[i]+r"\s*=\s*[a-zA-Z0-9_.+-]*" # name = value
+        k = r"^(\s*)"+nep                         # beginning of string
+        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
+        k = r"(\n+\s*)"+nep                       # after newline
+        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
 
     # replace in each file
     msub_files(files, dd, pid, flags=re.I)
