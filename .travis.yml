@@ -12,7 +12,7 @@ jobs:
     - os: osx
       language: shell
       env:
-        - COVER="on"
+        - COVER="off"
     # and a windows build
     - os: windows
       language: shell
