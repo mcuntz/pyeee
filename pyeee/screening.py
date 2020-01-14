@@ -4,10 +4,11 @@ from __future__ import division, absolute_import, print_function
 screening : Provides the function screening/ee for Morris' method
             of Elementary Effects.
 
-This function was written by Matthias Cuntz while at Institut National de
-Recherche Agronomique (INRA), Nancy, France.
+This function was written by Matthias Cuntz while at Institut National
+de Recherche en Agriculture, Alimentation et Environnement (INRAE),
+Nancy, France.
 
-Copyright (c) 2017-2019 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2017-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Dec 2017 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -18,6 +19,7 @@ Released under the MIT License; see LICENSE file for details.
 * Bug: default ntotal was not set if ntotal<0 (but nt instead), Dec 2019, Matthias Cuntz
 * Make numpy doctsring format, Dec 2019, Matthias Cuntz
 * x0 optional, Jan 2020, Matthias Cuntz
+* Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -49,13 +51,13 @@ def screening(func, lb, ub, x0=None, mask=None,
     ----------
     func : callable
         Python function callable as `func(x)` with `x` the function parameters.
-    lb : iterable
+    lb : array_like
         Lower bounds of parameters.
-    ub : iterable
+    ub : array_like
         Upper bounds of parameters.
-    x0 : iterable, optional
+    x0 : array_like, optional
         Parameter values used with `mask==0`.
-    mask : iterable, optional
+    mask : array_like, optional
         Include (1,True) or exclude (0,False) parameters in screening (default: include all parameters).
     nt : int, optional
         Number of trajectories used for screening (default: `len(lb)`)
@@ -150,6 +152,7 @@ def screening(func, lb, ub, x0=None, mask=None,
               Matthias Cuntz,   Dec 2019 - bug: default ntotal was not set if ntotal<0 (but nt instead)
                                          - numpy docstring format
               Matthias Cuntz,   Jan 2020 - x0 optional
+                                         - distinguish iterable and array_like parameter types
     """
     # Get MPI communicator
     try:

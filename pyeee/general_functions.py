@@ -18,16 +18,19 @@ The current functions are:
     dlogistic2_offset     First derivative of double logistic function with offset
     d2logistic2_offset    Second derivative of double logistic function with offset
 
-This module was written by Matthias Cuntz while at Department of Computational Hydrosystems,
-Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany,
-and continued while at Institut National de Recherche Agronomique (INRA), Nancy, France.
+This module was written by Matthias Cuntz while at Department of
+Computational Hydrosystems, Helmholtz Centre for Environmental
+Research - UFZ, Leipzig, Germany, and continued while at Institut
+National de Recherche en Agriculture, Alimentation et Environnement
+(INRAE), Nancy, France.
 
-Copyright (c) 2015-2019 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2015-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Mar 2015 by Matthias Cuntz (mc (at) macu (dot) de)
 * Added functions logistic_p and logistic_offset_p, Dec 2017, Matthias Cuntz
 * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
+* Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -66,7 +69,7 @@ def curvature(x, dfunc, d2func, *args, **kwargs):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute curvature
     dfunc : callable
         Function giving first derivative of function f: f', to be called `dfunc(x, *args, **kwargs)`
@@ -96,7 +99,7 @@ def logistic(x, L, k, x0):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     L : float
         Maximum of logistic function
@@ -119,13 +122,13 @@ def logistic_p(x, p):
 
         `L/(1+exp(-k(x-x0)))`
 
-    where parameters `L`, `k` and `x0` are given as iterable, i.e.
+    where parameters `L`, `k` and `x0` are given as one iterable, i.e.
 
         `p[0]/(1+exp(-p[1](x-p[2])))`
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     p : iterable
         Iterable of length 3 with maximum, steepness and inflection point of logistic function
@@ -152,7 +155,7 @@ def dlogistic(x, L, k, x0):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute derivative of logistic function
     L : float
         Maximum of logistic function
@@ -183,7 +186,7 @@ def d2logistic(x, L, k, x0):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute derivative of logistic function
     L : float
         Maximum of logistic function
@@ -211,7 +214,7 @@ def logistic_offset(x, L, k, x0, a):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     L : float
         Maximum of logistic function
@@ -236,13 +239,13 @@ def logistic_offset_p(x, p):
 
         `L/(1+exp(-k(x-x0))) + a`
 
-    where parameters `L`, `k`, `x0`, and `a` are given as iterable, i.e.
+    where parameters `L`, `k`, `x0`, and `a` are given as one iterable, i.e.
 
         `p[0]/(1+exp(-p[1](x-p[2]))) + p[3]`
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     p : iterable
         Iterable of length 4 with maximum, steepness, inflection point, and offset of logistic function
@@ -269,7 +272,7 @@ def dlogistic_offset(x, L, k, x0, a):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute derivative of logistic function
     L : float
         Maximum of logistic function
@@ -303,7 +306,7 @@ def d2logistic_offset(x, L, k, x0, a):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute derivative of logistic function
     L : float
         Maximum of logistic function
@@ -334,7 +337,7 @@ def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     L1 : float
         Maximum of first logistic function
@@ -365,13 +368,13 @@ def logistic2_offset_p(x, p):
 
         `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`
 
-    where parameters `L1/2`, `k1/2` and `x01/2` are given as iterable, i.e.
+    where parameters `L1/2`, `k1/2` and `x01/2` are given as one iterable, i.e.
 
         `p[0]/(1+exp(-p[1](x-p[2]))) - p[3]/(1+exp(-p[4](x-p[5]))) + p[6]`
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     p : iterable
         Iterable of length 6 with maximum, steepness, inflection point of first logistic function,
@@ -399,7 +402,7 @@ def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     L1 : float
         Maximum of first logistic function
@@ -439,7 +442,7 @@ def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
     Parameters
     ----------
-    x : float or ndarray
+    x : array_like
         Independent variable to evalute logistic function
     L1 : float
         Maximum of first logistic function

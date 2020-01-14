@@ -1,13 +1,9 @@
 # Changelog
 
-All notable changes after its initial development up to January 2020 will be documented in this file.
+All notable changes after its initial development up to January 2020 (v0.2) will be documented in this file.
 
-## [Unreleased]
-
-### Bugfixes
-
-### Additions
-
-### Changes
-
-[Unreleased]: https://github.com/mcuntz/pyeee/compare/v0.2...HEAD
+### v0.3
+    - Distinguish iterable and array_like parameter types in all routines.
+    - Added verbose keyword to eee / see.
+    - Added Elementary Effects (ee) in README.md and Quick usage guide.
+    - Corrected error in description of pyeee in setup.py, and set development status to 4 - Beta.

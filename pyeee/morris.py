@@ -19,13 +19,15 @@ Note that the functions morris_sampling and elementary_effects are shortcuts for
 Optimized_Groups and Morris_Measure_Groups of F. Campolongo and J. Cariboni ported to Python by Stijn Van Hoey.
 
 
-This module was originally written by Stijn Van Hoey as a translation from an original
-Matlab code of F. Campolongo and J. Cariboni, JRC - IPSC Ispra, Varese, IT.
-It was adapted by Matthias Cuntz while at Department of Computational Hydrosystems,
-Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany,
-and continued while at Institut National de Recherche Agronomique (INRA), Nancy, France.
+This module was originally written by Stijn Van Hoey as a translation
+from an original Matlab code of F. Campolongo and J. Cariboni, JRC -
+IPSC Ispra, Varese, IT. It was adapted by Matthias Cuntz while at
+Department of Computational Hydrosystems, Helmholtz Centre for
+Environmental Research - UFZ, Leipzig, Germany, and continued while at
+Institut National de Recherche en Agriculture, Alimentation et
+Environnement (INRAE), Nancy, France.
 
-Copyright (c) 2012-2019 Stijn Van Hoey, Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2012-2020 Stijn Van Hoey, Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written in Matlab by F. Campolongo, J. Cariboni, JRC - IPSC Ispra, Varese, IT.
@@ -41,6 +43,7 @@ Released under the MIT License; see LICENSE file for details.
 * Distance matrix is not done for all trajectories at once because of very large memory requirement.
   Aug 2018, Matthias Cuntz & Fabio Gennaretti
 * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
+* Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -682,9 +685,9 @@ def morris_sampling(NumFact, LB, UB,
     ----------
     NumFact : int
         Number of factors
-    LB : iterable
+    LB : array_like
         (NumFact,) Lower bound of the uniform distribution for each factor
-    UB : iterable
+    UB : array_like
         (NumFact,) Upper bound of the uniform distribution for each factor
     N : int, optional
         Total number of trajectories (default: 500)

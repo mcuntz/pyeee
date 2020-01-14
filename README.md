@@ -18,7 +18,7 @@ Res Research, 2015).
 
 *pyeee* is a Python library for performing parameter screening of
 computational models. It uses Morris' method of  Elementary Effects
-and also its etension of Efficient or Sequential Elementary Effects published of
+and also its extension of Efficient or Sequential Elementary Effects published of
 
 Cuntz, Mai *et al.* (2015)  
   Computationally inexpensive identification of noninformative model

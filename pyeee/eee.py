@@ -5,8 +5,9 @@ eee : Provides the function eee for Efficient/Sequential Elementary Effects,
       an extension of Morris' method of Elementary Effects by
       Cuntz, Mai et al. (Water Res Research, 2015).
 
-This function was written by Matthias Cuntz while at Institut National de
-Recherche Agronomique (INRA), Nancy, France.
+This function was written by Matthias Cuntz while at Institut National
+de Recherche en Agriculture, Alimentation et Environnement (INRAE),
+Nancy, France.
 
 Copyright (c) 2017-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
@@ -14,8 +15,7 @@ Released under the MIT License; see LICENSE file for details.
 * Written Nov 2017 by Matthias Cuntz (mc (at) macu (dot) de)
 * Added `weight` option, Jan 2018, Matthias Cuntz
 * Added `plotfile` and made docstring sphinx compatible option, Jan 2018, Matthias Cuntz
-* x0 optional, Jan 2020, Matthias Cuntz
-* Added verbose keyword, Jan 2020, Matthias Cuntz
+* x0 optional; added verbose keyword; distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -70,13 +70,13 @@ def eee(func, *args, **kwargs):
     ----------
     func : callable
         Python function callable as `func(x)` with `x` the function parameters.
-    lb : iterable
+    lb : array_like
         Lower bounds of parameters.
-    ub : iterable
+    ub : array_like
         Upper bounds of parameters.
-    x0 : iterable, optional
+    x0 : array_like, optional
         Parameter values used with `mask==0`.
-    mask : iterable, optional
+    mask : array_like, optional
         Include (1,True) or exclude (0,False) parameters in screening (default: include all parameters).
     ntfirst : int, optional
         Number of trajectories in first step of sequential elementary effects (default: 5).
@@ -149,7 +149,8 @@ def eee(func, *args, **kwargs):
     Modified, Matthias Cuntz, Jan 2018 - weight
                               Nov 2019 - plotfile, numpy docstring format
               Matthias Cuntz, Jan 2020 - x0 optional
-              Matthias Cuntz, Jan 2020 - verbose keyword
+                                       - verbose keyword
+                                       - distinguish iterable and array_like parameter types
     """
     # Get keyword arguments
     # This allows mixing keyword arguments of eee and keyword arguments to be passed to optimiser.
@@ -207,6 +208,8 @@ def eee(func, *args, **kwargs):
     npara = len(lb)
     if crank == 0:
         assert len(lb) == len(ub), 'Lower and upper bounds have not the same size.'
+    lb = np.array(lb)
+    ub = np.array(ub)
 
     # mask
     if mask is None:

@@ -18,10 +18,11 @@ Func can then be a string (e.g. './prog -arg') if shell=True
 or a list (e.g. ['./prog', '-arg']) if shell=False (default).
 Programs without arguments, pipes, etc. can simply be strings with shell=True or False.
 
-This module was written by Matthias Cuntz while at Institut National de
-Recherche Agronomique (INRA), Nancy, France.
+This module was written by Matthias Cuntz while at Institut National
+de Recherche en Agriculture, Alimentation et Environnement (INRAE),
+Nancy, France.
 
-Copyright (c) 2016-2019 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2016-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Nov 2016 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -33,7 +34,7 @@ Released under the MIT License; see LICENSE file for details.
 * Added `plotfile` and made docstring sphinx compatible option, Jan 2018, Matthias Cuntz
 * Changed to Sphinx docstring and numpydoc, Nov 2019, Matthias Cuntz
 * Remove that exe_wrappers support also Python functions. User should use func_wrappers, Nov 2019, Matthias Cuntz
-* Make one exe_wrapper, passing bounds, mask, etc. via kwarg dictionary to parameterwriter, Jan 2020, Matthias Cuntz
+* Make one exe_wrapper, passing bounds, mask, etc. via kwarg dictionary to parameterwriter; distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -127,7 +128,7 @@ def exe_wrapper(func,
 
                 If True, append '.RandomNumber' to `parameterfile` and `objectivefile` for parallel calls of `func`
 
-            **pargs** (list)
+            **pargs** (iterable)
 
                 List of arguments of `parameterwriters`.
 
@@ -152,6 +153,7 @@ def exe_wrapper(func,
                                        - pid switch in kwarg dictionary
                                        - pargs, pkwargs for passing bounds, mask, etc. to parameterwriter
                                          replacing other exe_wrappers
+                                       - distinguish iterable and array_like parameter types
     """
     shell   = kwarg.pop('shell', False)
     debug   = kwarg.pop('debug', False)
@@ -247,9 +249,9 @@ def exe_mask_wrapper(func, x0, mask,
     ----------
     func : string or list of strings
         External program to launch by :any:`subprocess`
-    x0 : iterable
+    x0 : array_like
         Initial values of parameters and fixed values of masked parameters
-    mask : iterable
+    mask : array_like
         Mask to include (1) or exclude (0) parameter from parameterwriter
     parameterfile : string
         Filename of parameter file
@@ -281,7 +283,7 @@ def exe_mask_wrapper(func, x0, mask,
 
                 If True, append '.RandomNumber' to `parameterfile` and `objectivefile` for parallel calls of `func`
 
-            **pargs** (list)
+            **pargs** (iterable)
 
                 List of arguments of `parameterwriters`.
 
@@ -306,6 +308,7 @@ def exe_mask_wrapper(func, x0, mask,
                                        - pid switch in kwarg dictionary
                                        - pargs, pkwargs for passing bounds, mask, etc. to parameterwriter
                                          replacing other exe_wrappers
+                                       - distinguish iterable and array_like parameter types
     """
     shell   = kwarg.pop('shell', False)
     debug   = kwarg.pop('debug', False)
@@ -410,9 +413,9 @@ def func_mask_wrapper(func, x0, mask, arg, kwarg, x):
     ----------
     func : callable
         Python function to be called `func(x, *arg, **kwarg)`
-    x0 : iterable
+    x0 : array_like
         Fixed values of masked parameters
-    mask : iterable
+    mask : array_like
         Mask to use `x0` values ('mask[i]=1') or use new parameters `x` ('mask[i]=0') in call of function
     arg : iterable
         Arguments passed to `func`
@@ -429,6 +432,7 @@ def func_mask_wrapper(func, x0, mask, arg, kwarg, x):
     -------
     Written,  Matthias Cuntz, Nov 2016
     Modified, Matthias Cuntz, Nov 2019 - Sphinx docstring
+              Matthias Cuntz, Jan 2020 - distinguish iterable and array_like parameter types
     """
     xx       = np.copy(x0)
     xx[mask] = x

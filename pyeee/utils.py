@@ -3,14 +3,16 @@ from __future__ import division, absolute_import, print_function
 """
 General utility functions.
 
-This module was written by Matthias Cuntz while at Institut National de
-Recherche Agronomique (INRA), Nancy, France.
+This module was written by Matthias Cuntz while at Institut National
+de Recherche en Agriculture, Alimentation et Environnement (INRAE),
+Nancy, France.
 
-Copyright (c) 2019 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2019-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Oct 2019 by Matthias Cuntz (mc (at) macu (dot) de)
 * Make numpy doctsring format, Dec 2019, Matthias Cuntz
+* Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -33,13 +35,13 @@ def cost_square(p, func, x, y):
 
     Parameters
     ----------
-    p : float or iterable
+    p : array_like
         Parameters of `func`.
     func : callable
         Python function callable as `func(x,p)`.
-    x : float or iterable
+    x : array_like
         Independent func parameters.
-    y : float or iterable
+    y : array_like
         Target values for `func(x,p)`.
 
     Returns

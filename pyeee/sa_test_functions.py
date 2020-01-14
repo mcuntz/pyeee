@@ -28,17 +28,21 @@ Current functions are:
     fmorris / morris      After Morris (1991)
     oakley_ohagan         Oakley and O'Hagan (2004), parameters given in Saltelli et al. (2008)
                           or on http://www.jeremy-oakley.staff.shef.ac.uk/psa_example.txt
-This module was written by Matthias Cuntz & Juliane Mai while at Department of Computational Hydrosystems,
-Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany,
-and continued by Matthias Cuntz while at Institut National de Recherche Agronomique (INRA), Nancy, France.
 
-Copyright (c) 2015-2019 Matthias Cuntz - mc (at) macu (dot) de
+This module was written by Matthias Cuntz & Juliane Mai while at
+Department of Computational Hydrosystems, Helmholtz Centre for
+Environmental Research - UFZ, Leipzig, Germany, and continued by
+Matthias Cuntz while at Institut National de Recherche en Agriculture,
+Alimentation et Environnement (INRAE), Nancy, France.
+
+Copyright (c) 2015-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Mar 2015 by Matthias Cuntz (mc (at) macu (dot) de) & Juliane Mai
 * Added functions to properly test PAWN method: linear, product, ratio, and ishigami_homma_easy, Dec 2017, Juliane Mai
 * Provide morris function under the name fmorris and the K function under the name bratley, Nov 2019, Matthias Cuntz
 * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
+* Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -75,7 +79,7 @@ def B(X):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (nX,) or (nX,npoints) array of floats
 
     Returns
@@ -116,9 +120,9 @@ def g(X, a):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (nX,) or (nX,npoints) array of floats
-    a : ndarray
+    a : array_like
         (nX,) array of floats
 
     Returns
@@ -142,9 +146,9 @@ def G(X, a):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (nX,) or (nX,npoints) array of floats
-    a : ndarray
+    a : array_like
         (nX,) array of floats
 
     Returns
@@ -164,13 +168,13 @@ def Gstar(X, alpha, delta, a):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (nX,) or (nX,npoints) array of floats
-    alpha : ndarray
+    alpha : array_like
         (nX,) array of floats
-    delta : ndarray
+    delta : array_like
         (nX,) array of floats
-    a : ndarray
+    a : array_like
         (nX,) array of floats
 
     Returns
@@ -219,11 +223,11 @@ def linear(X, a, b):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (1,) or (1,npoints) array of floats
-    a : ndarray
+    a : array_like
         float or (npoints,) array of floats
-    b : ndarray
+    b : array_like
         float or (npoints,) array of floats
 
     Returns
@@ -263,7 +267,7 @@ def product(X):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (2,) or (2,npoints) array of floats
 
     Returns
@@ -315,7 +319,7 @@ def ratio(X):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (2,) or (2,npoints) array of floats
 
     Returns
@@ -357,7 +361,7 @@ def ishigami_homma_easy(X):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (2,) or (2,npoints) array of floats
 
     Returns
@@ -395,11 +399,11 @@ def ishigami_homma(X, a, b):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (3,) or (3,npoints) array of floats
-    a : ndarray
+    a : array_like
         float or (npoints,) array of floats
-    b : ndarray
+    b : array_like
         float or (npoints,) array of floats
 
     Returns
@@ -437,7 +441,7 @@ def bratley(*args):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (nX,) or (nX,npoints) array of floats
 
     Returns
@@ -453,7 +457,7 @@ def K(X):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (nX,) or (nX,npoints) array of floats
 
     Returns
@@ -496,17 +500,17 @@ def morris(*args):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (20,) or (20,npoints) array of floats
     beta0 : float
         float
-    beta1 : ndarray
+    beta1 : array_like
         (20,) array of floats
-    beta2 : ndarray
+    beta2 : array_like
         (20,20) array of floats
-    beta3 : ndarray
+    beta3 : array_like
         (20,20,20) array of floats
-    beta4 : ndarray
+    beta4 : array_like
         (20,20,20,20) array of floats
 
     Returns
@@ -522,17 +526,17 @@ def fmorris(X, beta0, beta1, beta2, beta3, beta4):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (20,) or (20,npoints) array of floats
     beta0 : float
         float
-    beta1 : ndarray
+    beta1 : array_like
         (20,) array of floats
-    beta2 : ndarray
+    beta2 : array_like
         (20,20) array of floats
-    beta3 : ndarray
+    beta3 : array_like
         (20,20,20) array of floats
-    beta4 : ndarray
+    beta4 : array_like
         (20,20,20,20) array of floats
 
     Returns
@@ -586,7 +590,7 @@ def oakley_ohagan(X):
 
     Parameters
     ----------
-    X : ndarray
+    X : array_like
         (15,) or (15,npoints) array of floats
 
     Returns

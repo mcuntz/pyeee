@@ -3,11 +3,13 @@ from __future__ import division, absolute_import, print_function
 """
 tee : Prints arguments on screen and in file, like *nix tee utility.
 
-This module was by Matthias Cuntz while at Department of Computational Hydrosystems,
-Helmholtz Centre for Environmental Research - UFZ, Leipzig, Germany,
-and continued while at Institut National de Recherche Agronomique (INRA), Nancy, France.
+This module was by Matthias Cuntz while at Department of Computational
+Hydrosystems, Helmholtz Centre for Environmental Research - UFZ,
+Leipzig, Germany, and continued while at Institut National de
+Recherche en Agriculture, Alimentation et Environnement (INRAE),
+Nancy, France.
 
-Copyright (c) 2014-2019 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2014-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Dec 2014 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -34,13 +36,13 @@ def tee(*args, **kwargs):
 
     Parameters
     ----------
-    *args : all arguments of the print function
-        All arguments will be passed to the `print` function.
-    **kwargs : all keyword arguments of the `print` function
-        All keyword arguments will be passed to the `print` function.
-    file : object with a `write(string)` method
-        The file argument must be an object with a `write(string)` method;
-        if it is not present or `None`, `*args` will be printed on `sys.stdout` only.
+    *args : iterable
+        All arguments of the print function; will be passed to the `print` function.
+    **kwargs : dict
+        All keyword arguments of the `print` function; will be passed to the `print` function.
+    file : object
+        The file argument must be an object with a `write(string)` method.
+        If it is not present or `None`, `*args` will be printed on `sys.stdout` only.
         Since printed arguments are converted to text strings, `print()` cannot be used with
         binary mode file objects.arguments.
 
