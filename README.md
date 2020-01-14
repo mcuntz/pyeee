@@ -54,27 +54,41 @@ Taking $a = b = 1$ gives:
 
 The three paramters $x_0$, $x_1$, $x_2$ follow uniform distributions between $-\pi$ and $+\pi$.
 
-Sequential Elementary Effects distinguish between informative and
-uninformative parameters using several times Morris' Elementary Effects:
+Morris' Elementary Effects can then be calculated like:
 
 ```python
-	from pyeee import eee
-
-	# function
-	func  = ishigami1
 	npars = 3
-
 	# lower boundaries
 	lb = np.ones(npars) * (-np.pi)
 	# upper boundaries
 	ub = np.ones(npars) * np.pi
 
-	# screen
-	out = eee(func, lb, ub)
+    # Elementary Effects
+	from pyeee import ee
+    np.random.seed(seed=1023) # for reproducibility of examples
+	out = ee(ishigami1, lb, ub)
 ```
 
-This returns a logical ndarray with True for the informative
-parameters and False for the uninformative parameters
+which gives the Elementary Effects ($\mu*$):
+
+```python
+    # mu*
+    print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
+    # gives: 212.4 0.6 102.8
+```
+
+Sequential Elementary Effects distinguish between informative and
+uninformative parameters using several times Morris' Elementary Effects:
+
+```python
+	# screen
+	from pyeee import eee
+    np.random.seed(seed=1023) # for reproducibility of examples
+	out = eee(ishigami1, lb, ub)
+```
+
+which returns a logical ndarray with True for the informative
+parameters and False for the uninformative parameters:
 
 ```python
     print(out)
@@ -108,8 +122,8 @@ For example pass the parameters $a$ and $b$ to the Ishigami-Homma function.
 	# upper boundaries
 	ub = np.ones(npars) * np.pi
 
-	# screen
-	out = eee(func, lb, ub)
+    # Elementary Effects
+	out = ee(func, lb, ub)
 ```
 
 `partial` passes $a$ and $b$ to the
@@ -128,6 +142,7 @@ can then simply call it as `func(x)`, so that `x` is passed to
 	kwargs = {}
 	func = partial(func_wrapper, ishigami, args, kwargs)
 
+	# screen
 	out = eee(func, lb, ub)
 ```
 

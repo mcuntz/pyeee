@@ -52,27 +52,40 @@ Taking :math:`a = b = 1` gives:
 The three parameters :math:`x_0, x_1, x_2` follow uniform
 distributions between :math:`-\pi` and :math:`+\pi`.
 
-Sequential Elementary Effects distinguish between informative and
-uninformative parameters using several times Morris' Elementary Effects:
+Morris' Elementary Effects can then be calculated like:
 
 .. code-block:: python
 
-    from pyeee import eee
-
-    # function
-    func  = ishigami1
     npars = 3
-
     # lower boundaries
     lb = np.ones(npars) * (-np.pi)
     # upper boundaries
     ub = np.ones(npars) * np.pi
 
-    # screen
-    np.random.seed(seed=1021) # for reproducibility of examples
-    out = eee(func, lb, ub)
+    # Elementary Effects
+    from pyeee import ee
+    np.random.seed(seed=1023) # for reproducibility of examples
+    out = ee(ishigami1, lb, ub)
 
-This returns a logical ndarray with True for the informative
+which gives the Elementary Effects (:math:`\mu*`):
+
+.. code-block:: python
+
+    # mu*
+    print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
+    # gives: 212.4 0.6 102.8
+
+Sequential Elementary Effects distinguish between informative and
+uninformative parameters using several times Morris' Elementary Effects:
+
+.. code-block:: python
+
+    # screen
+    from pyeee import eee
+    np.random.seed(seed=1021) # for reproducibility of examples
+    out = eee(ishigami1, lb, ub)
+
+which returns a logical ndarray with True for the informative
 parameters and False for the uninformative parameters:
 
 .. code-block:: python
@@ -110,9 +123,9 @@ For example pass the parameters :math:`a` and :math:`b` to the Ishigami-Homma fu
     # upper boundaries
     ub = np.ones(npars) * np.pi
 
-    # screen
+    # Elementary Effects
     np.random.seed(seed=1021) # for reproducibility of examples
-    out = eee(func, lb, ub)
+    out = ee(func, lb, ub)
 
 `partial` passes :math:`a` and :math:`b` to the
 function `call_ishigami` already during definition so that ``pyeee``
@@ -132,6 +145,7 @@ Function wrappers
     kwargs = {}
     func = partial(func_wrapper, ishigami, args, kwargs)
 
+    # screen
     np.random.seed(seed=1021) # for reproducibility of examples
     out = eee(func, lb, ub)
 
