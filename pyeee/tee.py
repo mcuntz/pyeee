@@ -95,7 +95,7 @@ def tee(*args, **kwargs):
         if kwargs['file'] is not None:
             print(*args, **kwargs)  # file
         del kwargs['file']
-    print(*args, **kwargs)  # screen
+    print(*args, **kwargs)          # screen
 
     return
 
