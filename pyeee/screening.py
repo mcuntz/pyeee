@@ -134,8 +134,8 @@ def screening(func, lb, ub, x0=None, mask=None,
     >>> nt      = 20
     >>> ntotal  = 10*nt
     >>> nsteps  = 6
-    >>> verbose = 1
-    >>> out = screening(func, lb, ub, x0=None, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=0)
+    >>> verbose = 0
+    >>> out = screening(func, lb, ub, x0=None, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=verbose)
     >>> print(out[0:3,0])                                                                                               
     [60.7012889  67.33372626 48.46673528]
 

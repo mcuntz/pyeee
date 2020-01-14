@@ -8,13 +8,14 @@ eee : Provides the function eee for Efficient/Sequential Elementary Effects,
 This function was written by Matthias Cuntz while at Institut National de
 Recherche Agronomique (INRA), Nancy, France.
 
-Copyright (c) 2017-2019 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2017-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Nov 2017 by Matthias Cuntz (mc (at) macu (dot) de)
 * Added `weight` option, Jan 2018, Matthias Cuntz
 * Added `plotfile` and made docstring sphinx compatible option, Jan 2018, Matthias Cuntz
 * x0 optional, Jan 2020, Matthias Cuntz
+* Added verbose keyword, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -57,7 +58,7 @@ def _cleanup(lfile, pool, ipool):
 # def eee(func, lb, ub,
 #         x0=None, mask=None, ntfirst=5, ntlast=5, ntsteps=6, weight=False,
 #         seed=None, processes=1, pool=None,
-#         logfile=None):
+#         verbose=0, logfile=None, plotfile=None):
 def eee(func, *args, **kwargs):
     """
     Parameter screening using Efficient/Sequential Elementary Effects of
@@ -106,6 +107,8 @@ def eee(func, *args, **kwargs):
         times in one program, then you have to choose the pool, pass it to eee,
         and later close the pool in the calling progam.
 
+    verbose : int, optional
+        Print progress report during execution if verbose>0 (default: 0).
     logfile : File handle or logfile name
         File name of possible log file (default: None = no logfile will be written).
     plotfile : Plot file name
@@ -146,6 +149,7 @@ def eee(func, *args, **kwargs):
     Modified, Matthias Cuntz, Jan 2018 - weight
                               Nov 2019 - plotfile, numpy docstring format
               Matthias Cuntz, Jan 2020 - x0 optional
+              Matthias Cuntz, Jan 2020 - verbose keyword
     """
     # Get keyword arguments
     # This allows mixing keyword arguments of eee and keyword arguments to be passed to optimiser.
@@ -160,6 +164,7 @@ def eee(func, *args, **kwargs):
     seed      = kwargs.pop('seed', None)
     processes = kwargs.pop('processes', 1)
     pool      = kwargs.pop('pool', None)
+    verbose   = kwargs.pop('verbose', 0)
     logfile   = kwargs.pop('logfile', None)
     plotfile  = kwargs.pop('plotfile', None)
 
@@ -189,7 +194,12 @@ def eee(func, *args, **kwargs):
         lfile = None
 
     # Start
-    if crank == 0: tee('Start screening in eee.', file=lfile)
+    if crank == 0:
+        if (verbose > 0):
+            tee('Start screening in eee.', file=lfile)
+        else:
+            if lfile is not None:
+                print('Start screening in eee.', file=lfile)
 
     # Check
     assert len(args) == 2, 'lb and ub must be given as arguments.'
@@ -213,15 +223,25 @@ def eee(func, *args, **kwargs):
         nmask  = iimask.size
         if nmask == 0:
             if crank == 0:
-                tee('\nAll parameters masked, nothing to do.', file=lfile)
-                tee('Finished screening in eee.', file=lfile)
+                if (verbose > 0):
+                    tee('\nAll parameters masked, nothing to do.', file=lfile)
+                    tee('Finished screening in eee.', file=lfile)
+                else:
+                    if lfile is not None:
+                        print('\nAll parameters masked, nothing to do.', file=lfile)
+                        print('Finished screening in eee.', file=lfile)
                 if logfile is not None: lfile.close()
             # Return all true
             if mask is None:
                 return np.ones(len(lb), dtype=np.bool)
             else:
                 return mask
-    if crank == 0: tee('\nScreen unmasked parameters: ', nmask, iimask+1, file=lfile)
+    if crank == 0:
+        if (verbose > 0):
+            tee('\nScreen unmasked parameters: ', nmask, iimask+1, file=lfile)
+        else:
+            if lfile is not None:
+                print('\nScreen unmasked parameters: ', nmask, iimask+1, file=lfile)
 
     # Seed random number generator
     if seed is not None: np.random.seed(seed=seed)  # same on all ranks because trajectories are sampled on all ranks
@@ -255,9 +275,15 @@ def eee(func, *args, **kwargs):
     yy     = mustar[iisort] / mumax
 
     if crank == 0:
-        tee('\nSorted means of absolute elementary effects (mu*): ', mustar[iisort], file=lfile)
-        tee('Normalised mu* = eta*: ', yy, file=lfile)
-        tee('Corresponding to parameters: ', iimask[iisort] + 1, file=lfile)
+        if (verbose > 0):
+            tee('\nSorted means of absolute elementary effects (mu*): ', mustar[iisort], file=lfile)
+            tee('Normalised mu* = eta*: ', yy, file=lfile)
+            tee('Corresponding to parameters: ', iimask[iisort] + 1, file=lfile)
+        else:
+            if lfile is not None:
+                print('\nSorted means of absolute elementary effects (mu*): ', mustar[iisort], file=lfile)
+                print('Normalised mu* = eta*: ', yy, file=lfile)
+                print('Corresponding to parameters: ', iimask[iisort] + 1, file=lfile)
 
     # Step 3.1 of Cuntz et al. (2015) - fit logistic function
     #               [y-max,    steepness,                       inflection point, offset]
@@ -285,9 +311,15 @@ def eee(func, *args, **kwargs):
     mu_thresh = eta_thresh * mumax                  # mu*_thresh = eta*_thresh*max(mu*)
 
     if crank == 0:
-        tee('\nThreshold eta*_thresh, mu*_tresh: ', eta_thresh, mu_thresh, file=lfile)
-        tee('L(x_K): ', logistic_offset_p(x_K, plogistic), file=lfile)
-        tee('p_opt of L: ', plogistic, file=lfile)
+        if (verbose > 0):
+            tee('\nThreshold eta*_thresh, mu*_tresh: ', eta_thresh, mu_thresh, file=lfile)
+            tee('L(x_K): ', logistic_offset_p(x_K, plogistic), file=lfile)
+            tee('p_opt of L: ', plogistic, file=lfile)
+        else:
+            if lfile is not None:
+                print('\nThreshold eta*_thresh, mu*_tresh: ', eta_thresh, mu_thresh, file=lfile)
+                print('L(x_K): ', logistic_offset_p(x_K, plogistic), file=lfile)
+                print('p_opt of L: ', plogistic, file=lfile)
 
     # Plot first mu* of elementary effects with logistic function and threshold
     if crank == 0:
@@ -332,8 +364,13 @@ def eee(func, *args, **kwargs):
 
     if np.all(~imask):
         if crank == 0:
-            tee('\nNo more parameters to screen, i.e. all (unmasked) parameters are informative.', file=lfile)
-            tee('Finished screening in eee.', file=lfile)
+            if (verbose > 0):
+                tee('\nNo more parameters to screen, i.e. all (unmasked) parameters are informative.', file=lfile)
+                tee('Finished screening in eee.', file=lfile)
+            else:
+                if lfile is not None:
+                    print('\nNo more parameters to screen, i.e. all (unmasked) parameters are informative.', file=lfile)
+                    print('Finished screening in eee.', file=lfile)
             _cleanup(lfile, pool, ipool)
         # Return all true
         if mask is None:
@@ -348,7 +385,11 @@ def eee(func, *args, **kwargs):
     donext = True
     while donext:
         if crank == 0:
-            tee('\nParameters remaining for iteration ', niter, ':', np.where(imask)[0] + 1, file=lfile)
+            if (verbose > 0):
+                tee('\nParameters remaining for iteration ', niter, ':', np.where(imask)[0] + 1, file=lfile)
+            else:
+                if lfile is not None:
+                    print('\nParameters remaining for iteration ', niter, ':', np.where(imask)[0] + 1, file=lfile)
         iimask = np.where(imask)[0]
         res = screening( # returns EE(parameters) if nt=1
             func, lb, ub,
@@ -367,14 +408,23 @@ def eee(func, *args, **kwargs):
             mustar = res[iimask, 0]
 
         if crank == 0:
-            tee('Absolute elementary effects |EE|: ', mustar, file=lfile)
+            if (verbose > 0):
+                tee('Absolute elementary effects |EE|: ', mustar, file=lfile)
+            else:
+                if lfile is not None:
+                    print('Absolute elementary effects |EE|: ', mustar, file=lfile)
 
         imask[iimask] = imask[iimask] & (mustar < mu_thresh)
 
         if np.all(~imask):
             if crank == 0:
-                tee('\nNo more parameters to screen, i.e. all (unmasked) parameters are informative.', file=lfile)
-                tee('Finished screening in eee.', file=lfile)
+                if (verbose > 0):
+                    tee('\nNo more parameters to screen, i.e. all (unmasked) parameters are informative.', file=lfile)
+                    tee('Finished screening in eee.', file=lfile)
+                else:
+                    if lfile is not None:
+                        print('\nNo more parameters to screen, i.e. all (unmasked) parameters are informative.', file=lfile)
+                        print('Finished screening in eee.', file=lfile)
                 _cleanup(lfile, pool, ipool)
             # Return all true
             if mask is None:
@@ -390,7 +440,11 @@ def eee(func, *args, **kwargs):
     # Step 7 of Cuntz et al. (2015) - last screening with ntlast trajectories
     #                                 all parameters with mu* < mu*_thresh are final noninformative parameters
     if crank == 0:
-        tee('\nParameters remaining for last screening:', np.where(imask)[0] + 1, file=lfile)
+        if (verbose > 0):
+            tee('\nParameters remaining for last screening:', np.where(imask)[0] + 1, file=lfile)
+        else:
+            if lfile is not None:
+                print('\nParameters remaining for last screening:', np.where(imask)[0] + 1, file=lfile)
 
     iimask = np.where(imask)[0]
 
@@ -410,17 +464,31 @@ def eee(func, *args, **kwargs):
 
     if crank == 0:
         if ntlast > 1:
-            tee('Final mu*: ', mustar, file=lfile)
+            if (verbose > 0):
+                tee('Final mu*: ', mustar, file=lfile)
+            else:
+                if lfile is not None:
+                    print('Final mu*: ', mustar, file=lfile)
         else:
-            tee('Final absolute elementary effects |EE|: ', mustar, file=lfile)
+            if (verbose > 0):
+                tee('Final absolute elementary effects |EE|: ', mustar, file=lfile)
+            else:
+                if lfile is not None:
+                    print('Final absolute elementary effects |EE|: ', mustar, file=lfile)
 
     imask[iimask] = imask[iimask] & (mustar < mu_thresh)
 
     if np.all(~imask):
         if crank == 0:
-            tee('\nNo more parameters left after screening, i.e. all (unmasked) parameters are informative.',
-                file=lfile)
-            tee('Finished screening in eee.', file=lfile)
+            if (verbose > 0):
+                tee('\nNo more parameters left after screening, i.e. all (unmasked) parameters are informative.',
+                    file=lfile)
+                tee('Finished screening in eee.', file=lfile)
+            else:
+                if lfile is not None:
+                    print('\nNo more parameters left after screening, i.e. all (unmasked) parameters are informative.',
+                    file=lfile)
+                    print('Finished screening in eee.', file=lfile)
             _cleanup(lfile, pool, ipool)
         # Return all true
         if mask is None:
@@ -435,9 +503,15 @@ def eee(func, *args, **kwargs):
         out = (~imask) & mask  # (true where now zero, i.e. were masked or informative) and (initial mask)
 
     if crank == 0:
-        tee('\nFinal informative parameters:', np.sum(out), np.where(out)[0] + 1, file=lfile)
-        tee('Final noninformative parameters:', np.sum(imask), np.where(imask)[0] + 1, file=lfile)
-        tee('\nFinished screening in eee.', file=lfile)
+        if (verbose > 0):
+            tee('\nFinal informative parameters:', np.sum(out), np.where(out)[0] + 1, file=lfile)
+            tee('Final noninformative parameters:', np.sum(imask), np.where(imask)[0] + 1, file=lfile)
+            tee('\nFinished screening in eee.', file=lfile)
+        else:
+            if lfile is not None:
+                print('\nFinal informative parameters:', np.sum(out), np.where(out)[0] + 1, file=lfile)
+                print('Final noninformative parameters:', np.sum(imask), np.where(imask)[0] + 1, file=lfile)
+                print('\nFinished screening in eee.', file=lfile)
         # Close logfile and pool
         _cleanup(lfile, pool, ipool)
 
@@ -626,6 +700,6 @@ if __name__ == '__main__':
     # ntsteps = 6
     # verbose = 1
 
-    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4, plotfile='morris.png')
+    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4, plotfile='morris.png', verbose=1)
     # print('Morris')
     # print(np.where(out)[0] + 1)
