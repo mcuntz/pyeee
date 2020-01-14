@@ -19,7 +19,7 @@ Released under the MIT License; see LICENSE file for details.
 * Bug: default ntotal was not set if ntotal<0 (but nt instead), Dec 2019, Matthias Cuntz
 * Make numpy doctsring format, Dec 2019, Matthias Cuntz
 * x0 optional, Jan 2020, Matthias Cuntz
-* Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
+* Distinguish iterable and array_like parameter types; added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -40,6 +40,7 @@ __all__ = ['screening', 'ee']
 
 def screening(func, lb, ub, x0=None, mask=None,
               nt=-1, nsteps=6, ntotal=-1,
+              seed=None,
               processes=1, pool=None,
               verbose=0):
     """    
@@ -66,6 +67,8 @@ def screening(func, lb, ub, x0=None, mask=None,
     ntotal : int, optional
         Total number of trajectories to sample
         to select the nt most different trajectories (default: `max(nt**2,10*nt)`)
+    seed : int or array_like
+        Seed for numpy``s random number generator (default: None).
     processes : int, optional
         The number of processes to use to evaluate objective function and constraints (default: 1).
     pool : `schwimmbad` pool object, optional
@@ -153,6 +156,7 @@ def screening(func, lb, ub, x0=None, mask=None,
                                          - numpy docstring format
               Matthias Cuntz,   Jan 2020 - x0 optional
                                          - distinguish iterable and array_like parameter types
+                                         - added seed
     """
     # Get MPI communicator
     try:
@@ -192,6 +196,9 @@ def screening(func, lb, ub, x0=None, mask=None,
         nt = npara
     if ntotal <= 0:
         ntotal = max(nt**2, 10*nt)
+
+    # Seed random number generator
+    if seed is not None: np.random.seed(seed=seed)  # same on all ranks because trajectories are sampled on all ranks
 
     # Sample trajectories
     if (crank==0) and (verbose > 0): print('Sample trajectories')
