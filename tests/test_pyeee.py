@@ -82,7 +82,7 @@ class Test(unittest.TestCase):
             kwarg = {}
             obj   = partial(func_wrapper, func, arg, kwarg)
 
-            out = eee(obj, lb, ub, mask=None,
+            out = see(obj, lb, ub, mask=None,
                       ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
                       processes=1) #, plotfile='gstar'+str(ii)+'.png')
             # Check
@@ -92,6 +92,7 @@ class Test(unittest.TestCase):
     # Bratley / K function        
     def test_k(self):
         from functools import partial
+        import os
         import numpy as np
         from pyeee import func_wrapper, eee
         from pyeee import bratley
@@ -107,10 +108,14 @@ class Test(unittest.TestCase):
 
         out = eee(func, lb, ub, mask=None,
                   ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
-                  processes=1)
+                  processes=1, logfile='tlog.txt')
 
         # Check
         self.assertCountEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        self.assertTrue(os.path.exists('tlog.txt'))
+
+        # Clean
+        if os.path.exists('tlog.txt'): os.remove('tlog.txt')
 
 
     # Morris function
@@ -145,7 +150,7 @@ class Test(unittest.TestCase):
         # Check
         out = eee(obj, lb, ub, mask=None,
                   ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
-                  processes=1)
+                  processes=4)
 
         self.assertCountEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
 
