@@ -2,6 +2,10 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) will be documented in this file.
 
+### v0.4
+    - Replace numpy.matrix arithmetic with numpy.dot on ndarray in
+      Morris sampling: no numpy deprecation warnings anymore
+
 ### v0.3
     - Added test for see, using logfile and several processes in eee.
     - Added seed keyword to screening/ee.

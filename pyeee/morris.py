@@ -15,7 +15,7 @@ Provided functions are:
     morris_sampling       Sample trajectories in parameter space
     elementary_effects    Calculate Elementary Effects from model output on tranjectories
 
-Note that the functions morris_sampling and elementary_effects are shortcuts for the functions
+Note that the functions morris_sampling and elementary_effects are wrapper for the functions
 Optimized_Groups and Morris_Measure_Groups of F. Campolongo and J. Cariboni ported to Python by Stijn Van Hoey.
 
 
@@ -44,6 +44,7 @@ Released under the MIT License; see LICENSE file for details.
   Aug 2018, Matthias Cuntz & Fabio Gennaretti
 * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
 * Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
+* Remove np.matrix in Sampling_Function_2, called in Optimized_Groups to remove numpy deprecation warnings, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -142,8 +143,9 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
             Last Update: 15 November 2005 by J.Cariboni
             http://sensitivity-analysis.jrc.ec.europa.eu/software/index.htm
             now at: https://ec.europa.eu/jrc/en/samo/simlab
-        Modified, Stijn Van Hoey,    May 2012 - ported to Python
+        Modified, Stijn Van Hoey, May 2012 - ported to Python
                   Matthias Cuntz, Oct 2013 - adapted to JAMS Python package and ported to Python 3
+                  Matthias Cuntz, Jan 2020 - remove np.matrix
     """
     # Parameters and initialisation of the output matrix
     sizea = k
@@ -163,33 +165,33 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
     for i in range(r):
         Fact = np.zeros(sizea + 1)
         # Construct DD0
-        DD0 = np.matrix(np.diagflat(np.sign(np.random.random(k) * 2 - 1)))
+        DD0 = np.diagflat(np.sign(np.random.random(k) * 2 - 1))
 
         # Construct B (lower triangular)
-        B = np.matrix(np.tri((sizeb), sizea, k=-1, dtype=int))
+        B = np.tri((sizeb), sizea, k=-1, dtype=int)
 
         # Construct A0, A
         A0 = np.ones((sizeb, 1))
-        A = np.ones((sizeb, NumFact))
+        A  = np.ones((sizeb, NumFact))
 
         # Construct the permutation matrix P0. In each column of P0 one randomly chosen element equals 1
         # while all the others equal zero.
         # P0 tells the order in which order factors are changed in each
         # Note that P0 is then used reading it by rows.
-        I = np.matrix(np.eye(sizea))
-        P0 = I[:, np.random.permutation(sizea)]
+        I  = np.eye(sizea)
+        P0 = I[:,np.random.permutation(sizea)]
 
         # When groups are present the random permutation is done only on B. The effect is the same since
         # the added part (A0*x0') is completely random.
         if Groupnumber != 0:
-            B = B * (np.matrix(GroupMat) * P0.transpose()).transpose()
+            B = np.dot(B, np.dot(GroupMat, P0.T).T)
 
         # Compute AuxMat both for single factors and groups analysis. For Single factors analysis
         # AuxMat is added to (A0*X0) and then permutated through P0. When groups are active AuxMat is
         # used to build GroupB0. AuxMat is created considering DD0. If the element on DD0 diagonal
         # is 1 then AuxMat will start with zero and add Delta. If the element on DD0 diagonal is -1
         # then DD0 will start Delta and goes to zero.
-        AuxMat = Delta * 0.5 * ((2 * B - A) * DD0 + A)
+        AuxMat = Delta * 0.5 * (np.dot(2.*B - A, DD0) + A)
 
         # a --> Define the random vector x0 for the factors. Note that x0 takes value in the hypercube
         # [0,...,1-Delta]*[0,...,1-Delta]*[0,...,1-Delta]*[0,...,1-Delta]
@@ -200,36 +202,31 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
         # Matthias thinks that the difference between Python and Matlab is that Python is not taking
         # the last element; therefore the following version
         xset = np.arange(0.0, 1.00000001 - Delta, 1.0 / (p - 1))
-        x0 = np.matrix(
-            xset.take(list(np.ceil(np.random.random(k) * np.floor(p / 2)) -
-                           1)))  #.transpose()
+        x0   = xset.take(list(np.ceil(np.random.random(k) * np.floor(p / 2)) - 1))  #.transpose()
+        x0   = x0[np.newaxis,:]
 
         # b --> Compute the matrix B*, here indicated as B0. Each row in B0 is a
         # trajectory for Morris Calculations. The dimension  of B0 is (Numfactors+1,Numfactors)
         if Groupnumber != 0:
-            B0 = (A0 * x0 + AuxMat)
+            B0 = np.dot(A0,x0) + AuxMat
         else:
-            B0 = (A0 * x0 + AuxMat) * P0
+            B0 = np.dot(np.dot(A0,x0) + AuxMat, P0)
 
         # c --> Compute values in the original intervals
         # B0 has values x(i,j) in [0, 1/(p -1), 2/(p -1), ... , 1].
         # To obtain values in the original intervals [LB, UB] we compute
         # LB(j) + x(i,j)*(UB(j)-LB(j))
-        In = np.tile(LB, (sizeb, 1)) + np.array(B0) * np.tile(
-            (UB - LB), (sizeb, 1))  #array!! ????
+        In = np.tile(LB, (sizeb, 1)) + B0 * np.tile((UB - LB), (sizeb, 1))
 
         # Create the Factor vector. Each component of this vector indicate which factor or group of factor
         # has been changed in each step of the trajectory.
         for j in range(sizea):
-            Fact[j] = np.where(P0[j, :])[1]
-        Fact[sizea] = int(
-            -1)  #Enkel om vorm logisch te houden. of Fact kleiner maken
+            Fact[j] = np.where(P0[j,:])[0]
+        Fact[sizea] = int(-1)  #Enkel om vorm logisch te houden. of Fact kleiner maken
 
         #append the create traject to the others
-        Outmatrix[i * (sizea + 1):i * (sizea + 1) +
-                  (sizea + 1), :] = np.array(In)
-        OutFact[i * (sizea + 1):i * (sizea + 1) +
-                (sizea + 1)] = np.array(Fact).reshape((sizea + 1, 1))
+        Outmatrix[i*(sizea+1):i*(sizea+1)+(sizea+1), :] = In
+        OutFact[i*(sizea+1):i*(sizea + 1)+(sizea+1)]    = Fact.reshape((sizea+1,1))
 
     return Outmatrix, OutFact
 
@@ -601,12 +598,9 @@ def Morris_Measure_Groups(NumFact,
             # Read the line of changing factors
             Single_Sample = Sample[i * sizeb:(i + 1) * sizeb, :]
             Single_OutValues = OutValues[i * sizeb:(i + 1) * sizeb]
-            Single_Facts = np.array(
-                OutFact[i * sizeb:(i + 1) * sizeb],
-                dtype=np.int)  # gives factor in change (or group)
+            Single_Facts = np.array(OutFact[i * sizeb:(i + 1) * sizeb], dtype=np.int)  # gives factor in change (or group)
 
-            A = (Single_Sample[1:sizeb, :] -
-                 Single_Sample[:sizea, :]).transpose()
+            A = (Single_Sample[1:sizeb, :] - Single_Sample[:sizea, :]).transpose()
             Delta = A[np.where(A)]  # AAN TE PASSEN?
             # If upper bound==lower bound then A==0 in all trajectories.
             # Delta will have not the right dimensions then because these are filtered out with where.
@@ -754,6 +748,7 @@ def morris_sampling(NumFact, LB, UB,
               Matthias Cuntz & Fabio Gennaretti, Aug 2018
                                        - Distance matrix not done for all trajectories at once because of very
                                          large memory requirement.
+              Matthias Cuntz, Jan 2020 - remove np.matrix in Sampling_Function_2, called in Optimized_Groups
     """
     return Optimized_Groups(NumFact, LB, UB, N, p, r, GroupMat, Diagnostic)
 
@@ -846,6 +841,7 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
+    # np.random.seed(seed=1234)
     # NumFact = 15
     # LB = np.arange(NumFact)
     # UB = 2.*LB + 1.
@@ -855,9 +851,11 @@ if __name__ == '__main__':
     # Diagnostic = 0
     # out = np.random.random(r*(NumFact+1))
     # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
+    # print(mat[0,:])
+    # print(vec[0:5])
     # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
-    # print(res) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(sa) #  (NumFact,r) individual elementary effects for all parameters
+    # print(res[:,0]) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(sa[:,1])  #  (NumFact,r) individual elementary effects for all parameters
 
     # NumFact = 15
     # LB = np.arange(NumFact)
@@ -871,3 +869,21 @@ if __name__ == '__main__':
     # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
     # print(res) # (NumFact,3) = AbsMu, Mu, Stddev
     # print(sa) #  (NumFact,1)
+
+    # np.random.seed(seed=1234)
+    # NumFact   = 15
+    # NumGroups = 5
+    # LB = np.arange(NumFact)
+    # UB = 2.*LB + 1.
+    # Groups = np.random.randint(0, 4, (NumFact,NumGroups))
+    # N = 100
+    # p = 6
+    # r = 10
+    # Diagnostic = 0
+    # out = np.random.random(r*(NumFact+1))
+    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, GroupMat=Groups, Diagnostic=Diagnostic)
+    # print(mat[0,:])
+    # print(vec[0:5])
+    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p, Group=Groups)
+    # print(res[:,0]) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(sa[:,1])  #  (NumFact,r) individual elementary effects for all parameters

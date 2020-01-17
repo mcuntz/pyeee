@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
     def test_gstar(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, eee
+        from pyeee import func_wrapper, eee, see
         from pyeee import Gstar
 
         # Function and parameters
