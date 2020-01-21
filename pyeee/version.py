@@ -11,11 +11,12 @@ Copyright (c) 2019-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Oct 2019 by Matthias Cuntz (mc (at) macu (dot) de)
-* Make numpy doctsring format, Dec 2019, Matthias Cuntz
-* Set version number 0.2, initial PyPI commit, Jan 2020, Matthias Cuntz
-* Set version number 0.3, cleaning all minor TODOs, Jan 2020, Matthias Cuntz
-* Set version number 0.4, remove numpy deprecation warning, Jan 2020, Matthias Cuntz
+* Make numpy docstring format, Dec 2019, Matthias Cuntz
+* v0.2, initial PyPI commit, Jan 2020, Matthias Cuntz
+* v0.3, cleaning all minor TODOs, Jan 2020, Matthias Cuntz
+* v0.4, removed numpy deprecation warnings, Jan 2020, Matthias Cuntz
+* v0.4.1, first zenodo release, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
-__version__ = "0.4"
+__version__ = "0.4.1"
