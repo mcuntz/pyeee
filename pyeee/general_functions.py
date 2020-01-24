@@ -475,3 +475,32 @@ def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
+
+    # logistic(1., 1., 0., 2.)
+    # # 0.5
+    # logistic(1., 1., 2., 1.)
+    # # 0.5
+    # logistic(2., 1., 1., 1.)
+    # # 1./(1.+np.exp(-1.))
+    # # 0.7310585786300049
+    # logistic_p(1., [1., 0., 2.])
+    # logistic_p(1., [1., 2., 1.])
+    # logistic_p(2., [1., 1., 1.])
+    # logistic_offset(1., 1., 0., 2., 1.)
+    # logistic_offset(1., 1., 2., 1., 1.)
+    # # 1.5
+    # logistic_offset(2., 1., 1., 1., 1.)
+    # # 1./(1.+np.exp(-1.)) + 1.
+    # # 1.7310585786300049
+    # logistic_offset_p(1., [1., 0., 2., 1.])
+    # logistic_offset_p(1., [1., 2., 1., 1.])
+    # logistic_offset_p(2., [1., 1., 1., 1.])
+    # logistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.)
+    # # 0.5
+    # logistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.])
+    # dlogistic(1., 1., 2., 1.)
+    # # 0.5
+    # dlogistic_offset(1., 1., 2., 1., 1.)
+    # # 0.5
+    # dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.)
+    # # -0.5

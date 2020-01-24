@@ -156,7 +156,71 @@ class TestEee(unittest.TestCase):
 
         self.assertCountEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
 
+#
+# general_functions.py
+class TestGeneralFunctions(unittest.TestCase):
+
+    def test_general_functions(self):
+        import os
+        import numpy as np
+        from pyeee import logistic, logistic_p, logistic_offset, logistic_offset_p
+        from pyeee import logistic2_offset, logistic2_offset_p
+        from pyeee import dlogistic, dlogistic_offset, dlogistic2_offset
         
+        self.assertEqual(logistic(1.,  1., 0., 2.), 0.5)
+        self.assertEqual(logistic(1.,  1., 2., 1.), 0.5)
+        self.assertEqual(logistic(2.,  1., 1., 1.), 1./(1.+np.exp(-1.)))
+        self.assertEqual(logistic_p(1., [1., 0., 2.]), 0.5)
+        self.assertEqual(logistic_p(1., [1., 2., 1.]), 0.5)
+        self.assertEqual(logistic_p(2., [1., 1., 1.]), 1./(1.+np.exp(-1.)))
+        self.assertEqual(logistic_offset(1.,  1., 0., 2., 1.), 1.5)
+        self.assertEqual(logistic_offset(1.,  1., 2., 1., 1.), 1.5)
+        self.assertEqual(logistic_offset(2.,  1., 1., 1., 1.), 1./(1.+np.exp(-1.)) + 1.)
+        self.assertEqual(logistic_offset_p(1., [1., 0., 2., 1.]), 1.5)
+        self.assertEqual(logistic_offset_p(1., [1., 2., 1., 1.]), 1.5)
+        self.assertEqual(logistic_offset_p(2., [1., 1., 1., 1.]), 1./(1.+np.exp(-1.)) + 1.)
+        self.assertEqual(logistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), 0.5)
+        self.assertEqual(logistic2_offset_p(1., [1., 2., 1.,  2., 2., 1.,  1.]), 0.5)
+        self.assertEqual(dlogistic(1.,  1., 2., 1.), 0.5)
+        self.assertEqual(dlogistic_offset(1.,  1., 2., 1., 1.), 0.5)
+        self.assertEqual(dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), -0.5)
+
+#
+# sa_test_functions.py
+class TestSATestFunctions(unittest.TestCase):
+
+    def test_sa_test_functions(self):
+        import os
+        import numpy as np
+        from pyeee import B, g, G, Gstar, K, bratley, oakley_ohagan, ishigami_homma
+        from pyeee import linear, product, ratio, ishigami_homma_easy
+
+        self.assertEqual(B(np.arange(10)), 80)
+        self.assertEqual(g(np.ones(5), np.zeros(5)), 32.0)
+        self.assertEqual(G(np.ones(5), np.zeros(5)), 32.0)
+        self.assertEqual(Gstar(np.ones(5), np.zeros(5), np.ones(5), np.zeros(5)), 1.0)
+        self.assertEqual(K(np.arange(5)+1.), -101.0)
+        self.assertEqual(bratley(np.arange(5)+1.), -101.0)
+        self.assertEqual(oakley_ohagan(np.zeros(15)), 15.75)
+        self.assertEqual(ishigami_homma([np.pi/2.,np.pi/2.,1.], 1., 1.), 3.0)
+        self.assertEqual(linear(np.ones(1), 1., 1.), 2.0)
+        self.assertEqual(product(np.arange(2)+1.), 2.0)
+        self.assertEqual(ratio(np.arange(2)+1.), 0.5)
+        self.assertEqual(ishigami_homma_easy([np.pi/2.,1.]), 2.0)
+
+        self.assertEqual(list(B(np.arange(12).reshape(6,2))), [56, 89])
+        self.assertEqual(list(g(np.ones((5,2)), np.zeros(5))), [32.0, 32.0])
+        self.assertEqual(list(G(np.ones((5,2)), np.zeros(5))), [32.0, 32.0])
+        self.assertEqual(list(Gstar(np.ones((5,2)), np.zeros(5), np.ones(5), np.zeros(5))), [1.0, 1.0])
+        self.assertEqual(list(K(np.arange(8).reshape((4,2))+1.)), [92., 342.])
+        self.assertEqual(list(bratley(np.arange(8).reshape((4,2))+1.)), [92., 342.])
+        self.assertEqual(list(oakley_ohagan(np.zeros((15,2)))), [15.75, 15.75])
+        self.assertEqual(list(ishigami_homma([[np.pi/2.,np.pi/2.],[np.pi/2.,np.pi/2.],[1.,1.]], 1., 1.)), [3.0, 3.0])
+        self.assertEqual(list(linear(np.ones((1,2)), 1., 1.)), [2.0, 2.0])
+        self.assertEqual(list(product(np.arange(4).reshape((2,2))+1.)), [3.0, 8.0])
+        self.assertEqual(list(ratio(np.arange(2).repeat(2).reshape((2,2))+1.)), [0.5, 0.5])
+        self.assertEqual(list(ishigami_homma_easy([[np.pi/2.,np.pi/2.],[1.,1.]])), [2.0, 2.0])
+
 #
 # screening.py
 class TestScreening(unittest.TestCase):

@@ -467,7 +467,7 @@ def K(X):
     """
     # Model output for given parameter set(s) is returned
     # X: dim1 = # of parameters = 10
-    #       dim2 = # of parameter sets
+    #    dim2 = # of parameter sets
     X = np.array(X)
     if X.ndim == 1:
         isone = True
@@ -635,7 +635,7 @@ def oakley_ohagan(X):
         y[i] += np.dot(iX[:,i].T,np.dot(M,iX[:,i]))
 
     if isone:
-        return y[0,0]
+        return y[0]
     else:
         return y.squeeze()
 
@@ -647,7 +647,30 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
-    # print(griewank([0,0]))
-    # #0.0
-    # print(goldstein_price([0,-1]))
-    # #3.0
+    # ishigami_homma([np.pi/2.,np.pi/2.,1.], 1., 1.)
+    # # 3.0
+    # B(np.arange(10))
+    # # 80
+    # B(np.arange(12).reshape(6,2))                                                                             
+    # # array([56, 89])
+    # linear(np.ones(1), 1., 1.)
+    # # 2.0
+    # product(np.arange(2)+1.)
+    # # 2.0
+    # ratio(np.arange(2)+1.)
+    # # 0.5
+    # ishigami_homma_easy([np.pi/2.,1.])
+    # # 2.0
+    # bratley(np.arange(5)+1.)
+    # K(np.arange(5)+1.)
+    # # -101.0
+    # K(np.arange(8).reshape((4,2))+1.)
+    # # [ 92., 342.]
+    # oakley_ohagan(np.zeros(15))                                                                               
+    # # 15.75
+    # Gstar(np.ones(5), np.zeros(5), np.ones(5), np.zeros(5))
+    # # 1.0
+    # g(np.ones(5), np.zeros(5))
+    # G(np.ones(5), np.zeros(5))
+    # # 32.0
+    

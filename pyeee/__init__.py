@@ -30,6 +30,7 @@ from .version import __version__
 from .general_functions import curvature
 from .general_functions import logistic, logistic_p, dlogistic, d2logistic
 from .general_functions import logistic_offset, logistic_offset_p, dlogistic_offset, d2logistic_offset
+from .general_functions import logistic2_offset, logistic2_offset_p, dlogistic2_offset, d2logistic2_offset
 # Sensitivity analysis test functions
 from .sa_test_functions import B, g, G, Gstar, bratley, K, fmorris, oakley_ohagan, ishigami_homma
 from .sa_test_functions import linear, product, ratio, ishigami_homma_easy

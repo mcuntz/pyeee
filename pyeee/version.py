@@ -16,7 +16,8 @@ Released under the MIT License; see LICENSE file for details.
 * v0.3, cleaning all minor TODOs, Jan 2020, Matthias Cuntz
 * v0.4, removed numpy deprecation warnings, Jan 2020, Matthias Cuntz
 * v0.4.1, first zenodo release, Jan 2020, Matthias Cuntz
+* v0.4.2, second release to trigger zenodo, Jan 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
-__version__ = "0.4.1"
+__version__ = "0.4.3"
