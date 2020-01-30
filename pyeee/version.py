@@ -20,4 +20,4 @@ Released under the MIT License; see LICENSE file for details.
 
 .. moduleauthor:: Matthias Cuntz
 """
-__version__ = "0.4.3"
+__version__ = "0.4.4"

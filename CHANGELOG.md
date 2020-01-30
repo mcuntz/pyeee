@@ -3,7 +3,8 @@
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
 ### v0.5
-    - Added more tests for general functions and SA test functions, screening, and tee to increase coverage.
+    - Added more tests for general functions, Morris Elementary
+      Effects, SA test functions, screening, and tee to increase coverage.
 
 ### v0.4.2
     - Second release online on Github simply to trigger zenodo.

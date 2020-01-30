@@ -841,6 +841,7 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
+    # # r = 10
     # np.random.seed(seed=1234)
     # NumFact = 15
     # LB = np.arange(NumFact)
@@ -851,12 +852,32 @@ if __name__ == '__main__':
     # Diagnostic = 0
     # out = np.random.random(r*(NumFact+1))
     # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
-    # print(mat[0,:])
-    # print(vec[0:5])
+    # print(np.around(mat[0,0:5],3))
+    # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
-    # print(res[:,0]) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(sa[:,1])  #  (NumFact,r) individual elementary effects for all parameters
+    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5,1],3))  #  (NumFact,r) individual elementary effects for all parameters
 
+    # # r = 10 - nan
+    # np.random.seed(seed=1234)
+    # NumFact = 15
+    # LB = np.arange(NumFact)
+    # UB = 2.*LB + 1.
+    # N = 100
+    # p = 6
+    # r = 10
+    # Diagnostic = 0
+    # out = np.random.random(r*(NumFact+1))
+    # out[1:r*NumFact:NumFact//2] = np.nan
+    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
+    # print(np.around(mat[0,0:5],3))
+    # print(np.around(vec[0:5],3))
+    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
+    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[~np.isnan(sa[:,1]),1],3))  #  (NumFact,r) individual elementary effects for all parameters
+
+    # # r = 1
+    # np.random.seed(seed=1234)
     # NumFact = 15
     # LB = np.arange(NumFact)
     # UB = 2.*LB + 1.
@@ -867,9 +888,10 @@ if __name__ == '__main__':
     # out = np.random.random(r*(NumFact+1))
     # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
     # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
-    # print(res) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(sa) #  (NumFact,1)
+    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5].squeeze(),3))  #  (NumFact,r) individual elementary effects for all parameters
 
+    # # groups
     # np.random.seed(seed=1234)
     # NumFact   = 15
     # NumGroups = 5
@@ -882,8 +904,28 @@ if __name__ == '__main__':
     # Diagnostic = 0
     # out = np.random.random(r*(NumFact+1))
     # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, GroupMat=Groups, Diagnostic=Diagnostic)
-    # print(mat[0,:])
-    # print(vec[0:5])
+    # print(np.around(mat[0,0:5],3))
+    # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(NumFact, mat, vec, out, p=p, Group=Groups)
-    # print(res[:,0]) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(sa[:,1])  #  (NumFact,r) individual elementary effects for all parameters
+    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5,1],3))  #  (NumFact,r) individual elementary effects for all parameters
+
+    # # groups - nan
+    # np.random.seed(seed=1234)
+    # NumFact   = 15
+    # NumGroups = 5
+    # LB = np.arange(NumFact)
+    # UB = 2.*LB + 1.
+    # Groups = np.random.randint(0, 4, (NumFact,NumGroups))
+    # N = 100
+    # p = 6
+    # r = 10
+    # Diagnostic = 0
+    # out = np.random.random(r*(NumFact+1))
+    # out[1:r*NumFact:NumFact//2] = np.nan
+    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, GroupMat=Groups, Diagnostic=Diagnostic)
+    # print(np.around(mat[0,0:5],3))
+    # print(np.around(vec[0:5],3))
+    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p, Group=Groups)
+    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5,1],3))  #  (NumFact,r) individual elementary effects for all parameters

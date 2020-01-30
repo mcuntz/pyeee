@@ -389,7 +389,7 @@ if __name__ == '__main__':
     #         plt.show()
     #     pool.close()
 
-    # PYEEE
+    # # PYEEE
     # from functools import partial
     # import numpy as np
     # from sa_test_functions import G, Gstar, K, fmorris
@@ -419,6 +419,33 @@ if __name__ == '__main__':
     # verbose = 1
 
     # out = ee(obj, lb, ub, x0=None, mask=None, nt=nt, ntotal=ntotal, nsteps=nsteps, processes=4)
+    # print('G')
+    # print(np.around(out[:,0],3))
+
+    # #
+    # # G function
+    # # seed for reproducible results
+    # seed = 1234
+    # np.random.seed(seed=seed)
+
+    # func   = G
+    # npars  = 6
+    # params = [78., 12., 0.5, 2., 97., 33.] # G
+
+    # # Partialise function with fixed parameters
+    # arg   = [params]
+    # kwarg = {}
+    # obj = partial(func_wrapper, func, arg, kwarg)
+
+    # # eee parameters
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # nt      = 10
+    # ntotal  = 50
+    # nsteps  = 6
+    # verbose = 1
+
+    # out = ee(obj, lb, ub, x0=None, mask=None, processes=4)
     # print('G')
     # print(np.around(out[:,0],3))
 

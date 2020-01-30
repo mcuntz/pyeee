@@ -7,8 +7,9 @@ from __future__ import division, absolute_import, print_function
 """
 import unittest
 
-#
+# --------------------------------------------------------------------
 # eee.py
+# missing tests: mask and weight
 class TestEee(unittest.TestCase):
     
     def setUp(self):
@@ -48,7 +49,7 @@ class TestEee(unittest.TestCase):
                   processes=1)
 
         # Check
-        self.assertCountEqual(list(np.where(out)[0]+1), [2, 3, 4, 6])
+        self.assertEqual(list(np.where(out)[0]+1), [2, 3, 4, 6])
 
         
     # Gstar function with different interactions
@@ -61,7 +62,7 @@ class TestEee(unittest.TestCase):
         # Function and parameters
         func   = Gstar
         npars  = 10
-        params = [[np.ones(npars),     np.random.random(npars), [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]], # G*
+        params = [[[1]*npars,          np.random.random(npars), [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]], # G*
                   [np.ones(npars),     np.random.random(npars), [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],
                   [np.ones(npars)*0.5, np.random.random(npars), [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],
                   [np.ones(npars)*0.5, np.random.random(npars), [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],
@@ -86,9 +87,9 @@ class TestEee(unittest.TestCase):
 
             out = see(obj, lb, ub, mask=None,
                       ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
-                      processes=1) #, plotfile='gstar'+str(ii)+'.png')
+                      processes=1, verbose=1) #, plotfile='gstar'+str(ii)+'.png')
             # Check
-            self.assertCountEqual(list(np.where(out)[0]+1), iiout[ii])
+            self.assertEqual(list(np.where(out)[0]+1), iiout[ii])
 
 
     # Bratley / K function        
@@ -96,6 +97,7 @@ class TestEee(unittest.TestCase):
         from functools import partial
         import os
         import numpy as np
+        import schwimmbad
         from pyeee import func_wrapper, eee
         from pyeee import bratley
 
@@ -108,12 +110,15 @@ class TestEee(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
+        nprocs = 4
+        ipool = schwimmbad.choose_pool(mpi=False, processes=nprocs)
         out = eee(func, lb, ub, mask=None,
                   ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
-                  processes=1, logfile='tlog.txt')
-
+                  processes=nprocs, pool=ipool, logfile='tlog.txt')
+        ipool.close()
+        
         # Check
-        self.assertCountEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        self.assertEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         self.assertTrue(os.path.exists('tlog.txt'))
 
         # Clean
@@ -121,8 +126,9 @@ class TestEee(unittest.TestCase):
 
 
     # Morris function
-    def test_eee_morris(self):
+    def test_eee_fmorris(self):
         from functools import partial
+        import os
         import numpy as np
         from pyeee import func_wrapper, eee
         from pyeee import fmorris
@@ -152,11 +158,16 @@ class TestEee(unittest.TestCase):
         # Check
         out = eee(obj, lb, ub, mask=None,
                   ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
-                  processes=4)
+                  processes=4, logfile='tlog.txt', verbose=1)
 
-        self.assertCountEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
+        self.assertEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
+        self.assertTrue(os.path.exists('tlog.txt'))
 
-#
+        # Clean
+        if os.path.exists('tlog.txt'): os.remove('tlog.txt')
+
+
+# --------------------------------------------------------------------
 # general_functions.py
 class TestGeneralFunctions(unittest.TestCase):
 
@@ -185,7 +196,115 @@ class TestGeneralFunctions(unittest.TestCase):
         self.assertEqual(dlogistic_offset(1.,  1., 2., 1., 1.), 0.5)
         self.assertEqual(dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), -0.5)
 
-#
+
+# --------------------------------------------------------------------
+# morris.py
+class TestMorris(unittest.TestCase):
+    
+    def setUp(self):
+        import numpy as np
+        # seed for reproducible results
+        seed = 1234
+        np.random.seed(seed=seed)
+        self.NumFact    = 15
+        self.LB         = np.arange(self.NumFact)
+        self.UB         = 2. * self.LB + 1.
+        self.Diagnostic = 0
+
+    def test_r_10(self):
+        import numpy as np
+        from pyeee import morris_sampling, elementary_effects
+
+        N = 100
+        p = 6
+        r = 10
+        out = np.random.random(r*(self.NumFact+1))
+
+        # Check 1
+        mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r, Diagnostic=self.Diagnostic)
+        self.assertEqual(list(np.around(mat[0,0:5],3)), [0.6, 2.2, 2., 4.6, 8.])
+        self.assertEqual(list(np.around(vec[0:5],3)), [12., 11., 5., 1., 9.])
+
+        # Check 2
+        sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p)
+        self.assertEqual(list(np.around(res[0:5,0],3)), [0.485, 0.445, 0.438, 0.58, 0.645])
+        self.assertEqual(list(np.around(sa[0:5,1],3)), [0.47, 0.502, 0.816, 0.722, 0.418])
+
+        
+    def test_r_10_nan(self):
+        import numpy as np
+        from pyeee import morris_sampling, elementary_effects
+
+        N = 100
+        p = 6
+        r = 10
+        out = np.random.random(r*(self.NumFact+1))
+        out[1:r*self.NumFact:self.NumFact//2] = np.nan
+        
+        mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r, Diagnostic=self.Diagnostic)
+        sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p)
+        self.assertEqual(list(np.around(res[0:5,0],3)), [0.368, 0.309, 0.549, 0.534, 0.65])
+        self.assertEqual(list(np.around(sa[~np.isnan(sa[:,1]),1],3)),
+                         [0.47, 0.816, 0.722, 0.418, -0.653, -0.941, 0.863, -1.265, -0.424, -0.786, 0.183])
+        
+    def test_r_1(self):
+        import numpy as np
+        from pyeee import morris_sampling, elementary_effects
+        
+        N = 10
+        p = 6
+        r = 1
+        out = np.random.random(r*(self.NumFact+1))
+        
+        mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r, Diagnostic=self.Diagnostic)
+        sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p)
+        self.assertEqual(list(np.around(res[0:5,0],3)), [0.579, 0.009, 0.239, 0.864, 0.876])
+        self.assertEqual(list(np.around(sa[0:5].squeeze(),3)), [-0.579, -0.009, -0.239, -0.864, 0.876])
+
+        
+    def test_groups(self):
+        import numpy as np
+        from pyeee import morris_sampling, elementary_effects
+        
+        NumGroups = 5
+        Groups = np.random.randint(0, 4, (self.NumFact,NumGroups))
+        N = 100
+        p = 6
+        r = 10
+        out = np.random.random(r*(self.NumFact+1))
+        
+        # Check 1
+        mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r,
+                                   GroupMat=Groups, Diagnostic=self.Diagnostic)
+        self.assertEqual(list(np.around(mat[0,0:5],3)), [0.2, 1.8, 3.8, 7., 8.])
+        self.assertEqual(list(np.around(vec[0:5],3)), [3., 0., 1., 4., 2.])
+
+        # Check 2
+        sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p, Group=Groups)
+        self.assertEqual(list(np.around(res[0:5,0],3)), [0.531, 0.43, 0.432, 0.443, 0.443])
+        self.assertEqual(list(np.around(sa[0:5,1],3)), [0.279, 0.557, 0.557, 0.557, 0.557])
+
+        
+    def test_groups_nan(self):
+        import numpy as np
+        from pyeee import morris_sampling, elementary_effects
+        
+        NumGroups = 5
+        Groups = np.random.randint(0, 4, (self.NumFact,NumGroups))
+        N = 100
+        p = 6
+        r = 10
+        out = np.random.random(r*(self.NumFact+1))
+        out[1:r*self.NumFact:self.NumFact//2] = np.nan
+        
+        mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r,
+                                   GroupMat=Groups, Diagnostic=self.Diagnostic)
+        sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p, Group=Groups)
+        self.assertEqual(list(np.around(res[0:5,0],3)), [0.49, 0.425, 0.427, 0.441, 0.441])
+        self.assertEqual(list(np.around(sa[0:5,1],3)), [0.279, 0.557, 0.557, 0.557, 0.557])
+
+
+# --------------------------------------------------------------------
 # sa_test_functions.py
 class TestSATestFunctions(unittest.TestCase):
 
@@ -221,7 +340,8 @@ class TestSATestFunctions(unittest.TestCase):
         self.assertEqual(list(ratio(np.arange(2).repeat(2).reshape((2,2))+1.)), [0.5, 0.5])
         self.assertEqual(list(ishigami_homma_easy([[np.pi/2.,np.pi/2.],[1.,1.]])), [2.0, 2.0])
 
-#
+
+# --------------------------------------------------------------------
 # screening.py
 class TestScreening(unittest.TestCase):
     
@@ -262,6 +382,31 @@ class TestScreening(unittest.TestCase):
 
         # Check
         self.assertEqual(list(np.around(out[:,0],3)), [0.045, 0.24, 1.624, 0.853, 0.031, 0.084])
+
+    def test_ee_g_1(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import func_wrapper, ee
+        from pyeee import G
+
+        # Function and parameters
+        func   = G
+        npars  = 6
+        params = [78., 12., 0.5, 2., 97., 33.] # G
+
+        # Partialise function with fixed parameters
+        arg   = [params]
+        kwarg = {}
+        obj   = partial(func_wrapper, func, arg, kwarg)
+
+        # Screening
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+
+        out = ee(obj, lb, ub, processes=4)
+
+        # Check
+        self.assertEqual(list(np.around(out[:,0],3)), [0.047, 0.233, 1.539, 0.747, 0.025, 0.077])
 
 
     # Gstar function with different interactions
@@ -334,7 +479,7 @@ class TestScreening(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import func_wrapper, ee
-        from pyeee import fmorris
+        from pyeee.sa_test_functions import morris as  fmorris
 
         # Function and parameters
         func = fmorris
@@ -369,7 +514,8 @@ class TestScreening(unittest.TestCase):
                                4.996, 3.701, 4.734, 8.031, 5.734,
                                3.564, 5.068, 7.635, 3.129, 5.224])
 
-#
+
+# --------------------------------------------------------------------
 # tee.py
 class TestTee(unittest.TestCase):
 
