@@ -43,7 +43,7 @@ def screening(func, lb, ub, x0=None, mask=None,
               seed=None,
               processes=1, pool=None,
               verbose=0):
-    """    
+    """
     Parameter screening using Morris method of Elementary Effects.
 
     Note, the input function must be callable as `func(x)`.
@@ -141,7 +141,7 @@ def screening(func, lb, ub, x0=None, mask=None,
     >>> nsteps  = 6
     >>> verbose = 0
     >>> out = screening(func, lb, ub, x0=None, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=verbose)
-    >>> print(out[0:3,0])                                                                                               
+    >>> print(out[0:3,0])
     [60.7012889  67.33372626 48.46673528]
 
 
@@ -539,4 +539,35 @@ if __name__ == '__main__':
 
     # out = ee(obj, lb, ub, x0=None, mask=None, nt=nt, ntotal=ntotal, nsteps=nsteps, processes=4)
     # print('Morris')
+    # print(np.around(out[:,0],3))
+
+    # from functools import partial
+    # import numpy as np
+    # from sa_test_functions import ishigami_homma
+    # from function_wrapper import func_mask_wrapper
+    # seed = 1234
+    # np.random.seed(seed=seed)
+
+    # func   = ishigami_homma
+    # npars  = 3
+
+    # x0   = np.ones(npars)
+    # mask = np.ones(npars, dtype=np.bool)
+    # mask[1] = False
+
+    # arg   = [1., 3.]
+    # kwarg = {}
+
+    # obj = partial(func_mask_wrapper, func, x0, mask, arg, kwarg)
+
+    # lb = np.ones(npars) * (-np.pi)
+    # ub = np.ones(npars) * np.pi
+    # nt      = 10
+    # ntotal  = 50
+    # nsteps  = 6
+
+    # out = ee(obj, lb[mask], ub[mask],
+    #          nt=nt, ntotal=ntotal, nsteps=nsteps,
+    #          processes=1)
+
     # print(np.around(out[:,0],3))

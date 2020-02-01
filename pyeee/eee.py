@@ -16,6 +16,7 @@ Released under the MIT License; see LICENSE file for details.
 * Added `weight` option, Jan 2018, Matthias Cuntz
 * Added `plotfile` and made docstring sphinx compatible option, Jan 2018, Matthias Cuntz
 * x0 optional; added verbose keyword; distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
+* Rename ntsteps to nsteps to be consistent with screening/ee; and check if logfile is string rather thean checking for file handle, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -56,7 +57,7 @@ def _cleanup(lfile, pool, ipool):
 
 # Python 3
 # def eee(func, lb, ub,
-#         x0=None, mask=None, ntfirst=5, ntlast=5, ntsteps=6, weight=False,
+#         x0=None, mask=None, ntfirst=5, ntlast=5, nsteps=6, weight=False,
 #         seed=None, processes=1, pool=None,
 #         verbose=0, logfile=None, plotfile=None):
 def eee(func, *args, **kwargs):
@@ -82,7 +83,7 @@ def eee(func, *args, **kwargs):
         Number of trajectories in first step of sequential elementary effects (default: 5).
     ntlast : int, optional
         Number of trajectories in last step of sequential elementary effects (default: 5).
-    ntsteps : int, optional
+    nsteps : int, optional
         Number of intervals for each trajectory (default: 6)
     weight : boolean, optional
         If False, use the arithmetic mean mu* for each parameter if function has multiple outputs,
@@ -137,8 +138,8 @@ def eee(func, *args, **kwargs):
     >>> ub    = np.ones(npars)
     >>> ntfirst = 10
     >>> ntlast  = 5
-    >>> ntsteps = 6
-    >>> out = pyeee.eee(pyeee.K, lb, ub, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps)
+    >>> nsteps  = 6
+    >>> out = pyeee.eee(pyeee.K, lb, ub, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps)
     >>> print(np.where(out)[0] + 1)
     [1 2 3 4 6]
 
@@ -151,6 +152,8 @@ def eee(func, *args, **kwargs):
               Matthias Cuntz, Jan 2020 - x0 optional
                                        - verbose keyword
                                        - distinguish iterable and array_like parameter types
+              Matthias Cuntz, Feb 2020 - ntsteps -> nsteps
+                                       - check if logfile is string instead of checking for file handle
     """
     # Get keyword arguments
     # This allows mixing keyword arguments of eee and keyword arguments to be passed to optimiser.
@@ -160,7 +163,7 @@ def eee(func, *args, **kwargs):
     mask      = kwargs.pop('mask', None)
     ntfirst   = kwargs.pop('ntfirst', 5)
     ntlast    = kwargs.pop('ntlast', 5)
-    ntsteps   = kwargs.pop('ntsteps', 6)
+    nsteps    = kwargs.pop('nsteps', 6)
     weight    = kwargs.pop('weight', False)
     seed      = kwargs.pop('seed', None)
     processes = kwargs.pop('processes', 1)
@@ -185,12 +188,18 @@ def eee(func, *args, **kwargs):
         if logfile is None:
             lfile = None
         else:
-            import sys
-            if sys.version_info[0] == 3:
-                import io
-                lfile = logfile if isinstance(logfile, io.TextIOWrapper) else open(logfile, "w")
+            # haswrite = getattr(logfile, "write", None)
+            # if haswrite is None:
+            #     lfile = open(logfile, "w")
+            # else:
+            #     if not callable(haswrite):
+            #         lfile = logfile
+            #     else:
+            #         raise InputError('x0 must be given if mask is set')
+            if isinstance(logfile, str):
+                lfile = open(logfile, "w")
             else:
-                lfile = logfile if isinstance(logfile, file) else open(logfile, "w")
+                lfile = logfile
     else:
         lfile = None
 
@@ -260,7 +269,7 @@ def eee(func, *args, **kwargs):
     res = screening( # returns (npara,3) with mu*, mu, std if nt>1
         func, lb, ub,
         x0=ix0, mask=imask,
-        nt=ntfirst, nsteps=ntsteps, ntotal=10*ntfirst,
+        nt=ntfirst, nsteps=nsteps, ntotal=10*ntfirst,
         processes=processes, pool=ipool,
         verbose=0)
     if res.ndim > 2:
@@ -397,7 +406,7 @@ def eee(func, *args, **kwargs):
         res = screening( # returns EE(parameters) if nt=1
             func, lb, ub,
             x0=ix0, mask=imask,
-            nt=1, nsteps=ntsteps, ntotal=10,
+            nt=1, nsteps=nsteps, ntotal=10,
             processes=processes, pool=ipool,
             verbose=0)
 
@@ -454,7 +463,7 @@ def eee(func, *args, **kwargs):
     res = screening( # (npara,3) with mu*, mu, std if nt>1
         func, lb, ub,
         x0=ix0, mask=imask,
-        nt=ntlast, nsteps=ntsteps, ntotal=10 * ntlast,
+        nt=ntlast, nsteps=nsteps, ntotal=10 * ntlast,
         processes=processes, pool=ipool,
         verbose=0)
     if res.ndim > 2:
@@ -570,10 +579,10 @@ if __name__ == '__main__':
     # args = [beta0, beta1, beta2, beta3, beta4] # Morris
     # ntfirst = 10
     # ntlast  = 5
-    # ntsteps = 6
+    # nsteps  = 6
     # verbose = 1
 
-    # out = eee(func, lb, ub, *args, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4)
+    # out = eee(func, lb, ub, *args, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4)
 
     # t2    = ptime.time()
 
@@ -608,10 +617,10 @@ if __name__ == '__main__':
     # ub = np.ones(npars)
     # ntfirst = 10
     # ntlast  = 5
-    # ntsteps = 6
+    # nsteps  = 6
     # verbose = 1
 
-    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4, plotfile='g.png')
+    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4, plotfile='g.png')
     # print('G')
     # print(np.where(out)[0] + 1)
 
@@ -636,7 +645,7 @@ if __name__ == '__main__':
     # ub = np.ones(npars)
     # ntfirst = 10
     # ntlast  = 5
-    # ntsteps = 6
+    # nsteps  = 6
     # verbose = 1
 
     # for ii in range(len(params)):
@@ -645,7 +654,7 @@ if __name__ == '__main__':
     #     kwarg = {}
     #     obj = partial(func_wrapper, func, arg, kwarg)
 
-    #     out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4, plotfile='gstar'+str(ii)+'.png',logfile='log'+str(ii)+'.txt')
+    #     out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4, plotfile='gstar'+str(ii)+'.png',logfile='log'+str(ii)+'.txt')
     #     print('G* ', ii)
     #     print(np.where(out)[0] + 1)
 
@@ -664,10 +673,10 @@ if __name__ == '__main__':
     # ub = np.ones(npars)
     # ntfirst = 10
     # ntlast  = 5
-    # ntsteps = 6
+    # nsteps  = 6
     # verbose = 1
 
-    # out = eee(func, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4, plotfile='k.png')
+    # out = eee(func, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4, plotfile='k.png')
     # print('K')
     # print(np.where(out)[0] + 1)
 
@@ -700,9 +709,9 @@ if __name__ == '__main__':
     # ub = np.ones(npars)
     # ntfirst = 10
     # ntlast  = 5
-    # ntsteps = 6
+    # nsteps  = 6
     # verbose = 1
 
-    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, ntsteps=ntsteps, processes=4, plotfile='morris.png', verbose=1)
+    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4, plotfile='morris.png', verbose=1)
     # print('Morris')
     # print(np.where(out)[0] + 1)

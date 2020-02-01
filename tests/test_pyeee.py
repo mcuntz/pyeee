@@ -4,6 +4,8 @@ from __future__ import division, absolute_import, print_function
     This is the unittest for pyeee.
     It checks the functions given in Figure 1 of
     Cuntz, Mai et al. (Water Res Research, 2015).
+
+    python -m pytest --cov pyeee --cov-report term-missing -v tests/
 """
 import unittest
 
@@ -11,7 +13,7 @@ import unittest
 # eee.py
 # missing tests: mask and weight
 class TestEee(unittest.TestCase):
-    
+
     def setUp(self):
         import numpy as np
         # seed for reproducible results
@@ -19,11 +21,11 @@ class TestEee(unittest.TestCase):
         np.random.seed(seed=seed)
         self.ntfirst = 10
         self.ntlast  = 5
-        self.ntsteps = 6
+        self.nsteps  = 6
         self.verbose = 1
 
 
-    # G function        
+    # G function
     def test_eee_g(self):
         from functools import partial
         import numpy as np
@@ -45,13 +47,13 @@ class TestEee(unittest.TestCase):
         ub = np.ones(npars)
 
         out = eee(obj, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
                   processes=1)
 
         # Check
         self.assertEqual(list(np.where(out)[0]+1), [2, 3, 4, 6])
 
-        
+
     # Gstar function with different interactions
     def test_see_gstar(self):
         from functools import partial
@@ -78,7 +80,7 @@ class TestEee(unittest.TestCase):
                  ]
         lb = np.zeros(npars)
         ub = np.ones(npars)
-            
+
         for ii in range(len(params)):
             # Partialise function with fixed parameters
             arg   = params[ii]
@@ -86,13 +88,13 @@ class TestEee(unittest.TestCase):
             obj   = partial(func_wrapper, func, arg, kwarg)
 
             out = see(obj, lb, ub, mask=None,
-                      ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
+                      ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
                       processes=1, verbose=1) #, plotfile='gstar'+str(ii)+'.png')
             # Check
             self.assertEqual(list(np.where(out)[0]+1), iiout[ii])
 
 
-    # Bratley / K function        
+    # Bratley / K function
     def test_eee_k(self):
         from functools import partial
         import os
@@ -113,10 +115,10 @@ class TestEee(unittest.TestCase):
         nprocs = 4
         ipool = schwimmbad.choose_pool(mpi=False, processes=nprocs)
         out = eee(func, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
                   processes=nprocs, pool=ipool, logfile='tlog.txt')
         ipool.close()
-        
+
         # Check
         self.assertEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         self.assertTrue(os.path.exists('tlog.txt'))
@@ -156,15 +158,89 @@ class TestEee(unittest.TestCase):
         ub = np.ones(npars)
 
         # Check
+        ff = open('tlog.txt', 'w')
         out = eee(obj, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, ntsteps=self.ntsteps,
-                  processes=4, logfile='tlog.txt', verbose=1)
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  processes=4, logfile=ff, verbose=1)
+        ff.close()
 
         self.assertEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
         self.assertTrue(os.path.exists('tlog.txt'))
 
         # Clean
         if os.path.exists('tlog.txt'): os.remove('tlog.txt')
+
+
+# --------------------------------------------------------------------
+# function_wrappers.py
+class TestFunctionWrapper(unittest.TestCase):
+
+    def setUp(self):
+        import numpy as np
+        # seed for reproducible results
+        seed = 1234
+        np.random.seed(seed=seed)
+        # eee
+        self.ntfirst = 10
+        self.ntlast  = 5
+        # ee
+        self.nt      = 10
+        self.ntotal  = 50
+        # both
+        self.nsteps  = 6
+        self.verbose = 1
+
+    # function wrapper
+    def test_func_wrapper(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import eee, ishigami_homma
+        from pyeee import func_wrapper
+
+        func   = ishigami_homma
+        npars  = 3
+
+        arg   = [1., 3.]
+        kwarg = {}
+        obj   = partial(func_wrapper, func, arg, kwarg)
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) * np.pi
+
+        out = eee(obj, lb, ub, mask=None,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  processes=1)
+
+        self.assertEqual(list(np.where(out)[0]+1), [1, 3])
+
+
+    # function mask wrapper
+    def test_func_mask_wrapper(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee, ishigami_homma
+        from pyeee import func_mask_wrapper
+
+        func   = ishigami_homma
+        npars  = 3
+
+        x0 = np.ones(npars)
+        mask = np.ones(npars, dtype=np.bool)
+        mask[1] = False
+
+        arg   = [1., 3.]
+        kwarg = {}
+
+        obj = partial(func_mask_wrapper, func, x0, mask, arg, kwarg)
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) * np.pi
+
+        out = ee(obj, lb[mask], ub[mask],
+                  nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                  processes=1)
+
+        self.assertEqual(list(np.around(out[:,0],3)), [287.258, 0.])
 
 
 # --------------------------------------------------------------------
@@ -177,7 +253,7 @@ class TestGeneralFunctions(unittest.TestCase):
         from pyeee import logistic, logistic_p, logistic_offset, logistic_offset_p
         from pyeee import logistic2_offset, logistic2_offset_p
         from pyeee import dlogistic, dlogistic_offset, dlogistic2_offset
-        
+
         self.assertEqual(logistic(1.,  1., 0., 2.), 0.5)
         self.assertEqual(logistic(1.,  1., 2., 1.), 0.5)
         self.assertEqual(logistic(2.,  1., 1., 1.), 1./(1.+np.exp(-1.)))
@@ -200,7 +276,7 @@ class TestGeneralFunctions(unittest.TestCase):
 # --------------------------------------------------------------------
 # morris.py
 class TestMorris(unittest.TestCase):
-    
+
     def setUp(self):
         import numpy as np
         # seed for reproducible results
@@ -230,7 +306,7 @@ class TestMorris(unittest.TestCase):
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.485, 0.445, 0.438, 0.58, 0.645])
         self.assertEqual(list(np.around(sa[0:5,1],3)), [0.47, 0.502, 0.816, 0.722, 0.418])
 
-        
+
     def test_r_10_nan(self):
         import numpy as np
         from pyeee import morris_sampling, elementary_effects
@@ -240,39 +316,39 @@ class TestMorris(unittest.TestCase):
         r = 10
         out = np.random.random(r*(self.NumFact+1))
         out[1:r*self.NumFact:self.NumFact//2] = np.nan
-        
+
         mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r, Diagnostic=self.Diagnostic)
         sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p)
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.368, 0.309, 0.549, 0.534, 0.65])
         self.assertEqual(list(np.around(sa[~np.isnan(sa[:,1]),1],3)),
                          [0.47, 0.816, 0.722, 0.418, -0.653, -0.941, 0.863, -1.265, -0.424, -0.786, 0.183])
-        
+
     def test_r_1(self):
         import numpy as np
         from pyeee import morris_sampling, elementary_effects
-        
+
         N = 10
         p = 6
         r = 1
         out = np.random.random(r*(self.NumFact+1))
-        
+
         mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r, Diagnostic=self.Diagnostic)
         sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p)
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.579, 0.009, 0.239, 0.864, 0.876])
         self.assertEqual(list(np.around(sa[0:5].squeeze(),3)), [-0.579, -0.009, -0.239, -0.864, 0.876])
 
-        
+
     def test_groups(self):
         import numpy as np
         from pyeee import morris_sampling, elementary_effects
-        
+
         NumGroups = 5
         Groups = np.random.randint(0, 4, (self.NumFact,NumGroups))
         N = 100
         p = 6
         r = 10
         out = np.random.random(r*(self.NumFact+1))
-        
+
         # Check 1
         mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r,
                                    GroupMat=Groups, Diagnostic=self.Diagnostic)
@@ -284,11 +360,11 @@ class TestMorris(unittest.TestCase):
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.531, 0.43, 0.432, 0.443, 0.443])
         self.assertEqual(list(np.around(sa[0:5,1],3)), [0.279, 0.557, 0.557, 0.557, 0.557])
 
-        
+
     def test_groups_nan(self):
         import numpy as np
         from pyeee import morris_sampling, elementary_effects
-        
+
         NumGroups = 5
         Groups = np.random.randint(0, 4, (self.NumFact,NumGroups))
         N = 100
@@ -296,7 +372,7 @@ class TestMorris(unittest.TestCase):
         r = 10
         out = np.random.random(r*(self.NumFact+1))
         out[1:r*self.NumFact:self.NumFact//2] = np.nan
-        
+
         mat, vec = morris_sampling(self.NumFact, self.LB, self.UB, N=N, p=p, r=r,
                                    GroupMat=Groups, Diagnostic=self.Diagnostic)
         sa, res = elementary_effects(self.NumFact, mat, vec, out, p=p, Group=Groups)
@@ -344,7 +420,7 @@ class TestSATestFunctions(unittest.TestCase):
 # --------------------------------------------------------------------
 # screening.py
 class TestScreening(unittest.TestCase):
-    
+
     def setUp(self):
         import numpy as np
         # seed for reproducible results
@@ -355,7 +431,7 @@ class TestScreening(unittest.TestCase):
         self.nsteps  = 6
         self.verbose = 1
 
-    # G function        
+    # G function
     def test_ee_g(self):
         from functools import partial
         import numpy as np
@@ -435,7 +511,7 @@ class TestScreening(unittest.TestCase):
                  ]
         lb = np.zeros(npars)
         ub = np.ones(npars)
-            
+
         for ii in range(len(params)):
             # Partialise function with fixed parameters
             arg   = params[ii]
@@ -449,7 +525,7 @@ class TestScreening(unittest.TestCase):
             self.assertEqual(list(np.around(out[:,0],3)), iiout[ii])
 
 
-    # Bratley / K function        
+    # Bratley / K function
     def test_ee_k(self):
         from functools import partial
         import os
@@ -527,7 +603,7 @@ class TestTee(unittest.TestCase):
         ff = open('log.txt', 'w')
         tee('T T T Test 2', file=ff)
         ff.close()
-        
+
         self.assertTrue(os.path.exists('log.txt'))
 
         ff = open('log.txt', 'r')
