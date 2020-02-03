@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 from __future__ import division, absolute_import, print_function
 
-from pyeee import standard_parameter_reader, ishigami_homma
+# from pyeee import standard_parameter_reader, ishigami_homma
+from std_io import standard_parameter_reader
+from sa_test_functions import ishigami_homma
 
 # read pid if given
 import sys

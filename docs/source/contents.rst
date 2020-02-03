@@ -7,6 +7,6 @@ Contents
    :maxdepth: 4
 
    index
-   install
    userguide
+   install
    package
