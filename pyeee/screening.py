@@ -221,12 +221,11 @@ def screening(func, lb, ub, x0=None, mask=None,
     # Calculate all model runs
     if (crank==0) and (verbose > 0): print('Calculate objective functions')
     fx = np.array(list(ipool.map(func, x)))
-    if pool is None: ipool.close()
 
     # Calc elementary effects
     if (crank==0) and (verbose > 0): print('Calculate elementary effects')
     if fx.ndim == 1:
-        fx = fx[:,np.newaxis]
+        fx  = fx[:,np.newaxis]
         nfx = 1
     else:
         nfx = fx.shape[1]
@@ -241,6 +240,8 @@ def screening(func, lb, ub, x0=None, mask=None,
             out[j,imask,:] = res
 
     if nfx == 1: out = out[0,:,:]
+
+    if pool is None: ipool.close()
 
     return out
 

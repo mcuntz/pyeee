@@ -423,6 +423,8 @@ One can give a `plotfile` name to check the initial fit to the
               processes=4, seed=1025,
 	      plotfile='ishigami.png', logfile='ishigami.log')
 
+Note that :mod:`matplotlib` must be installed to produce the `plotfile`.
+
 
 External computer models
 ========================

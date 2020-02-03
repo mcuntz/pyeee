@@ -35,6 +35,7 @@ Released under the MIT License; see LICENSE file for details.
 * Changed to Sphinx docstring and numpydoc, Nov 2019, Matthias Cuntz
 * Remove that exe_wrappers support also Python functions. User should use func_wrappers, Nov 2019, Matthias Cuntz
 * Make one exe_wrapper, passing bounds, mask, etc. via kwarg dictionary to parameterwriter; distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
+* Replaced kwarg.pop mechanism because it removed the keywords from subsequent function calls, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -154,12 +155,13 @@ def exe_wrapper(func,
                                        - pargs, pkwargs for passing bounds, mask, etc. to parameterwriter
                                          replacing other exe_wrappers
                                        - distinguish iterable and array_like parameter types
+              Matthias Cuntz, Feb 2020 - replaced kwarg.pop because ir removed keywords from subsequent calls
     """
-    shell   = kwarg.pop('shell', False)
-    debug   = kwarg.pop('debug', False)
-    pid     = kwarg.pop('pid', False)
-    pargs   = kwarg.pop('pargs', [])
-    pkwargs = kwarg.pop('pkwargs', {})
+    shell   = kwarg['shell']   if 'shell'   in kwarg else False
+    debug   = kwarg['debug']   if 'debug'   in kwarg else False
+    pid     = kwarg['pid']     if 'pid'     in kwarg else False
+    pargs   = kwarg['pargs']   if 'pargs'   in kwarg else []
+    pkwargs = kwarg['pkwargs'] if 'pkwargs' in kwarg else {}
     # For multiprocess but not MPI: pid = mp.current_process()._identity[0]
     # seed uses global variables so all processes will produce same random numbers
     # use np.random.RandomState() for each processes for individual seeds in each process
@@ -309,12 +311,13 @@ def exe_mask_wrapper(func, x0, mask,
                                        - pargs, pkwargs for passing bounds, mask, etc. to parameterwriter
                                          replacing other exe_wrappers
                                        - distinguish iterable and array_like parameter types
+              Matthias Cuntz, Feb 2020 - replaced kwarg.pop because ir removed keywords from subsequent calls
     """
-    shell   = kwarg.pop('shell', False)
-    debug   = kwarg.pop('debug', False)
-    pid     = kwarg.pop('pid', False)
-    pargs   = kwarg.pop('pargs', [])
-    pkwargs = kwarg.pop('pkwargs', {})
+    shell   = kwarg['shell']   if 'shell'   in kwarg else False
+    debug   = kwarg['debug']   if 'debug'   in kwarg else False
+    pid     = kwarg['pid']     if 'pid'     in kwarg else False
+    pargs   = kwarg['pargs']   if 'pargs'   in kwarg else []
+    pkwargs = kwarg['pkwargs'] if 'pkwargs' in kwarg else {}
     # For multiprocess but not MPI: pid = mp.current_process()._identity[0]
     # seed uses global variables so all processes will produce same random numbers
     # use np.random.RandomState() for each processes for individual seeds in each process

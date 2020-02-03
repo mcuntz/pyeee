@@ -3,11 +3,14 @@
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
 ### v0.5
-    - Added tests for general functions, function wrappers, Morris Elementary
-      Effects, SA test functions, screening, and tee to increase coverage.
+    - Added tests for general functions, function and exe wrappers,
+      Morris Elementary Effects, SA test functions, screening, and tee
+      to increase coverage.
     - Renamed ntsteps to nsteps in eee to be consistent with screening/ee.
     - Change check of logfile in eee: check for string rather than
       file handle to be independent of Python version.
+    - Replaced kwarg.pop mechanism in exe wrappers because it removed
+      the keywords from subsequent function calls.
 
 ### v0.4.2
     - Second release online on Github simply to trigger zenodo.
