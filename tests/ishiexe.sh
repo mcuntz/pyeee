@@ -3,6 +3,9 @@
 # get pid
 pid=${1}
 
+# include pyeee in PYTHONPATH
+export PYTHONPATH=${PYTHONPATH}:${PWD}
+
 # make individual run directory
 mkdir tmp.${pid}
 
@@ -10,8 +13,6 @@ mkdir tmp.${pid}
 cp tests/ishiexe.py tmp.${pid}/
 mv params.txt.${pid} tmp.${pid}/params.txt
 cd tmp.${pid}
-ln -s ../pyeee/std_io.py 
-ln -s ../pyeee/sa_test_functions.py 
 python3 ishiexe.py
 
 # make output available to pyeee

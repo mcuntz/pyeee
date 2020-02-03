@@ -11,7 +11,22 @@ import unittest
 
 # --------------------------------------------------------------------
 # eee.py
-# missing tests: mask and weight
+# Missing coverage:
+#    181-184: ImportError MPI 
+#    204: crank!=0
+#    230-250: mask
+#    276-279: weight
+#    339-371: plotfile
+#    383-385: logfile
+#    391: return after step4
+#    415-418: weight
+#    445: return after step6
+#    459: logfile
+#    470-473: weight
+#    483-489: logfile
+#    494-509: no more parameters after screening
+#    515: mask
+#    524-526: logfile
 class TestEee(unittest.TestCase):
 
     def setUp(self):
@@ -173,6 +188,14 @@ class TestEee(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # function_wrappers.py
+# Missing coverage:
+#    179: debug if pid in exe_wrapper
+#    188: debug if not pid in exe_wrapper
+#    196: raise Error if func not str or list in exe_wrapper
+#    333: func is str in in exe_mask_wrapper
+#    337: debug if pid in exe_mask_wrapper
+#    346: debug if not pid in exe_mask_wrapper
+#    354: raise Error if func not str or list in exe_wrapper
 class TestFunctionWrapper(unittest.TestCase):
 
     def setUp(self):
@@ -384,6 +407,9 @@ class TestFunctionWrapper(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # general_functions.py
+# Missing coverage:
+#    326: d2logistic_offset
+#    467: d2logistic2_offset
 class TestGeneralFunctions(unittest.TestCase):
 
     def test_general_functions(self):
@@ -414,6 +440,10 @@ class TestGeneralFunctions(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # morris.py
+# Missing coverage:
+#    409-488: Diagnostics=True
+#    612-614: Diagnostics=True
+#    647: if NumGroups == 0: if SAm.size > 1: Single trajectory?
 class TestMorris(unittest.TestCase):
 
     def setUp(self):
@@ -521,6 +551,9 @@ class TestMorris(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # sa_test_functions.py
+# Missing coverage:
+#    521: morris
+#    547-581: fmorris
 class TestSATestFunctions(unittest.TestCase):
 
     def test_sa_test_functions(self):
@@ -558,6 +591,10 @@ class TestSATestFunctions(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # screening.py
+# Missing coverage:
+#    167-170: MPI
+#    183: raise Error if mask is not None but x0 is None
+#    231: fx.ndim = 1 - single trajectory?
 class TestScreening(unittest.TestCase):
 
     def setUp(self):
@@ -731,6 +768,30 @@ class TestScreening(unittest.TestCase):
 
 
 # --------------------------------------------------------------------
+# std_io.py
+class TestStd_io(unittest.TestCase):
+
+    def test_std_io(self):
+        import os
+        from pyeee import tee
+
+        tee('T T T Test 1')
+        ff = open('log.txt', 'w')
+        tee('T T T Test 2', file=ff)
+        ff.close()
+
+        self.assertTrue(os.path.exists('log.txt'))
+
+        ff = open('log.txt', 'r')
+        inlog = ff.readline()
+        ff.close()
+
+        self.assertEqual(inlog.rstrip(), 'T T T Test 2')
+
+        if os.path.exists('log.txt'): os.remove('log.txt')
+
+
+# --------------------------------------------------------------------
 # tee.py
 class TestTee(unittest.TestCase):
 
@@ -752,6 +813,16 @@ class TestTee(unittest.TestCase):
         self.assertEqual(inlog.rstrip(), 'T T T Test 2')
 
         if os.path.exists('log.txt'): os.remove('log.txt')
+
+
+# --------------------------------------------------------------------
+# utils.py
+# covered
+
+
+# --------------------------------------------------------------------
+# version.py
+# covered
 
 
 if __name__ == "__main__":

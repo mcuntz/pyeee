@@ -50,6 +50,7 @@ script:
       python -m pip install -r tests/requirements_test.txt
       rm -rf dist
       python setup.py sdist
+      export PYTHONPATH=${PYTHONPATH}:${PWD}
       python -m pytest --cov pyeee --cov-report term-missing -v tests/
       python -m coveralls
     fi
