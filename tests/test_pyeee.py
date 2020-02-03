@@ -769,26 +769,158 @@ class TestScreening(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # std_io.py
+# Missing coverage:
+#    257-271: sub_names_params_files_case
+#    322-336: sub_names_params_files_ignorecase
+#    343: sub_names_params_files
+#    587: raise IOError if input line < 5 columns in standard_parameter_reader_bounds_mask
+#    674: pid is None in standard_parameter_writer_bounds_mask
 class TestStd_io(unittest.TestCase):
 
-    def test_std_io(self):
+    def test_std_io_sub_ja(self):
         import os
-        from pyeee import tee
+        import numpy as np
+        from pyeee import sub_ja_params_files
 
-        tee('T T T Test 1')
-        ff = open('log.txt', 'w')
-        tee('T T T Test 2', file=ff)
+        # standard_parameter_writer without pid
+        filename1 = 'params1.txt'
+        filename2 = 'params2.txt'
+        pid       = 1234
+        params    = np.arange(10, dtype=np.float)
+
+        ff = open(filename1, 'w')
+        print('param0 = #JA0000#', file=ff)
+        print('param1 = #JA0001#', file=ff)
+        print('param2 = #JA0002#', file=ff)
+        print('param3 = #JA0003#', file=ff)
+        print('param4 = #JA0004#', file=ff)
         ff.close()
 
-        self.assertTrue(os.path.exists('log.txt'))
-
-        ff = open('log.txt', 'r')
-        inlog = ff.readline()
+        ff = open(filename2, 'w')
+        print('param4 = #JA0004#', file=ff)
+        print('param5 = #JA0005#', file=ff)
+        print('param6 = #JA0006#', file=ff)
+        print('param7 = #JA0007#', file=ff)
         ff.close()
 
-        self.assertEqual(inlog.rstrip(), 'T T T Test 2')
+        sub_ja_params_files([filename1, filename2], pid, params)
 
-        if os.path.exists('log.txt'): os.remove('log.txt')
+        f = open(filename1+'.'+str(pid), 'r')
+        lines1 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines1 ],
+                         ['param0 = 0.00000000000000e+00',
+                          'param1 = 1.00000000000000e+00',
+                          'param2 = 2.00000000000000e+00',
+                          'param3 = 3.00000000000000e+00',
+                          'param4 = 4.00000000000000e+00'])
+
+        f = open(filename2+'.'+str(pid), 'r')
+        lines2 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines2 ],
+                         ['param4 = 4.00000000000000e+00',
+                          'param5 = 5.00000000000000e+00',
+                          'param6 = 6.00000000000000e+00',
+                          'param7 = 7.00000000000000e+00'])
+
+        if os.path.exists(filename1): os.remove(filename1)
+        if os.path.exists(filename2): os.remove(filename2)
+        if os.path.exists(filename1+'.'+str(pid)): os.remove(filename1+'.'+str(pid))
+        if os.path.exists(filename2+'.'+str(pid)): os.remove(filename2+'.'+str(pid))
+
+
+    def test_std_io_standard(self):
+        import os
+        import numpy as np
+        from pyeee import standard_parameter_writer, standard_parameter_reader
+        from pyeee import standard_parameter_writer_bounds_mask, standard_parameter_reader_bounds_mask
+        from pyeee import standard_objective_reader
+        from pyeee import standard_timeseries_reader, standard_time_series_reader
+        
+        # standard_parameter_writer without pid
+        filename = 'params.txt'
+        params   = np.arange(10, dtype=np.float)
+        standard_parameter_writer(filename, params)
+        
+        iparams = standard_parameter_reader(filename)
+
+        self.assertEqual(list(iparams), list(params))
+
+        if os.path.exists(filename): os.remove(filename)
+
+        # standard_parameter_writer with pid
+        filename = 'params.txt'
+        pid      = 1234
+        params   = np.arange(10, dtype=np.float)
+        standard_parameter_writer(filename, pid, params)
+        
+        iparams = standard_parameter_reader(filename+'.'+str(pid))
+
+        self.assertEqual(list(iparams), list(params))
+
+        if os.path.exists(filename+'.'+str(pid)): os.remove(filename+'.'+str(pid))
+
+        # standard_parameter_writer_bounds_mask
+        filename = 'params.txt'
+        pid      = 1234
+        params   = np.arange(10, dtype=np.float)
+        pmin     = params - 1.
+        pmax     = params + 1.
+        mask     = np.ones(10, dtype=np.bool)
+        standard_parameter_writer_bounds_mask(filename, pid, params, pmin, pmax, mask)
+        
+        ids, iparams, ipmin, ipmax, imask = standard_parameter_reader_bounds_mask(filename+'.'+str(pid))
+
+        self.assertEqual(list(ids),     list([ str(i) for i in np.arange(10)+1 ]))
+        self.assertEqual(list(iparams), list(params))
+        self.assertEqual(list(ipmin),   list(pmin))
+        self.assertEqual(list(ipmax),   list(pmax))
+        self.assertEqual(list(imask),   list(mask))
+
+        if os.path.exists(filename+'.'+str(pid)): os.remove(filename+'.'+str(pid))
+
+        # standard_objective_reader
+        filename = 'obj.txt'
+
+        ff = open(filename, 'w')
+        print('{:.14e}'.format(1234.), file=ff)
+        ff.close()
+
+        obj = standard_objective_reader(filename)
+        self.assertEqual(obj, 1234.)
+        
+        if os.path.exists(filename): os.remove(filename)
+
+        # standard_time_series_reader
+        filename = 'ts.txt'
+        params   = np.arange(10, dtype=np.float)
+
+        ff = open(filename, 'w')
+        for i in params:
+            print('{:.14e}'.format(i), file=ff)
+        ff.close()
+
+        ts = standard_time_series_reader(filename)
+        self.assertEqual(list(ts), list(params))
+        
+        if os.path.exists(filename): os.remove(filename)
+
+        # standard_timeseries_reader
+        filename = 'ts.txt'
+        params   = np.arange(10, dtype=np.float)
+
+        ff = open(filename, 'w')
+        for i in params:
+            print('{:.14e}'.format(i), file=ff)
+        ff.close()
+
+        ts = standard_timeseries_reader(filename)
+        self.assertEqual(list(ts), list(params))
+        
+        if os.path.exists(filename): os.remove(filename)
 
 
 # --------------------------------------------------------------------
