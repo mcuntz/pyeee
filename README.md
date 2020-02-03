@@ -8,7 +8,7 @@ Res Research, 2015).
 
 [![DOI](https://zenodo.org/badge/233405522.svg)](https://zenodo.org/badge/latestdoi/233405522)
 [![PyPI version](https://badge.fury.io/py/pyeee.svg)](https://badge.fury.io/py/pyeee)
-[![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mcuntz/pyeee/LICENSE)
+[![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mcuntz/pyeee/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/mcuntz/pyeee.svg?branch=master)](https://travis-ci.org/mcuntz/pyeee)
 <!-- [![Build status](https://ci.appveyor.com/api/projects/status/bc57psfpa0676i4d/branch/master?svg=true)](https://ci.appveyor.com/project/mcuntz/pyeee) -->
 [![Coverage Status](https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master)](https://coveralls.io/github/mcuntz/pyeee?branch=master)

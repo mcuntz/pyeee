@@ -2,6 +2,11 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v0.6
+    - Tests did not work on TravisCI because pyeee not installed: put
+      pyeee in PYTHONPATH for tests and in shell script.
+    - Added tests for standard IO and documented missing coverage.
+
 ### v0.5
     - Added tests for general functions, function and exe wrappers,
       Morris Elementary Effects, SA test functions, screening, and tee
