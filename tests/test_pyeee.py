@@ -188,14 +188,6 @@ class TestEee(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # function_wrappers.py
-# Missing coverage:
-#    179: debug if pid in exe_wrapper
-#    188: debug if not pid in exe_wrapper
-#    196: raise Error if func not str or list in exe_wrapper
-#    333: func is str in in exe_mask_wrapper
-#    337: debug if pid in exe_mask_wrapper
-#    346: debug if not pid in exe_mask_wrapper
-#    354: raise Error if func not str or list in exe_wrapper
 class TestFunctionWrapper(unittest.TestCase):
 
     def setUp(self):
@@ -293,6 +285,34 @@ class TestFunctionWrapper(unittest.TestCase):
         self.assertEqual(list(np.around(out[:,0],3)), [369.614, 0.576, 184.987])
 
 
+    # exe wrapper, error
+    def test_exe_wrapper_error(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee, ishigami_homma
+        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = ishigami_homma
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+
+        func = partial(exe_wrapper, ishi,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        try:
+            out = ee(func, lb, ub,
+                     nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                     processes=1)
+            self.assertTrue(False)
+        except:
+            self.assertTrue(True)
+
+
     # exe wrapper, processes
     def test_exe_wrapper4(self):
         from functools import partial
@@ -319,6 +339,58 @@ class TestFunctionWrapper(unittest.TestCase):
         self.assertEqual(list(np.around(out[:,0],3)), [369.614, 0.576, 184.987])
 
 
+    # exe wrapper, debug
+    def test_exe_wrapper_debug(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee
+        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = ['python3', 'tests/ishiexe.py']
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+        
+        func = partial(exe_wrapper, ishi,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {'debug':True})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        out = ee(func, lb, ub,
+                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                 processes=1)
+
+        self.assertEqual(list(np.around(out[:,0],3)), [369.614, 0.576, 184.987])
+
+
+    # exe wrapper, processes, pid, debug
+    def test_exe_wrapper4_pid_debug(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee
+        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = ['python3', 'tests/ishiexe.py']
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+        
+        func = partial(exe_wrapper, ishi,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {'pid':True, 'debug':True})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        out = ee(func, lb, ub,
+                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                 processes=4)
+
+        self.assertEqual(list(np.around(out[:,0],3)), [369.614, 0.576, 184.987])
+
+
     # exe wrapper, processes, shell
     def test_exe_wrapper4_shell(self):
         from functools import partial
@@ -334,6 +406,32 @@ class TestFunctionWrapper(unittest.TestCase):
         func = partial(exe_wrapper, ishi,
                        parameterfile, standard_parameter_writer,
                        objectivefile, standard_objective_reader, {'pid':True, 'shell':True})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        out = ee(func, lb, ub,
+                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                 processes=4)
+
+        self.assertEqual(list(np.around(out[:,0],3)), [369.614, 0.576, 184.987])
+
+
+    # exe wrapper, processes, shell, debug
+    def test_exe_wrapper4_shell_debug(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee
+        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = './tests/ishiexe.sh'
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+        
+        func = partial(exe_wrapper, ishi,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {'pid':True, 'shell':True, 'debug':True})
 
         lb = np.ones(npars) * (-np.pi)
         ub = np.ones(npars) *   np.pi
@@ -375,6 +473,38 @@ class TestFunctionWrapper(unittest.TestCase):
         self.assertEqual(list(np.around(out[:,0],3)), [287.258, 0.])
 
 
+    # exe mask wrapper, error
+    def test_exe_mask_wrapper_error(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee, ishigami_homma
+        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = ishigami_homma
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+        
+        x0   = np.ones(npars)
+        mask = np.ones(npars, dtype=np.bool)
+        mask[1] = False
+        
+        func = partial(exe_mask_wrapper, ishi, x0, mask,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        try:
+            out = ee(func, lb[mask], ub[mask],
+                     nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                     processes=1)
+            self.assertTrue(False)
+        except:
+            self.assertTrue(True)
+
+
     # exe mask wrapper, processes
     def test_exe_mask_wrapper4(self):
         from functools import partial
@@ -405,37 +535,110 @@ class TestFunctionWrapper(unittest.TestCase):
         self.assertEqual(list(np.around(out[:,0],3)), [287.258, 0.])
 
 
+    # exe mask wrapper, processes, shell, debug
+    def test_exe_mask_wrapper4_shell_debug(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee
+        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = './tests/ishiexe.sh'
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+        
+        x0   = np.ones(npars)
+        mask = np.ones(npars, dtype=np.bool)
+        mask[1] = False
+        
+        func = partial(exe_mask_wrapper, ishi, x0, mask,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {'pid':True, 'shell':True, 'debug':True})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        out = ee(func, lb[mask], ub[mask],
+                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                 processes=4)
+
+        self.assertEqual(list(np.around(out[:,0],3)), [287.258, 0.])
+
+
+    # exe mask wrapper, debug
+    def test_exe_mask_wrapper_debug(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import ee
+        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        
+        ishi  = ['python3', 'tests/ishiexe.py']
+        npars = 3
+        parameterfile = 'params.txt'
+        objectivefile = 'obj.txt'
+        
+        x0   = np.ones(npars)
+        mask = np.ones(npars, dtype=np.bool)
+        mask[1] = False
+        
+        func = partial(exe_mask_wrapper, ishi, x0, mask,
+                       parameterfile, standard_parameter_writer,
+                       objectivefile, standard_objective_reader, {'debug':True})
+
+        lb = np.ones(npars) * (-np.pi)
+        ub = np.ones(npars) *   np.pi
+
+        out = ee(func, lb[mask], ub[mask],
+                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+                 processes=1)
+
+        self.assertEqual(list(np.around(out[:,0],3)), [287.258, 0.])
+
+
 # --------------------------------------------------------------------
 # general_functions.py
-# Missing coverage:
-#    326: d2logistic_offset
-#    467: d2logistic2_offset
 class TestGeneralFunctions(unittest.TestCase):
 
     def test_general_functions(self):
         import os
         import numpy as np
-        from pyeee import logistic, logistic_p, logistic_offset, logistic_offset_p
-        from pyeee import logistic2_offset, logistic2_offset_p
+        from pyeee import curvature
+        from pyeee import logistic, logistic_offset, logistic2_offset
         from pyeee import dlogistic, dlogistic_offset, dlogistic2_offset
+        from pyeee import d2logistic, d2logistic_offset, d2logistic2_offset
+        from pyeee import logistic_p, logistic_offset_p, logistic2_offset_p
+        from pyeee import dlogistic_p, dlogistic_offset_p, dlogistic2_offset_p
+        from pyeee import d2logistic_p, d2logistic_offset_p, d2logistic2_offset_p
 
         self.assertEqual(logistic(1.,  1., 0., 2.), 0.5)
         self.assertEqual(logistic(1.,  1., 2., 1.), 0.5)
         self.assertEqual(logistic(2.,  1., 1., 1.), 1./(1.+np.exp(-1.)))
-        self.assertEqual(logistic_p(1., [1., 0., 2.]), 0.5)
-        self.assertEqual(logistic_p(1., [1., 2., 1.]), 0.5)
-        self.assertEqual(logistic_p(2., [1., 1., 1.]), 1./(1.+np.exp(-1.)))
         self.assertEqual(logistic_offset(1.,  1., 0., 2., 1.), 1.5)
         self.assertEqual(logistic_offset(1.,  1., 2., 1., 1.), 1.5)
         self.assertEqual(logistic_offset(2.,  1., 1., 1., 1.), 1./(1.+np.exp(-1.)) + 1.)
-        self.assertEqual(logistic_offset_p(1., [1., 0., 2., 1.]), 1.5)
-        self.assertEqual(logistic_offset_p(1., [1., 2., 1., 1.]), 1.5)
-        self.assertEqual(logistic_offset_p(2., [1., 1., 1., 1.]), 1./(1.+np.exp(-1.)) + 1.)
         self.assertEqual(logistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), 0.5)
-        self.assertEqual(logistic2_offset_p(1., [1., 2., 1.,  2., 2., 1.,  1.]), 0.5)
         self.assertEqual(dlogistic(1.,  1., 2., 1.), 0.5)
         self.assertEqual(dlogistic_offset(1.,  1., 2., 1., 1.), 0.5)
-        self.assertEqual(dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), -0.5)
+        self.assertEqual(dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), -0.5)        
+        self.assertEqual(np.around(d2logistic(1., 1., 2., 2.),4), 0.3199)
+        self.assertEqual(np.around(d2logistic_offset(1., 1., 2., 2., 1.),4), 0.3199)
+        self.assertEqual(np.around(d2logistic2_offset(1., 1., 2., 2.,  2., 2., 2.,  1.),4), -0.3199)
+        self.assertEqual(np.around(curvature(1., dlogistic_offset, d2logistic_offset, 1., 2., 2., 1.),4), 0.2998)
+
+        self.assertEqual(logistic_p(1.,  [1., 0., 2.]), 0.5)
+        self.assertEqual(logistic_p(1.,  [1., 2., 1.]), 0.5)
+        self.assertEqual(logistic_p(2.,  [1., 1., 1.]), 1./(1.+np.exp(-1.)))
+        self.assertEqual(logistic_offset_p(1.,  [1., 0., 2., 1.]), 1.5)
+        self.assertEqual(logistic_offset_p(1.,  [1., 2., 1., 1.]), 1.5)
+        self.assertEqual(logistic_offset_p(2.,  [1., 1., 1., 1.]), 1./(1.+np.exp(-1.)) + 1.)
+        self.assertEqual(logistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.]), 0.5)
+        self.assertEqual(dlogistic_p(1.,  [1., 2., 1.]), 0.5)
+        self.assertEqual(dlogistic_offset_p(1.,  [1., 2., 1., 1.]), 0.5)
+        self.assertEqual(dlogistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.]), -0.5)        
+        self.assertEqual(np.around(d2logistic_p(1., [1., 2., 2.]),4), 0.3199)
+        self.assertEqual(np.around(d2logistic_offset_p(1., [1., 2., 2., 1.]),4), 0.3199)
+        self.assertEqual(np.around(d2logistic2_offset_p(1., [1., 2., 2.,  2., 2., 2.,  1.]),4), -0.3199)
+        self.assertEqual(np.around(curvature(1., dlogistic_offset_p, d2logistic_offset_p, [1., 2., 2., 1.]),4), 0.2998)
 
 
 # --------------------------------------------------------------------
@@ -552,20 +755,27 @@ class TestMorris(unittest.TestCase):
 # --------------------------------------------------------------------
 # sa_test_functions.py
 # Missing coverage:
-#    521: morris
-#    547-581: fmorris
+#    521: morris as wrapper to fmorris not working because morris is also the name of a module here
 class TestSATestFunctions(unittest.TestCase):
+
+    def setUp(self):
+        import numpy as np
+        # seed for reproducible results
+        seed = 1234
+        np.random.seed(seed=seed)
 
     def test_sa_test_functions(self):
         import os
         import numpy as np
         from pyeee import B, g, G, Gstar, K, bratley, oakley_ohagan, ishigami_homma
-        from pyeee import linear, product, ratio, ishigami_homma_easy
+        from pyeee import linear, product, ratio, ishigami_homma_easy, fmorris
 
+        # scalar
         self.assertEqual(B(np.arange(10)), 80)
         self.assertEqual(g(np.ones(5), np.zeros(5)), 32.0)
         self.assertEqual(G(np.ones(5), np.zeros(5)), 32.0)
         self.assertEqual(Gstar(np.ones(5), np.zeros(5), np.ones(5), np.zeros(5)), 1.0)
+        self.assertEqual(Gstar(np.ones(5), [0.,0.,0.,0.,0.], np.ones(5), np.zeros(5)), 1.0)
         self.assertEqual(K(np.arange(5)+1.), -101.0)
         self.assertEqual(bratley(np.arange(5)+1.), -101.0)
         self.assertEqual(oakley_ohagan(np.zeros(15)), 15.75)
@@ -575,6 +785,7 @@ class TestSATestFunctions(unittest.TestCase):
         self.assertEqual(ratio(np.arange(2)+1.), 0.5)
         self.assertEqual(ishigami_homma_easy([np.pi/2.,1.]), 2.0)
 
+        # vector
         self.assertEqual(list(B(np.arange(12).reshape(6,2))), [56, 89])
         self.assertEqual(list(g(np.ones((5,2)), np.zeros(5))), [32.0, 32.0])
         self.assertEqual(list(G(np.ones((5,2)), np.zeros(5))), [32.0, 32.0])
@@ -587,6 +798,27 @@ class TestSATestFunctions(unittest.TestCase):
         self.assertEqual(list(product(np.arange(4).reshape((2,2))+1.)), [3.0, 8.0])
         self.assertEqual(list(ratio(np.arange(2).repeat(2).reshape((2,2))+1.)), [0.5, 0.5])
         self.assertEqual(list(ishigami_homma_easy([[np.pi/2.,np.pi/2.],[1.,1.]])), [2.0, 2.0])
+
+        # Morris
+        npars = 20
+        x0 = np.ones(npars)*0.5
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+        beta0              = 0.
+        beta1              = np.random.standard_normal(npars)
+        beta1[:10]         = 20.
+        beta2              = np.random.standard_normal((npars,npars))
+        beta2[:6,:6]       = -15.
+        beta3              = np.zeros((npars,npars,npars))
+        beta3[:5,:5,:5]    = -10.
+        beta4              = np.zeros((npars,npars,npars,npars))
+        beta4[:4,:4,:4,:4] = 5.
+        mm = fmorris(np.linspace(0,2*(npars-1),npars)/float(2*npars-1),
+                     beta0, beta1, beta2, beta3, beta4)
+        self.assertEqual(np.around(mm,3), -82.711)
+        mm = fmorris(np.arange(2*npars,dtype=np.float).reshape((npars,2))/float(2*npars-1),
+                     beta0, beta1, beta2, beta3, beta4)
+        self.assertEqual(list(np.around(mm,3)), [-82.711, -60.589])
 
 
 # --------------------------------------------------------------------
@@ -769,12 +1001,7 @@ class TestScreening(unittest.TestCase):
 
 # --------------------------------------------------------------------
 # std_io.py
-# Missing coverage:
-#    257-271: sub_names_params_files_case
-#    322-336: sub_names_params_files_ignorecase
-#    343: sub_names_params_files
-#    587: raise IOError if input line < 5 columns in standard_parameter_reader_bounds_mask
-#    674: pid is None in standard_parameter_writer_bounds_mask
+#     591-592: IOError is covered below but not recognised in coverage report
 class TestStd_io(unittest.TestCase):
 
     def test_std_io_sub_ja(self):
@@ -832,6 +1059,166 @@ class TestStd_io(unittest.TestCase):
         if os.path.exists(filename2+'.'+str(pid)): os.remove(filename2+'.'+str(pid))
 
 
+    def test_std_io_sub_names_params(self):
+        import os
+        import numpy as np
+        from pyeee import sub_names_params_files_ignorecase, sub_names_params_files_case
+        from pyeee import sub_names_params_files
+
+        # ignore case
+        filename1 = 'params11.txt'
+        filename2 = 'params21.txt'
+        pid       = 1234
+        params    = np.arange(10, dtype=np.float)
+        names     = ['param0', 'param1', 'param2', 'param3', 'param4',
+                     'param5', 'param6', 'param7', 'param8', 'param9']
+
+        ff = open(filename1, 'w')
+        print('param0 = -6', file=ff)
+        print('Param1 = -7', file=ff)
+        print('param2 = -8', file=ff)
+        print('Param3 = -9', file=ff)
+        print('param4 = -10', file=ff)
+        ff.close()
+
+        ff = open(filename2, 'w')
+        print('param4 = -10', file=ff)
+        print('param5 = 3', file=ff)
+        print('PARAM6 = 4', file=ff)
+        print('param7 = 5', file=ff)
+        ff.close()
+
+        sub_names_params_files_ignorecase([filename1, filename2], pid, params, names)
+
+        f = open(filename1+'.'+str(pid), 'r')
+        lines1 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines1 ],
+                         ['param0 = 0.00000000000000e+00',
+                          'Param1 = 1.00000000000000e+00',
+                          'param2 = 2.00000000000000e+00',
+                          'Param3 = 3.00000000000000e+00',
+                          'param4 = 4.00000000000000e+00'])
+
+        f = open(filename2+'.'+str(pid), 'r')
+        lines2 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines2 ],
+                         ['param4 = 4.00000000000000e+00',
+                          'param5 = 5.00000000000000e+00',
+                          'PARAM6 = 6.00000000000000e+00',
+                          'param7 = 7.00000000000000e+00'])
+
+        if os.path.exists(filename1): os.remove(filename1)
+        if os.path.exists(filename2): os.remove(filename2)
+        if os.path.exists(filename1+'.'+str(pid)): os.remove(filename1+'.'+str(pid))
+        if os.path.exists(filename2+'.'+str(pid)): os.remove(filename2+'.'+str(pid))
+
+        # wrapper for ignore case
+        filename1 = 'params12.txt'
+        filename2 = 'params22.txt'
+        pid       = 1234
+        params    = np.arange(10, dtype=np.float)
+        names     = ['param0', 'param1', 'param2', 'param3', 'param4',
+                     'param5', 'param6', 'param7', 'param8', 'param9']
+
+        ff = open(filename1, 'w')
+        print('param0 = -6', file=ff)
+        print('Param1 = -7', file=ff)
+        print('param2 = -8', file=ff)
+        print('Param3 = -9', file=ff)
+        print('param4 = -10', file=ff)
+        ff.close()
+
+        ff = open(filename2, 'w')
+        print('param4 = -10', file=ff)
+        print('param5 = 3', file=ff)
+        print('PARAM6 = 4', file=ff)
+        print('param7 = 5', file=ff)
+        ff.close()
+
+        sub_names_params_files([filename1, filename2], pid, params, names)
+
+        f = open(filename1+'.'+str(pid), 'r')
+        lines1 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines1 ],
+                         ['param0 = 0.00000000000000e+00',
+                          'Param1 = 1.00000000000000e+00',
+                          'param2 = 2.00000000000000e+00',
+                          'Param3 = 3.00000000000000e+00',
+                          'param4 = 4.00000000000000e+00'])
+
+        f = open(filename2+'.'+str(pid), 'r')
+        lines2 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines2 ],
+                         ['param4 = 4.00000000000000e+00',
+                          'param5 = 5.00000000000000e+00',
+                          'PARAM6 = 6.00000000000000e+00',
+                          'param7 = 7.00000000000000e+00'])
+
+        if os.path.exists(filename1): os.remove(filename1)
+        if os.path.exists(filename2): os.remove(filename2)
+        if os.path.exists(filename1+'.'+str(pid)): os.remove(filename1+'.'+str(pid))
+        if os.path.exists(filename2+'.'+str(pid)): os.remove(filename2+'.'+str(pid))
+
+        # case sensitive
+        filename1 = 'params13.txt'
+        filename2 = 'params23.txt'
+        pid       = 1234
+        params    = np.arange(10, dtype=np.float)
+        names     = ['param0', 'param1', 'param2', 'param3', 'param4',
+                     'param5', 'param6', 'param7', 'param8', 'param9']
+
+        ff = open(filename1, 'w')
+        print('    param0= -6', file=ff)
+        print('   Param1 = -7', file=ff)
+        print('  param2  = -8', file=ff)
+        print(' Param3   = -9', file=ff)
+        print('param4    = -10', file=ff)
+        ff.close()
+
+        ff = open(filename2, 'w')
+        print('param4    = -10', file=ff)
+        print('param5   = 3', file=ff)
+        print('PARAM6  = 4', file=ff)
+        print('param7 = 5', file=ff)
+        ff.close()
+
+        sub_names_params_files_case([filename1, filename2], pid, params, names)
+
+        f = open(filename1+'.'+str(pid), 'r')
+        lines1 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines1 ],
+                         ['    param0= 0.00000000000000e+00',
+                          '   Param1 = -7',
+                          '  param2  = 2.00000000000000e+00',
+                          ' Param3   = -9',
+                          'param4    = 4.00000000000000e+00'])
+
+        f = open(filename2+'.'+str(pid), 'r')
+        lines2 = f.readlines()
+        f.close()
+
+        self.assertEqual([ i.rstrip() for i in lines2 ],
+                         ['param4    = 4.00000000000000e+00',
+                          'param5   = 5.00000000000000e+00',
+                          'PARAM6  = 4',
+                          'param7 = 7.00000000000000e+00'])
+
+        if os.path.exists(filename1): os.remove(filename1)
+        if os.path.exists(filename2): os.remove(filename2)
+        if os.path.exists(filename1+'.'+str(pid)): os.remove(filename1+'.'+str(pid))
+        if os.path.exists(filename2+'.'+str(pid)): os.remove(filename2+'.'+str(pid))
+
+
     def test_std_io_standard(self):
         import os
         import numpy as np
@@ -840,7 +1227,7 @@ class TestStd_io(unittest.TestCase):
         from pyeee import standard_objective_reader
         from pyeee import standard_timeseries_reader, standard_time_series_reader
         
-        # standard_parameter_writer without pid
+        # standard_parameter_reader/writer without pid
         filename = 'params.txt'
         params   = np.arange(10, dtype=np.float)
         standard_parameter_writer(filename, params)
@@ -863,7 +1250,7 @@ class TestStd_io(unittest.TestCase):
 
         if os.path.exists(filename+'.'+str(pid)): os.remove(filename+'.'+str(pid))
 
-        # standard_parameter_writer_bounds_mask
+        # standard_parameter_reader/writer_bounds_mask
         filename = 'params.txt'
         pid      = 1234
         params   = np.arange(10, dtype=np.float)
@@ -881,6 +1268,46 @@ class TestStd_io(unittest.TestCase):
         self.assertEqual(list(imask),   list(mask))
 
         if os.path.exists(filename+'.'+str(pid)): os.remove(filename+'.'+str(pid))
+
+        # standard_parameter_reader_bounds_mask - Error
+        filename = 'params.txt'
+        pid      = 1234
+        params   = np.arange(10, dtype=np.float)
+        pmin     = params - 1.
+        pmax     = params + 1.
+        mask     = np.ones(10, dtype=np.bool)
+        ff = open(filename, 'w')
+        for i in range(10):
+            dstr = '{:d} {:.14e} {:.14e} {:.14e}'.format(i+1, params[i], pmin[i], pmax[i])
+            print(dstr, file=ff)
+        ff.close()
+        
+        try:
+            ids, iparams, ipmin, ipmax, imask = standard_parameter_reader_bounds_mask(filename+'.'+str(pid))
+            self.assertTrue(False)
+        except IOError:
+            self.assertTrue(True)
+
+        if os.path.exists(filename+'.'+str(pid)): os.remove(filename+'.'+str(pid))
+
+        # standard_parameter_writer_bounds_mask - pid=None
+        filename = 'params.txt'
+        pid      = None
+        params   = np.arange(10, dtype=np.float)
+        pmin     = params - 1.
+        pmax     = params + 1.
+        mask     = np.ones(10, dtype=np.bool)
+        standard_parameter_writer_bounds_mask(filename, pid, params, pmin, pmax, mask)
+        
+        ids, iparams, ipmin, ipmax, imask = standard_parameter_reader_bounds_mask(filename)
+
+        self.assertEqual(list(ids),     list([ str(i) for i in np.arange(10)+1 ]))
+        self.assertEqual(list(iparams), list(params))
+        self.assertEqual(list(ipmin),   list(pmin))
+        self.assertEqual(list(ipmax),   list(pmax))
+        self.assertEqual(list(imask),   list(mask))
+
+        if os.path.exists(filename): os.remove(filename)
 
         # standard_objective_reader
         filename = 'obj.txt'

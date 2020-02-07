@@ -46,7 +46,7 @@ Released under the MIT License; see LICENSE file for details.
 
 .. moduleauthor:: Matthias Cuntz
 
-The following wrappers are provided
+The following functions are provided
 
 .. autosummary::
     B
@@ -674,3 +674,26 @@ if __name__ == '__main__':
     # G(np.ones(5), np.zeros(5))
     # # 32.0
     
+    # # Morris function
+    # seed = 1234
+    # np.random.seed(seed=seed)
+    # npars = 20
+    # x0 = np.ones(npars)*0.5
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # beta0              = 0.
+    # beta1              = np.random.standard_normal(npars)
+    # beta1[:10]         = 20.
+    # beta2              = np.random.standard_normal((npars,npars))
+    # beta2[:6,:6]       = -15.
+    # beta3              = np.zeros((npars,npars,npars))
+    # beta3[:5,:5,:5]    = -10.
+    # beta4              = np.zeros((npars,npars,npars,npars))
+    # beta4[:4,:4,:4,:4] = 5.
+    # mm = fmorris(np.linspace(0,2*(npars-1),npars)/float(2*npars-1), beta0, beta1, beta2, beta3, beta4)
+    # print(np.around(mm,3))
+    # # -82.711
+    # mm = fmorris(np.arange(2*npars,dtype=np.float).reshape((npars,2))/float(2*npars-1),
+    #              beta0, beta1, beta2, beta3, beta4)
+    # print(np.around(mm,3))
+    # # [-82.711 -60.589]

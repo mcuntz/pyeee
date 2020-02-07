@@ -19,7 +19,8 @@ Released under the MIT License; see LICENSE file for details.
 * v0.4.2, second release to trigger zenodo, Jan 2020, Matthias Cuntz
 * v0.5, removed bug in exe wrappers and added number of tests, Feb 2020, Matthias Cuntz
 * v0.6, fix tests on TravisCI and have tests for all modules, Feb 2020, Matthias Cuntz
+* v0.7, systematically logistic_p versions, and keep formatting with substitution functions, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
-__version__ = "0.6"
+__version__ = "0.7"

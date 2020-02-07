@@ -28,9 +28,10 @@ Subpackages
 from .version import __version__
 # Common functions that are used in curve_fit or fmin parameter estimations
 from .general_functions import curvature
-from .general_functions import logistic, logistic_p, dlogistic, d2logistic
-from .general_functions import logistic_offset, logistic_offset_p, dlogistic_offset, d2logistic_offset
-from .general_functions import logistic2_offset, logistic2_offset_p, dlogistic2_offset, d2logistic2_offset
+from .general_functions import logistic, logistic_p, dlogistic, dlogistic_p, d2logistic, d2logistic_p
+from .general_functions import logistic_offset, logistic_offset_p, dlogistic_offset, dlogistic_offset_p
+from .general_functions import d2logistic_offset, d2logistic_offset_p, logistic2_offset, logistic2_offset_p
+from .general_functions import dlogistic2_offset, dlogistic2_offset_p, d2logistic2_offset, d2logistic2_offset_p
 # Sensitivity analysis test functions
 from .sa_test_functions import B, g, G, Gstar, bratley, K, fmorris, oakley_ohagan, ishigami_homma
 from .sa_test_functions import linear, product, ratio, ishigami_homma_easy

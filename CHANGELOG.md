@@ -2,6 +2,16 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v0.7
+	- Make systematically function_p versions of all logistic
+      functions and its derivatives.
+	- Keep formatting of names and spaces with sub_names_params
+	  functions.
+	- Close input file before raising error in
+      standard_parameter_reader_bounds_mask.
+	- Removed missing coverage in function_wrappers, std_io,
+      sa_test_functions, and general_functions.
+
 ### v0.6
     - Tests did not work on TravisCI because pyeee not installed: put
       pyeee in PYTHONPATH for tests and in shell script.
@@ -18,7 +28,7 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
       the keywords from subsequent function calls.
 
 ### v0.4.2
-    - Second release online on Github simply to trigger zenodo.
+    - Second release online on Github, simply to trigger zenodo.
 
 ### v0.4.1
     - First release on zenodo.

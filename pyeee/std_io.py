@@ -26,6 +26,7 @@ Released under the MIT License; see LICENSE file for details.
 * Swapped names and params in call to sub_names_params_files* to be compatible with new generic exe_wrapper, Jan 2020, Matthias Cuntz
 * Call standard_parameter_writer with 2 or 3 arguments, i.e. pid given or not, Jan 2020, Matthias Cuntz
 * Make all strings raw strings in sub_names_params_files_* routines to deal with regular expressions, Jan 2020, Matthias Cuntz
+* Keep formatting of names and spaces with sub_names_params functions; close input file before raising error, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -252,6 +253,7 @@ def sub_names_params_files_case(files, pid, params, names):
               Matthias Cuntz, Dec 2019 - Sphinx docstring
               Matthias Cuntz, Jan 2020 - swap names and params in argument list
               Matthias Cuntz, Jan 2020 - make all raw strings for regular expressions
+              Matthias Cuntz, Feb 2020 - keep formatting of names and spaces
     """
     # assert list of files
     if isinstance(files, str): files = [files]
@@ -259,11 +261,11 @@ def sub_names_params_files_case(files, pid, params, names):
     # make dict for msub with dict[pattern] = replacement
     dd = {}
     for i, p in enumerate(params):
-        nep = names[i]+r"\s*=\s*[a-zA-Z0-9_.+-]*" # name = value
-        k = r"^(\s*)"+nep                         # beginning of string
-        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
-        k = r"(\n+\s*)"+nep                       # after newline
-        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
+        nep = r"("+names[i]+r"\s*)=\s*[a-zA-Z0-9_.+-]*" # name = value
+        k = r"^(\s*)"+nep                               # beginning of line
+        dd[k] = r"\1\2= {:.14e}".format(params[i])      # replacement using substitutions \1, \2, ...
+        k = r"(\n+\s*)"+nep                             # after newline
+        dd[k] = r"\1\2= {:.14e}".format(params[i])
 
     # replace in each file
     msub_files(files, dd, pid)
@@ -317,6 +319,7 @@ def sub_names_params_files_ignorecase(files, pid, params, names):
               Matthias Cuntz, Dec 2019 - Sphinx docstring
               Matthias Cuntz, Jan 2020 - swap names and params in argument list
               Matthias Cuntz, Jan 2020 - make all raw strings for regular expressions
+              Matthias Cuntz, Feb 2020 - keep formatting of names and spaces
     """
     # assert list of files
     if isinstance(files, str): files = [files]
@@ -324,11 +327,11 @@ def sub_names_params_files_ignorecase(files, pid, params, names):
     # make dict for msub with dict[pattern] = replacement
     dd = {}
     for i, p in enumerate(params):
-        nep = names[i]+r"\s*=\s*[a-zA-Z0-9_.+-]*" # name = value
-        k = r"^(\s*)"+nep                         # beginning of string
-        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
-        k = r"(\n+\s*)"+nep                       # after newline
-        dd[k] = r"\1"+names[i]+r" = {:.14e}".format(params[i])
+        nep = r"("+names[i]+r"\s*)=\s*[a-zA-Z0-9_.+-]*" # name = value
+        k = r"^(\s*)"+nep                               # beginning of line
+        dd[k] = r"\1\2= {:.14e}".format(params[i])      # replacement using substitutions \1, \2, ...
+        k = r"(\n+\s*)"+nep                             # after newline
+        dd[k] = r"\1\2= {:.14e}".format(params[i])
 
     # replace in each file
     msub_files(files, dd, pid, flags=re.I)
@@ -572,6 +575,7 @@ def standard_parameter_reader_bounds_mask(filename):
                                        - return numpy.arrays
               Matthias Cuntz, Dec 2019 - Sphinx docstring
               Matthias Cuntz, Jan 2020 - renamed from standard_parameter_reader to standard_parameter_reader_bounds_mask
+              Matthias Cuntz, Feb 2020 - close file before raising error
     """
     ids    = []
     params = []
@@ -584,6 +588,7 @@ def standard_parameter_reader_bounds_mask(filename):
         if l.startswith('#'): continue
         el = l.split()
         if len(el) != 5:
+            f.close()
             raise IOError('Line has no 5 columns for parameter: '+line)
         ids.append(el[0])
         params.append(np.float(el[1]))
