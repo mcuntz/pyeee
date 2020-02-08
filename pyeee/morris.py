@@ -45,6 +45,7 @@ Released under the MIT License; see LICENSE file for details.
 * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz
 * Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 * Remove np.matrix in Sampling_Function_2, called in Optimized_Groups to remove numpy deprecation warnings, Jan 2020, Matthias Cuntz
+* Plot diagnostic figures in png files if matplotlib installed, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -295,6 +296,7 @@ def Optimized_Groups(NumFact,
                   Matthias Cuntz & Fabio Gennaretti, Aug 2018
                                            - Distance matrix not done for all trajectories at once because of very
                                              large memory requirement.
+                  Matthias Cuntz, Dec 2017 - Diagnostic plots in png files.
     """
     from scipy.spatial import distance
 
@@ -420,13 +422,24 @@ def Optimized_Groups(NumFact,
                         kk = 1
                         hplot[j * 2 + kk, i] = OptMatrix_b[j * sizeb + ii, i]
 
-        import matplotlib.pyplot as plt
-        fig = plt.figure()
-        fig.suptitle('New Strategy')
-        DimPlots = NumFact // 2 + (1 if NumFact % 2 > 0 else 0)
-        for i in range(NumFact):
-            ax = fig.add_subplot(DimPlots, 2, i + 1)
-            ax.hist(hplot[:, i], p)
+        try:
+            import matplotlib as mpl
+            mpl.use('Agg')
+            import matplotlib.pyplot as plt
+            mpl.rcParams['font.family'] = 'sans-serif'
+            mpl.rcParams['font.sans-serif'] = 'Arial'  # Arial, Verdana
+            mpl.rc('savefig', dpi=300, format='png')
+            mpl.rc('font', size=9)
+            fig = plt.figure()
+            fig.suptitle('New Strategy')
+            DimPlots = NumFact // 2 + (1 if NumFact % 2 > 0 else 0)
+            for i in range(NumFact):
+                ax = fig.add_subplot(DimPlots, 2, i + 1)
+                ax.hist(hplot[:, i], p)
+            fig.savefig('morris_diag_new_strategy.png', transparent=False, bbox_inches='tight', pad_inches=0.035)
+            plt.close(fig)
+        except ImportError:
+            pass
 
         # Plot the histogram for the original sampling strategy
         # Select the matrix
@@ -445,13 +458,18 @@ def Optimized_Groups(NumFact,
                         kk = 1
                         Orihplot[j * 2 + kk, i] = OrigSample[j * sizeb + ii, i]
 
-        fig = plt.figure()
-        fig.suptitle('Old Strategy')
-        DimPlots = NumFact // 2 + (1 if NumFact % 2 > 0 else 0)
-        for i in range(NumFact):
-            ax = fig.add_subplot(DimPlots, 2, i + 1)
-            ax.hist(Orihplot[:, i], p)
-            # plt.title('Old Strategy')
+        try:
+            fig = plt.figure()
+            fig.suptitle('Old Strategy')
+            DimPlots = NumFact // 2 + (1 if NumFact % 2 > 0 else 0)
+            for i in range(NumFact):
+                ax = fig.add_subplot(DimPlots, 2, i + 1)
+                ax.hist(Orihplot[:, i], p)
+                # plt.title('Old Strategy')
+            fig.savefig('morris_diag_old_strategy.png', transparent=False, bbox_inches='tight', pad_inches=0.035)
+            plt.close(fig)
+        except:
+            pass
 
         # Measure the quality of the sampling strategy
         levels = np.arange(0.0, 1.1, 1.0 / (p - 1))
@@ -484,8 +502,6 @@ def Optimized_Groups(NumFact,
 
         print('The quality of the sampling strategy changed from {:f} with the old strategy to {:f} '
               'for the optimized strategy'.format(QualOriMeasure, QualMeasure))
-
-        plt.show()
 
     return OptMatrix, OptOutVec[:, 0]
 

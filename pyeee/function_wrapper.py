@@ -36,6 +36,7 @@ Released under the MIT License; see LICENSE file for details.
 * Remove that exe_wrappers support also Python functions. User should use func_wrappers, Nov 2019, Matthias Cuntz
 * Make one exe_wrapper, passing bounds, mask, etc. via kwarg dictionary to parameterwriter; distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 * Replaced kwarg.pop mechanism because it removed the keywords from subsequent function calls, Feb 2020, Matthias Cuntz
+* Change from ValueError to TypeError if function given to exe wrappers, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -156,6 +157,7 @@ def exe_wrapper(func,
                                          replacing other exe_wrappers
                                        - distinguish iterable and array_like parameter types
               Matthias Cuntz, Feb 2020 - replaced kwarg.pop because ir removed keywords from subsequent calls
+                                       - ValueError -> TypeError
     """
     shell   = kwarg['shell']   if 'shell'   in kwarg else False
     debug   = kwarg['debug']   if 'debug'   in kwarg else False
@@ -193,7 +195,7 @@ def exe_wrapper(func,
             if os.path.exists(objectivefile): os.remove(objectivefile)
         return obj
     else:
-        raise ValueError('func must be string or list of strings for subprocess. Use func_wrapper for Python functions.')
+        raise TypeError('func must be string or list of strings for subprocess. Use func_wrapper for Python functions.')
 
 
 def exe_mask_wrapper(func, x0, mask,
@@ -312,6 +314,7 @@ def exe_mask_wrapper(func, x0, mask,
                                          replacing other exe_wrappers
                                        - distinguish iterable and array_like parameter types
               Matthias Cuntz, Feb 2020 - replaced kwarg.pop because ir removed keywords from subsequent calls
+                                       - ValueError -> TypeError
     """
     shell   = kwarg['shell']   if 'shell'   in kwarg else False
     debug   = kwarg['debug']   if 'debug'   in kwarg else False
@@ -351,7 +354,7 @@ def exe_mask_wrapper(func, x0, mask,
             if os.path.exists(objectivefile): os.remove(objectivefile)
         return obj
     else:
-        raise ValueError('func must be string or list of strings for subprocess. Use func_mask_wrapper for Python functions.')
+        raise TypeError('func must be string or list of strings for subprocess. Use func_mask_wrapper for Python functions.')
 
 
 # Python function wrappers

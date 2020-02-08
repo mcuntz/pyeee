@@ -6,4 +6,5 @@ pytest-cov
 numpy
 scipy
 six
+matplotlib
 git+https://github.com/adrn/schwimmbad

@@ -20,6 +20,7 @@ Released under the MIT License; see LICENSE file for details.
 * Make numpy doctsring format, Dec 2019, Matthias Cuntz
 * x0 optional, Jan 2020, Matthias Cuntz
 * Distinguish iterable and array_like parameter types; added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
+* InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -157,6 +158,7 @@ def screening(func, lb, ub, x0=None, mask=None,
               Matthias Cuntz,   Jan 2020 - x0 optional
                                          - distinguish iterable and array_like parameter types
                                          - added seed
+              Matthias Cuntz,   Feb 2020 - InputError -> TypeError
     """
     # Get MPI communicator
     try:
@@ -180,7 +182,7 @@ def screening(func, lb, ub, x0=None, mask=None,
     else:
         assert len(mask)==len(ub), 'Mask and bounds must have the same lengths.'
         if x0 is None:
-            raise InputError('x0 must be given if mask is set')
+            raise TypeError('x0 must be given if mask is set')
         x0 = np.array(x0)
         if not np.all(mask): assert len(mask)==len(x0), 'Mask and x0 must have the same lengths.'
         assert np.all(ub[mask] >= lb[mask]), 'All unmasked upper-bounds must be greater or equal than lower-bounds.'

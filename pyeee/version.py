@@ -20,7 +20,8 @@ Released under the MIT License; see LICENSE file for details.
 * v0.5, removed bug in exe wrappers and added number of tests, Feb 2020, Matthias Cuntz
 * v0.6, fix tests on TravisCI and have tests for all modules, Feb 2020, Matthias Cuntz
 * v0.7, systematically logistic_p versions, and keep formatting with substitution functions, Feb 2020, Matthias Cuntz
+* v0.8, Split tests into individual files per module, and small bug fixes in tests and error handling, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
-__version__ = "0.7"
+__version__ = "0.8"

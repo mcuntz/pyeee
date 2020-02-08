@@ -2,6 +2,15 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v0.8
+	- Split tests in individual files, one per module.
+    - Changed from ValueError to TypeError if function given to exe wrappers.
+    - InputError does not exist, use TypeError in screening.
+	- Use assertRaises for check error handling in tests.
+    - Plot diagnostic figures in png files in Morris sampling if
+      matplotlib installed.
+	- Coverage at maximum except for eee.py.
+
 ### v0.7
 	- Make systematically function_p versions of all logistic
       functions and its derivatives.
