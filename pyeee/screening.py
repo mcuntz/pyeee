@@ -235,7 +235,7 @@ def screening(func, lb, ub, x0=None, mask=None,
         nfx = fx.shape[1]
     out = np.zeros((nfx,npara,3))
     for j in range(nfx):
-        sa, res = elementary_effects(nmask, tmatrix, tvec, fx[:,j], p=nsteps, Diagnostic=False)
+        sa, res = elementary_effects(nmask, tmatrix, tvec, fx[:,j], nsteps=nsteps, Diagnostic=False)
         # Output with zero for all masked parameters
         if nt == 1:
             out[j,imask,0] = np.abs(sa[:,0])
