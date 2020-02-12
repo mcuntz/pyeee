@@ -21,6 +21,7 @@ Released under the MIT License; see LICENSE file for details.
 * x0 optional, Jan 2020, Matthias Cuntz
 * Distinguish iterable and array_like parameter types; added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
 * InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz
+* Use new names of kwargs of morris_sampling and elementary_effects, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -32,7 +33,7 @@ The following functions are provided
 """
 import numpy as np
 # from pyeee import morris_sampling, elementary_effects
-from .morris import morris_sampling, elementary_effects
+from .morris_method import morris_sampling, elementary_effects
 # from morris import morris_sampling, elementary_effects
 
 
@@ -159,6 +160,7 @@ def screening(func, lb, ub, x0=None, mask=None,
                                          - distinguish iterable and array_like parameter types
                                          - added seed
               Matthias Cuntz,   Feb 2020 - InputError -> TypeError
+                                         - use new names of kwargs of moris_sampling
     """
     # Get MPI communicator
     try:
@@ -204,7 +206,7 @@ def screening(func, lb, ub, x0=None, mask=None,
 
     # Sample trajectories
     if (crank==0) and (verbose > 0): print('Sample trajectories')
-    tmatrix, tvec = morris_sampling(nmask, lb[imask], ub[imask], N=ntotal, p=nsteps, r=nt, Diagnostic=False)
+    tmatrix, tvec = morris_sampling(nmask, lb[imask], ub[imask], nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
 
     if mask is None:
         x = tmatrix

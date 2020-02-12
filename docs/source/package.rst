@@ -13,7 +13,7 @@ pyeee API
    eee.rst
    function_wrapper.rst
    general_functions.rst
-   morris.rst
+   morris_method.rst
    sa_test_functions.rst
    screening.rst
    std_io.rst

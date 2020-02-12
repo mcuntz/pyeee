@@ -53,10 +53,10 @@ The following functions are provided
     g
     G
     Gstar
-    bratley
     K
-    morris
+    bratley
     fmorris
+    morris
     oakley_ohagan
     ishigami_homma
     linear
@@ -67,7 +67,7 @@ The following functions are provided
 import numpy as np
 
 
-__all__ = ['B', 'g', 'G', 'Gstar', 'bratley', 'K', 'morris', 'fmorris', 'oakley_ohagan', 'ishigami_homma',
+__all__ = ['B', 'g', 'G', 'Gstar', 'K', 'bratley', 'fmorris', 'morris', 'oakley_ohagan', 'ishigami_homma',
            'linear', 'product', 'ratio', 'ishigami_homma_easy']
 
 
@@ -435,22 +435,6 @@ def ishigami_homma(X, a, b):
 # -----------------------------------------------------------
 
 
-def bratley(*args):
-    """
-    K example, Saltelli et al. (2010) Comp. Phys. Comm., 181, p. 259-270
-
-    Parameters
-    ----------
-    X : array_like
-        (nX,) or (nX,npoints) array of floats
-
-    Returns
-    -------
-    bratley : float or ndarray
-        float or (npoints,) floats of K function values at `X`
-    """
-    return K(*args)
-
 def K(X):
     """
     K example, Saltelli et al. (2010) Comp. Phys. Comm., 181, p. 259-270
@@ -491,34 +475,25 @@ def K(X):
         return y
 
 
-# -----------------------------------------------------------
-
-
-def morris(*args):
+def bratley(*args):
     """
-    Morris-function, Morris (1991) Technometrics 33, 161-174
+    K example, Saltelli et al. (2010) Comp. Phys. Comm., 181, p. 259-270
 
     Parameters
     ----------
     X : array_like
-        (20,) or (20,npoints) array of floats
-    beta0 : float
-        float
-    beta1 : array_like
-        (20,) array of floats
-    beta2 : array_like
-        (20,20) array of floats
-    beta3 : array_like
-        (20,20,20) array of floats
-    beta4 : array_like
-        (20,20,20,20) array of floats
+        (nX,) or (nX,npoints) array of floats
 
     Returns
     -------
-    morris : float or ndarray
-        float or (npoints,) floats of Morris function values at `X` with parameters `beta0-beta4`
+    bratley : float or ndarray
+        float or (npoints,) floats of K function values at `X`
     """
-    return fmorris(*args)
+    return K(*args)
+
+
+# -----------------------------------------------------------
+
 
 def fmorris(X, beta0, beta1, beta2, beta3, beta4):
     """
@@ -579,6 +554,33 @@ def fmorris(X, beta0, beta1, beta2, beta3, beta4):
         return y[0]
     else:
         return y
+
+
+def morris(*args):
+    """
+    Morris-function, Morris (1991) Technometrics 33, 161-174
+
+    Parameters
+    ----------
+    X : array_like
+        (20,) or (20,npoints) array of floats
+    beta0 : float
+        float
+    beta1 : array_like
+        (20,) array of floats
+    beta2 : array_like
+        (20,20) array of floats
+    beta3 : array_like
+        (20,20,20) array of floats
+    beta4 : array_like
+        (20,20,20,20) array of floats
+
+    Returns
+    -------
+    morris : float or ndarray
+        float or (npoints,) floats of Morris function values at `X` with parameters `beta0-beta4`
+    """
+    return fmorris(*args)
 
 
 # -----------------------------------------------------------

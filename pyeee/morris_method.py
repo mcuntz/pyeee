@@ -15,7 +15,7 @@ Provided functions are:
     morris_sampling       Sample trajectories in parameter space
     elementary_effects    Calculate Elementary Effects from model output on tranjectories
 
-Note that the functions morris_sampling and elementary_effects are wrapper for the functions
+Note that the functions morris_sampling and elementary_effects are wrappers for the functions
 Optimized_Groups and Morris_Measure_Groups of F. Campolongo and J. Cariboni ported to Python by Stijn Van Hoey.
 
 
@@ -46,6 +46,8 @@ Released under the MIT License; see LICENSE file for details.
 * Distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 * Remove np.matrix in Sampling_Function_2, called in Optimized_Groups to remove numpy deprecation warnings, Jan 2020, Matthias Cuntz
 * Plot diagnostic figures in png files if matplotlib installed, Feb 2020, Matthias Cuntz
+* Renamed file to morris_method.py, Feb 2020, Matthias Cuntz
+* Adjusted argument and keyword argument names to be consistent with rest of pyeee, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -226,20 +228,15 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
         Fact[sizea] = int(-1)  #Enkel om vorm logisch te houden. of Fact kleiner maken
 
         #append the create traject to the others
-        Outmatrix[i*(sizea+1):i*(sizea+1)+(sizea+1), :] = In
-        OutFact[i*(sizea+1):i*(sizea + 1)+(sizea+1)]    = Fact.reshape((sizea+1,1))
+        Outmatrix[i*(sizea+1):(i+1)*(sizea+1), :] = In
+        OutFact[i*(sizea+1):(i+1)*(sizea+1)]      = Fact.reshape((sizea+1,1))
 
     return Outmatrix, OutFact
 
 
-def Optimized_Groups(NumFact,
-                     LB,
-                     UB,
-                     N=500,
-                     p=4,
-                     r=10,
-                     GroupMat=np.array([]),
-                     Diagnostic=0):
+def Optimized_Groups(NumFact, LB, UB,
+                     r=10, p=4, N=500,
+                     GroupMat=np.array([]), Diagnostic=0):
     """
         Optimisation in the choice of trajectories for Morris experiment,
         that means elementary effects
@@ -247,7 +244,7 @@ def Optimized_Groups(NumFact,
 
         Definition
         ----------
-        def Optimized_Groups(NumFact, LB, UB, N=500, p=4, r=10, GroupMat=np.array([]), Diagnostic=0):
+        def Optimized_Groups(NumFact, LB, UB, r=10, p=4, N=500, GroupMat=np.array([]), Diagnostic=0):
 
 
         Input
@@ -259,9 +256,9 @@ def Optimized_Groups(NumFact,
 
         Optional Input
         --------------
-        N                 Total number of trajectories (default: 500)
-        p                 Number of levels (default: 4)
         r                 Final number of optimal trjectories (default: 10)
+        p                 Number of levels (default: 4)
+        N                 Total number of trajectories (default: 500)
         GroupMat          [NumFact,NumGroups] Matrix describing the groups.  (default: np.array([]))
                           Each column represents a group and its elements are set to 1 in correspondence
                           of the factors that belong to the fixed group. All the other elements are zero.
@@ -297,15 +294,16 @@ def Optimized_Groups(NumFact,
                                            - Distance matrix not done for all trajectories at once because of very
                                              large memory requirement.
                   Matthias Cuntz, Dec 2017 - Diagnostic plots in png files.
+                  Matthias Cuntz, Feb 2020 - changed order or kwargs in call to Optimized_Groups
     """
     from scipy.spatial import distance
+    import scipy.stats as stats
 
     LBt = np.zeros(NumFact)
     UBt = np.ones(NumFact)
 
     # np.random.seed(seed=1025)
-    OutMatrix, OutFact = Sampling_Function_2(p, NumFact, N, LBt, UBt,
-                                             GroupMat)  #Version with Groups
+    OutMatrix, OutFact = Sampling_Function_2(p, NumFact, N, LBt, UBt, GroupMat)  # Version with Groups
 
     try:
         Groupnumber = GroupMat.shape[1]
@@ -323,12 +321,10 @@ def Optimized_Groups(NumFact,
     #   if the two trajectories differ, 0 otherwise
     Dist = np.zeros((N, N))
     Diff_Traj = np.arange(0.0, N, 1.0)
-    for j in range(
-            N
-    ):  # combine all trajectories: eg N=3: 0&1; 0&2; 1&2 (is not dependent from sequence)
-        for z in range(j + 1, N):
-            MyDist = distance.cdist(OutMatrix[sizeb * (j):sizeb * (j + 1), :],
-                                    OutMatrix[sizeb * (z):sizeb * (z + 1), :])
+    for j in range(N):  # combine all trajectories: eg N=3: 0&1; 0&2; 1&2 (is not dependent from sequence)
+        for z in range(j+1, N):
+            MyDist = distance.cdist(OutMatrix[sizeb*j:sizeb*(j+1),:],
+                                    OutMatrix[sizeb*z:sizeb*(z+1),:])
             if np.where(MyDist == 0.)[0].size == sizeb:
                 # Same trajectory. If the number of zeros in Dist matrix is equal to
                 # (NumFact+1) then the trajectory is a replica. In fact (NumFact+1) is the maximum number of
@@ -349,36 +345,32 @@ def Optimized_Groups(NumFact,
     dupli = iidup.size
     iiind = np.where(Diff_Traj != -1.)[0]
     New_N = iiind.size  # N - iidup.size
-    New_OutMatrix = np.zeros((sizeb * New_N, NumFact))
-    New_OutFact = np.zeros((sizeb * New_N, 1))
+    New_OutMatrix = np.zeros((sizeb*New_N, NumFact))
+    New_OutFact   = np.zeros((sizeb*New_N, 1))
 
     # Eliminate replicated trajectories in the sampled matrix
     ID = 0
     for i in range(N):
         if Diff_Traj[i] != -1.:
-            New_OutMatrix[ID * sizeb:(ID + 1) *
-                          sizeb, :] = OutMatrix[i * sizeb:(i + 1) * sizeb, :]
-            New_OutFact[ID * sizeb:(ID + 1) *
-                        sizeb, :] = OutFact[i * sizeb:(i + 1) * sizeb, :]
+            New_OutMatrix[ID*sizeb:(ID+1)*sizeb, :] = OutMatrix[i*sizeb:(i+1)*sizeb, :]
+            New_OutFact[ID*sizeb:(ID+1)*sizeb, :]   = OutFact[i*sizeb:(i+1)*sizeb, :]
             ID += 1
 
     # Select in the distance matrix only the rows and columns of different trajectories
     #   Dist_Diff = np.delete(Dist_Diff,np.where(Diff_Traj==-1.)[0])
-    Dist_Diff = Dist[iiind, :]  #moet 2D matrix zijn... wis rijen ipv hou bij
-    Dist_Diff = Dist_Diff[:,
-                          iiind]  #moet 2D matrix zijn... wis rijen ipv hou bij
+    Dist_Diff = Dist[iiind, :]       #moet 2D matrix zijn... wis rijen ipv hou bij
+    Dist_Diff = Dist_Diff[:, iiind]  #moet 2D matrix zijn... wis rijen ipv hou bij
 
     # Select the optimal set of trajectories
     Traj_Vec = np.zeros((New_N, r), dtype=np.int)
-    OptDist = np.zeros((New_N, r))
+    OptDist  = np.zeros((New_N, r))
     for m in range(New_N):  # each row in Traj_Vec
         Traj_Vec[m, 0] = m
         for z in range(1, r):  # elements in columns after first
-            New_Dist_Diff = np.sqrt(
-                np.sum(Dist_Diff[Traj_Vec[m, :z], :]**2, axis=0))
+            New_Dist_Diff  = np.sqrt(np.sum(Dist_Diff[Traj_Vec[m, :z], :]**2, axis=0))
             ii = New_Dist_Diff.argmax()
             Traj_Vec[m, z] = ii
-            OptDist[m, z] = New_Dist_Diff[ii]
+            OptDist[m, z]  = New_Dist_Diff[ii]
 
     # Construct optimal matrix
     SumOptDist = np.sum(OptDist, axis=1)
@@ -386,16 +378,12 @@ def Optimized_Groups(NumFact,
     Pluto = np.where(SumOptDist == SumOptDist.max())[0]
     Opt_Traj_Vec = Traj_Vec[Pluto[0], :]
 
-    OptMatrix = np.zeros((sizeb * r, NumFact))
-    OptOutVec = np.zeros((sizeb * r, 1))
+    OptMatrix = np.zeros((sizeb*r, NumFact))
+    OptOutVec = np.zeros((sizeb*r, 1))
 
     for k in range(r):
-        OptMatrix[k * sizeb:(k + 1) *
-                  sizeb, :] = New_OutMatrix[sizeb * Opt_Traj_Vec[k]:sizeb *
-                                            (Opt_Traj_Vec[k] + 1), :]
-        OptOutVec[k * sizeb:(k + 1) *
-                  sizeb, :] = New_OutFact[sizeb * Opt_Traj_Vec[k]:sizeb *
-                                          (Opt_Traj_Vec[k] + 1), :]
+        OptMatrix[k*sizeb:(k+1)*sizeb, :] = New_OutMatrix[sizeb*Opt_Traj_Vec[k]:sizeb*(Opt_Traj_Vec[k]+1), :]
+        OptOutVec[k*sizeb:(k+1)*sizeb, :] = New_OutFact[sizeb*Opt_Traj_Vec[k]:sizeb*(Opt_Traj_Vec[k]+1), :]
 
     #----------------------------------------------------------------------
     # Compute values in the original intervals
@@ -403,8 +391,22 @@ def Optimized_Groups(NumFact,
     # To obtain values in the original intervals [LB, UB] we compute
     # LB(j) + x(i,j)*(UB(j)-LB(j))
     OptMatrix_b = OptMatrix.copy()
-    OptMatrix = np.tile(LB, (sizeb * r, 1)) + OptMatrix * np.tile(
-        (UB - LB), (sizeb * r, 1))
+    # OptMatrix1  = OptMatrix.copy()
+    OptMatrix   = np.tile(LB, (sizeb*r,1)) + OptMatrix * np.tile(UB-LB, (sizeb*r,1))
+    # dist = [ stats.uniform if i%2==0 else None for i in range(LB.size) ]
+    # pars = [ (LB[i],UB[i]-LB[i]) for i in range(LB.size) ]
+    # LB   = np.array([ LB[i] if dist[i] is None else 0. for i in range(LB.size) ])
+    # UB   = np.array([ UB[i] if dist[i] is None else 1. for i in range(LB.size) ])
+    # if dist is None:
+    #     OptMatrix1 = np.tile(LB, (sizeb*r,1)) + np.tile(UB-LB, (sizeb*r,1)) * OptMatrix1
+    # else:
+    #     for i in range(len(dist)):
+    #         OptMatrix1[:,i] = LB[i] + (UB[i]-LB[i]) * OptMatrix1[:,i]
+    #         dd = dist[i]
+    #         if dd is not None:
+    #             OptMatrix1[:,i] = dd(*pars[i]).ppf(OptMatrix1[:,i])
+    # if np.any(np.abs(OptMatrix-OptMatrix1) > 0.):
+    #     print('Diff ', (OptMatrix-OptMatrix1)[np.where((OptMatrix-OptMatrix1) > 0.)])
 
     if Diagnostic == True:
         # Clean the trajectories from repetitions and plot the histograms
@@ -417,10 +419,9 @@ def Optimized_Groups(NumFact,
 
                 # search the second value
                 for ii in range(1, sizeb):
-                    if OptMatrix_b[j * sizeb + ii, i] != OptMatrix_b[j *
-                                                                     sizeb, i]:
+                    if OptMatrix_b[j*sizeb+ii, i] != OptMatrix_b[j*sizeb, i]:
                         kk = 1
-                        hplot[j * 2 + kk, i] = OptMatrix_b[j * sizeb + ii, i]
+                        hplot[j*2+kk, i] = OptMatrix_b[j*sizeb+ii, i]
 
         try:
             import matplotlib as mpl
@@ -443,8 +444,8 @@ def Optimized_Groups(NumFact,
 
         # Plot the histogram for the original sampling strategy
         # Select the matrix
-        OrigSample = OutMatrix[:r * (sizeb), :]
-        Orihplot = np.zeros((2 * r, NumFact))
+        OrigSample = OutMatrix[:r*(sizeb), :]
+        Orihplot   = np.zeros((2*r, NumFact))
 
         for i in range(NumFact):
             for j in range(r):
@@ -480,22 +481,18 @@ def Optimized_Groups(NumFact,
                 # For each factor and each level count the number of times the factor is on the level
                 #This for the new and original sampling
                 NumSPoint[i, j] = np.where(
-                    np.abs(hplot[:, i] -
-                           np.tile(levels[j], hplot.shape[0])) < 1e-5)[0].size
+                    np.abs(hplot[:, i] - np.tile(levels[j], hplot.shape[0])) < 1e-5)[0].size
                 NumSOrigPoint[i, j] = np.where(
-                    np.abs(Orihplot[:, i] -
-                           np.tile(levels[j], Orihplot.shape[0])) < 1e-5
-                )[0].size
+                    np.abs(Orihplot[:, i] - np.tile(levels[j], Orihplot.shape[0])) < 1e-5)[0].size
 
         # The optimal sampling has values uniformly distributed across the levels
-        OptSampl = 2. * r / p
-        QualMeasure = 0.
+        OptSampl       = 2. * r / p
+        QualMeasure    = 0.
         QualOriMeasure = 0.
         for i in range(NumFact):
             for j in range(p):
                 QualMeasure = QualMeasure + np.abs(NumSPoint[i, j] - OptSampl)
-                QualOriMeasure = QualOriMeasure + np.abs(NumSOrigPoint[i, j] -
-                                                         OptSampl)
+                QualOriMeasure = QualOriMeasure + np.abs(NumSOrigPoint[i, j] - OptSampl)
 
         QualMeasure = 1. - QualMeasure / (OptSampl * p * NumFact)
         QualOriMeasure = 1. - QualOriMeasure / (OptSampl * p * NumFact)
@@ -506,13 +503,8 @@ def Optimized_Groups(NumFact,
     return OptMatrix, OptOutVec[:, 0]
 
 
-def Morris_Measure_Groups(NumFact,
-                          Sample,
-                          OutFact,
-                          Output,
-                          p=4,
-                          Group=[],
-                          Diagnostic=False):
+def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4,
+                          Group=[], Diagnostic=False):
     """
         Given the Morris sample matrix, the output values and the group matrix compute the Morris measures.
 
@@ -683,8 +675,8 @@ def Morris_Measure_Groups(NumFact,
     return SAmeas_out, OutMatrix
 
 
-def morris_sampling(NumFact, LB, UB,
-                    N=500, p=4, r=10,
+def morris_sampling(nparam, LB, UB,
+                    nt=10, nsteps=4, ntotal=500,
                     GroupMat=np.array([]), Diagnostic=0):
     """
     Sample trajectories in parameter space.
@@ -693,23 +685,23 @@ def morris_sampling(NumFact, LB, UB,
 
     Parameters
     ----------
-    NumFact : int
-        Number of factors
+    nparam : int
+        Number of parameters / factors
     LB : array_like
-        (NumFact,) Lower bound of the uniform distribution for each factor
+        (nparam,) Lower bound of the uniform distribution for each parameter / factor
     UB : array_like
-        (NumFact,) Upper bound of the uniform distribution for each factor
-    N : int, optional
-        Total number of trajectories (default: 500)
-    p : int, optional
-        Number of levels (default: 4)
-    r : int, optional
-        Final number of optimal trjectories (default: 10)
+        (nparam,) Upper bound of the uniform distribution for each parameter / factor
+    nt : int, optional
+        Final number of optimal trajectories (default: 10)
+    nsteps : int, optional
+        Number of levels, i.e. intervals in trajectories (default: 4)
+    ntotal : int, optional
+        Total number of sampled trajectories (default: 500)
     GroupMat : ndarray, optional
-        (NumFact,NumGroups) Matrix describing the groups. (default: np.array([]))
+        (nparam,ngroup) Matrix describing the groups. (default: np.array([]))
 
-        Each column represents a group. The element of each column are zero
-        if the factor is not in the group, otherwise it is 1.
+        Each column represents a group. The elements of each column are zero
+        if the parameter / factor is not in the group, otherwise it is 1.
     Diagnostic : int, optional
         1: plot the histograms and compute the efficiency of the samplign or not,
 
@@ -718,7 +710,7 @@ def morris_sampling(NumFact, LB, UB,
     Returns
     -------
     traj : list
-        list with [OptMatrix, OptOutVec]
+        list [OptMatrix, OptOutVec] with OptMatrix((nparam+1)*nt,nparam) and OptOutVec(nparam*nt)
 
     References
     ----------
@@ -740,7 +732,7 @@ def morris_sampling(NumFact, LB, UB,
     >>> nt     = npara
     >>> ntotal = max(nt**2, 10*nt)
     >>> nsteps = 6
-    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], N=ntotal, p=nsteps, r=nt, Diagnostic=False)
+    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
     >>> # Set input vector to trajectories and masked elements = x0
     >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectorie values
@@ -765,32 +757,34 @@ def morris_sampling(NumFact, LB, UB,
                                        - Distance matrix not done for all trajectories at once because of very
                                          large memory requirement.
               Matthias Cuntz, Jan 2020 - remove np.matrix in Sampling_Function_2, called in Optimized_Groups
+              Matthias Cuntz, Feb 2020 - changed names and order of kwargs in call to morris_sampling
     """
-    return Optimized_Groups(NumFact, LB, UB, N, p, r, GroupMat, Diagnostic)
+    return Optimized_Groups(nparam, LB, UB, r=nt, p=nsteps, N=ntotal, GroupMat=GroupMat, Diagnostic=Diagnostic)
 
 
-def elementary_effects(NumFact, Sample, OutFact, Output,
-                       p=4, Group=[], Diagnostic=False):
+def elementary_effects(nparam, OptMatrix, OptOutVec, Output,
+                       nsteps=4, Group=[], Diagnostic=False):
     """
     Compute the Morris measures given the Morris sample matrix, the output values and the group matrix.
 
     Parameters
     ----------
-    NumFact : int
-        Number of factors
-    Sample : ndarray
-        (NumFact,) Matrix of the Morris sampled trajectories
-    OutFact : ndarray
-        (NumFact,) Matrix with the factor changings as specified in Morris sampling
+    nparam : int
+        Number of parameters / factors
+        list [OptMatrix, OptOutVec] with OptMatrix((nparam+1)*nt,nparam) and OptOutVec(nparam*nt)
+    OptMatrix : ndarray
+        ((nparam+1)*nt,nparam) Matrix of the Morris sampled trajectories from morris_sampling
+    OptOutVec : ndarray
+        (nparam*nt,) Matrix with the parameter / factor changings from morris_sampling
     Output : ndarray
-        (NumFact,) Matrix of the output(s) values in correspondence of each point of each trajectory
-    p : int, optional
-        Number of levels (default: 4)
+        ((nparam+1)*nt,) Matrix of the output values of each point of each trajectory
+    nsteps : int, optional
+        Number of levels, i.e. intervals in trajectories (default: 4)
     Group : ndarray, optional
-        (NumFact,NumGroups) Matrix describing the groups. (default: [])
+        (nparam,NumGroups) Matrix describing the groups. (default: [])
 
-        Each column represents a group. The element of each column are zero
-        if the factor is not in the group, otherwise it is 1.
+        Each column represents a group. The elements of each column are zero
+        if the parameter / factor is not in the group, otherwise it is 1.
     Diagnostic : boolean, optional
         True:  print out diagnostics
 
@@ -799,11 +793,11 @@ def elementary_effects(NumFact, Sample, OutFact, Output,
     Returns
     -------
     SA, OutMatrix : list of ndarrays
-        SA(NumFact*Output.shape[1],N) individual sensitivity measures
+        SA(nparam*Output.shape[1],N) individual sensitivity measures
 
-        OutMatrix(NumFact*Output.shape[1], 3) = [Mu*, Mu, StDev] Morris Measures
+        OutMatrix(nparam*Output.shape[1], 3) = [Mu*, Mu, StDev] Morris Measures
 
-        It gives the three measures of each factor for each output.
+        It gives the three measures of each parameter / factor for each output.
 
     References
     ----------
@@ -825,14 +819,14 @@ def elementary_effects(NumFact, Sample, OutFact, Output,
     >>> nt     = npara
     >>> ntotal = max(nt**2, 10*nt)
     >>> nsteps = 6
-    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], N=ntotal, p=nsteps, r=nt, Diagnostic=False)
+    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], ntotal=ntotal, nsteps=nsteps, nt=nt, Diagnostic=False)
     >>> # Set input vector to trajectories and masked elements = x0
     >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectorie values
     >>> func = np.sum
     >>> fx = np.array(list(map(func,x)))
     >>> out = np.zeros((npara,3))
-    >>> sa, res = elementary_effects(nmask, tmatrix, tvec, fx, p=nsteps, Diagnostic=False)
+    >>> sa, res = elementary_effects(nmask, tmatrix, tvec, fx, nsteps=nsteps, Diagnostic=False)
     >>> out[mask,:] = res
     >>> print(out[:,0])
     [1. 1. 1. 1. 1. 0. 1. 0. 1. 0.]
@@ -849,99 +843,100 @@ def elementary_effects(NumFact, Sample, OutFact, Output,
               Matthias Cuntz,  Dec 2017 - allow single trajectories
               Matthias Cuntz,  Feb 2018 - catch degenerated case where lower bound==upper bound -> return 0.
               Fabio Genaretti, Jul 2018 - use // instead of / for trajectory length r
+              Matthias Cuntz, Feb 2020 - changed name of p to nsteps in call to elementary_effects
     """
-    return Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p, Group, Diagnostic)
+    return Morris_Measure_Groups(nparam, OptMatrix, OptOutVec, Output, nsteps, Group, Diagnostic)
 
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
-    # # r = 10
+    # # nt = 10
     # np.random.seed(seed=1234)
-    # NumFact = 15
-    # LB = np.arange(NumFact)
+    # nparam = 15
+    # LB = np.arange(nparam)
     # UB = 2.*LB + 1.
-    # N = 100
-    # p = 6
-    # r = 10
+    # nt     = 10
+    # nsteps = 6
+    # ntotal = 100
     # Diagnostic = 0
-    # out = np.random.random(r*(NumFact+1))
-    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
+    # out = np.random.random(nt*(nparam+1))
+    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
-    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
-    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(np.around(sa[0:5,1],3))  #  (NumFact,r) individual elementary effects for all parameters
+    # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
+    # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters
 
-    # # r = 10 - nan
+    # # nt = 10, nan
     # np.random.seed(seed=1234)
-    # NumFact = 15
-    # LB = np.arange(NumFact)
+    # nparam = 15
+    # LB = np.arange(nparam)
     # UB = 2.*LB + 1.
-    # N = 100
-    # p = 6
-    # r = 10
+    # nt     = 10
+    # nsteps = 6
+    # ntotal = 100
     # Diagnostic = 0
-    # out = np.random.random(r*(NumFact+1))
-    # out[1:r*NumFact:NumFact//2] = np.nan
-    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
+    # out = np.random.random(nt*(nparam+1))
+    # out[1:nt*nparam:nparam//2] = np.nan
+    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
-    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
-    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(np.around(sa[~np.isnan(sa[:,1]),1],3))  #  (NumFact,r) individual elementary effects for all parameters
+    # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
+    # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[~np.isnan(sa[:,1]),1],3))  #  (nparam,r) individual elementary effects for all parameters
 
-    # # r = 1
+    # # nt = 1
     # np.random.seed(seed=1234)
-    # NumFact = 15
-    # LB = np.arange(NumFact)
+    # nparam = 15
+    # LB = np.arange(nparam)
     # UB = 2.*LB + 1.
-    # N = 10
-    # p = 6
-    # r = 1
+    # nt     = 1
+    # nsteps = 6
+    # ntotal = 100
     # Diagnostic = 0
-    # out = np.random.random(r*(NumFact+1))
-    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, Diagnostic=Diagnostic)
-    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p)
-    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(np.around(sa[0:5].squeeze(),3))  #  (NumFact,r) individual elementary effects for all parameters
+    # out = np.random.random(nt*(nparam+1))
+    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
+    # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5].squeeze(),3))  #  (nparam,r) individual elementary effects for all parameters
 
     # # groups
     # np.random.seed(seed=1234)
-    # NumFact   = 15
-    # NumGroups = 5
-    # LB = np.arange(NumFact)
+    # nparam   = 15
+    # ngroup = 5
+    # LB = np.arange(nparam)
     # UB = 2.*LB + 1.
-    # Groups = np.random.randint(0, 4, (NumFact,NumGroups))
-    # N = 100
-    # p = 6
-    # r = 10
+    # Groups = np.random.randint(0, 4, (nparam,ngroup))
+    # nt     = 10
+    # nsteps = 6
+    # ntotal = 100
     # Diagnostic = 0
-    # out = np.random.random(r*(NumFact+1))
-    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, GroupMat=Groups, Diagnostic=Diagnostic)
+    # out = np.random.random(nt*(nparam+1))
+    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
-    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p, Group=Groups)
-    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(np.around(sa[0:5,1],3))  #  (NumFact,r) individual elementary effects for all parameters
+    # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)
+    # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters
 
-    # # groups - nan
+    # # groups, nan
     # np.random.seed(seed=1234)
-    # NumFact   = 15
-    # NumGroups = 5
-    # LB = np.arange(NumFact)
+    # nparam   = 15
+    # ngroup = 5
+    # LB = np.arange(nparam)
     # UB = 2.*LB + 1.
-    # Groups = np.random.randint(0, 4, (NumFact,NumGroups))
-    # N = 100
-    # p = 6
-    # r = 10
+    # Groups = np.random.randint(0, 4, (nparam,ngroup))
+    # nt     = 10
+    # nsteps = 6
+    # ntotal = 100
     # Diagnostic = 0
-    # out = np.random.random(r*(NumFact+1))
-    # out[1:r*NumFact:NumFact//2] = np.nan
-    # mat, vec = morris_sampling(NumFact, LB, UB, N=N, p=p, r=r, GroupMat=Groups, Diagnostic=Diagnostic)
+    # out = np.random.random(nt*(nparam+1))
+    # out[1:nt*nparam:nparam//2] = np.nan
+    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
-    # sa, res = elementary_effects(NumFact, mat, vec, out, p=p, Group=Groups)
-    # print(np.around(res[0:5,0],3)) # (NumFact,3) = AbsMu, Mu, Stddev
-    # print(np.around(sa[0:5,1],3))  #  (NumFact,r) individual elementary effects for all parameters
+    # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)
+    # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
+    # print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters

@@ -2,23 +2,30 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v0.9
+    - Added mention to template of Sebastian Mueller in README.md and documentation.
+    - Renamed morris.py to morris_method.py.
+    - Adjusted names of arguments and keyword arguments in
+      morris_sampling and elementary_effects to be consistent with
+      rest of pyeee.
+
 ### v0.8
-	- Split tests in individual files, one per module.
+    - Split tests in individual files, one per module.
     - Changed from ValueError to TypeError if function given to exe wrappers.
     - InputError does not exist, use TypeError in screening.
-	- Use assertRaises for check error handling in tests.
+    - Use assertRaises for check error handling in tests.
     - Plot diagnostic figures in png files in Morris sampling if
       matplotlib installed.
-	- Coverage at maximum except for eee.py.
+    - Coverage at maximum except for eee.py.
 
 ### v0.7
-	- Make systematically function_p versions of all logistic
+    - Make systematically function_p versions of all logistic
       functions and its derivatives.
-	- Keep formatting of names and spaces with sub_names_params
-	  functions.
-	- Close input file before raising error in
+    - Keep formatting of names and spaces with sub_names_params
+      functions.
+    - Close input file before raising error in
       standard_parameter_reader_bounds_mask.
-	- Removed missing coverage in function_wrappers, std_io,
+    - Removed missing coverage in function_wrappers, std_io,
       sa_test_functions, and general_functions.
 
 ### v0.6

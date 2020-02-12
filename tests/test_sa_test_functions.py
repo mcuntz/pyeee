@@ -25,7 +25,7 @@ class TestSATestFunctions(unittest.TestCase):
         import os
         import numpy as np
         from pyeee import B, g, G, Gstar, K, bratley, oakley_ohagan, ishigami_homma
-        from pyeee import linear, product, ratio, ishigami_homma_easy, fmorris
+        from pyeee import linear, product, ratio, ishigami_homma_easy, fmorris, morris
 
         # scalar
         self.assertEqual(B(np.arange(10)), 80)
@@ -70,11 +70,19 @@ class TestSATestFunctions(unittest.TestCase):
         beta3[:5,:5,:5]    = -10.
         beta4              = np.zeros((npars,npars,npars,npars))
         beta4[:4,:4,:4,:4] = 5.
+
         mm = fmorris(np.linspace(0,2*(npars-1),npars)/float(2*npars-1),
                      beta0, beta1, beta2, beta3, beta4)
         self.assertEqual(np.around(mm,3), -82.711)
         mm = fmorris(np.arange(2*npars,dtype=np.float).reshape((npars,2))/float(2*npars-1),
                      beta0, beta1, beta2, beta3, beta4)
+        self.assertEqual(list(np.around(mm,3)), [-82.711, -60.589])
+
+        mm = morris(np.linspace(0,2*(npars-1),npars)/float(2*npars-1),
+                    beta0, beta1, beta2, beta3, beta4)
+        self.assertEqual(np.around(mm,3), -82.711)
+        mm = morris(np.arange(2*npars,dtype=np.float).reshape((npars,2))/float(2*npars-1),
+                    beta0, beta1, beta2, beta3, beta4)
         self.assertEqual(list(np.around(mm,3)), [-82.711, -60.589])
 
 

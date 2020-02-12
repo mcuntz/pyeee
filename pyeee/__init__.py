@@ -18,7 +18,7 @@ Subpackages
     eee
     function_wrapper
     general_functions
-    morris
+    morris_method
     sa_test_functions
     screening
     tee
@@ -33,7 +33,7 @@ from .general_functions import logistic_offset, logistic_offset_p, dlogistic_off
 from .general_functions import d2logistic_offset, d2logistic_offset_p, logistic2_offset, logistic2_offset_p
 from .general_functions import dlogistic2_offset, dlogistic2_offset_p, d2logistic2_offset, d2logistic2_offset_p
 # Sensitivity analysis test functions
-from .sa_test_functions import B, g, G, Gstar, bratley, K, fmorris, oakley_ohagan, ishigami_homma
+from .sa_test_functions import B, g, G, Gstar, bratley, K, fmorris, morris, oakley_ohagan, ishigami_homma
 from .sa_test_functions import linear, product, ratio, ishigami_homma_easy
 # Utilities
 from .utils import cost_square
@@ -49,7 +49,7 @@ from .std_io import standard_parameter_reader, standard_parameter_writer
 from .std_io import standard_parameter_reader_bounds_mask, standard_parameter_writer_bounds_mask
 from .std_io import standard_time_series_reader, standard_timeseries_reader
 # Sampling of optimised trajectories for and calculation of Morris Measures / Elementary Effects
-from .morris import morris_sampling, elementary_effects
+from .morris_method import morris_sampling, elementary_effects
 # Sample trajectories, run model and return Morris Elementary Effects
 from .screening import screening, ee
 # Efficient/Sequential Elementary Effects using screening iteratively

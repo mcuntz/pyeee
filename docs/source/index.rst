@@ -173,6 +173,8 @@ See the `LICENSE <https://github.com/mcuntz/pyeee/LICENSE>`_ file for details.
 
 Copyright (c) 2014-2019 Matthias Cuntz, Juliane Mai
 
+The project structure is based on a [template](https://github.com/MuellerSeb/template) provided by [Sebastian Müller](https://github.com/MuellerSeb).
+
 
 Contributing to pyeee
 =====================
