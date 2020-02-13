@@ -13,8 +13,8 @@ import unittest
 # morris.py
 # Missing coverage:
 #    336-339: Same trajectories in ntotal
-#    441-442, 471-472: ImportError of matplotlib not installed
-#    657: if NumGroups == 0: if SAm.size > 1: ?
+#    442-443, 472-473: ImportError of matplotlib not installed
+#    655: if NumGroups == 0: if SAm.size > 1: ?
 class TestMorris(unittest.TestCase):
 
     def setUp(self):

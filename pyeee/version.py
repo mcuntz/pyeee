@@ -22,7 +22,9 @@ Released under the MIT License; see LICENSE file for details.
 * v0.7, systematically logistic_p versions, and keep formatting with substitution functions, Feb 2020, Matthias Cuntz
 * v0.8, Split tests into individual files per module, and small bug fixes in tests and error handling, Feb 2020, Matthias Cuntz
 * v0.9, Renamed morris.py to morris_method.py and adapted args and kwargs to common names in pyeee, Feb 2020, Matthias Cuntz
+* v1.0, Restructured package with functions and utils subpackages, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
-__version__ = "0.9"
+
+__version__ = "1.0"

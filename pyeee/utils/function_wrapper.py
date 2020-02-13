@@ -40,7 +40,7 @@ Released under the MIT License; see LICENSE file for details.
 
 .. moduleauthor:: Matthias Cuntz
 
-The following wrappers are provided
+The following wrappers are provided:
 
 .. autosummary::
    exe_wrapper

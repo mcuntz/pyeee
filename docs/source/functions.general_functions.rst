@@ -1,7 +1,7 @@
 pyeee.general_functions
 =======================
 
-.. automodule:: pyeee.general_functions
+.. automodule:: pyeee.functions.general_functions
    :members:
    :undoc-members:
    :inherited-members:

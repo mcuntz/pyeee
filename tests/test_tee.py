@@ -15,7 +15,7 @@ class TestTee(unittest.TestCase):
 
     def test_tee(self):
         import os
-        from pyeee import tee
+        from pyeee.utils import tee
 
         tee('T T T Test 1')
         ff = open('log.txt', 'w')

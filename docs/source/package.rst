@@ -11,11 +11,11 @@ pyeee API
 .. toctree::
 
    eee.rst
-   function_wrapper.rst
-   general_functions.rst
-   morris_method.rst
-   sa_test_functions.rst
    screening.rst
-   std_io.rst
-   tee.rst
-   utils.rst
+   morris_method.rst
+   functions.general_functions.rst
+   functions.sa_test_functions.rst
+   functions.utils.rst
+   utils.function_wrapper.rst
+   utils.std_io.rst
+   utils.tee.rst

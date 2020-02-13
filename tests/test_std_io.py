@@ -17,7 +17,7 @@ class TestStd_io(unittest.TestCase):
     def test_std_io_sub_ja(self):
         import os
         import numpy as np
-        from pyeee import sub_ja_params_files
+        from pyeee.utils import sub_ja_params_files
 
         # standard_parameter_writer without pid
         filename1 = 'params1.txt'
@@ -72,8 +72,8 @@ class TestStd_io(unittest.TestCase):
     def test_std_io_sub_names_params(self):
         import os
         import numpy as np
-        from pyeee import sub_names_params_files_ignorecase, sub_names_params_files_case
-        from pyeee import sub_names_params_files
+        from pyeee.utils import sub_names_params_files_ignorecase, sub_names_params_files_case
+        from pyeee.utils import sub_names_params_files
 
         # ignore case
         filename1 = 'params11.txt'
@@ -232,10 +232,10 @@ class TestStd_io(unittest.TestCase):
     def test_std_io_standard(self):
         import os
         import numpy as np
-        from pyeee import standard_parameter_writer, standard_parameter_reader
-        from pyeee import standard_parameter_writer_bounds_mask, standard_parameter_reader_bounds_mask
-        from pyeee import standard_objective_reader
-        from pyeee import standard_timeseries_reader, standard_time_series_reader
+        from pyeee.utils import standard_parameter_writer, standard_parameter_reader
+        from pyeee.utils import standard_parameter_writer_bounds_mask, standard_parameter_reader_bounds_mask
+        from pyeee.utils import standard_objective_reader
+        from pyeee.utils import standard_timeseries_reader, standard_time_series_reader
         
         # standard_parameter_reader/writer without pid
         filename = 'params.txt'

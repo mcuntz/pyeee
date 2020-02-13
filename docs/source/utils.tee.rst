@@ -1,7 +1,7 @@
-pyeee.sa_test_functions
-=======================
+pyeee.tee
+=================
 
-.. automodule:: pyeee.sa_test_functions
+.. automodule:: pyeee.utils.tee
    :members:
    :undoc-members:
    :inherited-members:

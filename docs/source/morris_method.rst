@@ -1,7 +1,7 @@
 pyeee.morris
 =================
 
-.. automodule:: pyeee.morris
+.. automodule:: pyeee.morris_method
    :members:
    :undoc-members:
    :inherited-members:

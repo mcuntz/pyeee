@@ -30,7 +30,7 @@ Released under the MIT License; see LICENSE file for details.
 
 .. moduleauthor:: Matthias Cuntz
 
-The following functions are provided
+The following functions are provided:
 
 .. autosummary::
    sub_ja_params_files

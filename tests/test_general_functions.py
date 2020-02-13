@@ -16,13 +16,13 @@ class TestGeneralFunctions(unittest.TestCase):
     def test_general_functions(self):
         import os
         import numpy as np
-        from pyeee import curvature
-        from pyeee import logistic, logistic_offset, logistic2_offset
-        from pyeee import dlogistic, dlogistic_offset, dlogistic2_offset
-        from pyeee import d2logistic, d2logistic_offset, d2logistic2_offset
-        from pyeee import logistic_p, logistic_offset_p, logistic2_offset_p
-        from pyeee import dlogistic_p, dlogistic_offset_p, dlogistic2_offset_p
-        from pyeee import d2logistic_p, d2logistic_offset_p, d2logistic2_offset_p
+        from pyeee.functions import curvature
+        from pyeee.functions import logistic, logistic_offset, logistic2_offset
+        from pyeee.functions import dlogistic, dlogistic_offset, dlogistic2_offset
+        from pyeee.functions import d2logistic, d2logistic_offset, d2logistic2_offset
+        from pyeee.functions import logistic_p, logistic_offset_p, logistic2_offset_p
+        from pyeee.functions import dlogistic_p, dlogistic_offset_p, dlogistic2_offset_p
+        from pyeee.functions import d2logistic_p, d2logistic_offset_p, d2logistic2_offset_p
 
         self.assertEqual(logistic(1.,  1., 0., 2.), 0.5)
         self.assertEqual(logistic(1.,  1., 2., 1.), 0.5)

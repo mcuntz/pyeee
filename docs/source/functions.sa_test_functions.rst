@@ -1,7 +1,7 @@
-pyeee.std_io
+pyeee.sa_test_functions
 =======================
 
-.. automodule:: pyeee.std_io
+.. automodule:: pyeee.functions.sa_test_functions
    :members:
    :undoc-members:
    :inherited-members:

@@ -1,7 +1,7 @@
-pyeee.utils
-=================
+pyeee.std_io
+=======================
 
-.. automodule:: pyeee.utils
+.. automodule:: pyeee.utils.std_io
    :members:
    :undoc-members:
    :inherited-members:

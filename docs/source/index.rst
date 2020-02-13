@@ -140,7 +140,7 @@ Function wrappers
 
 .. code-block:: python
 
-    from pyeee import func_wrapper
+    from pyeee.utils import func_wrapper
     args = [a, b]
     kwargs = {}
     func = partial(func_wrapper, ishigami, args, kwargs)

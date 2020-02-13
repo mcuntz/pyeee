@@ -137,7 +137,7 @@ can then simply call it as `func(x)`, so that `x` is passed to
 *pyeee* provides wrappers to use with partial.
 
 ```python
-	from pyeee import func_wrapper
+	from pyeee.utils import func_wrapper
 	args = [a, b]
 	kwargs = {}
 	func = partial(func_wrapper, ishigami, args, kwargs)

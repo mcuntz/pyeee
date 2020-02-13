@@ -11,8 +11,6 @@ import unittest
 
 # --------------------------------------------------------------------
 # sa_test_functions.py
-# Missing coverage:
-#    521: morris as wrapper to fmorris not working because morris is also the name of a module here
 class TestSATestFunctions(unittest.TestCase):
 
     def setUp(self):
@@ -24,8 +22,8 @@ class TestSATestFunctions(unittest.TestCase):
     def test_sa_test_functions(self):
         import os
         import numpy as np
-        from pyeee import B, g, G, Gstar, K, bratley, oakley_ohagan, ishigami_homma
-        from pyeee import linear, product, ratio, ishigami_homma_easy, fmorris, morris
+        from pyeee.functions import B, g, G, Gstar, K, bratley, oakley_ohagan, ishigami_homma
+        from pyeee.functions import linear, product, ratio, ishigami_homma_easy, fmorris, morris
 
         # scalar
         self.assertEqual(B(np.arange(10)), 80)

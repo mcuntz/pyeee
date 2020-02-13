@@ -28,18 +28,14 @@ The following functions are provided
 """
 import numpy as np
 import scipy.optimize as opt
-# from pyeee import tee
-# from pyeee import cost_square
-# from pyeee import curvature, logistic_offset_p, dlogistic, d2logistic
-# from pyeee import screening
-from .tee import tee
-from .utils import cost_square
-from .general_functions import curvature, logistic_offset_p, dlogistic, d2logistic
-from .screening import screening
-# from tee import tee
-# from utils import cost_square
-# from general_functions import curvature, logistic_offset_p, dlogistic, d2logistic
-# from screening import screening
+from pyeee import screening
+from pyeee.functions import cost_square
+from pyeee.functions import curvature, logistic_offset_p, dlogistic, d2logistic
+from pyeee.utils import tee
+# from .tee import tee
+# from .utils import cost_square
+# from .general_functions import curvature, logistic_offset_p, dlogistic, d2logistic
+# from .screening import screening
 
 
 __all__ = ['eee', 'see']

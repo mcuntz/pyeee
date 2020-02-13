@@ -35,8 +35,9 @@ class TestFunctionWrapper(unittest.TestCase):
     def test_func_wrapper(self):
         from functools import partial
         import numpy as np
-        from pyeee import ee, ishigami_homma
-        from pyeee import func_wrapper
+        from pyeee import ee
+        from pyeee.functions import ishigami_homma
+        from pyeee.utils import func_wrapper
 
         func  = ishigami_homma
         npars = 3
@@ -59,8 +60,9 @@ class TestFunctionWrapper(unittest.TestCase):
     def test_func_mask_wrapper(self):
         from functools import partial
         import numpy as np
-        from pyeee import ee, ishigami_homma
-        from pyeee import func_mask_wrapper
+        from pyeee import ee
+        from pyeee.functions import ishigami_homma
+        from pyeee.utils import func_mask_wrapper
 
         func  = ishigami_homma
         npars = 3
@@ -89,7 +91,8 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.functions import ishigami_homma
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3
@@ -114,8 +117,9 @@ class TestFunctionWrapper(unittest.TestCase):
     def test_exe_wrapper_error(self):
         from functools import partial
         import numpy as np
-        from pyeee import ee, ishigami_homma
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee import ee
+        from pyeee.functions import ishigami_homma
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ishigami_homma
         npars = 3
@@ -139,7 +143,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3
@@ -165,7 +169,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3
@@ -191,7 +195,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3
@@ -217,7 +221,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = './tests/ishiexe.sh'
         npars = 3
@@ -243,7 +247,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = './tests/ishiexe.sh'
         npars = 3
@@ -269,7 +273,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3
@@ -298,8 +302,9 @@ class TestFunctionWrapper(unittest.TestCase):
     def test_exe_mask_wrapper_error(self):
         from functools import partial
         import numpy as np
-        from pyeee import ee, ishigami_homma
-        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee import ee
+        from pyeee.functions import ishigami_homma
+        from pyeee.utils import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ishigami_homma
         npars = 3
@@ -327,7 +332,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3
@@ -357,7 +362,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = './tests/ishiexe.sh'
         npars = 3
@@ -387,7 +392,7 @@ class TestFunctionWrapper(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import ee
-        from pyeee import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
+        from pyeee.utils import exe_mask_wrapper, standard_parameter_writer, standard_objective_reader
         
         ishi  = ['python3', 'tests/ishiexe.py']
         npars = 3

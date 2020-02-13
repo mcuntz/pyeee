@@ -13,5 +13,9 @@ Copyright (c) 2012-2020 Matthias Cuntz, Juliane Mai
 
 ## Main Authors
 
-- [Matthias Cuntz](https://github.com/mcuntz), Email:  mc (at) macu (dot) de
-- [Juliane Mai](https://github.com/jmai)
+- [Matthias Cuntz](https://github.com/mcuntz), E-mail:  mc (at) macu (dot) de
+- [Juliane Mai](https://github.com/julemai)
+
+## Contributing Authors
+
+- [Sebastian Müller](https://github.com/MuellerSeb)

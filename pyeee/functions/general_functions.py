@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import division, absolute_import, print_function
 """
-Module with general functions, derivatives, etc. for Efficient/Sequential Elementary Effects.
+Module with general functions, derivatives, etc.
 
 The current functions are:
     curvature             Curvature of function f: f''/(1+f'^2)^3/2
@@ -41,7 +41,7 @@ Released under the MIT License; see LICENSE file for details.
 
 .. moduleauthor:: Matthias Cuntz
 
-The following functions are provided
+The following functions are provided:
 
 .. autosummary::
     curvature
@@ -137,7 +137,7 @@ def logistic(x, L, k, x0):
 
 def logistic_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.logistic`: `logistic(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.logistic`: `logistic(x, *p)`.
     """
     return logistic(x, *p)
 
@@ -175,7 +175,7 @@ def dlogistic(x, L, k, x0):
 
 def dlogistic_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.dlogistic`: `dlogistic(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.dlogistic`: `dlogistic(x, *p)`.
     """
     return dlogistic(x, *p)
 
@@ -214,7 +214,7 @@ def d2logistic(x, L, k, x0):
 
 def d2logistic_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.d2logistic`: `d2logistic(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.d2logistic`: `d2logistic(x, *p)`.
     """
     return d2logistic(x, *p)
 
@@ -250,7 +250,7 @@ def logistic_offset(x, L, k, x0, a):
 
 def logistic_offset_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.logistic_offset`: `logistic_offset(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.logistic_offset`: `logistic_offset(x, *p)`.
     """
     return logistic_offset(x, *p)
 
@@ -291,7 +291,7 @@ def dlogistic_offset(x, L, k, x0, a):
 
 def dlogistic_offset_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.dlogistic_offset`: `dlogistic_offset(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.dlogistic_offset`: `dlogistic_offset(x, *p)`.
     """
     return dlogistic_offset(x, *p)
 
@@ -333,7 +333,7 @@ def d2logistic_offset(x, L, k, x0, a):
 
 def d2logistic_offset_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.d2logistic_offset`: `d2logistic_offset(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.d2logistic_offset`: `d2logistic_offset(x, *p)`.
     """
     return d2logistic_offset(x, *p)
 
@@ -375,7 +375,7 @@ def logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
 def logistic2_offset_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.logistic2_offset`: `logistic2_offset(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.logistic2_offset`: `logistic2_offset(x, *p)`.
     """
     return logistic2_offset(x, *p)
 
@@ -422,7 +422,7 @@ def dlogistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
 def dlogistic2_offset_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.dlogistic2_offset`: `dlogistic2_offset(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.dlogistic2_offset`: `dlogistic2_offset(x, *p)`.
     """
     return dlogistic2_offset(x, *p)
 
@@ -471,7 +471,7 @@ def d2logistic2_offset(x, L1, k1, x01, L2, k2, x02, a):
 
 def d2logistic2_offset_p(x, p):
     """
-    Wrapper function for :func:`~pyeee.general_functions.d2logistic2_offset`: `d2logistic2_offset(x, *p)`.
+    Wrapper function for :func:`~pyeee.functions.general_functions.d2logistic2_offset`: `d2logistic2_offset(x, *p)`.
     """
     return d2logistic2_offset(x, *p)
 

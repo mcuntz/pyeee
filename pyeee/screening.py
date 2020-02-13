@@ -34,7 +34,6 @@ The following functions are provided
 import numpy as np
 # from pyeee import morris_sampling, elementary_effects
 from .morris_method import morris_sampling, elementary_effects
-# from morris import morris_sampling, elementary_effects
 
 
 __all__ = ['screening', 'ee']

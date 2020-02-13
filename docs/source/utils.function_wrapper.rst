@@ -1,7 +1,7 @@
-pyeee.tee
-=================
+pyeee.function_wrapper
+=======================
 
-.. automodule:: pyeee.tee
+.. automodule:: pyeee.utils.function_wrapper
    :members:
    :undoc-members:
    :inherited-members:

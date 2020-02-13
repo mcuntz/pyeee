@@ -44,8 +44,9 @@ class TestEee(unittest.TestCase):
     def test_eee_g(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, eee
-        from pyeee import G
+        from pyeee import eee
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import G
 
         # Function and parameters
         func   = G
@@ -73,8 +74,9 @@ class TestEee(unittest.TestCase):
     def test_see_gstar(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, eee, see
-        from pyeee import Gstar
+        from pyeee import eee, see
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import Gstar
 
         # Function and parameters
         func   = Gstar
@@ -115,8 +117,9 @@ class TestEee(unittest.TestCase):
         import os
         import numpy as np
         import schwimmbad
-        from pyeee import func_wrapper, eee
-        from pyeee import bratley
+        from pyeee import eee
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import bratley
 
         # Function and parameters
         func   = bratley
@@ -147,8 +150,9 @@ class TestEee(unittest.TestCase):
         from functools import partial
         import os
         import numpy as np
-        from pyeee import func_wrapper, eee
-        from pyeee import fmorris
+        from pyeee import eee
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import fmorris
 
         # Function and parameters
         func = fmorris

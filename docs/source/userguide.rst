@@ -274,11 +274,11 @@ finished and `x`, `a` and `b` are passed to `ishigami`.
 ``pyeee`` provides wrapper functions to work with
 :any:`functools.partial`. `call_ishigami` can be replaced by the
 wrapper function of ``pyeee``:
-:func:`~pyeee.function_wrapper.func_wrapper`:
+:func:`~pyeee.utils.function_wrapper.func_wrapper`:
 
 .. code-block:: python
 
-    from pyeee import func_wrapper
+    from pyeee.utils import func_wrapper
     arg   = [a, b]
     kwarg = {}
     func  = partial(func_wrapper, ishigami, arg, kwarg)
@@ -291,7 +291,7 @@ finally passes `x`, `arg` and `kwarg` to `func(x, *arg, **kwarg)`.
 ``pyeee`` provides also a wrapper function to work with masks as
 above. To exclude the second parameter :math:`x_1` from screening of
 the Ishigami-Homma function again, `x0` and `mask` must be given to
-:func:`~pyeee.function_wrapper.func_mask_wrapper` as well. Then
+:func:`~pyeee.utils.function_wrapper.func_mask_wrapper` as well. Then
 Elementary Effects will be calculated only for the remaining
 parameters, between `lb[mask]` and `ub[mask]`. All other
 non-masked parameters will be taken as `x0`. Remember that `mask` is
@@ -300,7 +300,7 @@ an include-mask, i.e. all `mask==True` will be screened and all
 
 .. code-block:: python
 
-    from pyeee import func_mask_wrapper
+    from pyeee.utils import func_mask_wrapper
     func = partial(func_mask_wrapper, ishigami, x0, mask, arg, kwarg)
     out  = ee(func, lb[mask], ub[mask])
 
@@ -354,7 +354,7 @@ effects :func:`~pyeee.screening.ee`:
     def ishigami(x, a, b):
         return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
 
-    from pyeee import func_wrapper
+    from pyeee.utils import func_wrapper
     arg   = [a, b]
     kwarg = {}
     func  = partial(func_wrapper, ishigami, arg, kwarg)
@@ -379,12 +379,12 @@ effects :func:`~pyeee.screening.ee`:
 sensitive parameters and `False` for noninformative parameters. The
 mask can be combined by `logical_and` with an incoming mask.
 
-Note if you use :func:`~pyeee.function_wrapper.func_mask_wrapper`, `out`
+Note if you use :func:`~pyeee.utils.function_wrapper.func_mask_wrapper`, `out`
 has the dimension of the `mask==True` elements:
 
 .. code-block:: python
 
-    from pyeee import func_mask_wrapper
+    from pyeee.utils import func_mask_wrapper
     func = partial(func_mask_wrapper, ishigami, x0, mask, arg, kwarg)
     out  = eee(func, lb[mask], ub[mask])
 
@@ -469,7 +469,7 @@ reading in the three parameters :math:`x_0, x_1, x_2` from a
         return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
 
     # read parameters
-    from pyeee import standard_parameter_reader
+    from pyeee.utils import standard_parameter_reader
     ## from std_io import standard_parameter_reader
     pfile = 'params.txt'
     x = standard_parameter_reader(pfile)
@@ -490,12 +490,12 @@ This program can be called on the command line with:
     python ishiexe.py
 
 The external program can be used in ``pyeee`` with :any:`functools.partial` and the
-wrapper function :func:`~pyeee.function_wrapper.exe_wrapper`:
+wrapper function :func:`~pyeee.utils.function_wrapper.exe_wrapper`:
 
 .. code-block:: python
 
     from functools import partial
-    from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+    from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
     ishi = ['python', 'ishiexe.py']
     parameterfile = 'params.txt'
     objectivefile = 'obj.txt'
@@ -509,10 +509,10 @@ wrapper function :func:`~pyeee.function_wrapper.exe_wrapper`:
     from pyeee import ee
     out = ee(func, lb, ub)
 
-:func:`~pyeee.std_io.standard_parameter_reader` and
-:func:`~pyeee.std_io.standard_parameter_writer` are convenience
+:func:`~pyeee.utils.std_io.standard_parameter_reader` and
+:func:`~pyeee.utils.std_io.standard_parameter_writer` are convenience
 functions that read and write one parameter per line in a file without
-a header. The function :func:`~pyeee.std_io.standard_objective_reader`
+a header. The function :func:`~pyeee.utils.std_io.standard_objective_reader`
 simply reads one value from a file without header. The empty directory
 at the end will be explained below at `Further arguments of wrappers`_.
 
@@ -523,11 +523,11 @@ any compiled executable from C, Fortran or alike.
 Exclude parameters from screening
 ---------------------------------
 
-Similar to :func:`~pyeee.function_wrapper.func_mask_wrapper`, there is
+Similar to :func:`~pyeee.utils.function_wrapper.func_mask_wrapper`, there is
 also a wrapper to work with masks and external executables:
-:func:`~pyeee.function_wrapper.exe_mask_wrapper`. To exclude the second parameter :math:`x_1` from screening of
+:func:`~pyeee.utils.function_wrapper.exe_mask_wrapper`. To exclude the second parameter :math:`x_1` from screening of
 the Ishigami-Homma function again, `x0` and `mask` must be given to
-:func:`~pyeee.function_wrapper.exe_mask_wrapper` as well. Remember that `mask` is
+:func:`~pyeee.utils.function_wrapper.exe_mask_wrapper` as well. Remember that `mask` is
 an include-mask, i.e. all `mask==True` will be screened and all
 `mask==False` will not be screened:
 
@@ -561,8 +561,8 @@ Further arguments of wrappers
 -----------------------------
 
 The user can pass further arguments to
-:func:`~pyeee.function_wrapper.exe_wrapper` and
-:func:`~pyeee.function_wrapper.exe_mask_wrapper` via a dictionary at
+:func:`~pyeee.utils.function_wrapper.exe_wrapper` and
+:func:`~pyeee.utils.function_wrapper.exe_mask_wrapper` via a dictionary at
 the end of the call. Setting the key `shell` to `True` passes
 `shell=True` to :func:`subprocess.check_output`, which makes
 :func:`subprocess.check_output` open a shell for running the external
@@ -603,12 +603,12 @@ parameter value, 4. maximum parameter value, 5. parameter mask, e.g.:
     3 1.0 -3.1415 3.1415 1
 
 One can use
-:func:`~pyeee.std_io.standard_parameter_reader_bounds_mask` in this
+:func:`~pyeee.utils.std_io.standard_parameter_reader_bounds_mask` in this
 case. Parameter bounds and mask can be passed via `pargs`:
 
 .. code-block:: python
 
-    from pyeee import standard_parameter_reader_bounds_mask
+    from pyeee.utils import standard_parameter_reader_bounds_mask
     ishi = ['python', 'ishiexe.py']
     func = partial(exe_wrapper, ishi,
                    parameterfile, standard_parameter_reader_bounds_mask,
@@ -620,7 +620,7 @@ Or in case of exclusion of :math:`x_1`:
 
 .. code-block:: python
 
-    from pyeee import standard_parameter_reader_bounds_mask
+    from pyeee.utils import standard_parameter_reader_bounds_mask
     func = partial(exe_mask_wrapper, ishi, x0, mask,
                    parameterfile, standard_parameter_reader_bounds_mask,
 		   objectivefile, standard_objective_reader,
@@ -641,13 +641,13 @@ the sampled parameter values. The parameterfile might look like:
       x2 = 1.0
     /
 
-The function :func:`~pyeee.std_io.sub_names_params_files` (which is
-identical to :func:`~pyeee.std_io.sub_names_params_files_ignorecase`)
+The function :func:`~pyeee.utils.std_io.sub_names_params_files` (which is
+identical to :func:`~pyeee.utils.std_io.sub_names_params_files_ignorecase`)
 can be used and parameter names are passed via `pargs`:
 
 .. code-block:: python
 
-    from pyeee import sub_names_params_files
+    from pyeee.utils import sub_names_params_files
     pnames = ['x0', 'x1', 'x2']
     func = partial(exe_wrapper, ishi,
                    parameterfile, sub_names_params_files,
@@ -656,12 +656,12 @@ can be used and parameter names are passed via `pargs`:
     out  = ee(func, lb, ub)
 
 `parameterfile` can be a list of parameterfiles in case of
-:func:`~pyeee.std_io.sub_names_params_files`. `pid` will be explained
+:func:`~pyeee.utils.std_io.sub_names_params_files`. `pid` will be explained
 in the next section. Note that `pargs` is set to `[pnames]`. Setting
 `'pargs':pnames` would give `*pnames` to the parameterwriter, that
 means each parameter name as an individual argument, which would be
 wrong because it wants to have a list of parameter names. The
-docstring of :func:`~pyeee.function_wrapper.exe_wrapper` states:
+docstring of :func:`~pyeee.utils.function_wrapper.exe_wrapper` states:
 
 .. code-block:: none
 
@@ -671,21 +671,21 @@ docstring of :func:`~pyeee.function_wrapper.exe_wrapper` states:
     or if pid==True:
         parameterwriter(parameterfile, pid, x, *pargs, **pkwargs)
 
-And the definition of :func:`~pyeee.std_io.sub_names_params_files` is:
+And the definition of :func:`~pyeee.utils.std_io.sub_names_params_files` is:
 
 .. code-block:: python
 
     def sub_names_params_files_ignorecase(files, pid, params, names):
 
 so `*pargs` passes `*[pnames]` that means `pnames` as argument after the
-parameters to :func:`~pyeee.std_io.sub_names_params_files`.
+parameters to :func:`~pyeee.utils.std_io.sub_names_params_files`.
 
 Excluding :math:`x_1` would then be achieved by simply excluding `x1`
 from `pnames`:
 
 .. code-block:: python
 
-    from pyeee import sub_names_params_files
+    from pyeee.utils import sub_names_params_files
     pnames = ['x0', 'x2']
     func = partial(exe_wrapper, ishi,
                    parameterfile, sub_names_params_files,
@@ -705,7 +705,7 @@ times in the same directory at the same time, all model runs would
 read the same parameter file and overwrite the output of each
 other.
 
-:func:`~pyeee.function_wrapper.exe_wrapper` concatenates an individual
+:func:`~pyeee.utils.function_wrapper.exe_wrapper` concatenates an individual
 integer number to the function string (or list, see
 :any:`subprocess`), adds the integer to call of `parameterwrite` and
 appends the number to the `objectivefile`, like:
@@ -739,7 +739,7 @@ The `parameterwriter` is supposed to write `parameterfile+'.'+ipid`
         return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
 
     # read parameters
-    from pyeee import standard_parameter_reader
+    from pyeee.utils import standard_parameter_reader
     ## from std_io import standard_parameter_reader
     pfile = 'params.txt'
     if pid is not None:
@@ -757,12 +757,12 @@ The `parameterwriter` is supposed to write `parameterfile+'.'+ipid`
     print(y, file=ff)
     ff.close()
 
-:func:`~pyeee.function_wrapper.exe_wrapper` would then be used with
+:func:`~pyeee.utils.function_wrapper.exe_wrapper` would then be used with
 `'pid':True` and one can use several parallel processes:
 
 .. code-block:: python
 
-    from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+    from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
     ishi = ['python3', 'ishiexe1.py']
     parameterfile = 'params.txt'
     objectivefile = 'obj.txt'
@@ -774,7 +774,7 @@ The `parameterwriter` is supposed to write `parameterfile+'.'+ipid`
     ub = np.ones(npars) * np.pi
     out = ee(func, lb, ub, processes=8)
 
-Note that :func:`~pyeee.std_io.sub_names_params_files` writes
+Note that :func:`~pyeee.utils.std_io.sub_names_params_files` writes
 `parameterfile+'.'+ipid` and does not work with `'pid':False`.
 
 If you cannot change your computational model, you can use, for
@@ -811,7 +811,7 @@ which would then be used:
 .. code-block:: python
 
     from functools import partial
-    from pyeee import exe_wrapper, standard_parameter_writer, standard_objective_reader
+    from pyeee.utils import exe_wrapper, standard_parameter_writer, standard_objective_reader
     ishi = './ishiexe.sh'
     parameterfile = 'params.txt'
     objectivefile = 'obj.txt'

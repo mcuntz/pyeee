@@ -2,6 +2,9 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v1.0
+    - Restructured package with functions and utils subpackages.
+
 ### v0.9
     - Added mention to template of Sebastian Mueller in README.md and documentation.
     - Renamed morris.py to morris_method.py.

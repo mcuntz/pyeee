@@ -12,8 +12,8 @@ import unittest
 # --------------------------------------------------------------------
 # screening.py
 # Missing coverage:
-#    169-172: MPI
-#    233: function has multiple outputs
+#    170-173: MPI
+#    234: function has multiple outputs
 class TestScreening(unittest.TestCase):
 
     def setUp(self):
@@ -31,8 +31,9 @@ class TestScreening(unittest.TestCase):
     def test_ee_g(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee import G
+        from pyeee import ee
+        from pyeee.functions import G
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = G
@@ -60,8 +61,9 @@ class TestScreening(unittest.TestCase):
     def test_ee_g_mask(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee import G
+        from pyeee import ee
+        from pyeee.functions import G
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = G
@@ -92,8 +94,9 @@ class TestScreening(unittest.TestCase):
     def test_ee_g_mask_error(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee import G
+        from pyeee import ee
+        from pyeee.functions import G
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = G
@@ -121,8 +124,9 @@ class TestScreening(unittest.TestCase):
     def test_ee_g_nt1(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee import G
+        from pyeee import ee
+        from pyeee.functions import G
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = G
@@ -151,8 +155,9 @@ class TestScreening(unittest.TestCase):
         from functools import partial
         import numpy as np
         import schwimmbad
-        from pyeee import func_wrapper, ee
-        from pyeee import G
+        from pyeee import ee
+        from pyeee.functions import G
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = G
@@ -183,8 +188,9 @@ class TestScreening(unittest.TestCase):
     def test_ee_g_1(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee import G
+        from pyeee import ee
+        from pyeee.functions import G
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = G
@@ -210,8 +216,9 @@ class TestScreening(unittest.TestCase):
     def test_screening_gstar(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee, screening
-        from pyeee import Gstar
+        from pyeee import ee, screening
+        from pyeee.functions import Gstar
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = Gstar
@@ -251,8 +258,9 @@ class TestScreening(unittest.TestCase):
         from functools import partial
         import os
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee import bratley
+        from pyeee import ee
+        from pyeee.functions import bratley
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func   = bratley
@@ -272,11 +280,12 @@ class TestScreening(unittest.TestCase):
 
 
     # Morris function
-    def test_ee_morris(self):
+    def test_ee_fmorris(self):
         from functools import partial
         import numpy as np
-        from pyeee import func_wrapper, ee
-        from pyeee.sa_test_functions import morris as  fmorris
+        from pyeee import ee
+        from pyeee.functions import fmorris
+        from pyeee.utils import func_wrapper
 
         # Function and parameters
         func = fmorris
