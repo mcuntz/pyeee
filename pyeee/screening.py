@@ -22,6 +22,7 @@ Released under the MIT License; see LICENSE file for details.
 * Distinguish iterable and array_like parameter types; added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
 * InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz
 * Use new names of kwargs of morris_sampling and elementary_effects, Feb 2020, Matthias Cuntz
+* Make number of final trajectories an argument instead of a keyword argument, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -39,8 +40,8 @@ from .morris_method import morris_sampling, elementary_effects
 __all__ = ['screening', 'ee']
 
 
-def screening(func, lb, ub, x0=None, mask=None,
-              nt=-1, nsteps=6, ntotal=-1,
+def screening(func, lb, ub, nt, x0=None, mask=None,
+              nsteps=6, ntotal=None,
               seed=None,
               processes=1, pool=None,
               verbose=0):
@@ -57,17 +58,17 @@ def screening(func, lb, ub, x0=None, mask=None,
         Lower bounds of parameters.
     ub : array_like
         Upper bounds of parameters.
+    nt : int
+        Number of trajectories used for screening.
     x0 : array_like, optional
         Parameter values used with `mask==0`.
     mask : array_like, optional
         Include (1,True) or exclude (0,False) parameters in screening (default: include all parameters).
-    nt : int, optional
-        Number of trajectories used for screening (default: `len(lb)`)
     nsteps : int, optional
         Number of steps along one trajectory (default: 6)
     ntotal : int, optional
-        Total number of trajectories to sample
-        to select the nt most different trajectories (default: `max(nt**2,10*nt)`)
+        Total number of sampled trajectories to select the nt most different trajectories.
+        If None: `max(nt**2,10*nt)` (default: None)
     seed : int or array_like
         Seed for numpy``s random number generator (default: None).
     processes : int, optional
@@ -141,7 +142,7 @@ def screening(func, lb, ub, x0=None, mask=None,
     >>> ntotal  = 10*nt
     >>> nsteps  = 6
     >>> verbose = 0
-    >>> out = screening(func, lb, ub, x0=None, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=verbose)
+    >>> out = screening(func, lb, ub, nt, x0=None, mask=None, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=verbose)
     >>> print(out[0:3,0])
     [60.7012889  67.33372626 48.46673528]
 
@@ -160,6 +161,7 @@ def screening(func, lb, ub, x0=None, mask=None,
                                          - added seed
               Matthias Cuntz,   Feb 2020 - InputError -> TypeError
                                          - use new names of kwargs of moris_sampling
+              Matthias Cuntz,   Feb 2020 - number of final trajectories is argument, not keyword argument
     """
     # Get MPI communicator
     try:
@@ -195,9 +197,7 @@ def screening(func, lb, ub, x0=None, mask=None,
     else:
         imask  = mask
     nmask = np.sum(imask)
-    if nt <= 0:
-        nt = npara
-    if ntotal <= 0:
+    if ntotal is None:
         ntotal = max(nt**2, 10*nt)
 
     # Seed random number generator
@@ -205,7 +205,7 @@ def screening(func, lb, ub, x0=None, mask=None,
 
     # Sample trajectories
     if (crank==0) and (verbose > 0): print('Sample trajectories')
-    tmatrix, tvec = morris_sampling(nmask, lb[imask], ub[imask], nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
+    tmatrix, tvec = morris_sampling(nmask, lb[imask], ub[imask], nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
 
     if mask is None:
         x = tmatrix
@@ -304,7 +304,7 @@ if __name__ == '__main__':
     #     nsteps  = 6
     #     verbose = 1
 
-    #     out = screening(func, lb, ub, x0=None, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=1)
+    #     out = screening(func, lb, ub, nt, x0=None, mask=None, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=1)
 
     #     t2    = ptime.time()
 
@@ -340,7 +340,7 @@ if __name__ == '__main__':
     #     nsteps = 6
     #     verbose = 1
 
-    #     out = screening(func, lb, ub, arg=args, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=1)
+    #     out = screening(func, lb, ub, nt, arg=args, mask=None, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=1)
     #     t2    = ptime.time()
 
     #     if crank == 0:
@@ -377,7 +377,7 @@ if __name__ == '__main__':
     #     nsteps = 6
     #     verbose = 1
 
-    #     out = screening(func, lb, ub, arg=args, mask=None, nt=nt, nsteps=nsteps, ntotal=ntotal,
+    #     out = screening(func, lb, ub, nt, arg=args, mask=None, nsteps=nsteps, ntotal=ntotal,
     #                     processes=processes, pool=pool, verbose=1)
     #     t2    = ptime.time()
 
@@ -422,7 +422,7 @@ if __name__ == '__main__':
     # nsteps  = 6
     # verbose = 1
 
-    # out = ee(obj, lb, ub, x0=None, mask=None, nt=nt, ntotal=ntotal, nsteps=nsteps, processes=4)
+    # out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal, nsteps=nsteps, processes=4)
     # print('G')
     # print(np.around(out[:,0],3))
 
@@ -472,8 +472,6 @@ if __name__ == '__main__':
     # # eee parameters
     # lb = np.zeros(npars)
     # ub = np.ones(npars)
-    # ntfirst = 10
-    # ntlast  = 5
     # nsteps = 6
     # verbose = 1
 
@@ -483,7 +481,7 @@ if __name__ == '__main__':
     #     kwarg = {}
     #     obj = partial(func_wrapper, func, arg, kwarg)
 
-    #     out = ee(obj, lb, ub, x0=None, mask=None, nt=nt, ntotal=ntotal, nsteps=nsteps, processes=4)
+    #     out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal, nsteps=nsteps, processes=4)
     #     print('G* ', ii)
     #     print(np.around(out[:,0],3))
 
@@ -500,12 +498,10 @@ if __name__ == '__main__':
     # # eee parameters
     # lb = np.zeros(npars)
     # ub = np.ones(npars)
-    # ntfirst = 10
-    # ntlast  = 5
     # nsteps = 6
     # verbose = 1
 
-    # out = ee(func, lb, ub, x0=None, mask=None, nt=nt, ntotal=ntotal, nsteps=nsteps, processes=4)
+    # out = ee(func, lb, ub, nt, x0=None, mask=None, ntotal=ntotal, nsteps=nsteps, processes=4)
     # print('K')
     # print(np.around(out[:,0],3))
 
@@ -536,12 +532,10 @@ if __name__ == '__main__':
     # # eee parameters
     # lb = np.zeros(npars)
     # ub = np.ones(npars)
-    # ntfirst = 10
-    # ntlast  = 5
     # nsteps = 6
     # verbose = 1
 
-    # out = ee(obj, lb, ub, x0=None, mask=None, nt=nt, ntotal=ntotal, nsteps=nsteps, processes=4)
+    # out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal, nsteps=nsteps, processes=4)
     # print('Morris')
     # print(np.around(out[:,0],3))
 
@@ -571,7 +565,7 @@ if __name__ == '__main__':
     # nsteps  = 6
 
     # out = ee(obj, lb[mask], ub[mask],
-    #          nt=nt, ntotal=ntotal, nsteps=nsteps,
+    #          nt, ntotal=ntotal, nsteps=nsteps,
     #          processes=1)
 
     # print(np.around(out[:,0],3))

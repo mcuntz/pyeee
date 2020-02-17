@@ -263,9 +263,9 @@ def eee(func, *args, **kwargs):
 
     # Step 1 of Cuntz et al. (2015) - first screening with ntfirst trajectories, calc mu*
     res = screening( # returns (npara,3) with mu*, mu, std if nt>1
-        func, lb, ub,
+        func, lb, ub, ntfirst,
         x0=ix0, mask=imask,
-        nt=ntfirst, nsteps=nsteps, ntotal=10*ntfirst,
+        nsteps=nsteps, ntotal=10*ntfirst,
         processes=processes, pool=ipool,
         verbose=0)
     if res.ndim > 2:
@@ -400,9 +400,9 @@ def eee(func, *args, **kwargs):
                     print('\nParameters remaining for iteration ', niter, ':', np.where(imask)[0] + 1, file=lfile)
         iimask = np.where(imask)[0]
         res = screening( # returns EE(parameters) if nt=1
-            func, lb, ub,
+            func, lb, ub, 1,
             x0=ix0, mask=imask,
-            nt=1, nsteps=nsteps, ntotal=10,
+            nsteps=nsteps, ntotal=10,
             processes=processes, pool=ipool,
             verbose=0)
 
@@ -457,9 +457,9 @@ def eee(func, *args, **kwargs):
     iimask = np.where(imask)[0]
 
     res = screening( # (npara,3) with mu*, mu, std if nt>1
-        func, lb, ub,
+        func, lb, ub, ntlast,
         x0=ix0, mask=imask,
-        nt=ntlast, nsteps=nsteps, ntotal=10 * ntlast,
+        nsteps=nsteps, ntotal=10 * ntlast,
         processes=processes, pool=ipool,
         verbose=0)
     if res.ndim > 2:

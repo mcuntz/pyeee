@@ -49,8 +49,8 @@ class TestScreening(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
-        out = ee(obj, lb, ub, x0=None, mask=None,
-                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+        out = ee(obj, lb, ub, self.nt, x0=None, mask=None,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
                  processes=1)
 
         # Check
@@ -82,8 +82,8 @@ class TestScreening(unittest.TestCase):
         mask = np.ones(npars, dtype=np.bool)
         mask[1] = False
 
-        out = ee(obj, lb, ub, x0=x0, mask=mask,
-                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+        out = ee(obj, lb, ub, self.nt, x0=x0, mask=mask,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
                  processes=1)
 
         # Check
@@ -115,8 +115,8 @@ class TestScreening(unittest.TestCase):
         mask = np.ones(npars, dtype=np.bool)
         mask[1] = False
 
-        self.assertRaises(TypeError, ee, obj, lb, ub, x0=None, mask=mask,
-                          nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+        self.assertRaises(TypeError, ee, obj, lb, ub, self.nt, x0=None, mask=mask,
+                          ntotal=self.ntotal, nsteps=self.nsteps,
                           processes=1)
             
 
@@ -142,8 +142,8 @@ class TestScreening(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
-        out = ee(obj, lb, ub, x0=None, mask=None,
-                 nt=1, ntotal=self.ntotal, nsteps=self.nsteps,
+        out = ee(obj, lb, ub, 1, x0=None, mask=None,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
                  processes=1)
 
         # Check
@@ -175,8 +175,8 @@ class TestScreening(unittest.TestCase):
 
         nprocs = 4
         ipool = schwimmbad.choose_pool(mpi=False, processes=nprocs)
-        out = ee(obj, lb, ub, x0=None, mask=None,
-                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+        out = ee(obj, lb, ub, self.nt, x0=None, mask=None,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
                  processes=nprocs, pool=ipool)
         ipool.close()
 
@@ -206,7 +206,7 @@ class TestScreening(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
-        out = ee(obj, lb, ub, processes=4)
+        out = ee(obj, lb, ub, npars, processes=4)
 
         # Check
         self.assertEqual(list(np.around(out[:,0],3)), [0.047, 0.233, 1.539, 0.747, 0.025, 0.077])
@@ -246,8 +246,8 @@ class TestScreening(unittest.TestCase):
             kwarg = {}
             obj   = partial(func_wrapper, func, arg, kwarg)
 
-            out = screening(obj, lb, ub, x0=None, mask=None,
-                            nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+            out = screening(obj, lb, ub, self.nt, x0=None, mask=None,
+                            ntotal=self.ntotal, nsteps=self.nsteps,
                             processes=1) #, plotfile='gstar'+str(ii)+'.png')
             # Check
             self.assertEqual(list(np.around(out[:,0],3)), iiout[ii])
@@ -271,8 +271,8 @@ class TestScreening(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
-        out = ee(func, lb, ub, x0=None, mask=None,
-                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+        out = ee(func, lb, ub, self.nt, x0=None, mask=None,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
                  processes=1)
 
         # Check
@@ -310,8 +310,8 @@ class TestScreening(unittest.TestCase):
         ub = np.ones(npars)
 
         # Check
-        out = ee(obj, lb, ub, x0=None, mask=None,
-                 nt=self.nt, ntotal=self.ntotal, nsteps=self.nsteps,
+        out = ee(obj, lb, ub, self.nt, x0=None, mask=None,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
                  processes=4)
 
         self.assertEqual(list(np.around(out[:,0],3)),

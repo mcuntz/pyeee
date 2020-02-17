@@ -49,7 +49,6 @@ Elementary Effects can be calculated as:
 .. code-block:: python
 
     from pyeee import ee
-    ## from screening import ee
 
     # function
     func  = ishigami1
@@ -182,7 +181,6 @@ Consider the following code in a script (e.g. `eeetest.py`):
        crank = 0
 
     from pyeee import ee
-    ## from screening import ee
 
     # function
     func  = ishigami1
@@ -367,7 +365,6 @@ effects :func:`~pyeee.screening.ee`:
 
     # Sequential Elementary Effects
     from pyeee import eee
-    ## from eee import eee
     np.random.seed(seed=1025) # for reproducibility of examples
     out = eee(func, lb, ub, ntfirst=10, ntlast=5, nsteps=6,
               processes=4)
@@ -470,7 +467,6 @@ reading in the three parameters :math:`x_0, x_1, x_2` from a
 
     # read parameters
     from pyeee.utils import standard_parameter_reader
-    ## from std_io import standard_parameter_reader
     pfile = 'params.txt'
     x = standard_parameter_reader(pfile)
 
@@ -740,7 +736,6 @@ The `parameterwriter` is supposed to write `parameterfile+'.'+ipid`
 
     # read parameters
     from pyeee.utils import standard_parameter_reader
-    ## from std_io import standard_parameter_reader
     pfile = 'params.txt'
     if pid is not None:
         pfile = pfile+'.'+pid

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import division, absolute_import, print_function
 """
-Module provides the Morris Method resp. Elementary Effects.
+Module provides the Morris Method of Elementary Effects.
 It includes optimised sampling of trajectories including optional groups
 as well as calculation of the Morris measures mu, stddev and mu*.
 
@@ -48,6 +48,7 @@ Released under the MIT License; see LICENSE file for details.
 * Plot diagnostic figures in png files if matplotlib installed, Feb 2020, Matthias Cuntz
 * Renamed file to morris_method.py, Feb 2020, Matthias Cuntz
 * Adjusted argument and keyword argument names to be consistent with rest of pyeee, Feb 2020, Matthias Cuntz
+* Make number of final trajectories an argument instead of a keyword argument and sample default of 10*final trajectories, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -234,8 +235,8 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
     return Outmatrix, OutFact
 
 
-def Optimized_Groups(NumFact, LB, UB,
-                     r=10, p=4, N=500,
+def Optimized_Groups(NumFact, LB, UB, r,
+                     p=6, N=None,
                      GroupMat=np.array([]), Diagnostic=0):
     """
         Optimisation in the choice of trajectories for Morris experiment,
@@ -244,7 +245,7 @@ def Optimized_Groups(NumFact, LB, UB,
 
         Definition
         ----------
-        def Optimized_Groups(NumFact, LB, UB, r=10, p=4, N=500, GroupMat=np.array([]), Diagnostic=0):
+        def Optimized_Groups(NumFact, LB, UB, r, p=6, N=None, GroupMat=np.array([]), Diagnostic=0):
 
 
         Input
@@ -252,13 +253,13 @@ def Optimized_Groups(NumFact, LB, UB,
         NumFact           Number of factors
         LB                [NumFact] Lower bound of the uniform distribution for each factor
         UB                [NumFact] Upper bound of the uniform distribution for each factor
+        r                 Final number of optimal trjectories
 
 
         Optional Input
         --------------
-        r                 Final number of optimal trjectories (default: 10)
-        p                 Number of levels (default: 4)
-        N                 Total number of trajectories (default: 500)
+        p                 Number of levels (default: 6)
+        N                 Total number of trajectories. If None: N=10*r (default: None)
         GroupMat          [NumFact,NumGroups] Matrix describing the groups.  (default: np.array([]))
                           Each column represents a group and its elements are set to 1 in correspondence
                           of the factors that belong to the fixed group. All the other elements are zero.
@@ -295,14 +296,19 @@ def Optimized_Groups(NumFact, LB, UB,
                                              large memory requirement.
                   Matthias Cuntz, Dec 2017 - Diagnostic plots in png files.
                   Matthias Cuntz, Feb 2020 - changed order or kwargs in call to Optimized_Groups
+                  Matthias Cuntz, Feb 2020 - number of final trajectories is argument, not keyword argument
+                                           - default number of levels/steps/intervals = 6
+                                           - default number of sampled trajectories = 10*number of final trajectories
     """
     from scipy.spatial import distance
     import scipy.stats as stats
 
-    LBt = np.zeros(NumFact)
-    UBt = np.ones(NumFact)
+    if N is None: N=10*r
 
     # np.random.seed(seed=1025)
+    # Sample trajectorie between 0 and 1. Will be rescaled to specific distributions later.
+    LBt = np.zeros(NumFact)
+    UBt = np.ones(NumFact)
     OutMatrix, OutFact = Sampling_Function_2(p, NumFact, N, LBt, UBt, GroupMat)  # Version with Groups
 
     try:
@@ -675,8 +681,8 @@ def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4,
     return SAmeas_out, OutMatrix
 
 
-def morris_sampling(nparam, LB, UB,
-                    nt=10, nsteps=4, ntotal=500,
+def morris_sampling(nparam, LB, UB, nt,
+                    nsteps=6, ntotal=None,
                     GroupMat=np.array([]), Diagnostic=0):
     """
     Sample trajectories in parameter space.
@@ -691,12 +697,12 @@ def morris_sampling(nparam, LB, UB,
         (nparam,) Lower bound of the uniform distribution for each parameter / factor
     UB : array_like
         (nparam,) Upper bound of the uniform distribution for each parameter / factor
-    nt : int, optional
-        Final number of optimal trajectories (default: 10)
+    nt : int
+        Final number of optimal trajectories
     nsteps : int, optional
-        Number of levels, i.e. intervals in trajectories (default: 4)
+        Number of levels, i.e. intervals in trajectories (default: 6)
     ntotal : int, optional
-        Total number of sampled trajectories (default: 500)
+        Total number of sampled trajectories. If None: ntotal=10*nt (default: None)
     GroupMat : ndarray, optional
         (nparam,ngroup) Matrix describing the groups. (default: np.array([]))
 
@@ -732,7 +738,7 @@ def morris_sampling(nparam, LB, UB,
     >>> nt     = npara
     >>> ntotal = max(nt**2, 10*nt)
     >>> nsteps = 6
-    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
+    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
     >>> # Set input vector to trajectories and masked elements = x0
     >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectorie values
@@ -758,8 +764,11 @@ def morris_sampling(nparam, LB, UB,
                                          large memory requirement.
               Matthias Cuntz, Jan 2020 - remove np.matrix in Sampling_Function_2, called in Optimized_Groups
               Matthias Cuntz, Feb 2020 - changed names and order of kwargs in call to morris_sampling
+              Matthias Cuntz, Feb 2020 - number of final trajectories is argument, not keyword argument
+                                       - default number of levels/steps/intervals = 6
+                                       - default number of sampled trajectories = 10*number of final trajectories
     """
-    return Optimized_Groups(nparam, LB, UB, r=nt, p=nsteps, N=ntotal, GroupMat=GroupMat, Diagnostic=Diagnostic)
+    return Optimized_Groups(nparam, LB, UB, nt, p=nsteps, N=ntotal, GroupMat=GroupMat, Diagnostic=Diagnostic)
 
 
 def elementary_effects(nparam, OptMatrix, OptOutVec, Output,
@@ -819,7 +828,7 @@ def elementary_effects(nparam, OptMatrix, OptOutVec, Output,
     >>> nt     = npara
     >>> ntotal = max(nt**2, 10*nt)
     >>> nsteps = 6
-    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], ntotal=ntotal, nsteps=nsteps, nt=nt, Diagnostic=False)
+    >>> tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt, ntotal=ntotal, nsteps=nsteps, Diagnostic=False)
     >>> # Set input vector to trajectories and masked elements = x0
     >>> x = np.tile(x0, tvec.size).reshape(tvec.size, npara) # default to x0
     >>> x[:,mask] = tmatrix  # replaced unmasked with trajectorie values
@@ -862,7 +871,7 @@ if __name__ == '__main__':
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
@@ -880,7 +889,7 @@ if __name__ == '__main__':
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
     # out[1:nt*nparam:nparam//2] = np.nan
-    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
@@ -897,7 +906,7 @@ if __name__ == '__main__':
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
     # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
     # print(np.around(sa[0:5].squeeze(),3))  #  (nparam,r) individual elementary effects for all parameters
@@ -914,7 +923,7 @@ if __name__ == '__main__':
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)
@@ -934,7 +943,7 @@ if __name__ == '__main__':
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
     # out[1:nt*nparam:nparam//2] = np.nan
-    # mat, vec = morris_sampling(nparam, LB, UB, nt=nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)

@@ -38,7 +38,7 @@ class TestMorris(unittest.TestCase):
         out = np.random.random(nt*(self.nparam+1))
 
         # Check 1
-        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=self.Diagnostic)
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=self.Diagnostic)
         self.assertEqual(list(np.around(mat[0,0:5],3)), [0.6, 2.2, 2., 4.6, 8.])
         self.assertEqual(list(np.around(vec[0:5],3)), [12., 11., 5., 1., 9.])
 
@@ -59,7 +59,7 @@ class TestMorris(unittest.TestCase):
         out = np.random.random(nt*(self.nparam+1))
 
         # Check 1
-        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=1)
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=1)
         self.assertEqual(list(np.around(mat[0,0:5],3)), [0.6, 2.2, 2., 4.6, 8.])
         self.assertEqual(list(np.around(vec[0:5],3)), [12., 11., 5., 1., 9.])
         self.assertTrue(os.path.exists('morris_diag_new_strategy.png'))
@@ -85,7 +85,7 @@ class TestMorris(unittest.TestCase):
         out = np.random.random(nt*(self.nparam+1))
         out[1:nt*self.nparam:self.nparam//2] = np.nan
 
-        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=self.Diagnostic)
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=self.Diagnostic)
         sa, res = elementary_effects(self.nparam, mat, vec, out, nsteps=nsteps)
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.368, 0.309, 0.549, 0.534, 0.65])
         self.assertEqual(list(np.around(sa[~np.isnan(sa[:,1]),1],3)),
@@ -101,7 +101,7 @@ class TestMorris(unittest.TestCase):
         ntotal = 100
         out = np.random.random(nt*(self.nparam+1))
 
-        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt=nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=self.Diagnostic)
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=self.Diagnostic)
         sa, res = elementary_effects(self.nparam, mat, vec, out, nsteps=nsteps)
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.579, 0.009, 0.239, 0.864, 0.876])
         self.assertEqual(list(np.around(sa[0:5].squeeze(),3)), [-0.579, -0.009, -0.239, -0.864, 0.876])
@@ -119,7 +119,7 @@ class TestMorris(unittest.TestCase):
         out = np.random.random(nt*(self.nparam+1))
 
         # Check 1
-        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt=nt, nsteps=nsteps, ntotal=ntotal,
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt, nsteps=nsteps, ntotal=ntotal,
                                    GroupMat=Groups, Diagnostic=self.Diagnostic)
         self.assertEqual(list(np.around(mat[0,0:5],3)), [0.2, 1.8, 3.8, 7., 8.])
         self.assertEqual(list(np.around(vec[0:5],3)), [3., 0., 1., 4., 2.])
@@ -142,7 +142,7 @@ class TestMorris(unittest.TestCase):
         out = np.random.random(nt*(self.nparam+1))
         out[1:nt*self.nparam:self.nparam//2] = np.nan
 
-        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt=nt, nsteps=nsteps, ntotal=ntotal,
+        mat, vec = morris_sampling(self.nparam, self.LB, self.UB, nt, nsteps=nsteps, ntotal=ntotal,
                                    GroupMat=Groups, Diagnostic=self.Diagnostic)
         sa, res = elementary_effects(self.nparam, mat, vec, out, nsteps=nsteps, Group=Groups)
         self.assertEqual(list(np.around(res[0:5,0],3)), [0.49, 0.425, 0.427, 0.441, 0.441])

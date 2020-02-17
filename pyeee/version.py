@@ -11,7 +11,6 @@ Copyright (c) 2019-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Oct 2019 by Matthias Cuntz (mc (at) macu (dot) de)
-* Make numpy docstring format, Dec 2019, Matthias Cuntz
 * v0.2, initial PyPI commit, Jan 2020, Matthias Cuntz
 * v0.3, cleaning all minor TODOs, Jan 2020, Matthias Cuntz
 * v0.4, removed numpy deprecation warnings, Jan 2020, Matthias Cuntz
@@ -23,8 +22,9 @@ Released under the MIT License; see LICENSE file for details.
 * v0.8, Split tests into individual files per module, and small bug fixes in tests and error handling, Feb 2020, Matthias Cuntz
 * v0.9, Renamed morris.py to morris_method.py and adapted args and kwargs to common names in pyeee, Feb 2020, Matthias Cuntz
 * v1.0, Restructured package with functions and utils subpackages, Feb 2020, Matthias Cuntz
+* v1.1, Number of final trajectories is argument instead of keyword, Feb 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 
-__version__ = "1.0"
+__version__ = "1.1"

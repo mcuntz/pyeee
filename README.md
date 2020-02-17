@@ -6,6 +6,7 @@ using Morris' method of Elementary Effects or its extension of
 Efficient/Sequential Elementary Effects by Cuntz, Mai et al. (Water
 Res Research, 2015).
 
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3620909.svg)](https://doi.org/10.5281/zenodo.3620909) -->
 [![DOI](https://zenodo.org/badge/233405522.svg)](https://zenodo.org/badge/latestdoi/233405522)
 [![PyPI version](https://badge.fury.io/py/pyeee.svg)](https://badge.fury.io/py/pyeee)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mcuntz/pyeee/blob/master/LICENSE)

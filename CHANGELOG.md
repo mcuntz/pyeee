@@ -2,6 +2,13 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v1.1
+    - Make number of final trajectories an argument instead of a
+      keyword argument in screening/ee.
+    - Make number of final trajectories an argument instead of a
+      keyword argument and sample default of 10*final trajectories in
+      Morris Method, i.e. morris_sampling.
+
 ### v1.0
     - Restructured package with functions and utils subpackages.
 
