@@ -17,12 +17,13 @@ Released under the MIT License; see LICENSE file for details.
 * Function can return multiple outputs, e.g. time series, Jan 2018, Matthias Cuntz
 * Python 3: map returns iterator, so list(map), Jul 2018, Fabio Gennaretti
 * Bug: default ntotal was not set if ntotal<0 (but nt instead), Dec 2019, Matthias Cuntz
-* Make numpy doctsring format, Dec 2019, Matthias Cuntz
+* Make numpy docstring format, Dec 2019, Matthias Cuntz
 * x0 optional, Jan 2020, Matthias Cuntz
 * Distinguish iterable and array_like parameter types; added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
 * InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz
 * Use new names of kwargs of morris_sampling and elementary_effects, Feb 2020, Matthias Cuntz
 * Make number of final trajectories an argument instead of a keyword argument, Feb 2020, Matthias Cuntz
+* Sample not only from uniform distribution but allow all distributions of scipy.stats, Mar 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -33,8 +34,7 @@ The following functions are provided
    screening
 """
 import numpy as np
-# from pyeee import morris_sampling, elementary_effects
-from .morris_method import morris_sampling, elementary_effects
+from pyeee import morris_sampling, elementary_effects
 
 
 __all__ = ['screening', 'ee']
@@ -42,6 +42,7 @@ __all__ = ['screening', 'ee']
 
 def screening(func, lb, ub, nt, x0=None, mask=None,
               nsteps=6, ntotal=None,
+              dist=None, distparam=None,
               seed=None,
               processes=1, pool=None,
               verbose=0):
@@ -55,9 +56,17 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     func : callable
         Python function callable as `func(x)` with `x` the function parameters.
     lb : array_like
-        Lower bounds of parameters.
+        Lower bounds of parameters
+        or lower fraction of percent point function ppf if distribution given.
+
+        Be aware that the percent point function ppf of most continuous distributions
+        is infinite at 0.
     ub : array_like
-        Upper bounds of parameters.
+        Upper bounds of parameters
+        or upper fraction of percent point function ppf if distribution given.
+
+        Be aware that the percent point function ppf of most continuous distributions
+        is infinite at 1.
     nt : int
         Number of trajectories used for screening.
     x0 : array_like, optional
@@ -69,6 +78,30 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     ntotal : int, optional
         Total number of sampled trajectories to select the nt most different trajectories.
         If None: `max(nt**2,10*nt)` (default: None)
+    dist : list, optional
+        List of None or scipy.stats distribution objects for each factor
+        having the method ppf, Percent Point Function (Inverse of CDF) (default: None)
+
+        If None, the uniform distribution will be sampled from lower bound LB to upper bound UB.
+
+        If dist is scipy.stats.uniform, the ppf will be sampled from the lower
+        fraction given in LB and the upper fraction in UB. The sampling interval
+        is then given by the parameters loc=lower and scale=interval=upper-lower
+        in distparam. This means
+        dist=None, LB=a, UB=b
+        corresponds to
+        LB=0, UB=1, dist=scipy.stats.uniform, distparam=[a,b-a]
+    distparam : list, optional
+        List with tuples with parameters as required for dist (default: (0,1)).
+
+        All distributions of scipy.stats have location and scale parameters, at least.
+        loc and scale are implemented as keyword arguments in scipy.stats. Other parameters
+        such as the shape parameter of the gamma distribution must hence be given first,
+        e.g. (shape,loc,scale) for the gamma distribution.
+
+        distparam is ignored if dist is None.
+
+        The percent point function ppf is called like this: dist(*distparam).ppf(x)
     seed : int or array_like
         Seed for numpy``s random number generator (default: None).
     processes : int, optional
@@ -119,8 +152,8 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     --------
     >>> from functools import partial
     >>> import numpy as np
-    >>> from function_wrapper import func_wrapper
-    >>> from sa_test_functions import fmorris
+    >>> from pyeee.utils import func_wrapper
+    >>> from pyeee.functions import fmorris
     >>> seed = 1023
     >>> np.random.seed(seed=seed)
     >>> npars = 20
@@ -162,6 +195,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
               Matthias Cuntz,   Feb 2020 - InputError -> TypeError
                                          - use new names of kwargs of moris_sampling
               Matthias Cuntz,   Feb 2020 - number of final trajectories is argument, not keyword argument
+              Matthias Cuntz,   Mar 2020 - Sample from distributions: dist, distparam keywords
     """
     # Get MPI communicator
     try:
@@ -205,7 +239,16 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
     # Sample trajectories
     if (crank==0) and (verbose > 0): print('Sample trajectories')
-    tmatrix, tvec = morris_sampling(nmask, lb[imask], ub[imask], nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=False)
+    if dist is None:
+        idist      = None
+        idistparam = None
+    else:
+        idist      = [ dist[i]      for i in np.where(imask)[0] ]
+        idistparam = [ distparam[i] for i in np.where(imask)[0] ]
+    tmatrix, tvec = morris_sampling(nmask, lb[imask], ub[imask], nt,
+                                    nsteps=nsteps, ntotal=ntotal,
+                                    dist=idist, distparam=idistparam,
+                                    Diagnostic=False)
 
     if mask is None:
         x = tmatrix
@@ -354,7 +397,7 @@ if __name__ == '__main__':
     #         plt.plot(mustar, 'ro')
     #         plt.show()
 
-    # if True:
+    # if False:
     #     # pass parameters and pool
     #     processes = 4
     #     pool = schwimmbad.choose_pool(mpi=False if csize==1 else True, processes=processes)
@@ -396,8 +439,8 @@ if __name__ == '__main__':
     # # PYEEE
     # from functools import partial
     # import numpy as np
-    # from sa_test_functions import G, Gstar, K, fmorris
-    # from function_wrapper import func_wrapper
+    # from pyeee.functions import G, Gstar, K, fmorris
+    # from pyeee.utils import func_wrapper
 
     # #
     # # G function
@@ -449,7 +492,7 @@ if __name__ == '__main__':
     # nsteps  = 6
     # verbose = 1
 
-    # out = ee(obj, lb, ub, x0=None, mask=None, processes=4)
+    # out = ee(obj, lb, ub, nt, x0=None, mask=None, processes=4)
     # print('G')
     # print(np.around(out[:,0],3))
 
@@ -539,10 +582,11 @@ if __name__ == '__main__':
     # print('Morris')
     # print(np.around(out[:,0],3))
 
+    
     # from functools import partial
     # import numpy as np
-    # from sa_test_functions import ishigami_homma
-    # from function_wrapper import func_mask_wrapper
+    # from pyeee.functions import ishigami_homma
+    # from pyeee.utils import func_mask_wrapper
     # seed = 1234
     # np.random.seed(seed=seed)
 
@@ -568,4 +612,45 @@ if __name__ == '__main__':
     #          nt, ntotal=ntotal, nsteps=nsteps,
     #          processes=1)
 
+    # print('Ishigami-Homma')
+    # print(np.around(out[:,0],3))
+
+    
+    # from functools import partial
+    # import numpy as np
+    # import scipy.stats as stats
+    # from pyeee.functions import ishigami_homma
+    # from pyeee.utils import func_mask_wrapper
+    # seed = 1234
+    # np.random.seed(seed=seed)
+
+    # func   = ishigami_homma
+    # npars  = 3
+
+    # x0   = np.ones(npars)
+    # mask = np.ones(npars, dtype=np.bool)
+    # mask[1] = False
+
+    # arg   = [1., 3.]
+    # kwarg = {}
+
+    # obj = partial(func_mask_wrapper, func, x0, mask, arg, kwarg)
+
+    # lb = np.ones(npars) * (-np.pi)
+    # ub = np.ones(npars) * np.pi
+    # dist      = [ stats.uniform for i in range(npars) ]
+    # distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # nt      = 10
+    # ntotal  = 50
+    # nsteps  = 6
+
+    # out = ee(obj, lb[mask], ub[mask],
+    #          nt, ntotal=ntotal, nsteps=nsteps,
+    #          dist=[ dist[i] for i in np.where(mask)[0] ],
+    #          distparam=[ distparam[i] for i in np.where(mask)[0] ],
+    #          processes=1)
+
+    # print('Ishigami-Homma dist')
     # print(np.around(out[:,0],3))

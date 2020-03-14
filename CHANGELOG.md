@@ -2,11 +2,16 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v1.2
+    - Sample not only from uniform distribution but allow all
+      distributions of scipy.stats in morris_sampling, screening/eee, and
+      eee/see.
+
 ### v1.1
     - Make number of final trajectories an argument instead of a
       keyword argument in screening/ee.
     - Make number of final trajectories an argument instead of a
-      keyword argument and sample default of 10*final trajectories in
+      keyword argument and sample by default 10*final trajectories in
       Morris Method, i.e. morris_sampling.
 
 ### v1.0

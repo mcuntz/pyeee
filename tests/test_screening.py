@@ -12,8 +12,8 @@ import unittest
 # --------------------------------------------------------------------
 # screening.py
 # Missing coverage:
-#    170-173: MPI
-#    234: function has multiple outputs
+#    207-210: MPI
+#    269: function has multiple outputs
 class TestScreening(unittest.TestCase):
 
     def setUp(self):
@@ -319,6 +319,38 @@ class TestScreening(unittest.TestCase):
                                26.031, 30.211, 39.714, 42.633, 43.776,
                                4.996, 3.701, 4.734, 8.031, 5.734,
                                3.564, 5.068, 7.635, 3.129, 5.224])
+
+
+    # Bratley / K function with distribution
+    def test_ee_k_dist(self):
+        from functools import partial
+        import os
+        import numpy as np
+        import scipy.stats as stats
+        from pyeee import ee
+        from pyeee.functions import bratley
+        from pyeee.utils import func_wrapper
+
+        # Function and parameters
+        func   = bratley
+        npars  = 10
+        params = [] # k
+
+        # Screening
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+        dist      = [ stats.uniform for i in range(npars) ]
+        distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+
+        out = ee(func, lb, ub, self.nt, x0=None, mask=None,
+                 ntotal=self.ntotal, nsteps=self.nsteps,
+                 dist=dist, distparam=distparam,
+                 processes=1)
+
+        # Check
+        self.assertEqual(list(np.around(out[:,0],3)), [0.586, 0.219, 0.082, 0.055, 0.02, 0.068, 0.009, 0.007, 0., 0.])
 
 
 if __name__ == "__main__":

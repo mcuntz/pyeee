@@ -17,6 +17,7 @@ Released under the MIT License; see LICENSE file for details.
 * Added `plotfile` and made docstring sphinx compatible option, Jan 2018, Matthias Cuntz
 * x0 optional; added verbose keyword; distinguish iterable and array_like parameter types, Jan 2020, Matthias Cuntz
 * Rename ntsteps to nsteps to be consistent with screening/ee; and check if logfile is string rather thean checking for file handle, Feb 2020, Matthias Cuntz
+* Sample not only from uniform distribution but allow all distributions of scipy.stats, Mar 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -32,10 +33,6 @@ from pyeee import screening
 from pyeee.functions import cost_square
 from pyeee.functions import curvature, logistic_offset_p, dlogistic, d2logistic
 from pyeee.utils import tee
-# from .tee import tee
-# from .utils import cost_square
-# from .general_functions import curvature, logistic_offset_p, dlogistic, d2logistic
-# from .screening import screening
 
 
 __all__ = ['eee', 'see']
@@ -68,9 +65,17 @@ def eee(func, *args, **kwargs):
     func : callable
         Python function callable as `func(x)` with `x` the function parameters.
     lb : array_like
-        Lower bounds of parameters.
+        Lower bounds of parameters
+        or lower fraction of percent point function ppf if distribution given.
+
+        Be aware that the percent point function ppf of most continuous distributions
+        is infinite at 0.
     ub : array_like
-        Upper bounds of parameters.
+        Upper bounds of parameters
+        or upper fraction of percent point function ppf if distribution given.
+
+        Be aware that the percent point function ppf of most continuous distributions
+        is infinite at 1.
     x0 : array_like, optional
         Parameter values used with `mask==0`.
     mask : array_like, optional
@@ -81,6 +86,30 @@ def eee(func, *args, **kwargs):
         Number of trajectories in last step of sequential elementary effects (default: 5).
     nsteps : int, optional
         Number of intervals for each trajectory (default: 6)
+    dist : list, optional
+        List of None or scipy.stats distribution objects for each factor
+        having the method ppf, Percent Point Function (Inverse of CDF) (default: None)
+
+        If None, the uniform distribution will be sampled from lower bound LB to upper bound UB.
+
+        If dist is scipy.stats.uniform, the ppf will be sampled from the lower
+        fraction given in LB and the upper fraction in UB. The sampling interval
+        is then given by the parameters loc=lower and scale=interval=upper-lower
+        in distparam. This means
+        dist=None, LB=a, UB=b
+        corresponds to
+        LB=0, UB=1, dist=scipy.stats.uniform, distparam=[a,b-a]
+    distparam : list, optional
+        List with tuples with parameters as required for dist (default: (0,1)).
+
+        All distributions of scipy.stats have location and scale parameters, at least.
+        loc and scale are implemented as keyword arguments in scipy.stats. Other parameters
+        such as the shape parameter of the gamma distribution must hence be given first,
+        e.g. (shape,loc,scale) for the gamma distribution.
+
+        distparam is ignored if dist is None.
+
+        The percent point function ppf is called like this: dist(*distparam).ppf(x)
     weight : boolean, optional
         If False, use the arithmetic mean mu* for each parameter if function has multiple outputs,
         such as the mean mu* of each time step of a time series (default).
@@ -125,19 +154,27 @@ def eee(func, *args, **kwargs):
 
     Examples
     --------
+    >>> from functools import partial
     >>> import numpy as np
-    >>> import pyeee
-    >>> seed = 1023
+    >>> import scipy.stats as stats
+    >>> from pyeee.functions import G
+    >>> from pyeee.utils import func_wrapper
+    >>> seed = 1234
     >>> np.random.seed(seed=seed)
-    >>> npars = 10
-    >>> lb    = np.zeros(npars)
-    >>> ub    = np.ones(npars)
+    >>> func   = G
+    >>> npars  = 6
+    >>> params = [78., 12., 0.5, 2., 97., 33.] # G
+    >>> arg   = [params]
+    >>> kwarg = {}
+    >>> obj = partial(func_wrapper, func, arg, kwarg)
+    >>> lb = np.zeros(npars)
+    >>> ub = np.ones(npars)
     >>> ntfirst = 10
     >>> ntlast  = 5
     >>> nsteps  = 6
-    >>> out = pyeee.eee(pyeee.K, lb, ub, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps)
+    >>> out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4)
     >>> print(np.where(out)[0] + 1)
-    [1 2 3 4 6]
+    [2 3 4 6]
 
 
     History
@@ -150,6 +187,7 @@ def eee(func, *args, **kwargs):
                                        - distinguish iterable and array_like parameter types
               Matthias Cuntz, Feb 2020 - ntsteps -> nsteps
                                        - check if logfile is string instead of checking for file handle
+              Matthias Cuntz, Mar 2020 - Sample from distributions: dist, distparam keywords
     """
     # Get keyword arguments
     # This allows mixing keyword arguments of eee and keyword arguments to be passed to optimiser.
@@ -160,6 +198,8 @@ def eee(func, *args, **kwargs):
     ntfirst   = kwargs.pop('ntfirst', 5)
     ntlast    = kwargs.pop('ntlast', 5)
     nsteps    = kwargs.pop('nsteps', 6)
+    dist      = kwargs.pop('dist', None)
+    distparam = kwargs.pop('distparam', None)
     weight    = kwargs.pop('weight', False)
     seed      = kwargs.pop('seed', None)
     processes = kwargs.pop('processes', 1)
@@ -266,6 +306,7 @@ def eee(func, *args, **kwargs):
         func, lb, ub, ntfirst,
         x0=ix0, mask=imask,
         nsteps=nsteps, ntotal=10*ntfirst,
+        dist=dist, distparam=distparam,
         processes=processes, pool=ipool,
         verbose=0)
     if res.ndim > 2:
@@ -403,6 +444,7 @@ def eee(func, *args, **kwargs):
             func, lb, ub, 1,
             x0=ix0, mask=imask,
             nsteps=nsteps, ntotal=10,
+            dist=dist, distparam=distparam,
             processes=processes, pool=ipool,
             verbose=0)
 
@@ -460,6 +502,7 @@ def eee(func, *args, **kwargs):
         func, lb, ub, ntlast,
         x0=ix0, mask=imask,
         nsteps=nsteps, ntotal=10 * ntlast,
+        dist=dist, distparam=distparam,
         processes=processes, pool=ipool,
         verbose=0)
     if res.ndim > 2:
@@ -537,61 +580,62 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
-    # from sa_functions import fmorris, tee
+    # # from sa_functions import fmorris, tee
 
-    # Morris with MPI
+    # # # Morris with MPI
     
-    # import time as ptime
-    # t1 = ptime.time()
+    # # import time as ptime
+    # # t1 = ptime.time()
 
-    # try:
-    #     from mpi4py import MPI
-    #     comm  = MPI.COMM_WORLD
-    #     csize = comm.Get_size()
-    #     crank = comm.Get_rank()
-    # except ImportError:
-    #     comm  = None
-    #     csize = 1
-    #     crank = 0
+    # # try:
+    # #     from mpi4py import MPI
+    # #     comm  = MPI.COMM_WORLD
+    # #     csize = comm.Get_size()
+    # #     crank = comm.Get_rank()
+    # # except ImportError:
+    # #     comm  = None
+    # #     csize = 1
+    # #     crank = 0
 
-    # seed = None # 1025
+    # # seed = None # 1025
 
-    # if seed is not None:
-    #     np.random.seed(seed=seed)
+    # # if seed is not None:
+    # #     np.random.seed(seed=seed)
 
-    # func = fmorris
-    # npars = 20
-    # lb    = np.zeros(npars)
-    # ub    = np.ones(npars)
-    # beta0              = 0.
-    # beta1              = np.random.standard_normal(npars)
-    # beta1[:10]         = 20.
-    # beta2              = np.random.standard_normal((npars,npars))
-    # beta2[:6,:6]       = -15.
-    # beta3              = np.zeros((npars,npars,npars))
-    # beta3[:5,:5,:5]    = -10.
-    # beta4              = np.zeros((npars,npars,npars,npars))
-    # beta4[:4,:4,:4,:4] = 5.
-    # args = [beta0, beta1, beta2, beta3, beta4] # Morris
-    # ntfirst = 10
-    # ntlast  = 5
-    # nsteps  = 6
-    # verbose = 1
+    # # func = fmorris
+    # # npars = 20
+    # # lb    = np.zeros(npars)
+    # # ub    = np.ones(npars)
+    # # beta0              = 0.
+    # # beta1              = np.random.standard_normal(npars)
+    # # beta1[:10]         = 20.
+    # # beta2              = np.random.standard_normal((npars,npars))
+    # # beta2[:6,:6]       = -15.
+    # # beta3              = np.zeros((npars,npars,npars))
+    # # beta3[:5,:5,:5]    = -10.
+    # # beta4              = np.zeros((npars,npars,npars,npars))
+    # # beta4[:4,:4,:4,:4] = 5.
+    # # args = [beta0, beta1, beta2, beta3, beta4] # Morris
+    # # ntfirst = 10
+    # # ntlast  = 5
+    # # nsteps  = 6
+    # # verbose = 1
 
-    # out = eee(func, lb, ub, *args, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4)
+    # # out = eee(func, lb, ub, *args, x0=None, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4)
 
-    # t2    = ptime.time()
+    # # t2    = ptime.time()
 
-    # if crank == 0:
-    #     strin = '[m]: {:.1f}'.format((t2-t1)/60.) if (t2-t1)>60. else '[s]: {:d}'.format(int(t2-t1))
-    #     tee('Time elapsed: ', strin)
-    #     tee('mask (1: informative, 0: noninformative): ', out)
+    # # if crank == 0:
+    # #     strin = '[m]: {:.1f}'.format((t2-t1)/60.) if (t2-t1)>60. else '[s]: {:d}'.format(int(t2-t1))
+    # #     tee('Time elapsed: ', strin)
+    # #     tee('mask (1: informative, 0: noninformative): ', out)
 
-    # PYEEE
+    # # PYEEE
     # from functools import partial
     # import numpy as np
-    # from sa_test_functions import G, Gstar, K, fmorris
-    # from function_wrapper import func_wrapper
+    # import scipy.stats as stats
+    # from pyeee.functions import G, Gstar, K, fmorris
+    # from pyeee.utils import func_wrapper
 
     # #
     # # G function
@@ -710,4 +754,128 @@ if __name__ == '__main__':
 
     # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4, plotfile='morris.png', verbose=1)
     # print('Morris')
+    # print(np.where(out)[0] + 1)
+
+
+    # #
+    # # Morris function with distributions
+    # # seed for reproducible results
+    # seed = 1234
+    # np.random.seed(seed=seed)
+
+    # func = fmorris
+    # npars = 20
+    # beta0              = 0.
+    # beta1              = np.random.standard_normal(npars)
+    # beta1[:10]         = 20.
+    # beta2              = np.random.standard_normal((npars,npars))
+    # beta2[:6,:6]       = -15.
+    # beta3              = np.zeros((npars,npars,npars))
+    # beta3[:5,:5,:5]    = -10.
+    # beta4              = np.zeros((npars,npars,npars,npars))
+    # beta4[:4,:4,:4,:4] = 5.
+
+    # # Partialise Morris function with fixed parameters beta0-4
+    # arg   = [beta0, beta1, beta2, beta3, beta4]
+    # kwarg = {}
+    # obj = partial(func_wrapper, func, arg, kwarg)
+
+    # # eee parameters
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # dist      = [ stats.uniform for i in range(npars) ]
+    # distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # ntfirst = 10
+    # ntlast  = 5
+    # nsteps  = 6
+    # verbose = 1
+
+    # out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, dist=dist, distparam=distparam, processes=4)
+    # print('Morris dist')
+    # print(np.where(out)[0] + 1)
+
+
+    # #
+    # # Morris function
+    # # seed for reproducible results
+    # seed = 1234
+    # np.random.seed(seed=seed)
+
+    # func = fmorris
+    # npars = 20
+    # beta0              = 0.
+    # beta1              = np.random.standard_normal(npars)
+    # beta1[:10]         = 20.
+    # beta2              = np.random.standard_normal((npars,npars))
+    # beta2[:6,:6]       = -15.
+    # beta3              = np.zeros((npars,npars,npars))
+    # beta3[:5,:5,:5]    = -10.
+    # beta4              = np.zeros((npars,npars,npars,npars))
+    # beta4[:4,:4,:4,:4] = 5.
+
+    # # Partialise Morris function with fixed parameters beta0-4
+    # arg   = [beta0, beta1, beta2, beta3, beta4]
+    # kwarg = {}
+    # obj = partial(func_wrapper, func, arg, kwarg)
+
+    # # eee parameters
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # ntfirst = 10
+    # ntlast  = 5
+    # nsteps  = 6
+    # verbose = 1
+
+    # x0   = np.ones(npars)*0.5
+    # mask = np.ones(npars, dtype=np.bool)
+    # mask[1] = False
+
+    # out = eee(obj, lb, ub, x0=x0, mask=mask, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, processes=4)
+    # print('Morris mask')
+    # print(np.where(out)[0] + 1)
+
+
+    # #
+    # # Morris function
+    # # seed for reproducible results
+    # seed = 1234
+    # np.random.seed(seed=seed)
+
+    # func = fmorris
+    # npars = 20
+    # beta0              = 0.
+    # beta1              = np.random.standard_normal(npars)
+    # beta1[:10]         = 20.
+    # beta2              = np.random.standard_normal((npars,npars))
+    # beta2[:6,:6]       = -15.
+    # beta3              = np.zeros((npars,npars,npars))
+    # beta3[:5,:5,:5]    = -10.
+    # beta4              = np.zeros((npars,npars,npars,npars))
+    # beta4[:4,:4,:4,:4] = 5.
+
+    # # Partialise Morris function with fixed parameters beta0-4
+    # arg   = [beta0, beta1, beta2, beta3, beta4]
+    # kwarg = {}
+    # obj = partial(func_wrapper, func, arg, kwarg)
+
+    # # eee parameters
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # dist      = [ stats.uniform for i in range(npars) ]
+    # distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]
+    # lb = np.zeros(npars)
+    # ub = np.ones(npars)
+    # ntfirst = 10
+    # ntlast  = 5
+    # nsteps  = 6
+    # verbose = 1
+
+    # x0   = np.ones(npars)*0.5
+    # mask = np.ones(npars, dtype=np.bool)
+    # mask[1] = False
+
+    # out = eee(obj, lb, ub, x0=x0, mask=mask, ntfirst=ntfirst, ntlast=ntlast, nsteps=nsteps, dist=dist, distparam=distparam, processes=4)
+    # print('Morris dist mask')
     # print(np.where(out)[0] + 1)

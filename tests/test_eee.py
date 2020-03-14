@@ -12,21 +12,22 @@ import unittest
 # --------------------------------------------------------------------
 # eee.py
 # Missing coverage:
-#    181-184: ImportError MPI 
-#    204: crank!=0 <- MPI
-#    230-250: mask
-#    276-279: weight
-#    339-371: plotfile
-#    383-385: logfile
-#    391: return after step4
-#    415-418: weight
-#    445: return after step6
-#    459: logfile
-#    470-473: weight
-#    483-489: logfile
-#    494-509: no more parameters after screening
+#    217-220: ImportError MPI 
+#    240: crank!=0 <- MPI
+#    267: mask is not None but x0 is None
+#    273-286: mask
+#    313-316: weight
+#    376-408: plotfile
+#    420-422: logfile
+#    428: return after step4
+#    453-456: weight
+#    483: return after step6
+#    497: logfile
+#    509-512: weight
+#    522-528: logfile
+#    533-548: no more parameters after screening
 #    515: mask
-#    524-526: logfile
+#    563-565: logfile
 class TestEee(unittest.TestCase):
 
     def setUp(self):
@@ -188,6 +189,125 @@ class TestEee(unittest.TestCase):
 
         # Clean
         if os.path.exists('tlog.txt'): os.remove('tlog.txt')
+
+
+    # Morris function, distribution
+    def test_eee_fmorris_dist(self):
+        from functools import partial
+        import os
+        import numpy as np
+        import scipy.stats as stats
+        from pyeee import eee
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import fmorris
+
+        # Function and parameters
+        func = fmorris
+        npars = 20
+        beta0              = 0.
+        beta1              = np.random.standard_normal(npars)
+        beta1[:10]         = 20.
+        beta2              = np.random.standard_normal((npars,npars))
+        beta2[:6,:6]       = -15.
+        beta3              = np.zeros((npars,npars,npars))
+        beta3[:5,:5,:5]    = -10.
+        beta4              = np.zeros((npars,npars,npars,npars))
+        beta4[:4,:4,:4,:4] = 5.
+
+        # Partialise Morris function with fixed parameters beta0-4
+        arg   = [beta0, beta1, beta2, beta3, beta4]
+        kwarg = {}
+        obj   = partial(func_wrapper, func, arg, kwarg)
+
+        # Screening
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+        dist      = [ stats.uniform for i in range(npars) ]
+        distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+
+        # Check
+        out = eee(obj, lb, ub, mask=None,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  dist=dist, distparam=distparam,
+                  processes=4)
+
+        self.assertEqual(list(np.where(out)[0]+1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
+
+
+    # G function, mask
+    def test_eee_g_mask(self):
+        from functools import partial
+        import numpy as np
+        from pyeee import eee
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import G
+
+        # Function and parameters
+        func   = G
+        npars  = 6
+        params = [78., 12., 0.5, 2., 97., 33.] # G
+
+        # Partialise function with fixed parameters
+        arg   = [params]
+        kwarg = {}
+        obj   = partial(func_wrapper, func, arg, kwarg)
+
+        # Screening
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+
+        x0   = np.ones(npars)*0.5
+        mask = np.ones(npars, dtype=np.bool)
+        mask[1] = False
+
+        out = eee(obj, lb, ub, x0=x0, mask=mask,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  processes=1)
+
+        # Check
+        self.assertEqual(list(np.where(out)[0]+1), [3, 4])
+
+
+    # G function, dist, mask
+    def test_eee_g_dist_mask(self):
+        from functools import partial
+        import numpy as np
+        import scipy.stats as stats
+        from pyeee import eee
+        from pyeee.utils import func_wrapper
+        from pyeee.functions import G
+
+        # Function and parameters
+        func   = G
+        npars  = 6
+        params = [78., 12., 0.5, 2., 97., 33.] # G
+
+        # Partialise function with fixed parameters
+        arg   = [params]
+        kwarg = {}
+        obj   = partial(func_wrapper, func, arg, kwarg)
+
+        # Screening
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+        dist      = [ stats.uniform for i in range(npars) ]
+        distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]
+        lb = np.zeros(npars)
+        ub = np.ones(npars)
+
+        x0   = np.ones(npars)*0.5
+        mask = np.ones(npars, dtype=np.bool)
+        mask[1] = False
+
+        out = eee(obj, lb, ub, x0=x0, mask=mask,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  dist=dist, distparam=distparam,
+                  processes=1)
+
+        # Check
+        self.assertEqual(list(np.where(out)[0]+1), [3, 4])
 
 
 if __name__ == "__main__":
