@@ -3,7 +3,7 @@ pyeee User Guide
 **********************
 
 ``pyeee`` is a Python library for performing parameter screening of
-computational models. It uses Morris' method of  Elementary Effects (*EE*)
+computational models. It uses Morris' method of Elementary Effects (*EE*)
 and also its extension of Efficient or Sequential Elementary Effects
 (*EEE* or *SEE*) published by:
 
@@ -44,7 +44,7 @@ Taking :math:`a = b = 1` gives:
 The three parameters :math:`x_0, x_1, x_2` follow uniform
 distributions between :math:`-\pi` and :math:`+\pi`.
 
-Elementary Effects can be calculated as:
+Elementary Effects can be calculated, using 20 trajectories, as follows:
 
 .. code-block:: python
 
@@ -61,7 +61,7 @@ Elementary Effects can be calculated as:
 
     # Elementary Effects
     np.random.seed(seed=1023) # for reproducibility of examples
-    out = ee(func, lb, ub)
+    out = ee(func, lb, ub, 20)
 
 :func:`~pyeee.screening.ee` returns a `(npars,3)` ndarray with:
 
@@ -83,12 +83,11 @@ Chichester, UK, ISBN: 978-0470-059-975, doi:`10.1002/9780470725184
     print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
     # gives: 212.4 0.6 102.8
 
-The numerical model `func`, lower parameter boundaries `lb`, and upper
-parameter boundaries `ub` are mandatory arguments to
-:func:`~pyeee.screening.ee`. Further optional arguments relevant to
-Elementary Effects are:
+The numerical model `func`, lower parameter boundaries `lb`, upper
+parameter boundaries `ub`, and the number of trajectories `nt` are
+mandatory arguments to :func:`~pyeee.screening.ee`. Further optional
+arguments relevant to Elementary Effects are:
 
-    - `nt` : int - Number of trajectories used (default: `len(lb)`)
     - `nsteps` : int - Number of steps along one trajectory (default: 6)
     - `ntotal` : int - Total number of trajectories to check for the `nt` most
       different trajectories (default: `max(nt**2,10*nt)`)
@@ -123,7 +122,7 @@ Elementary Effects:
 
     # Elementary Effects
     np.random.seed(seed=1024) # for reproducibility of examples
-    out = ee(func, lb, ub, x0=x0, mask=mask, nt=10, nsteps=8, ntotal=100)
+    out = ee(func, lb, ub, 10, x0=x0, mask=mask, nsteps=8, ntotal=100)
 
     print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
     # gives: 114.8 0.0 26.6
@@ -142,7 +141,7 @@ sets in parallel:
 
     # Elementary Effects using 4 parallel processes
     np.random.seed(seed=1024) # for reproducibility of examples
-    out = ee(func, lb, ub, x0=x0, mask=mask, nt=10, nsteps=8, ntotal=100,
+    out = ee(func, lb, ub, 10, x0=x0, mask=mask, nsteps=8, ntotal=100,
              processes=4)
 
 ``pyeee`` uses the package :any:`schwimmbad` for
@@ -197,7 +196,7 @@ Consider the following code in a script (e.g. `eeetest.py`):
 
     # Elementary Effects
     np.random.seed(seed=1023) # for reproducibility of examples
-    out = ee(func, lb, ub, nt=20, processes=nprocs, pool=ipool)
+    out = ee(func, lb, ub, 20, processes=nprocs, pool=ipool)
 
     if crank == 0:
         print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
@@ -250,11 +249,11 @@ screening must be the last argument, i.e. `x` of `func(x)`:
     def ishigami(x, a, b):
         return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
 
-    def call_ishigami(ishi, a, b, x):
-        return ishi(x, a, b)
+    def call_func_ab(func, a, b, x):
+        return func(x, a, b)
 
 The parameters :math:`a` and :math:`b` are fixed parameters during
-screening. They are hence already passed to `call_ishigami` with
+screening. They are hence already passed to `call_func_ab` with
 :any:`functools.partial` before start of the screening.
 
 .. code-block:: python
@@ -262,15 +261,15 @@ screening. They are hence already passed to `call_ishigami` with
     # Partialise function with fixed parameters a and b
     a 	 = 0.5
     b 	 = 2.0
-    func = partial(call_ishigami, ishigami, a, b)
+    func = partial(call_func_ab, ishigami, a, b)
 
-    out  = ee(func, lb, ub)
+    out  = ee(func, lb, ub, 10)
 
-When `func` is called as `func(x)`, the call of `call_ishigami` is
+When `func` is called as `func(x)`, the call of `call_func_ab` is
 finished and `x`, `a` and `b` are passed to `ishigami`.
 
 ``pyeee`` provides wrapper functions to work with
-:any:`functools.partial`. `call_ishigami` can be replaced by the
+:any:`functools.partial`. `call_func_ab` can be replaced by the
 wrapper function of ``pyeee``:
 :func:`~pyeee.utils.function_wrapper.func_wrapper`:
 
@@ -280,7 +279,7 @@ wrapper function of ``pyeee``:
     arg   = [a, b]
     kwarg = {}
     func  = partial(func_wrapper, ishigami, arg, kwarg)
-    out   = ee(func, lb, ub)
+    out   = ee(func, lb, ub, 10)
 
 where all arguments of the function but the first one must be given as
 a `list` and keyword arguments as a `dictionary`. The function wrapper
@@ -288,8 +287,8 @@ finally passes `x`, `arg` and `kwarg` to `func(x, *arg, **kwarg)`.
 
 ``pyeee`` provides also a wrapper function to work with masks as
 above. To exclude the second parameter :math:`x_1` from screening of
-the Ishigami-Homma function again, `x0` and `mask` must be given to
-:func:`~pyeee.utils.function_wrapper.func_mask_wrapper` as well. Then
+the Ishigami-Homma function, `x0` and `mask` must be given to
+:func:`~pyeee.utils.function_wrapper.func_mask_wrapper`. Then
 Elementary Effects will be calculated only for the remaining
 parameters, between `lb[mask]` and `ub[mask]`. All other
 non-masked parameters will be taken as `x0`. Remember that `mask` is
@@ -300,7 +299,82 @@ an include-mask, i.e. all `mask==True` will be screened and all
 
     from pyeee.utils import func_mask_wrapper
     func = partial(func_mask_wrapper, ishigami, x0, mask, arg, kwarg)
-    out  = ee(func, lb[mask], ub[mask])
+    out  = ee(func, lb[mask], ub[mask], 10)
+
+
+Sampling parameters with other distributions than the uniform distribution
+--------------------------------------------------------------------------
+
+Morris' method of Elementary Effects samples parameters along
+trajectories through the possible parameter space. It assumes uniformly
+distributed parameters between a lower bound and an upper bound.
+
+``pyeee`` allows sampling parameters from other than uniform
+distributions. For example, a parameter :math:`p` might have been
+determined by repeated experiments. One can hence determine the mean
+parameter :math:`\overline{p}` and calculate the error of the mean
+:math:`\epsilon_p`. This error of the mean is actually the standard
+deviation of the distribution of the mean. One would thus sample a
+normal distribution with mean :math:`\overline{p}` and a standard
+deviation :math:`\epsilon_p` for the parameter :math:`p` for
+determining Morris' Elementary Effects.
+
+``pyeee`` allows all distributions of :any:`scipy.stats`, given with
+the keyword `dist`. The parameter of the distributions are given as
+tuples with the keyword `distparam`. The lower and upper bounds
+change their meaning if `dist` is given for a parameter: ``pyeee``
+samples uniformly the Percent Point Function (ppf) of the distribution
+between lower and upper bound. The percent point function is the
+inverse of the Cumulative Distribution Function (cdf). Lower and upper
+bound must hence be between `0` and `1`. Note the percent point
+functions of most continuous distributions will be infinite at the
+limits `0` and `1`.
+
+The three parameters :math:`x_0, x_1, x_2` of the Ishigami-Homma
+function follow uniform distributions between :math:`-\pi` and
+:math:`+\pi`. Say that :math:`x_1` follows a Gaussian
+distribution around the mean `0` with a standard deviation of 1.81. We
+want to sample between three standard deviations, which includes about
+99.7\% of the total distribution. This means that the lower bound
+would be 0.0015 and the upper bound 0.9985.
+
+.. code-block:: python
+
+    import scipy.stats as stats
+    dist      = [None, stats.normal, stats.uniform]
+    distparam = [None, (0., 1.81), (-np.pi, 2.*np.pi)]
+    lb        = [-np.pi, 0.0015, 0.]
+    ub        = [np.pi, 0.9985, 1.]
+
+    out = ee(func, lb, ub, 20, dist=dist, distparam=distparam)
+
+This shows that
+
+    1. one has to give a distribution for each parameter;
+    2. distributions are given as :any:`scipy.stats` distribution
+       objects;
+    3. if `dist` is None, ``pyeee`` assumes a uniform
+       distribution and samples between lower and upper bound;
+    4. (almost) all :any:`scipy.stats` distributions take the keywords
+       `loc` and `scale`. Their meaning is *NOT* mean and standard
+       deviation in most distributions. For the uniform distribution
+       :any:`scipy.stats.uniform`, `loc` is the lower limit and
+       `loc+scale` the upper limit. This means the combination
+       `dist=None`, `lb=a`, `ub=b` corresponds to
+       `dist=scipy.stats.uniform`, `distparam=[a,b-a]`, `lb=0`, `ub=1`.
+
+Note also that
+
+    5. if `distparam==None`, `loc=0` and `scale=1` will be taken;
+    6. `loc` and `scale` are implemented as keywords in
+       :any:`scipy.stats`. Other parameters such as the shape
+       parameter of the gamma distribution
+       :any:`scipy.stats.gamma` must hence be given first,
+       e.g. `(shape,loc,scale)`.
+
+Remember that Morris' method of Elementary Effects assumes uniformly
+distributed parameters and that other distributions are an extension
+of the original method.
 
 
 Efficient/Sequential Elementary Effects
@@ -313,7 +387,7 @@ given model output, so that fewer parameters are needed during a full
 sensitivity analysis or during model optimisation.
 
 The numerical model `func` will be evaluated `nt*(npars+1)` times for
-calculating Elementary Effects. The user can choose the number of
+calculating Elementary Effects. The user chooses the number of
 trajectories `nt`. A large number of `nt` might be computationally
 expensive and a small number might miss areas of the parameter space,
 where certain parameters become sensitive. Typical values for `nt` in
@@ -390,24 +464,29 @@ has the dimension of the `mask==True` elements:
 
 The numerical model `func` might return several outputs per model run,
 e.g. a time series. The Morris' sensitivity measures are calculated
-hence for each output, e.g. each point in
-time. :func:`~pyeee.screening.eee` can either take the arithmetic mean
-of all :math:`\mu*` or a weighted mean :math:`\mu*`, weighted by
-:math:`\sigma`. The keyword `weight==False` is probably appropriate if
-each single output is equally important. An example is river runoff
-where high flows might be floods and low flows might be droughts. One
-might want that the computer model reproduces both circumstances. An
-example for `weight==True` are fluxes to and from the atmosphere such
-as evapotranspiration. The atmosphere is more strongly influenced by
-larger fluxes so that sensitivity measures during periods of little
-atmosphere exchange are less interesting. Cuntz *et al.* (2015) argued
-that weighting by stndard deviation :math:`\sigma` is equivalent to
-flux weighting because parameter variations yield larger variances for
-large fluxes than for small fluxes in most computer models.
+hence for each output, e.g. each point in time. Efficient/Sequential
+Elementary Effects :func:`~pyeee.screening.eee` can either take the
+arithmetic mean of all :math:`\mu*` or a weighted mean :math:`\mu*`,
+weighted by :math:`\sigma`. The keyword `weight==False` is probably
+appropriate if each single output is equally important. An example is
+river runoff where high flows might be floods and low flows might be
+droughts. One might want that the computer model reproduces both
+circumstances. An example for `weight==True` are fluxes to and from
+the atmosphere such as evapotranspiration. The atmosphere is more
+strongly influenced by larger fluxes so that sensitivity measures
+during periods of little atmosphere exchange are less
+interesting. Cuntz *et al.* (2015) argued that weighting by standard
+deviation :math:`\sigma` is equivalent to flux weighting because
+parameter variations yield larger variances for large fluxes than for
+small fluxes in most computer models.
 
 :func:`~pyeee.screening.eee` offers the same parallel mechanism as
 :func:`~pyeee.screening.ee`, using the keywords `processes` and
 `pool`, which is again a :any:`schwimmbad` `pool` object.
+
+:func:`~pyeee.screening.eee` also offers the possibility to sample
+parameters from different distributions of :any:`scipy.stats`
+with the keywords `dist` and `distparam`.
 
 One can give a `plotfile` name to check the initial fit to the
 `ntfirst` Elementary Effects.
@@ -503,7 +582,7 @@ wrapper function :func:`~pyeee.utils.function_wrapper.exe_wrapper`:
     ub = np.ones(npars) * np.pi
     
     from pyeee import ee
-    out = ee(func, lb, ub)
+    out = ee(func, lb, ub, 10)
 
 :func:`~pyeee.utils.std_io.standard_parameter_reader` and
 :func:`~pyeee.utils.std_io.standard_parameter_writer` are convenience
@@ -535,7 +614,7 @@ an include-mask, i.e. all `mask==True` will be screened and all
     func = partial(exe_mask_wrapper, ishi, x0, mask,
                    parameterfile, standard_parameter_writer,
 		   objectivefile, standard_objective_reader, {})
-    out  = ee(func, lb[mask], ub[mask])
+    out  = ee(func, lb[mask], ub[mask], 10)
 
 :math:`x_1` will then always be the second element of `x0`.
 
@@ -576,7 +655,7 @@ that might have occured during execution:
                    parameterfile, standard_parameter_writer,
 		   objectivefile, standard_objective_reader,
 		   {'shell':True, 'debug':True})
-    out  = ee(func, lb, ub)
+    out  = ee(func, lb, ub, 10)
 
 This mechanism allows passing also additional arguments and keyword
 arguments to the `parameterwriter`. Setting `pargs` to a list of
@@ -610,7 +689,7 @@ case. Parameter bounds and mask can be passed via `pargs`:
                    parameterfile, standard_parameter_reader_bounds_mask,
 		   objectivefile, standard_objective_reader,
 		   {'pargs':[lb,ub,mask]})
-    out  = ee(func, lb, ub)
+    out  = ee(func, lb, ub, 10)
 
 Or in case of exclusion of :math:`x_1`:
 
@@ -621,7 +700,7 @@ Or in case of exclusion of :math:`x_1`:
                    parameterfile, standard_parameter_reader_bounds_mask,
 		   objectivefile, standard_objective_reader,
 		   {'pargs':[lb,ub,mask]})
-    out  = ee(func, lb[mask], ub[mask])
+    out  = ee(func, lb[mask], ub[mask], 10)
 
 Another common case is that the parameters are given in the form `parameter
 = value`, e.g. in Fortran namelists. ``pyeee`` provides a function
@@ -649,7 +728,7 @@ can be used and parameter names are passed via `pargs`:
                    parameterfile, sub_names_params_files,
 		   objectivefile, standard_objective_reader,
 		   {'pargs':[pnames], 'pid':True})
-    out  = ee(func, lb, ub)
+    out  = ee(func, lb, ub, 10)
 
 `parameterfile` can be a list of parameterfiles in case of
 :func:`~pyeee.utils.std_io.sub_names_params_files`. `pid` will be explained
@@ -687,7 +766,7 @@ from `pnames`:
                    parameterfile, sub_names_params_files,
 		   objectivefile, standard_objective_reader,
 		   {'pargs':[pnames], 'pid':True})
-    out  = ee(func, lb[mask], ub[mask])
+    out  = ee(func, lb[mask], ub[mask], 10)
 
 
 Parallel processing of external executables
@@ -767,7 +846,7 @@ The `parameterwriter` is supposed to write `parameterfile+'.'+ipid`
     npars = 3
     lb = np.ones(npars) * (-np.pi)
     ub = np.ones(npars) * np.pi
-    out = ee(func, lb, ub, processes=8)
+    out = ee(func, lb, ub, 10, processes=8)
 
 Note that :func:`~pyeee.utils.std_io.sub_names_params_files` writes
 `parameterfile+'.'+ipid` and does not work with `'pid':False`.
@@ -818,7 +897,7 @@ which would then be used:
     lb = np.ones(npars) * (-np.pi)
     ub = np.ones(npars) * np.pi
     from pyeee import ee
-    out = ee(func, lb, ub, processes=8)
+    out = ee(func, lb, ub, 10, processes=8)
 
 Such a script could be written in Python as well, of course, if the
 bash shell is not available, e.g. on Windows.

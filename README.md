@@ -48,9 +48,9 @@ Consider the Ishigami-Homma function: $y = \sin(x_0) + a\,\sin(x_1)^2 + b\,x_2^4
 Taking $a = b = 1$ gives:
 
 ```python
-	import numpy as np
-	def ishigami1(x):
-	   return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
+    import numpy as np
+    def ishigami1(x):
+       return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
 ```
 
 The three paramters $x_0$, $x_1$, $x_2$ follow uniform distributions between $-\pi$ and $+\pi$.
@@ -58,16 +58,16 @@ The three paramters $x_0$, $x_1$, $x_2$ follow uniform distributions between $-\
 Morris' Elementary Effects can then be calculated like:
 
 ```python
-	npars = 3
-	# lower boundaries
-	lb = np.ones(npars) * (-np.pi)
-	# upper boundaries
-	ub = np.ones(npars) * np.pi
+    npars = 3
+    # lower boundaries
+    lb = np.ones(npars) * (-np.pi)
+    # upper boundaries
+    ub = np.ones(npars) * np.pi
 
     # Elementary Effects
-	from pyeee import ee
+    from pyeee import ee
     np.random.seed(seed=1023) # for reproducibility of examples
-	out = ee(ishigami1, lb, ub)
+    out = ee(ishigami1, lb, ub, 10)
 ```
 
 which gives the Elementary Effects ($\mu*$):
@@ -75,17 +75,17 @@ which gives the Elementary Effects ($\mu*$):
 ```python
     # mu*
     print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
-    # gives: 212.4 0.6 102.8
+    # gives: 173.1 0.6 61.7
 ```
 
 Sequential Elementary Effects distinguish between informative and
 uninformative parameters using several times Morris' Elementary Effects:
 
 ```python
-	# screen
-	from pyeee import eee
+    # screen
+    from pyeee import eee
     np.random.seed(seed=1023) # for reproducibility of examples
-	out = eee(ishigami1, lb, ub)
+    out = eee(ishigami1, lb, ub, ntfirst=10)
 ```
 
 which returns a logical ndarray with True for the informative
@@ -104,33 +104,36 @@ partial from the functools module to pass other function parameters.
 For example pass the parameters $a$ and $b$ to the Ishigami-Homma function.
 
 ```python
-	from functools import partial
+    import numpy as np
+    from pyeee import ee
+    from functools import partial
 
-	def ishigami(x, a, b):
-	   return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
+    def ishigami(x, a, b):
+       return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
 
-	def call_ishigami(ishi, a, b, x):
-	   return ishi(x, a, b)
+    def call_func_ab(func, a, b, x):
+       return func(x, a, b)
 
-	# Partialise function with fixed parameters
-	a = 0.5
-	b = 2.0
-	func   = partial(call_ishigami, ishigami, a, b)
-	npars = 3
+    # Partialise function with fixed parameters
+    a = 0.5
+    b = 2.0
+    func  = partial(call_func_ab, ishigami, a, b)
+    npars = 3
 
-	# lower boundaries
-	lb = np.ones(npars) * (-np.pi)
-	# upper boundaries
-	ub = np.ones(npars) * np.pi
+    # lower boundaries
+    lb = np.ones(npars) * (-np.pi)
+    # upper boundaries
+    ub = np.ones(npars) * np.pi
 
     # Elementary Effects
-	out = ee(func, lb, ub)
+    np.random.seed(seed=1023) # for reproducibility of examples
+    out = ee(func, lb, ub, 10)
 ```
 
 `partial` passes $a$ and $b$ to the
-function `call_ishigami` already during definition so that *pyeee*
+function `call_func_ab` already during definition so that *pyeee*
 can then simply call it as `func(x)`, so that `x` is passed to
-`call_ishigami` as well.
+`call_func_ab` as well.
 
 
 ### Function wrappers
@@ -138,13 +141,13 @@ can then simply call it as `func(x)`, so that `x` is passed to
 *pyeee* provides wrappers to use with partial.
 
 ```python
-	from pyeee.utils import func_wrapper
-	args = [a, b]
-	kwargs = {}
-	func = partial(func_wrapper, ishigami, args, kwargs)
+    from pyeee.utils import func_wrapper
+    args = [a, b]
+    kwargs = {}
+    func = partial(func_wrapper, ishigami, args, kwargs)
 
-	# screen
-	out = eee(func, lb, ub)
+    # screen
+    out = eee(func, lb, ub)
 ```
 
 There are wrappers to use with Python functions with or without
