@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 from __future__ import division, absolute_import, print_function
 """
-screening : Provides the function screening/ee for Morris' method
-            of Elementary Effects.
+screening : Provides the function screening/ee for Morris' method of Elementary Effects.
 
 This function was written by Matthias Cuntz while at Institut National
 de Recherche en Agriculture, Alimentation et Environnement (INRAE),
@@ -47,7 +46,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
               processes=1, pool=None,
               verbose=0):
     """
-    Parameter screening using Morris method of Elementary Effects.
+    Parameter screening using Morris' method of Elementary Effects.
 
     Note, the input function must be callable as `func(x)`.
 
@@ -103,7 +102,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
         The percent point function ppf is called like this: dist(*distparam).ppf(x)
     seed : int or array_like
-        Seed for numpy``s random number generator (default: None).
+        Seed for numpy's random number generator (default: None).
     processes : int, optional
         The number of processes to use to evaluate objective function and constraints (default: 1).
     pool : `schwimmbad` pool object, optional

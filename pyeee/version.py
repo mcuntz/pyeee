@@ -23,7 +23,7 @@ Released under the MIT License; see LICENSE file for details.
 * v0.9, Renamed morris.py to morris_method.py and adapted args and kwargs to common names in pyeee, Feb 2020, Matthias Cuntz
 * v1.0, Restructured package with functions and utils subpackages, Feb 2020, Matthias Cuntz
 * v1.1, Number of final trajectories is argument instead of keyword, Feb 2020, Matthias Cuntz
-* v1.2, Sample not only from uniform distribution but allow all distributions of scipy.stats, Mar 2020, Matthias Cuntz
+* v1.2, Sample not only from uniform distribution but allow all distributions of scipy.stats, Apr 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """

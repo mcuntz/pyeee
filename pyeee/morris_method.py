@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import division, absolute_import, print_function
 """
-Module provides the Morris Method of Elementary Effects.
+Module provides the Morris' Method of Elementary Effects.
 It includes optimised sampling of trajectories including optional groups
 as well as calculation of the Morris measures mu, stddev and mu*.
 

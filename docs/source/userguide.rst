@@ -332,16 +332,16 @@ limits `0` and `1`.
 
 The three parameters :math:`x_0, x_1, x_2` of the Ishigami-Homma
 function follow uniform distributions between :math:`-\pi` and
-:math:`+\pi`. Say that :math:`x_1` follows a Gaussian
-distribution around the mean `0` with a standard deviation of 1.81. We
-want to sample between three standard deviations, which includes about
-99.7\% of the total distribution. This means that the lower bound
-would be 0.0015 and the upper bound 0.9985.
+:math:`+\pi`. Say that :math:`x_1` follows a Gaussian distribution
+around the mean `0` with a standard deviation of 1.81. We want to
+sample between plus or minus three standard deviations, which includes
+about 99.7\% of the total distribution. This means that the lower
+bound would be 0.0015 (0.003/2.) and the upper bound 0.9985.
 
 .. code-block:: python
 
     import scipy.stats as stats
-    dist      = [None, stats.normal, stats.uniform]
+    dist      = [None, stats.norm, stats.uniform]
     distparam = [None, (0., 1.81), (-np.pi, 2.*np.pi)]
     lb        = [-np.pi, 0.0015, 0.]
     ub        = [np.pi, 0.9985, 1.]
@@ -361,16 +361,16 @@ This shows that
        :any:`scipy.stats.uniform`, `loc` is the lower limit and
        `loc+scale` the upper limit. This means the combination
        `dist=None`, `lb=a`, `ub=b` corresponds to
-       `dist=scipy.stats.uniform`, `distparam=[a,b-a]`, `lb=0`, `ub=1`.
+       `dist=scipy.stats.uniform`, `distparam=[a,b-a]`, `lb=0`,
+       `ub=1`.
 
 Note also that
 
     5. if `distparam==None`, `loc=0` and `scale=1` will be taken;
     6. `loc` and `scale` are implemented as keywords in
-       :any:`scipy.stats`. Other parameters such as the shape
-       parameter of the gamma distribution
-       :any:`scipy.stats.gamma` must hence be given first,
-       e.g. `(shape,loc,scale)`.
+       :any:`scipy.stats`. Other parameters such as for example the shape
+       parameter of the gamma distribution :any:`scipy.stats.gamma` must
+       hence be given first, i.e. `(shape,loc,scale)`.
 
 Remember that Morris' method of Elementary Effects assumes uniformly
 distributed parameters and that other distributions are an extension

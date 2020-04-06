@@ -116,7 +116,7 @@ def eee(func, *args, **kwargs):
 
         If True, return weighted mean mu*, weighted by sd.
     seed : int or array_like
-        Seed for numpy``s random number generator (default: None).
+        Seed for numpy's random number generator (default: None).
     processes : int, optinal
         The number of processes to use to evaluate objective function and constraints (default: 1).
     pool : `schwimmbad` pool object, optinal
