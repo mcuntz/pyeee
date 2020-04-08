@@ -98,7 +98,7 @@ master_doc = "contents"
 
 # General information about the project.
 project = "pyeee"
-copyright = "2019-2020, Matthias Cuntz"
+copyright = "2013-2020, Matthias Cuntz"
 author = "Matthias Cuntz"
 
 # The version info for the project you're documenting, acts as replacement for

@@ -2,29 +2,29 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
-### v1.2
+### v1.2 (Apr 2020)
     - Sample not only from uniform distribution but allow all
       distributions of scipy.stats in morris_sampling, screening/eee, and
       eee/see.
 
-### v1.1
+### v1.1 (Feb 2020)
     - Make number of final trajectories an argument instead of a
       keyword argument in screening/ee.
     - Make number of final trajectories an argument instead of a
       keyword argument and sample by default 10*final trajectories in
       Morris Method, i.e. morris_sampling.
 
-### v1.0
+### v1.0 (Feb 2020)
     - Restructured package with functions and utils subpackages.
 
-### v0.9
+### v0.9 (Feb 2020)
     - Added mention to template of Sebastian Mueller in README.md and documentation.
     - Renamed morris.py to morris_method.py.
     - Adjusted names of arguments and keyword arguments in
       morris_sampling and elementary_effects to be consistent with
       rest of pyeee.
 
-### v0.8
+### v0.8 (Feb 2020)
     - Split tests in individual files, one per module.
     - Changed from ValueError to TypeError if function given to exe wrappers.
     - InputError does not exist, use TypeError in screening.
@@ -33,7 +33,7 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
       matplotlib installed.
     - Coverage at maximum except for eee.py.
 
-### v0.7
+### v0.7 (Feb 2020)
     - Make systematically function_p versions of all logistic
       functions and its derivatives.
     - Keep formatting of names and spaces with sub_names_params
@@ -43,12 +43,12 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
     - Removed missing coverage in function_wrappers, std_io,
       sa_test_functions, and general_functions.
 
-### v0.6
+### v0.6 (Feb 2020)
     - Tests did not work on TravisCI because pyeee not installed: put
       pyeee in PYTHONPATH for tests and in shell script.
     - Added tests for standard IO and documented missing coverage.
 
-### v0.5
+### v0.5 (Feb 2020)
     - Added tests for general functions, function and exe wrappers,
       Morris Elementary Effects, SA test functions, screening, and tee
       to increase coverage.
@@ -58,17 +58,17 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
     - Replaced kwarg.pop mechanism in exe wrappers because it removed
       the keywords from subsequent function calls.
 
-### v0.4.2
+### v0.4.2 (Jan 2020)
     - Second release online on Github, simply to trigger zenodo.
 
-### v0.4.1
+### v0.4.1 (Jan 2020)
     - First release on zenodo.
 
-### v0.4
+### v0.4 (Jan 2020)
     - Replaced numpy.matrix arithmetic with numpy.dot on ndarray in.
       Morris sampling: no numpy deprecation warnings anymore.
 
-### v0.3
+### v0.3 (Jan 2020)
     - Added test for see, using logfile and several processes in eee.
     - Added seed keyword to screening/ee.
     - Distinguish iterable and array_like parameter types in all routines.
@@ -76,5 +76,5 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
     - Added Elementary Effects (ee) in README.md and Quick usage guide.
     - Corrected error in description of pyeee in setup.py, and set development status to 4 - Beta.
 
-### v0.2
+### v0.2 (Jan 2020)
     - Initial release on PyPI.

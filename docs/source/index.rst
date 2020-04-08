@@ -171,7 +171,7 @@ License
 ``pyeee`` is distributed under the MIT License.  
 See the `LICENSE <https://github.com/mcuntz/pyeee/LICENSE>`_ file for details.
 
-Copyright (c) 2014-2019 Matthias Cuntz, Juliane Mai
+Copyright (c) 2013-2020 Matthias Cuntz, Juliane Mai
 
 The project structure is based on a [template](https://github.com/MuellerSeb/template) provided by [Sebastian Müller](https://github.com/MuellerSeb).
 

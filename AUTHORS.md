@@ -9,7 +9,7 @@ Created October 2019 by Matthias Cuntz.
 
 It is distributed under the MIT License (see LICENSE file and below).
 
-Copyright (c) 2012-2020 Matthias Cuntz, Juliane Mai
+Copyright (c) 2013-2020 Matthias Cuntz, Juliane Mai
 
 ## Main Authors
 

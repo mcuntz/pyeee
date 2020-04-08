@@ -588,7 +588,7 @@ wrapper function :func:`~pyeee.utils.function_wrapper.exe_wrapper`:
 :func:`~pyeee.utils.std_io.standard_parameter_writer` are convenience
 functions that read and write one parameter per line in a file without
 a header. The function :func:`~pyeee.utils.std_io.standard_objective_reader`
-simply reads one value from a file without header. The empty directory
+simply reads one value from a file without header. The empty dictionary
 at the end will be explained below at `Further arguments of wrappers`_.
 
 One can easily imagine to replace the python program `ishiexe.py` by
