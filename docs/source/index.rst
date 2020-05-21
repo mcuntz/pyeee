@@ -1,6 +1,6 @@
-=======================
-pyeee Quickstart
-=======================
+==========
+Quickstart
+==========
 
 ``pyeee``: A Python library for parameter screening of computational models
 using Morris' method of Elementary Effects or its extension of
@@ -98,7 +98,7 @@ Python function with extra parameters
 -------------------------------------
 
 The function for ``pyeee`` must be of the form `func(x)`. Use Python's
-:any:`functools.partial` from the :mod:`functools` module to pass other function parameters.
+:func:`functools.partial` from the :mod:`functools` module to pass other function parameters.
 
 For example pass the parameters :math:`a` and :math:`b` to the Ishigami-Homma function:
 
@@ -173,7 +173,9 @@ See the `LICENSE <https://github.com/mcuntz/pyeee/LICENSE>`_ file for details.
 
 Copyright (c) 2013-2020 Matthias Cuntz, Juliane Mai
 
-The project structure is based on a [template](https://github.com/MuellerSeb/template) provided by [Sebastian Müller](https://github.com/MuellerSeb).
+The project structure is based on a `template
+<https://github.com/MuellerSeb/template>`_ provided by `Sebastian
+Müller <https://github.com/MuellerSeb>`_ .
 
 
 Contributing to pyeee

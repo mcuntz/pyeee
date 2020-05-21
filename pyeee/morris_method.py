@@ -24,8 +24,8 @@ from an original Matlab code of F. Campolongo and J. Cariboni, JRC -
 IPSC Ispra, Varese, IT. It was adapted by Matthias Cuntz while at
 Department of Computational Hydrosystems, Helmholtz Centre for
 Environmental Research - UFZ, Leipzig, Germany, and continued while at
-Institut National de Recherche en Agriculture, Alimentation et
-Environnement (INRAE), Nancy, France.
+Institut National de Recherche pour l'Agriculture, l'Alimentation et
+l'Environnement (INRAE), Nancy, France.
 
 Copyright (c) 2012-2020 Stijn Van Hoey, Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.

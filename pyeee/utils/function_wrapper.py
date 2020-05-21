@@ -18,9 +18,8 @@ Func can then be a string (e.g. './prog -arg') if shell=True
 or a list (e.g. ['./prog', '-arg']) if shell=False (default).
 Programs without arguments, pipes, etc. can simply be strings with shell=True or False.
 
-This module was written by Matthias Cuntz while at Institut National
-de Recherche en Agriculture, Alimentation et Environnement (INRAE),
-Nancy, France.
+This module was written by Matthias Cuntz while at Institut National de Recherche
+pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
 Copyright (c) 2016-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.

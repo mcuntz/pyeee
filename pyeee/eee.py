@@ -5,9 +5,8 @@ eee : Provides the function eee for Efficient/Sequential Elementary Effects,
       an extension of Morris' method of Elementary Effects by
       Cuntz, Mai et al. (Water Res Research, 2015).
 
-This function was written by Matthias Cuntz while at Institut National
-de Recherche en Agriculture, Alimentation et Environnement (INRAE),
-Nancy, France.
+This function was written by Matthias Cuntz while at Institut National de Recherche
+pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
 Copyright (c) 2017-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.

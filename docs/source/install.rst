@@ -1,8 +1,8 @@
-=======================
-pyeee Installation
-=======================
+============
+Installation
+============
 
-The easiest way to install is via ``pip``:
+The easiest way to install ``pyeee`` is via ``pip``:
 
 .. code-block:: bash
 
@@ -24,8 +24,8 @@ The latest version of ``pyeee`` can be installed from source:
 Local install
 -------------
 
-Users without install privileges can append the ``--user`` flag to
-``pip`` either while installing from Python Package Index (PyPI):
+Users without proper privileges can append the `--user` flag to
+``pip`` either while installing from the Python Package Index (PyPI):
 
 .. code-block:: bash
 
@@ -39,13 +39,13 @@ or from the top ``pyeee`` directory:
     cd pyeee
     pip install . --user
 
-If ``pip`` is not available, then ``setup.py`` can still be used:
+If ``pip`` is not available, then `setup.py` can still be used:
 
 .. code-block:: bash
 
     python setup.py install --user
 
-When using ``setup.py`` locally, it might be that one needs to append ``--prefix=``
+When using `setup.py` locally, it might be that one needs to append `--prefix=`
 to the command:
 
 .. code-block:: bash
@@ -56,7 +56,7 @@ to the command:
 Dependencies
 ------------
 
-``pyeee`` uses the packages :any:`numpy`, :any:`scipy` and :any:`schwimmbad`.
+``pyeee`` uses the packages :mod:`numpy`, :mod:`scipy` and :mod:`schwimmbad`.
 They are all available in PyPI and ``pip`` should install them
-automatically. Installations via ``setup.py`` might need to install
+automatically. Installations via `setup.py` might need to install
 the three dependencies first.

@@ -2,6 +2,9 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v1.3 (??? 2020)
+    - Small refinements of documentation.
+
 ### v1.2 (Apr 2020)
     - Sample not only from uniform distribution but allow all
       distributions of scipy.stats in morris_sampling, screening/eee, and

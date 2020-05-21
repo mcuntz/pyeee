@@ -3,9 +3,8 @@ from __future__ import division, absolute_import, print_function
 """
 Provide version number for pyeee library.
 
-This module was written by Matthias Cuntz while at Institut National
-de Recherche en Agriculture, Alimentation et Environnement (INRAE),
-Nancy, France.
+This module was written by Matthias Cuntz while at Institut National de Recherche
+pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
 Copyright (c) 2019-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.

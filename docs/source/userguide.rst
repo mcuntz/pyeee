@@ -1,6 +1,6 @@
-**********************
-pyeee User Guide
-**********************
+**********
+User Guide
+**********
 
 ``pyeee`` is a Python library for performing parameter screening of
 computational models. It uses Morris' method of Elementary Effects (*EE*)
@@ -144,10 +144,10 @@ sets in parallel:
     out = ee(func, lb, ub, 10, x0=x0, mask=mask, nsteps=8, ntotal=100,
              processes=4)
 
-``pyeee`` uses the package :any:`schwimmbad` for
-parallelisation. :any:`schwimmbad` provides a uniform interface to
+``pyeee`` uses the package :mod:`schwimmbad` for
+parallelisation. :mod:`schwimmbad` provides a uniform interface to
 parallel processing pools and enables switching easily between local
-development (e.g. serial processing or :any:`multiprocessing`) and
+development (e.g. serial processing or :mod:`multiprocessing`) and
 deployment on a cluster or supercomputer (via e.g. MPI or JobLib).
 
 Consider the following code in a script (e.g. `eeetest.py`):
@@ -215,7 +215,7 @@ or
 
     python eeetest.py 1
 
-It can use Python's :any:`multiprocessing` module, e.g. with 4
+It can use Python's :mod:`multiprocessing` module, e.g. with 4
 parallel processes:
 
 .. code-block:: bash
@@ -235,7 +235,7 @@ Python functions with additional parameters
 -------------------------------------------
 
 The function for ``pyeee`` must be of the form `func(x)`. Use Python's
-:any:`functools.partial` to pass other function parameters.
+:func:`functools.partial` to pass other function parameters.
 
 For example pass the parameters :math:`a` and :math:`b` to the
 Ishigami-Homma function. One needs a wrapper function that takes the function
@@ -254,7 +254,7 @@ screening must be the last argument, i.e. `x` of `func(x)`:
 
 The parameters :math:`a` and :math:`b` are fixed parameters during
 screening. They are hence already passed to `call_func_ab` with
-:any:`functools.partial` before start of the screening.
+:func:`functools.partial` before start of the screening.
 
 .. code-block:: python
 
@@ -269,7 +269,7 @@ When `func` is called as `func(x)`, the call of `call_func_ab` is
 finished and `x`, `a` and `b` are passed to `ishigami`.
 
 ``pyeee`` provides wrapper functions to work with
-:any:`functools.partial`. `call_func_ab` can be replaced by the
+:func:`functools.partial`. `call_func_ab` can be replaced by the
 wrapper function of ``pyeee``:
 :func:`~pyeee.utils.function_wrapper.func_wrapper`:
 
@@ -319,7 +319,7 @@ normal distribution with mean :math:`\overline{p}` and a standard
 deviation :math:`\epsilon_p` for the parameter :math:`p` for
 determining Morris' Elementary Effects.
 
-``pyeee`` allows all distributions of :any:`scipy.stats`, given with
+``pyeee`` allows all distributions of :mod:`scipy.stats`, given with
 the keyword `dist`. The parameter of the distributions are given as
 tuples with the keyword `distparam`. The lower and upper bounds
 change their meaning if `dist` is given for a parameter: ``pyeee``
@@ -351,11 +351,11 @@ bound would be 0.0015 (0.003/2.) and the upper bound 0.9985.
 This shows that
 
     1. one has to give a distribution for each parameter;
-    2. distributions are given as :any:`scipy.stats` distribution
+    2. distributions are given as :mod:`scipy.stats` distribution
        objects;
     3. if `dist` is None, ``pyeee`` assumes a uniform
        distribution and samples between lower and upper bound;
-    4. (almost) all :any:`scipy.stats` distributions take the keywords
+    4. (almost) all :mod:`scipy.stats` distributions take the keywords
        `loc` and `scale`. Their meaning is *NOT* mean and standard
        deviation in most distributions. For the uniform distribution
        :any:`scipy.stats.uniform`, `loc` is the lower limit and
@@ -368,7 +368,7 @@ Note also that
 
     5. if `distparam==None`, `loc=0` and `scale=1` will be taken;
     6. `loc` and `scale` are implemented as keywords in
-       :any:`scipy.stats`. Other parameters such as for example the shape
+       :mod:`scipy.stats`. Other parameters such as for example the shape
        parameter of the gamma distribution :any:`scipy.stats.gamma` must
        hence be given first, i.e. `(shape,loc,scale)`.
 
@@ -482,10 +482,10 @@ small fluxes in most computer models.
 
 :func:`~pyeee.screening.eee` offers the same parallel mechanism as
 :func:`~pyeee.screening.ee`, using the keywords `processes` and
-`pool`, which is again a :any:`schwimmbad` `pool` object.
+`pool`, which is again a :mod:`schwimmbad` `pool` object.
 
 :func:`~pyeee.screening.eee` also offers the possibility to sample
-parameters from different distributions of :any:`scipy.stats`
+parameters from different distributions of :mod:`scipy.stats`
 with the keywords `dist` and `distparam`.
 
 One can give a `plotfile` name to check the initial fit to the
@@ -564,7 +564,7 @@ This program can be called on the command line with:
 
     python ishiexe.py
 
-The external program can be used in ``pyeee`` with :any:`functools.partial` and the
+The external program can be used in ``pyeee`` with :func:`functools.partial` and the
 wrapper function :func:`~pyeee.utils.function_wrapper.exe_wrapper`:
 
 .. code-block:: python
@@ -641,7 +641,7 @@ The user can pass further arguments to
 the end of the call. Setting the key `shell` to `True` passes
 `shell=True` to :func:`subprocess.check_output`, which makes
 :func:`subprocess.check_output` open a shell for running the external
-executable. Note that the `args` in :any:`subprocess` must be a string
+executable. Note that the `args` in :mod:`subprocess` must be a string
 if `shell=True` and a list it `shell=False`. Setting the key `debug`
 to `True` uses :func:`subprocess.check_call` so that any output of the
 external executable will be written to the screen (precisely
@@ -782,7 +782,7 @@ other.
 
 :func:`~pyeee.utils.function_wrapper.exe_wrapper` concatenates an individual
 integer number to the function string (or list, see
-:any:`subprocess`), adds the integer to call of `parameterwrite` and
+:mod:`subprocess`), adds the integer to call of `parameterwrite` and
 appends the number to the `objectivefile`, like:
 
 .. code-block:: python

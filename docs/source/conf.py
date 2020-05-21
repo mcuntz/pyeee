@@ -248,12 +248,14 @@ suppress_warnings = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
+    "Python 3.9": ("https://docs.python.org/3.9", None),
     "Python 3.6": ("https://docs.python.org/3.6", None),
     "Python": ("https://docs.python.org/", None),
     "NumPy": ("http://docs.scipy.org/doc/numpy/", None),
     "SciPy": ("http://docs.scipy.org/doc/scipy/reference/", None),
-    "matplotlib": ("http://matplotlib.org", None),
-    "Sphinx": ("http://www.sphinx-doc.org/en/stable/", None),
+    "matplotlib": ("http://matplotlib.org/", None),
+    "Sphinx": ("https://sphinx.readthedocs.io/en/latest/", None),
     "schwimmbad": ("https://schwimmbad.readthedocs.io/en/latest/", None),
-    "mpi4py": ("https://mpi4py.readthedocs.io/en/stable/", None),
+    "mpi4py": ("https://mpi4py.readthedocs.io/en/latest/", None),
+    "emcee": ("https://emcee.readthedocs.io/en/latest/", None),
 }

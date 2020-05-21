@@ -7,9 +7,8 @@ including substitution of tags #JA????# or names in files.
 Parameter files can be written in some arbitrary standard formats.
 Or a prepared parameter file can be read and parameter values replaced.
 
-This module was written by Matthias Cuntz while at Institut National
-de Recherche en Agriculture, Alimentation et Environnement (INRAE),
-Nancy, France.
+This module was written by Matthias Cuntz while at Institut National de Recherche
+pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
 Copyright (c) 2016-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.

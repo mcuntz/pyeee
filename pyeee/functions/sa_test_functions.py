@@ -32,8 +32,8 @@ Current functions are:
 This module was written by Matthias Cuntz & Juliane Mai while at
 Department of Computational Hydrosystems, Helmholtz Centre for
 Environmental Research - UFZ, Leipzig, Germany, and continued by
-Matthias Cuntz while at Institut National de Recherche en Agriculture,
-Alimentation et Environnement (INRAE), Nancy, France.
+Matthias Cuntz while at Institut National de Recherche pour l'Agriculture,
+l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
 Copyright (c) 2015-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
@@ -653,7 +653,7 @@ if __name__ == '__main__':
     # # 3.0
     # B(np.arange(10))
     # # 80
-    # B(np.arange(12).reshape(6,2))                                                                             
+    # B(np.arange(12).reshape(6,2))
     # # array([56, 89])
     # linear(np.ones(1), 1., 1.)
     # # 2.0
@@ -668,14 +668,14 @@ if __name__ == '__main__':
     # # -101.0
     # K(np.arange(8).reshape((4,2))+1.)
     # # [ 92., 342.]
-    # oakley_ohagan(np.zeros(15))                                                                               
+    # oakley_ohagan(np.zeros(15))
     # # 15.75
     # Gstar(np.ones(5), np.zeros(5), np.ones(5), np.zeros(5))
     # # 1.0
     # g(np.ones(5), np.zeros(5))
     # G(np.ones(5), np.zeros(5))
     # # 32.0
-    
+
     # # Morris function
     # seed = 1234
     # np.random.seed(seed=seed)
