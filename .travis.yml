@@ -28,15 +28,15 @@ env:
     # Note: TWINE_PASSWORD is set in Travis settings
 
 install:
-  - python3 -m pip install -U pip
-  - python3 -m pip install -U setuptools
-  - python3 -m pip install -U pytest
-  - python3 -m pip install -U pytest-cov
-  - python3 -m pip install -U coveralls
-  - python3 -m pip install -r tests/requirements_test.txt
-  - python3 -m pip install -r docs/requirements.txt
-  - python3 -m pip install cibuildwheel
-  - python3 -m pip install twine
+  - python3 -m pip3 install -U pip
+  - python3 -m pip3 install -U setuptools
+  - python3 -m pip3 install -U pytest
+  - python3 -m pip3 install -U pytest-cov
+  - python3 -m pip3 install -U coveralls
+  - python3 -m pip3 install -r tests/requirements_test.txt
+  - python3 -m pip3 install -r docs/requirements.txt
+  - python3 -m pip3 install cibuildwheel
+  - python3 -m pip3 install twine
 
 script:
   # create wheels
@@ -44,10 +44,10 @@ script:
   # create source dist for pypi and create coverage
   - |
     if [[ $COVER == "on" ]] ; then
-      python3 -m pip install -U pytest
-      python3 -m pip install -U pytest-cov
-      python3 -m pip install -U coveralls
-      python3 -m pip install -r tests/requirements_test.txt
+      python3 -m pip3 install -U pytest
+      python3 -m pip3 install -U pytest-cov
+      python3 -m pip3 install -U coveralls
+      python3 -m pip3 install -r tests/requirements_test.txt
       rm -rf dist
       python3 setup.py sdist
       export PYTHONPATH=${PYTHONPATH}:${PWD}
@@ -57,7 +57,7 @@ script:
 
 after_success:
   # pypi upload (test always, official on TAG)
-  - python3 -m pip install -U twine
+  - python3 -m pip3 install -U twine
   - python3 -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
   - |
     if [[ $COVER == "on" ]] ; then
