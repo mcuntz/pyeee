@@ -71,7 +71,7 @@ setup(
     version              = version,
     maintainer           = author,
     maintainer_email     = email,
-    description          = DOCLINES,
+    description          = doclines,
     long_description     = readme,
     long_description_content_type = "text/markdown",
     author               = author,
