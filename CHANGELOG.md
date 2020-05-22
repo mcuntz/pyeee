@@ -5,8 +5,7 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
 ### v1.3 (??? 2020)
     - Small refinements of documentation.
     - Generalise setup structure.
-    - Use python3 for TravisCI.
-    - Use pip3 for TravisCI.
+    - Use python3 for *nix and python for Windows on TravisCI.
 
 ### v1.2 (Apr 2020)
     - Sample not only from uniform distribution but allow all
