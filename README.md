@@ -43,9 +43,9 @@ The complete documentation for *pyeee* is available from Read The Docs.
 
 ### Simple Python function
 
-Consider the Ishigami-Homma function: $y = \sin(x_0) + a\,\sin(x_1)^2 + b\,x_2^4\sin(x_0)$.
+Consider the Ishigami-Homma function: `y = sin(x_0) + a*sin(x_1)^2 + b*x_2^4*sin(x_0)`.
 
-Taking $a = b = 1$ gives:
+Taking `a = b = 1` gives:
 
 ```python
     import numpy as np
@@ -53,7 +53,7 @@ Taking $a = b = 1$ gives:
        return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
 ```
 
-The three paramters $x_0$, $x_1$, $x_2$ follow uniform distributions between $-\pi$ and $+\pi$.
+The three paramters `x_0`, `x_1`, `x_2` follow uniform distributions between `-pi` and `+pi`.
 
 Morris' Elementary Effects can then be calculated like:
 
@@ -98,7 +98,7 @@ parameters and False for the uninformative parameters:
 
 ### Python function with extra parameters
 
-The function for pyeee must be of the form func(x). Use Python's
+The function for pyeee must be of the form `func(x)`. Use Python's
 partial from the functools module to pass other function parameters.
 
 For example pass the parameters $a$ and $b$ to the Ishigami-Homma function.
@@ -130,7 +130,7 @@ For example pass the parameters $a$ and $b$ to the Ishigami-Homma function.
     out = ee(func, lb, ub, 10)
 ```
 
-`partial` passes $a$ and $b$ to the
+`partial` passes `a` and `b` to the
 function `call_func_ab` already during definition so that *pyeee*
 can then simply call it as `func(x)`, so that `x` is passed to
 `call_func_ab` as well.
@@ -186,7 +186,8 @@ The project structure is based on a [template](https://github.com/MuellerSeb/tem
 ## Contributing to pyeee
 
 Users are welcome to submit bug reports, feature requests, and code
-contributions to this project through GitHub.  
+contributions to this project through GitHub.
+
 More information is available in the
 [Contributing](http://pyeee.readthedocs.org/en/latest/contributing.html)
 guidelines.

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
 pyeee: A Python library providing parameter screening of computational models
        using the Morris method of Elementary Effects or its extension of
        Efficient Elementary Effects by Cuntz, Mai et al. (Water Res Research, 2015).
 """
+from __future__ import division, absolute_import, print_function
 import os
 import codecs
 import re
