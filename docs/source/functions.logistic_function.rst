@@ -1,7 +1,7 @@
-pyeee.functions.sa_test_functions
+pyeee.functions.logistic_function
 =================================
 
-.. automodule:: pyeee.functions.sa_test_functions
+.. automodule:: pyeee.functions.logistic_function
    :members:
    :undoc-members:
    :inherited-members:

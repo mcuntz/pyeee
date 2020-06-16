@@ -1,13 +1,12 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     This is the unittest for tee module.
 
     python -m unittest -v test_tee.py
-    python -m pytest --cov pyeee --cov-report term-missing -v tests/
+    python -m pytest --cov-report term-missing -v tests/test_tee.py
 """
+from __future__ import division, absolute_import, print_function
 import unittest
-
 
 # --------------------------------------------------------------------
 # tee.py
@@ -15,7 +14,7 @@ class TestTee(unittest.TestCase):
 
     def test_tee(self):
         import os
-        from pyeee.utils import tee
+        from pyeee import tee
 
         tee('T T T Test 1')
         ff = open('log.txt', 'w')
@@ -31,16 +30,6 @@ class TestTee(unittest.TestCase):
         self.assertEqual(inlog.rstrip(), 'T T T Test 2')
 
         if os.path.exists('log.txt'): os.remove('log.txt')
-
-
-# --------------------------------------------------------------------
-# utils.py
-# covered
-
-
-# --------------------------------------------------------------------
-# version.py
-# covered
 
 
 if __name__ == "__main__":

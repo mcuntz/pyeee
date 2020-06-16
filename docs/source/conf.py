@@ -248,14 +248,14 @@ suppress_warnings = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "Python 3.9": ("https://docs.python.org/3.9", None),
-    "Python 3.6": ("https://docs.python.org/3.6", None),
-    "Python": ("https://docs.python.org/", None),
-    "NumPy": ("http://docs.scipy.org/doc/numpy/", None),
-    "SciPy": ("http://docs.scipy.org/doc/scipy/reference/", None),
-    "matplotlib": ("http://matplotlib.org/", None),
-    "Sphinx": ("https://sphinx.readthedocs.io/en/latest/", None),
-    "schwimmbad": ("https://schwimmbad.readthedocs.io/en/latest/", None),
-    "mpi4py": ("https://mpi4py.readthedocs.io/en/latest/", None),
-    "emcee": ("https://emcee.readthedocs.io/en/latest/", None),
+    "Python":      ("https://docs.python.org/3/",                    None),
+    "NumPy":       ("https://numpy.org/doc/stable/",                 None),
+    "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",   None),
+    "matplotlib":  ("https://matplotlib.org/",                       None),
+    "cython":      ("https://cython.readthedocs.io/en/latest/",      None),
+    "Sphinx":      ("https://www.sphinx-doc.org/en/master/",         None),
+    "schwimmbad":  ("https://schwimmbad.readthedocs.io/en/latest/",  None),
+    "mpi4py":      ("https://mpi4py.readthedocs.io/en/latest/",      None),
+    "emcee":       ("https://emcee.readthedocs.io/en/latest/",       None),
+    "partialwrap": ("https://partialwrap.readthedocs.io/en/latest/", None),
 }

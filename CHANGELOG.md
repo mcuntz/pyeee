@@ -2,9 +2,12 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
-### v1.3 (??? 2020)
+### v2.0 (Jun 2020)
+    - Use package partialwrap in docstrings and documentation.
+    - Remove utils directory: tee.py is now directly in pyeee directory.
+    - Sync const and functions of JAMS package.
     - Small refinements of documentation.
-    - Generalise setup structure.
+    - Generalise structure of setup.py.
     - Use python3 for *nix and python for Windows on TravisCI.
 
 ### v1.2 (Apr 2020)

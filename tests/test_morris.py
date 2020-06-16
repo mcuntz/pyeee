@@ -1,18 +1,16 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     This is the unittest for the Morris module.
 
     python -m unittest -v test_morris.py
-    python -m pytest --cov pyeee --cov-report term-missing -v tests/
+    python -m pytest --cov-report term-missing -v tests/test_morris.py
 """
+from __future__ import division, absolute_import, print_function
 import unittest
-
 
 # --------------------------------------------------------------------
 # morris.py
 # Missing coverage:
-#    369-372: Same trajectories in ntotal
 #    477-478, 507-508: ImportError of matplotlib not installed
 #    690: if NumGroups == 0: if SAm.size > 1: ?
 class TestMorris(unittest.TestCase):

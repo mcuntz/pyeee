@@ -1,18 +1,17 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     This is the unittest for the Efficient/Sequential Elementary Effects module.
 
     python -m unittest -v test_eee.py
-    python -m pytest --cov pyeee --cov-report term-missing -v tests/
+    python -m pytest --cov-report term-missing -v tests/test_eee.py
 """
+from __future__ import division, absolute_import, print_function
 import unittest
-
 
 # --------------------------------------------------------------------
 # eee.py
 # Missing coverage:
-#    217-220: ImportError MPI 
+#    217-220: ImportError MPI
 #    240: crank!=0 <- MPI
 #    267: mask is not None but x0 is None
 #    273-286: mask
@@ -46,7 +45,7 @@ class TestEee(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import eee
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import G
 
         # Function and parameters
@@ -57,7 +56,7 @@ class TestEee(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -76,7 +75,7 @@ class TestEee(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import eee, see
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import Gstar
 
         # Function and parameters
@@ -103,7 +102,7 @@ class TestEee(unittest.TestCase):
             # Partialise function with fixed parameters
             arg   = params[ii]
             kwarg = {}
-            obj   = partial(func_wrapper, func, arg, kwarg)
+            obj   = partial(function_wrapper, func, arg, kwarg)
 
             out = see(obj, lb, ub, mask=None,
                       ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
@@ -119,7 +118,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         import schwimmbad
         from pyeee import eee
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import bratley
 
         # Function and parameters
@@ -152,7 +151,7 @@ class TestEee(unittest.TestCase):
         import os
         import numpy as np
         from pyeee import eee
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import fmorris
 
         # Function and parameters
@@ -171,7 +170,7 @@ class TestEee(unittest.TestCase):
         # Partialise Morris function with fixed parameters beta0-4
         arg   = [beta0, beta1, beta2, beta3, beta4]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -198,7 +197,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         import scipy.stats as stats
         from pyeee import eee
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import fmorris
 
         # Function and parameters
@@ -217,7 +216,7 @@ class TestEee(unittest.TestCase):
         # Partialise Morris function with fixed parameters beta0-4
         arg   = [beta0, beta1, beta2, beta3, beta4]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -241,7 +240,7 @@ class TestEee(unittest.TestCase):
         from functools import partial
         import numpy as np
         from pyeee import eee
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import G
 
         # Function and parameters
@@ -252,7 +251,7 @@ class TestEee(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -276,7 +275,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         import scipy.stats as stats
         from pyeee import eee
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
         from pyeee.functions import G
 
         # Function and parameters
@@ -287,7 +286,7 @@ class TestEee(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)

@@ -1,10 +1,9 @@
 # pyeee - Parameter screening of computational models
 <!-- pandoc -f gfm -o README.html -t html README.md -->
 
-A Python library for parameter screening of computational models
-using Morris' method of Elementary Effects or its extension of
-Efficient/Sequential Elementary Effects by Cuntz, Mai et al. (Water
-Res Research, 2015).
+A Python library for parameter screening of computational models using Morris'
+method of Elementary Effects or its extension of Efficient/Sequential Elementary
+Effects by Cuntz, Mai et al. (Water Res Research, 2015).
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3620909.svg)](https://doi.org/10.5281/zenodo.3620909)
 <!-- [![DOI](https://zenodo.org/badge/233405522.svg)](https://zenodo.org/badge/latestdoi/233405522)  -->
@@ -17,9 +16,9 @@ Res Research, 2015).
 
 ## About pyeee
 
-*pyeee* is a Python library for performing parameter screening of
-computational models. It uses Morris' method of  Elementary Effects
-and also its extension of Efficient or Sequential Elementary Effects published of
+*pyeee* is a Python library for performing parameter screening of computational
+models. It uses Morris' method of Elementary Effects and also its extension of
+Efficient or Sequential Elementary Effects published of
 
 Cuntz, Mai *et al.* (2015)  
   Computationally inexpensive identification of noninformative model
@@ -27,9 +26,13 @@ parameters by sequential screening
   *Water Resources Research* 51, 6417-6441,
  doi:[10.1002/2015WR016907](http://doi.org/10.1002/2015WR016907).
 
-*pyeee* can be used with Python functions but wrappers are provided
-to use it with executables as well. Function evaluation can be
-distributed with Python's multiprocessing or via MPI.
+The package uses several functions of the JAMS Python package
+https://github.com/mcuntz/jams_python  
+The JAMS package and *hesseflux* are synchronised irregularly.
+
+*pyeee* can be used with Python functions but also with external programs, using
+for example [partialwrap](http://partialwrap.readthedocs.org/en/latest).
+Function evaluation can be distributed with Python's multiprocessing or via MPI.
 
 
 ## Documentation
@@ -78,8 +81,8 @@ which gives the Elementary Effects ($\mu*$):
     # gives: 173.1 0.6 61.7
 ```
 
-Sequential Elementary Effects distinguish between informative and
-uninformative parameters using several times Morris' Elementary Effects:
+Sequential Elementary Effects distinguish between informative and uninformative
+parameters using several times Morris' Elementary Effects:
 
 ```python
     # screen
@@ -88,8 +91,8 @@ uninformative parameters using several times Morris' Elementary Effects:
     out = eee(ishigami1, lb, ub, ntfirst=10)
 ```
 
-which returns a logical ndarray with True for the informative
-parameters and False for the uninformative parameters:
+which returns a logical ndarray with True for the informative parameters and
+False for the uninformative parameters:
 
 ```python
     print(out)
@@ -98,8 +101,8 @@ parameters and False for the uninformative parameters:
 
 ### Python function with extra parameters
 
-The function for pyeee must be of the form `func(x)`. Use Python's
-partial from the functools module to pass other function parameters.
+The function for pyeee must be of the form `func(x)`. Use Python's partial from
+the functools module to pass other function parameters.
 
 For example pass the parameters $a$ and $b$ to the Ishigami-Homma function.
 
@@ -130,15 +133,16 @@ For example pass the parameters $a$ and $b$ to the Ishigami-Homma function.
     out = ee(func, lb, ub, 10)
 ```
 
-`partial` passes `a` and `b` to the
-function `call_func_ab` already during definition so that *pyeee*
-can then simply call it as `func(x)`, so that `x` is passed to
-`call_func_ab` as well.
+Figuratively speaking, `partial` passes `a` and `b` to the function
+`call_func_ab` already during definition so that *pyeee* can then simply call it
+as `func(x)`, so that `x` is passed to `call_func_ab` as well.
 
 
 ### Function wrappers
 
-*pyeee* provides wrappers to use with partial.
+We recommend to use the package
+[partialwrap](http://partialwrap.readthedocs.org/en/latest), which provides
+wrappers to use with partial.
 
 ```python
     from pyeee.utils import func_wrapper
@@ -151,8 +155,9 @@ can then simply call it as `func(x)`, so that `x` is passed to
 ```
 
 There are wrappers to use with Python functions with or without
-masking parameters, as well as wrappers for external executables. See the
-documentation for details.
+masking parameters, as well as wrappers for external programs.
+
+See the documentation for details:
 
    http://pyeee.readthedocs.org/en/latest/
 

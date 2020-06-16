@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
 Module provides the Morris' Method of Elementary Effects.
 It includes optimised sampling of trajectories including optional groups
@@ -59,19 +58,20 @@ The following wrappers are provided
     morris_sampling
     elementary_effects
 """
+from __future__ import division, absolute_import, print_function
 import numpy as np
 
 __all__ = ['morris_sampling', 'elementary_effects']
 
 
-def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
+def Sampling_Function_2(p, k, r, lb, ub, GroupMat=np.array([])):
     """
         Morris sampling function
 
 
         Definition
         ----------
-        def  Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
+        def  Sampling_Function_2(p, k, r, lb, ub, GroupMat=np.array([])):
 
 
         Input
@@ -81,8 +81,8 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
                                         In case groups are chosen the number of factors is stored in NumFact and sizea
                                         becomes the number of created groups (sizea=GroupMat.shape[1]).
         r                               sample size
-        LB(sizea)                       Lower Bound for each factor in list or array
-        UB(sizea)                       Upper Bound for each factor in list or array
+        lb(sizea)                       Lower Bound for each factor in list or array
+        ub(sizea)                       Upper Bound for each factor in list or array
 
 
         Optional Input
@@ -219,9 +219,9 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
 
         # c --> Compute values in the original intervals
         # B0 has values x(i,j) in [0, 1/(p -1), 2/(p -1), ... , 1].
-        # To obtain values in the original intervals [LB, UB] we compute
-        # LB(j) + x(i,j)*(UB(j)-LB(j))
-        In = np.tile(LB, (sizeb, 1)) + B0 * np.tile((UB - LB), (sizeb, 1))
+        # To obtain values in the original intervals [lb, ub] we compute
+        # lb(j) + x(i,j)*(ub(j)-lb(j))
+        In = np.tile(lb, (sizeb, 1)) + B0 * np.tile((ub - lb), (sizeb, 1))
 
         # Create the Factor vector. Each component of this vector indicate which factor or group of factor
         # has been changed in each step of the trajectory.
@@ -236,7 +236,7 @@ def Sampling_Function_2(p, k, r, LB, UB, GroupMat=np.array([])):
     return Outmatrix, OutFact
 
 
-def Optimized_Groups(NumFact, LB, UB, r,
+def Optimized_Groups(NumFact, lb, ub, r,
                      p=6, N=None,
                      dist=None, distparam=None,
                      GroupMat=np.array([]), Diagnostic=0):
@@ -247,15 +247,15 @@ def Optimized_Groups(NumFact, LB, UB, r,
 
         Definition
         ----------
-        def Optimized_Groups(NumFact, LB, UB, r, p=6, N=None, GroupMat=np.array([]), Diagnostic=0):
+        def Optimized_Groups(NumFact, lb, ub, r, p=6, N=None, GroupMat=np.array([]), Diagnostic=0):
 
 
         Input
         -----
         NumFact           Number of factors
-        LB                [NumFact] Lower bound of the uniform distribution for each factor
+        lb                [NumFact] Lower bound of the uniform distribution for each factor
                           or lower fraction of percent point function ppf if distribution given.
-        UB                [NumFact] Upper bound of the uniform distribution for each factor
+        ub                [NumFact] Upper bound of the uniform distribution for each factor
                           or upper fraction of percent point function ppf if distribution given.
         r                 Final number of optimal trajectories
 
@@ -267,10 +267,10 @@ def Optimized_Groups(NumFact, LB, UB, r,
         dist              List of None or scipy.stats distribution objects for each factor
                           having the method ppf, Percent Point Function (Inverse of CDF)
                           (default: None).
-                          If None, the uniform distribution will be sampled from lower bound LB
-                          to upper bound UB.
+                          If None, the uniform distribution will be sampled from lower bound lb
+                          to upper bound ub.
                           If dist is scipy.stats.uniform, the ppf will be sampled from the lower
-                          fraction given in LB and the upper fraction in UB. The sampling interval
+                          fraction given in lb and the upper fraction in ub. The sampling interval
                           is then given by the parameters loc=lower and scale=interval=upper-lower
                           in param.
         distparam         List with tuples with parameters as required for dist (default: (0,1)).
@@ -327,10 +327,10 @@ def Optimized_Groups(NumFact, LB, UB, r,
 
     if N is None: N = 10*r
 
-    assert len(LB) == NumFact, 'Lower bound must have length NumFact.'
-    assert len(UB) == NumFact, 'Upper bound must have length NumFact.'
+    assert len(lb) == NumFact, 'Lower bound must have length NumFact.'
+    assert len(ub) == NumFact, 'Upper bound must have length NumFact.'
     if dist is not None:
-        assert len(LB) == len(dist), 'scipy.stats distribution object or None has to be given for each parameter.'
+        assert len(lb) == len(dist), 'scipy.stats distribution object or None has to be given for each parameter.'
         for dd in dist:
             if dd is not None:
                 if not isinstance(dd, (stats.rv_discrete,stats.rv_continuous)):
@@ -338,9 +338,9 @@ def Optimized_Groups(NumFact, LB, UB, r,
 
     # np.random.seed(seed=1025)
     # Sample trajectorie between 0 and 1. Will be rescaled to specific distributions later.
-    LBt = np.zeros(NumFact)
-    UBt = np.ones(NumFact)
-    OutMatrix, OutFact = Sampling_Function_2(p, NumFact, N, LBt, UBt, GroupMat)  # Version with Groups
+    lbt = np.zeros(NumFact)
+    ubt = np.ones(NumFact)
+    OutMatrix, OutFact = Sampling_Function_2(p, NumFact, N, lbt, ubt, GroupMat)  # Version with Groups
 
     try:
         Groupnumber = GroupMat.shape[1]
@@ -425,14 +425,14 @@ def Optimized_Groups(NumFact, LB, UB, r,
     #----------------------------------------------------------------------
     # Compute values in the original intervals
     # Optmatrix has values x(i,j) in [0, 1/(p -1), 2/(p -1), ... , 1].
-    # To obtain values in the original intervals [LB, UB] we compute
-    # LB(j) + x(i,j)*(UB(j)-LB(j))
+    # To obtain values in the original intervals [lb, ub] we compute
+    # lb(j) + x(i,j)*(ub(j)-lb(j))
     if Diagnostic == True: OptMatrix_b = OptMatrix.copy() # save for plot
     if dist is None:
-        OptMatrix = np.tile(LB, (sizeb*r,1)) + np.tile(UB-LB, (sizeb*r,1)) * OptMatrix
+        OptMatrix = np.tile(lb, (sizeb*r,1)) + np.tile(ub-lb, (sizeb*r,1)) * OptMatrix
     else:
         for i, dd in enumerate(dist):
-            OptMatrix[:,i] = LB[i] + (UB[i]-LB[i]) * OptMatrix[:,i]
+            OptMatrix[:,i] = lb[i] + (ub[i]-lb[i]) * OptMatrix[:,i]
             if dd is not None:
                 if distparam is None:
                     pars = (0.,1.)
@@ -710,7 +710,7 @@ def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4,
     return SAmeas_out, OutMatrix
 
 
-def morris_sampling(nparam, LB, UB, nt,
+def morris_sampling(nparam, lb, ub, nt,
                     nsteps=6, ntotal=None,
                     dist=None, distparam=None,
                     GroupMat=np.array([]), Diagnostic=0):
@@ -723,13 +723,13 @@ def morris_sampling(nparam, LB, UB, nt,
     ----------
     nparam : int
         Number of parameters / factors
-    LB : array_like
+    lb : array_like
         (nparam,) Lower bound of the uniform distribution for each parameter / factor
         or lower fraction of percent point function ppf if distribution given.
 
         Be aware that the percent point function ppf of most continuous distributions
         is infinite at 0.
-    UB : array_like
+    ub : array_like
         (nparam,) Upper bound of the uniform distribution for each parameter / factor
         or upper fraction of percent point function ppf if distribution given.
 
@@ -740,31 +740,31 @@ def morris_sampling(nparam, LB, UB, nt,
     nsteps : int, optional
         Number of levels, i.e. intervals in trajectories (default: 6)
     ntotal : int, optional
-        Total number of sampled trajectories. If None: ntotal=10*nt (default: None)
+        Total number of sampled trajectories. If None: `ntotal=10*nt` (default: None)
     dist : list, optional
         List of None or scipy.stats distribution objects for each factor
         having the method ppf, Percent Point Function (Inverse of CDF) (default: None)
 
-        If None, the uniform distribution will be sampled from lower bound LB to upper bound UB.
+        If None, the uniform distribution will be sampled from lower bound `lb` to upper bound `ub`.
 
-        If dist is scipy.stats.uniform, the ppf will be sampled from the lower
-        fraction given in LB and the upper fraction in UB. The sampling interval
-        is then given by the parameters loc=lower and scale=interval=upper-lower
-        in distparam. This means
-        dist=None, LB=a, UB=b
+        If `dist` is scipy.stats.uniform, the ppf will be sampled from the lower
+        fraction given in `lb` and the upper fraction in `ub`. The sampling interval
+        is then given by the parameters `loc=lower` and `scale=interval=upper-lower`
+        in `distparam`. This means
+        `dist=None`, `lb=a`, `ub=b`
         corresponds to
-        LB=0, UB=1, dist=scipy.stats.uniform, distparam=[a,b-a]
+        `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`
     distparam : list, optional
-        List with tuples with parameters as required for dist (default: (0,1)).
+        List with tuples with parameters as required for `dist` (default: (0,1)).
 
         All distributions of scipy.stats have location and scale parameters, at least.
-        loc and scale are implemented as keyword arguments in scipy.stats. Other parameters
+        `loc` and `scale` are implemented as keyword arguments in scipy.stats. Other parameters
         such as the shape parameter of the gamma distribution must hence be given first,
-        e.g. (shape,loc,scale) for the gamma distribution.
+        e.g. `(shape,loc,scale)` for the gamma distribution.
 
-        distparam is ignored if dist is None.
+        `distparam` is ignored if `dist` is None.
 
-        The percent point function ppf is called like this: dist(*distparam).ppf(x)
+        The percent point function ppf is called like this: `dist(*distparam).ppf(x)`
     GroupMat : ndarray, optional
         (nparam,ngroup) Matrix describing the groups. (default: np.array([]))
 
@@ -778,7 +778,7 @@ def morris_sampling(nparam, LB, UB, nt,
     Returns
     -------
     traj : list
-        list [OptMatrix, OptOutVec] with OptMatrix((nparam+1)*nt,nparam) and OptOutVec(nparam*nt)
+        list [OptMatrix, OptOutVec] with `OptMatrix((nparam+1)*nt,nparam)` and `OptOutVec(nparam*nt)`
 
     References
     ----------
@@ -853,7 +853,7 @@ def morris_sampling(nparam, LB, UB, nt,
                                        - default number of sampled trajectories = 10*number of final trajectories
               Matthias Cuntz, Mar 2020 - Sample from distributions: dist, param keywords
     """
-    return Optimized_Groups(nparam, LB, UB, nt,
+    return Optimized_Groups(nparam, lb, ub, nt,
                             p=nsteps, N=ntotal,
                             dist=dist, distparam=distparam,
                             GroupMat=GroupMat, Diagnostic=Diagnostic)
@@ -953,14 +953,14 @@ if __name__ == '__main__':
     # print('nt=10')
     # np.random.seed(seed=1234)
     # nparam = 15
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
     # nt     = 10
     # nsteps = 6
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
@@ -971,15 +971,15 @@ if __name__ == '__main__':
     # print('nt=10, nan')
     # np.random.seed(seed=1234)
     # nparam = 15
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
     # nt     = 10
     # nsteps = 6
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
     # out[1:nt*nparam:nparam//2] = np.nan
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
@@ -990,14 +990,14 @@ if __name__ == '__main__':
     # print('nt=1')
     # np.random.seed(seed=1234)
     # nparam = 15
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
     # nt     = 1
     # nsteps = 6
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
     # print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev
     # print(np.around(sa[0:5].squeeze(),3))  #  (nparam,r) individual elementary effects for all parameters
@@ -1007,15 +1007,15 @@ if __name__ == '__main__':
     # np.random.seed(seed=1234)
     # nparam   = 15
     # ngroup = 5
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
     # Groups = np.random.randint(0, 4, (nparam,ngroup))
     # nt     = 10
     # nsteps = 6
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)
@@ -1027,8 +1027,8 @@ if __name__ == '__main__':
     # np.random.seed(seed=1234)
     # nparam   = 15
     # ngroup = 5
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
     # Groups = np.random.randint(0, 4, (nparam,ngroup))
     # nt     = 10
     # nsteps = 6
@@ -1036,7 +1036,7 @@ if __name__ == '__main__':
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
     # out[1:nt*nparam:nparam//2] = np.nan
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)
@@ -1048,20 +1048,20 @@ if __name__ == '__main__':
     # import scipy.stats as stats
     # np.random.seed(seed=1234)
     # nparam = 15
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
-    # LB = np.zeros(nparam)
-    # UB = np.ones(nparam)
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
+    # lb = np.zeros(nparam)
+    # ub = np.ones(nparam)
     # dist      = [ stats.uniform for i in range(nparam) ]
-    # distparam = [ (LB[i],UB[i]-LB[i]) for i in range(nparam) ]
-    # LB = np.zeros(nparam)
-    # UB = np.ones(nparam)
+    # distparam = [ (lb[i],ub[i]-lb[i]) for i in range(nparam) ]
+    # lb = np.zeros(nparam)
+    # ub = np.ones(nparam)
     # nt     = 10
     # nsteps = 6
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, dist=dist, distparam=distparam, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, dist=dist, distparam=distparam, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)
@@ -1073,19 +1073,19 @@ if __name__ == '__main__':
     # np.random.seed(seed=1234)
     # nparam   = 15
     # ngroup = 5
-    # LB = np.arange(nparam)
-    # UB = 2.*LB + 1.
+    # lb = np.arange(nparam)
+    # ub = 2.*lb + 1.
     # dist      = [ stats.uniform for i in range(nparam) ]
-    # distparam = [ (LB[i],UB[i]-LB[i]) for i in range(nparam) ]
-    # LB = np.zeros(nparam)
-    # UB = np.ones(nparam)
+    # distparam = [ (lb[i],ub[i]-lb[i]) for i in range(nparam) ]
+    # lb = np.zeros(nparam)
+    # ub = np.ones(nparam)
     # Groups = np.random.randint(0, 4, (nparam,ngroup))
     # nt     = 10
     # nsteps = 6
     # ntotal = 100
     # Diagnostic = 0
     # out = np.random.random(nt*(nparam+1))
-    # mat, vec = morris_sampling(nparam, LB, UB, nt, nsteps=nsteps, ntotal=ntotal, dist=dist, distparam=distparam, GroupMat=Groups, Diagnostic=Diagnostic)
+    # mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, dist=dist, distparam=distparam, GroupMat=Groups, Diagnostic=Diagnostic)
     # print(np.around(mat[0,0:5],3))
     # print(np.around(vec[0:5],3))
     # sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)

@@ -1,5 +1,5 @@
-pyeee.general_functions
-=======================
+pyeee.functions.general_functions
+=================================
 
 .. automodule:: pyeee.functions.general_functions
    :members:

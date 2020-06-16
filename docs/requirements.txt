@@ -1,2 +1,6 @@
 # required for readthedocs.org
 numpydoc
+numpy
+scipy
+schwimmbad
+partialwrap

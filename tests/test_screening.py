@@ -1,19 +1,18 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     This is the unittest for Screening module.
 
     python -m unittest -v test_screening.py
-    python -m pytest --cov pyeee --cov-report term-missing -v tests/
+    python -m pytest --cov-report term-missing -v tests/test_screening.py
 """
+from __future__ import division, absolute_import, print_function
 import unittest
-
 
 # --------------------------------------------------------------------
 # screening.py
 # Missing coverage:
-#    207-210: MPI
-#    269: function has multiple outputs
+#    204-207: MPI
+#    275: function has multiple outputs
 class TestScreening(unittest.TestCase):
 
     def setUp(self):
@@ -33,7 +32,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import G
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = G
@@ -43,7 +42,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -63,7 +62,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import G
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = G
@@ -73,7 +72,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb   = np.zeros(npars)
@@ -96,7 +95,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import G
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = G
@@ -106,7 +105,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb   = np.zeros(npars)
@@ -118,7 +117,7 @@ class TestScreening(unittest.TestCase):
         self.assertRaises(TypeError, ee, obj, lb, ub, self.nt, x0=None, mask=mask,
                           ntotal=self.ntotal, nsteps=self.nsteps,
                           processes=1)
-            
+
 
     # G function, nt=1
     def test_ee_g_nt1(self):
@@ -126,7 +125,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import G
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = G
@@ -136,7 +135,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -157,7 +156,7 @@ class TestScreening(unittest.TestCase):
         import schwimmbad
         from pyeee import ee
         from pyeee.functions import G
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = G
@@ -167,7 +166,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -190,7 +189,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import G
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = G
@@ -200,7 +199,7 @@ class TestScreening(unittest.TestCase):
         # Partialise function with fixed parameters
         arg   = [params]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -218,7 +217,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee, screening
         from pyeee.functions import Gstar
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = Gstar
@@ -244,7 +243,7 @@ class TestScreening(unittest.TestCase):
             # Partialise function with fixed parameters
             arg   = params[ii]
             kwarg = {}
-            obj   = partial(func_wrapper, func, arg, kwarg)
+            obj   = partial(function_wrapper, func, arg, kwarg)
 
             out = screening(obj, lb, ub, self.nt, x0=None, mask=None,
                             ntotal=self.ntotal, nsteps=self.nsteps,
@@ -260,7 +259,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import bratley
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = bratley
@@ -285,7 +284,7 @@ class TestScreening(unittest.TestCase):
         import numpy as np
         from pyeee import ee
         from pyeee.functions import fmorris
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func = fmorris
@@ -303,7 +302,7 @@ class TestScreening(unittest.TestCase):
         # Partialise Morris function with fixed parameters beta0-4
         arg   = [beta0, beta1, beta2, beta3, beta4]
         kwarg = {}
-        obj   = partial(func_wrapper, func, arg, kwarg)
+        obj   = partial(function_wrapper, func, arg, kwarg)
 
         # Screening
         lb = np.zeros(npars)
@@ -329,7 +328,7 @@ class TestScreening(unittest.TestCase):
         import scipy.stats as stats
         from pyeee import ee
         from pyeee.functions import bratley
-        from pyeee.utils import func_wrapper
+        from partialwrap import function_wrapper
 
         # Function and parameters
         func   = bratley

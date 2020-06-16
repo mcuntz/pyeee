@@ -1,5 +1,5 @@
 pyeee.eee
-=================
+=========
 
 .. automodule:: pyeee.eee
    :members:

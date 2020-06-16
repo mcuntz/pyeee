@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
 screening : Provides the function screening/ee for Morris' method of Elementary Effects.
 
@@ -31,6 +30,7 @@ The following functions are provided
    ee
    screening
 """
+from __future__ import division, absolute_import, print_function
 import numpy as np
 from pyeee import morris_sampling, elementary_effects
 
@@ -80,26 +80,26 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         List of None or scipy.stats distribution objects for each factor
         having the method ppf, Percent Point Function (Inverse of CDF) (default: None)
 
-        If None, the uniform distribution will be sampled from lower bound LB to upper bound UB.
+        If None, the uniform distribution will be sampled from lower bound `lb` to upper bound `ub`.
 
         If dist is scipy.stats.uniform, the ppf will be sampled from the lower
-        fraction given in LB and the upper fraction in UB. The sampling interval
-        is then given by the parameters loc=lower and scale=interval=upper-lower
+        fraction given in `lb` and the upper fraction in `ub`. The sampling interval
+        is then given by the parameters `loc=lower` and `scale=interval=upper-lower`
         in distparam. This means
-        dist=None, LB=a, UB=b
+        `dist=None`, `lb=a`, `ub=b`
         corresponds to
-        LB=0, UB=1, dist=scipy.stats.uniform, distparam=[a,b-a]
+        `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`
     distparam : list, optional
-        List with tuples with parameters as required for dist (default: (0,1)).
+        List with tuples with parameters as required for `dist` (default: (0,1)).
 
         All distributions of scipy.stats have location and scale parameters, at least.
-        loc and scale are implemented as keyword arguments in scipy.stats. Other parameters
+        `loc` and `scale` are implemented as keyword arguments in scipy.stats. Other parameters
         such as the shape parameter of the gamma distribution must hence be given first,
-        e.g. (shape,loc,scale) for the gamma distribution.
+        e.g. `(shape,loc,scale)` for the gamma distribution.
 
-        distparam is ignored if dist is None.
+        `distparam` is ignored if `dist` is None.
 
-        The percent point function ppf is called like this: dist(*distparam).ppf(x)
+        The percent point function ppf is called like this: `dist(*distparam).ppf(x)`
     seed : int or array_like
         Seed for numpy's random number generator (default: None).
     processes : int, optional
@@ -112,14 +112,14 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
             schwimmbad.choose_pool(mpi=True/False, processes=processes).
 
-        The pool will be chosen automatically if pool is None.
+        The pool will be chosen automatically if `pool` is None.
 
         MPI pools can only be opened and closed once. If you want to use screening several
         times in one program, then you have to choose the pool, pass it to screening,
         and later close the pool in the calling progam.
 
     verbose : int, optional
-        Print progress report during execution if verbose>0 (default: 0).
+        Print progress report during execution if `verbose>0` (default: 0).
 
     Returns
     -------
@@ -128,9 +128,9 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
                 2D-array - (nparameter,3) with per parameter
 
-                           1. mean of absolute elementary effects over all nt trajectories (mu*)
-                           2. mean of elementary effects over all nt trajectories (mu)
-                           3. standard deviation of elementary effects over all nt trajectories (sigma)
+                           1. mean of absolute elementary effects over all nt trajectories (`mu*`)
+                           2. mean of elementary effects over all nt trajectories (`mu`)
+                           3. standard deviation of elementary effects over all nt trajectories (`sigma`)
 
             else:
 
@@ -150,7 +150,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     --------
     >>> from functools import partial
     >>> import numpy as np
-    >>> from pyeee.utils import func_wrapper
+    >>> from partialwrap import function_wrapper
     >>> from pyeee.functions import fmorris
     >>> seed = 1023
     >>> np.random.seed(seed=seed)
@@ -166,7 +166,7 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     >>> beta4[:4,:4,:4,:4] = 5.
     >>> arg   = [beta0, beta1, beta2, beta3, beta4]
     >>> kwarg = {}
-    >>> func  = partial(func_wrapper, fmorris, arg, kwarg)
+    >>> func  = partial(function_wrapper, fmorris, arg, kwarg)
     >>> lb    = np.zeros(npars)
     >>> ub    = np.ones(npars)
     >>> nt      = 20
@@ -438,7 +438,7 @@ if __name__ == '__main__':
     # from functools import partial
     # import numpy as np
     # from pyeee.functions import G, Gstar, K, fmorris
-    # from pyeee.utils import func_wrapper
+    # from partialwrap import function_wrapper
 
     # #
     # # G function
@@ -453,7 +453,7 @@ if __name__ == '__main__':
     # # Partialise function with fixed parameters
     # arg   = [params]
     # kwarg = {}
-    # obj = partial(func_wrapper, func, arg, kwarg)
+    # obj = partial(function_wrapper, func, arg, kwarg)
 
     # # eee parameters
     # lb = np.zeros(npars)
@@ -480,7 +480,7 @@ if __name__ == '__main__':
     # # Partialise function with fixed parameters
     # arg   = [params]
     # kwarg = {}
-    # obj = partial(func_wrapper, func, arg, kwarg)
+    # obj = partial(function_wrapper, func, arg, kwarg)
 
     # # eee parameters
     # lb = np.zeros(npars)
@@ -520,7 +520,7 @@ if __name__ == '__main__':
     #     # Partialise function with fixed parameters
     #     arg   = params[ii]
     #     kwarg = {}
-    #     obj = partial(func_wrapper, func, arg, kwarg)
+    #     obj = partial(function_wrapper, func, arg, kwarg)
 
     #     out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal, nsteps=nsteps, processes=4)
     #     print('G* ', ii)
@@ -568,7 +568,7 @@ if __name__ == '__main__':
     # # Partialise Morris function with fixed parameters beta0-4
     # arg   = [beta0, beta1, beta2, beta3, beta4]
     # kwarg = {}
-    # obj = partial(func_wrapper, func, arg, kwarg)
+    # obj = partial(function_wrapper, func, arg, kwarg)
 
     # # eee parameters
     # lb = np.zeros(npars)
@@ -584,7 +584,7 @@ if __name__ == '__main__':
     # from functools import partial
     # import numpy as np
     # from pyeee.functions import ishigami_homma
-    # from pyeee.utils import func_mask_wrapper
+    # from partialwrap import function_mask_wrapper
     # seed = 1234
     # np.random.seed(seed=seed)
 
@@ -598,7 +598,7 @@ if __name__ == '__main__':
     # arg   = [1., 3.]
     # kwarg = {}
 
-    # obj = partial(func_mask_wrapper, func, x0, mask, arg, kwarg)
+    # obj = partial(function_mask_wrapper, func, x0, mask, arg, kwarg)
 
     # lb = np.ones(npars) * (-np.pi)
     # ub = np.ones(npars) * np.pi
@@ -618,7 +618,7 @@ if __name__ == '__main__':
     # import numpy as np
     # import scipy.stats as stats
     # from pyeee.functions import ishigami_homma
-    # from pyeee.utils import func_mask_wrapper
+    # from partialwrap import function_mask_wrapper
     # seed = 1234
     # np.random.seed(seed=seed)
 
@@ -632,7 +632,7 @@ if __name__ == '__main__':
     # arg   = [1., 3.]
     # kwarg = {}
 
-    # obj = partial(func_mask_wrapper, func, x0, mask, arg, kwarg)
+    # obj = partial(function_mask_wrapper, func, x0, mask, arg, kwarg)
 
     # lb = np.ones(npars) * (-np.pi)
     # ub = np.ones(npars) * np.pi

@@ -1,7 +1,7 @@
-pyeee.std_io
-=======================
+pyeee.functions.fit_functions
+=============================
 
-.. automodule:: pyeee.utils.std_io
+.. automodule:: pyeee.functions.fit_functions
    :members:
    :undoc-members:
    :inherited-members:

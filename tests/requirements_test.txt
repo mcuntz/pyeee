@@ -8,3 +8,4 @@ scipy
 six
 matplotlib
 schwimmbad
+partialwrap

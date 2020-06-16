@@ -1,40 +1,32 @@
-#!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
 Purpose
 =======
 
-Generel set of functions such as the logistic function
-as well as test functions for Sensitivity Analysis.
+functions provides a variety of special functions, including
+common test functions for parameter estimations such as Rosenbrock and Griewank, 
+test functions for parameter sensitivity analysis such as the Ishigami and Homma function,
+several forms of the logistic function and its first and second derivatives, and
+a variety of functions together with robust and square cost functions to use with
+scipy.optimize package.
 
-:copyright: Copyright 2019-2020 Matthias Cuntz, see AUTHORS.md for details.
+The module is part of the JAMS Python package
+https://github.com/mcuntz/jams_python
+It will be synchronised with the JAMS package irregularily if used in other packages.
+
+:copyright: Copyright 2014-2020 Matthias Cuntz, see AUTHORS.md for details.
 :license: MIT License, see LICENSE for details.
 
 Subpackages
 ===========
 .. autosummary::
-    general_functions
-    sa_test_functions
-    utils
+   general_functions
+   fit_functions
+   logistic_function
+   opti_test_functions
+   sa_test_functions
 """
-
-__all__ = ['curvature',
-           'logistic', 'logistic_p', 'dlogistic', 'dlogistic_p', 'd2logistic', 'd2logistic_p',
-           'logistic_offset', 'logistic_offset_p', 'dlogistic_offset', 'dlogistic_offset_p',
-           'd2logistic_offset', 'd2logistic_offset_p', 'logistic2_offset', 'logistic2_offset_p',
-           'dlogistic2_offset', 'dlogistic2_offset_p', 'd2logistic2_offset', 'd2logistic2_offset_p',
-           'B', 'g', 'G', 'Gstar', 'bratley', 'K', 'fmorris', 'morris', 'oakley_ohagan', 'ishigami_homma',
-           'linear', 'product', 'ratio', 'ishigami_homma_easy',
-           'cost_square']
-
-# Common functions that are used in curve_fit or fmin parameter estimations
-from .general_functions import curvature
-from .general_functions import logistic, logistic_p, dlogistic, dlogistic_p, d2logistic, d2logistic_p
-from .general_functions import logistic_offset, logistic_offset_p, dlogistic_offset, dlogistic_offset_p
-from .general_functions import d2logistic_offset, d2logistic_offset_p, logistic2_offset, logistic2_offset_p
-from .general_functions import dlogistic2_offset, dlogistic2_offset_p, d2logistic2_offset, d2logistic2_offset_p
-# Test functions for Sensitivity Analysis
-from .sa_test_functions import B, g, G, Gstar, bratley, K, fmorris, morris, oakley_ohagan, ishigami_homma
-from .sa_test_functions import linear, product, ratio, ishigami_homma_easy
-# Utilities
-from .utils import cost_square
+from .general_functions   import *
+from .fit_functions       import *
+from .logistic_function   import *
+from .opti_test_functions import *
+from .sa_test_functions   import *

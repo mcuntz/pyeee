@@ -1,7 +1,7 @@
-pyeee.screening
-===============
+pyeee.tee
+=========
 
-.. automodule:: pyeee.screening
+.. automodule:: pyeee.tee
    :members:
    :undoc-members:
    :inherited-members:

@@ -1,13 +1,12 @@
 #!/usr/bin/env python
-from __future__ import division, absolute_import, print_function
 """
     This is the unittest for the General Functions module.
 
     python -m unittest -v test_general_functions.py
-    python -m pytest --cov pyeee --cov-report term-missing -v tests/
+    python -m pytest --cov-report term-missing -v tests/test_general_functions.py
 """
+from __future__ import division, absolute_import, print_function
 import unittest
-
 
 # --------------------------------------------------------------------
 # general_functions.py
@@ -33,7 +32,7 @@ class TestGeneralFunctions(unittest.TestCase):
         self.assertEqual(logistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), 0.5)
         self.assertEqual(dlogistic(1.,  1., 2., 1.), 0.5)
         self.assertEqual(dlogistic_offset(1.,  1., 2., 1., 1.), 0.5)
-        self.assertEqual(dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), -0.5)        
+        self.assertEqual(dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.), -0.5)
         self.assertEqual(np.around(d2logistic(1., 1., 2., 2.),4), 0.3199)
         self.assertEqual(np.around(d2logistic_offset(1., 1., 2., 2., 1.),4), 0.3199)
         self.assertEqual(np.around(d2logistic2_offset(1., 1., 2., 2.,  2., 2., 2.,  1.),4), -0.3199)
@@ -48,7 +47,7 @@ class TestGeneralFunctions(unittest.TestCase):
         self.assertEqual(logistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.]), 0.5)
         self.assertEqual(dlogistic_p(1.,  [1., 2., 1.]), 0.5)
         self.assertEqual(dlogistic_offset_p(1.,  [1., 2., 1., 1.]), 0.5)
-        self.assertEqual(dlogistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.]), -0.5)        
+        self.assertEqual(dlogistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.]), -0.5)
         self.assertEqual(np.around(d2logistic_p(1., [1., 2., 2.]),4), 0.3199)
         self.assertEqual(np.around(d2logistic_offset_p(1., [1., 2., 2., 1.]),4), 0.3199)
         self.assertEqual(np.around(d2logistic2_offset_p(1., [1., 2., 2.,  2., 2., 2.,  1.]),4), -0.3199)

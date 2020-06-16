@@ -1,7 +1,7 @@
-pyeee.utils
+pyeee.const.const
 =================
 
-.. automodule:: pyeee.functions.utils
+.. automodule:: pyeee.const.const
    :members:
    :undoc-members:
    :inherited-members:

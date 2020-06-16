@@ -1,5 +1,5 @@
 pyeee.morris
-=================
+============
 
 .. automodule:: pyeee.morris_method
    :members:
