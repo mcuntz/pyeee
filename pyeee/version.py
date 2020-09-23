@@ -23,10 +23,11 @@ Released under the MIT License; see LICENSE file for details.
 * v1.1, Number of final trajectories is argument instead of keyword, Feb 2020, Matthias Cuntz
 * v1.2, Sample not only from uniform distribution but allow all distributions of scipy.stats, Apr 2020, Matthias Cuntz
 * v2.0, Restructure: take wrappers and I/O from partialwrap, take function directory from jams, Jun 2020, Matthias Cuntz
+* v2.1, include subpackages in const, functions in setup.py, Sep 2020, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 from __future__ import division, absolute_import, print_function
 
 __author__  = "Matthias Cuntz"
-__version__ = "2.0"
+__version__ = "2.1"

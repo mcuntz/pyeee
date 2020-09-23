@@ -2,6 +2,10 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v2.1 (Sep 2020)
+    - Included subpackages const, functions in automatic packaging.
+    - Build pure Python wheels without cibuildwheel.
+
 ### v2.0 (Jun 2020)
     - Use package partialwrap in docstrings and documentation.
     - Remove utils directory: tee.py is now directly in pyeee directory.

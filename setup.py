@@ -19,7 +19,6 @@ def _iread(*fparts):
     with codecs.open(os.path.join(here, *fparts), "r") as fp:
         return fp.read()
 
-
 def _find_version(*file_paths):
     """Find version without importing module."""
     version_file = _iread(*file_paths)
@@ -27,7 +26,6 @@ def _find_version(*file_paths):
     if version_match:
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
-
 
 # setup
 
@@ -83,6 +81,6 @@ setup(
     include_package_data = True,
     install_requires     = ["numpy", "scipy", "schwimmbad"],
     extras_require       = {},
-    packages             = [package], # find_packages(exclude=["tests*", "docs*"]),
+    packages             = find_packages(include=[package, package+'.*']),
     scripts              = scripts,
 )
