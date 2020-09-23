@@ -4,7 +4,7 @@ All notable changes after its initial development up to January 2020 (v0.2) are 
 
 ### v2.1 (Sep 2020)
     - Included subpackages const, functions in automatic packaging.
-    - Build pure Python wheels without cibuildwheel.
+    - Build pure Python wheels without using cibuildwheel.
 
 ### v2.0 (Jun 2020)
     - Use package partialwrap in docstrings and documentation.
