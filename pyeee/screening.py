@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 """
-screening : Provides the function screening/ee for Morris' method of Elementary Effects.
+screening : Provides the function screening/ee for Morris' method of Elementary
+            Effects.
 
-This function was written by Matthias Cuntz while at Institut National de Recherche
-pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
+This function was written by Matthias Cuntz while at Institut National de
+Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
+France.
 
 Copyright (c) 2017-2020 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
@@ -11,16 +13,23 @@ Released under the MIT License; see LICENSE file for details.
 * Written Dec 2017 by Matthias Cuntz (mc (at) macu (dot) de)
 * Output also (npara,3)-array for nt=1, Dec 2017, Matthias Cuntz
 * Removed call to external programs: use exe_wrappers, Jan 2018, Matthias Cuntz
-* Function can return multiple outputs, e.g. time series, Jan 2018, Matthias Cuntz
+* Function can return multiple outputs, e.g. time series,
+  Jan 2018, Matthias Cuntz
 * Python 3: map returns iterator, so list(map), Jul 2018, Fabio Gennaretti
-* Bug: default ntotal was not set if ntotal<0 (but nt instead), Dec 2019, Matthias Cuntz
+* Bug: default ntotal was not set if ntotal<0 (but nt instead),
+  Dec 2019, Matthias Cuntz
 * Make numpy docstring format, Dec 2019, Matthias Cuntz
 * x0 optional, Jan 2020, Matthias Cuntz
-* Distinguish iterable and array_like parameter types; added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
+* Distinguish iterable and array_like parameter types;
+  added seed keyword to screening/ee, Jan 2020, Matthias Cuntz
 * InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz
-* Use new names of kwargs of morris_sampling and elementary_effects, Feb 2020, Matthias Cuntz
-* Make number of final trajectories an argument instead of a keyword argument, Feb 2020, Matthias Cuntz
-* Sample not only from uniform distribution but allow all distributions of scipy.stats, Mar 2020, Matthias Cuntz
+* Use new names of kwargs of morris_sampling and elementary_effects,
+  Feb 2020, Matthias Cuntz
+* Make number of final trajectories an argument instead of a keyword argument,
+  Feb 2020, Matthias Cuntz
+* Sample not only from uniform distribution but allow all distributions of
+  scipy.stats, Mar 2020, Matthias Cuntz
+* Code refactoring, Sep 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 
@@ -57,56 +66,64 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         Lower bounds of parameters
         or lower fraction of percent point function ppf if distribution given.
 
-        Be aware that the percent point function ppf of most continuous distributions
-        is infinite at 0.
+        Be aware that the percent point function ppf of most continuous
+        distributions is infinite at 0.
     ub : array_like
         Upper bounds of parameters
         or upper fraction of percent point function ppf if distribution given.
 
-        Be aware that the percent point function ppf of most continuous distributions
-        is infinite at 1.
+        Be aware that the percent point function ppf of most continuous
+        distributions is infinite at 1.
     nt : int
         Number of trajectories used for screening.
     x0 : array_like, optional
         Parameter values used with `mask==0`.
     mask : array_like, optional
-        Include (1,True) or exclude (0,False) parameters in screening (default: include all parameters).
+        Include (1,True) or exclude (0,False) parameters in screening (default:
+        include all parameters).
     nsteps : int, optional
         Number of steps along one trajectory (default: 6)
     ntotal : int, optional
-        Total number of sampled trajectories to select the nt most different trajectories.
+        Total number of sampled trajectories to select the nt most different
+        trajectories.
         If None: `max(nt**2,10*nt)` (default: None)
     dist : list, optional
-        List of None or scipy.stats distribution objects for each factor
-        having the method ppf, Percent Point Function (Inverse of CDF) (default: None)
+        List of None or scipy.stats distribution objects for each factor having
+        the method ppf, Percent Point Function (Inverse of CDF) (default: None)
 
-        If None, the uniform distribution will be sampled from lower bound `lb` to upper bound `ub`.
+        If None, the uniform distribution will be sampled from lower bound `lb`
+        to upper bound `ub`.
 
         If dist is scipy.stats.uniform, the ppf will be sampled from the lower
-        fraction given in `lb` and the upper fraction in `ub`. The sampling interval
-        is then given by the parameters `loc=lower` and `scale=interval=upper-lower`
-        in distparam. This means
+        fraction given in `lb` and the upper fraction in `ub`. The sampling
+        interval is then given by the parameters `loc=lower` and
+        `scale=interval=upper-lower` in distparam. This means
         `dist=None`, `lb=a`, `ub=b`
         corresponds to
         `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`
     distparam : list, optional
-        List with tuples with parameters as required for `dist` (default: (0,1)).
+        List with tuples with parameters as required for `dist` (default:
+        (0,1)).
 
-        All distributions of scipy.stats have location and scale parameters, at least.
-        `loc` and `scale` are implemented as keyword arguments in scipy.stats. Other parameters
-        such as the shape parameter of the gamma distribution must hence be given first,
-        e.g. `(shape,loc,scale)` for the gamma distribution.
+        All distributions of scipy.stats have location and scale parameters, at
+        least. `loc` and `scale` are implemented as keyword arguments in
+        scipy.stats. Other parameters such as the shape parameter of the gamma
+        distribution must hence be given first, e.g. `(shape,loc,scale)` for
+        the gamma distribution.
 
         `distparam` is ignored if `dist` is None.
 
-        The percent point function ppf is called like this: `dist(*distparam).ppf(x)`
+        The percent point function ppf is called like this:
+        `dist(*distparam).ppf(x)`
     seed : int or array_like
         Seed for numpy's random number generator (default: None).
     processes : int, optional
-        The number of processes to use to evaluate objective function and constraints (default: 1).
+        The number of processes to use to evaluate objective function and
+        constraints (default: 1).
     pool : `schwimmbad` pool object, optional
-        Generic map function used from module `schwimmbad <https://schwimmbad.readthedocs.io/en/latest/>`_,
-        which provides, serial, multiprocessor, and MPI mapping functions (default: None).
+        Generic map function used from module `schwimmbad
+        <https://schwimmbad.readthedocs.io/en/latest/>`_, which provides,
+        serial, multiprocessor, and MPI mapping functions (default: None).
 
         The pool is chosen with:
 
@@ -114,9 +131,10 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
         The pool will be chosen automatically if `pool` is None.
 
-        MPI pools can only be opened and closed once. If you want to use screening several
-        times in one program, then you have to choose the pool, pass it to screening,
-        and later close the pool in the calling progam.
+        MPI pools can only be opened and closed once. If you want to use
+        screening several times in one program, then you have to choose the
+        pool, pass it to screening, and later close the pool in the calling
+        progam.
 
     verbose : int, optional
         Print progress report during execution if `verbose>0` (default: 0).
@@ -128,17 +146,20 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
                 2D-array - (nparameter,3) with per parameter
 
-                           1. mean of absolute elementary effects over all nt trajectories (`mu*`)
-                           2. mean of elementary effects over all nt trajectories (`mu`)
-                           3. standard deviation of elementary effects over all nt trajectories (`sigma`)
+                    1. mean of absolute elementary effects over all
+                       nt trajectories (`mu*`)
+                    2. mean of elementary effects over all nt trajectories
+                       (`mu`)
+                    3. standard deviation of elementary effects over all
+                       nt trajectories (`sigma`)
 
             else:
 
                 2D-array - (nparameter,3) with per parameter
 
-                           1. absolute elementary effect of each parameter
-                           2. elementary effect of each parameter
-                           3. zeros
+                    1. absolute elementary effect of each parameter
+                    2. elementary effect of each parameter
+                    3. zeros
 
     See Also
     --------
@@ -173,27 +194,39 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
     >>> ntotal  = 10*nt
     >>> nsteps  = 6
     >>> verbose = 0
-    >>> out = screening(func, lb, ub, nt, x0=None, mask=None, nsteps=nsteps, ntotal=ntotal, processes=4, verbose=verbose)
+    >>> out = screening(func, lb, ub, nt, x0=None, mask=None,
+    ...                 nsteps=nsteps, ntotal=ntotal, processes=4,
+    ...                 verbose=verbose)
     >>> print(out[0:3,0])
     [60.7012889  67.33372626 48.46673528]
 
 
     History
     -------
-    Written,  Matthias Cuntz,   Dec 2017
-    Modified, Matthias Cuntz,   Dec 2017 - output for nt=1 also (npara,3)
-              Matthias Cuntz,   Jan 2018 - rm call of external programs
-              Matthias Cuntz,   Jan 2018 - function can return multiple output, e.g. time series
-              Fabio Gennaretti, Jul 2018 - map of Python3 returns iterator -> make list(map())
-              Matthias Cuntz,   Dec 2019 - bug: default ntotal was not set if ntotal<0 (but nt instead)
-                                         - numpy docstring format
-              Matthias Cuntz,   Jan 2020 - x0 optional
-                                         - distinguish iterable and array_like parameter types
-                                         - added seed
-              Matthias Cuntz,   Feb 2020 - InputError -> TypeError
-                                         - use new names of kwargs of moris_sampling
-              Matthias Cuntz,   Feb 2020 - number of final trajectories is argument, not keyword argument
-              Matthias Cuntz,   Mar 2020 - Sample from distributions: dist, distparam keywords
+    Written,  Matthias Cuntz, Dec 2017
+    Modified, Matthias Cuntz, Dec 2017 - output for nt=1 also (npara,3)
+              Matthias Cuntz, Jan 2018 - rm call of external programs
+              Matthias Cuntz, Jan 2018
+                  - function can return multiple output, e.g. time series
+              Fabio Gennaretti, Jul 2018
+                  - map of Python3 returns iterator -> make list(map())
+              Matthias Cuntz, Dec 2019
+                  - bug: default ntotal was not set if ntotal<0
+                    (but nt instead)
+                  - numpy docstring format
+              Matthias Cuntz, Jan 2020
+                  - x0 optional
+                  - distinguish iterable and array_like parameter types
+                  - added seed
+              Matthias Cuntz, Feb 2020
+                  - InputError -> TypeError
+                  - use new names of kwargs of moris_sampling
+              Matthias Cuntz, Feb 2020
+                  - number of final trajectories is argument,
+                    not keyword argument
+              Matthias Cuntz, Mar 2020
+                  - Sample from distributions: dist, distparam keywords
+              Matthias Cuntz, Sep 2021 - code refactoring
     """
     # Get MPI communicator
     try:
@@ -208,18 +241,19 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
     # Checks
     # Bounds
-    assert len(lb)==len(ub), 'Lower- and upper-bounds must have the same lengths.'
+    assert len(lb) == len(ub), 'Lower- and upper-bounds must have the same lengths.'
     lb = np.array(lb)
     ub = np.array(ub)
     # Mask
     if mask is None:
         assert np.all(ub >= lb), 'All upper-bounds must be greater or equal than lower-bounds.'
     else:
-        assert len(mask)==len(ub), 'Mask and bounds must have the same lengths.'
+        assert len(mask) == len(ub), 'Mask and bounds must have the same lengths.'
         if x0 is None:
             raise TypeError('x0 must be given if mask is set')
         x0 = np.array(x0)
-        if not np.all(mask): assert len(mask)==len(x0), 'Mask and x0 must have the same lengths.'
+        if not np.all(mask):
+            assert len(mask) == len(x0), 'Mask and x0 must have the same lengths.'
         assert np.all(ub[mask] >= lb[mask]), 'All unmasked upper-bounds must be greater or equal than lower-bounds.'
 
     # Set defaults
@@ -233,10 +267,13 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         ntotal = max(nt**2, 10*nt)
 
     # Seed random number generator
-    if seed is not None: np.random.seed(seed=seed)  # same on all ranks because trajectories are sampled on all ranks
+    if seed is not None:
+        # same on all ranks because trajectories are sampled on all ranks
+        np.random.seed(seed=seed)
 
     # Sample trajectories
-    if (crank==0) and (verbose > 0): print('Sample trajectories')
+    if (crank == 0) and (verbose > 0):
+        print('Sample trajectories')
     if dist is None:
         idist      = None
         idistparam = None
@@ -252,40 +289,46 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
         x = tmatrix
     else:
         # Set input vector to trajectories and masked elements = x0
-        x = np.tile(x0,tvec.size).reshape(tvec.size,npara) # default to x0
-        x[:,imask] = tmatrix                               # replaced unmasked with trajectorie values
+        x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0
+        x[:, imask] = tmatrix  # replaced unmasked with trajectorie values
 
     # Choose the right mapping function: single, multiprocessor or mpi
     if pool is None:
         import schwimmbad
-        ipool = schwimmbad.choose_pool(mpi=False if csize==1 else True, processes=processes)
+        ipool = schwimmbad.choose_pool(mpi=False if csize == 1 else True,
+                                       processes=processes)
     else:
         ipool = pool
 
     # Calculate all model runs
-    if (crank==0) and (verbose > 0): print('Calculate objective functions')
+    if (crank == 0) and (verbose > 0):
+        print('Calculate objective functions')
     fx = np.array(list(ipool.map(func, x)))
 
     # Calc elementary effects
-    if (crank==0) and (verbose > 0): print('Calculate elementary effects')
+    if (crank == 0) and (verbose > 0):
+        print('Calculate elementary effects')
     if fx.ndim == 1:
-        fx  = fx[:,np.newaxis]
+        fx  = fx[:, np.newaxis]
         nfx = 1
     else:
         nfx = fx.shape[1]
-    out = np.zeros((nfx,npara,3))
+    out = np.zeros((nfx, npara, 3))
     for j in range(nfx):
-        sa, res = elementary_effects(nmask, tmatrix, tvec, fx[:,j], nsteps=nsteps, Diagnostic=False)
+        sa, res = elementary_effects(nmask, tmatrix, tvec, fx[:, j],
+                                     nsteps=nsteps, Diagnostic=False)
         # Output with zero for all masked parameters
         if nt == 1:
-            out[j,imask,0] = np.abs(sa[:,0])
-            out[j,imask,1] = sa[:,0]
+            out[j, imask, 0] = np.abs(sa[:, 0])
+            out[j, imask, 1] = sa[:, 0]
         else:
-            out[j,imask,:] = res
+            out[j, imask, :] = res
 
-    if nfx == 1: out = out[0,:,:]
+    if nfx == 1:
+        out = out[0, :, :]
 
-    if pool is None: ipool.close()
+    if pool is None:
+        ipool.close()
 
     return out
 
@@ -316,7 +359,6 @@ if __name__ == '__main__':
     #     comm  = None
     #     csize = 1
     #     crank = 0
-
 
     # seed = 1025
 
@@ -580,7 +622,7 @@ if __name__ == '__main__':
     # print('Morris')
     # print(np.around(out[:,0],3))
 
-    
+
     # from functools import partial
     # import numpy as np
     # from pyeee.functions import ishigami_homma
@@ -613,7 +655,7 @@ if __name__ == '__main__':
     # print('Ishigami-Homma')
     # print(np.around(out[:,0],3))
 
-    
+
     # from functools import partial
     # import numpy as np
     # import scipy.stats as stats
