@@ -98,7 +98,7 @@ master_doc = "contents"
 
 # General information about the project.
 project = "pyeee"
-copyright = "2013-2020, Matthias Cuntz"
+copyright = "2013-2021, Matthias Cuntz"
 author = "Matthias Cuntz"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -243,7 +243,7 @@ texinfo_documents = [
 
 suppress_warnings = [
     "image.nonlocal_uri",
-    # "app.add_directive",  # this evtl. suppresses the numpydoc induced warning   
+    # "app.add_directive",  # this evtl. suppresses the numpydoc induced warning
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
@@ -259,4 +259,5 @@ intersphinx_mapping = {
     "mpi4py":      ("https://mpi4py.readthedocs.io/en/latest/",      None),
     "emcee":       ("https://emcee.readthedocs.io/en/latest/",       None),
     "partialwrap": ("https://partialwrap.readthedocs.io/en/latest/", None),
+    "pyjams":      ("https://pyjams.readthedocs.io/en/latest/",      None),
 }

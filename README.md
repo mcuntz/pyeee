@@ -177,6 +177,7 @@ See the [installation instructions](http://pyeee.readthedocs.io/en/latest/instal
 - [NumPy](https://www.numpy.org)
 - [SciPy](https://www.scipy.org/scipylib)
 - [schwimmbad](https://github.com/adrn/schwimmbad)
+- [pyjams](https://github.com/mcuntz/pyjams)
 
 
 ## License
@@ -184,7 +185,7 @@ See the [installation instructions](http://pyeee.readthedocs.io/en/latest/instal
 *pyeee* is distributed under the MIT License.  
 See the [LICENSE](https://github.com/mcuntz/pyeee/LICENSE) file for details.
 
-Copyright (c) 2013-2020 Matthias Cuntz, Juliane Mai
+Copyright (c) 2013-2021 Matthias Cuntz, Juliane Mai
 
 The project structure is based on a [template](https://github.com/MuellerSeb/template) provided by [Sebastian Müller](https://github.com/MuellerSeb).
 

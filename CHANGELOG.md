@@ -2,6 +2,9 @@
 
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
+### v3.0 (Oct 2021)
+    - Use `pyjams` package.
+
 ### v2.1 (Sep 2020)
     - Included subpackages const, functions in automatic packaging.
     - Build pure Python wheels without using cibuildwheel.

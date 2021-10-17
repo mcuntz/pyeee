@@ -79,7 +79,7 @@ setup(
     classifiers          = classifiers,
     platforms            = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
     include_package_data = True,
-    install_requires     = ["numpy", "scipy", "schwimmbad"],
+    install_requires     = ["numpy", "scipy", "schwimmbad", "pyjams"],
     extras_require       = {},
     packages             = find_packages(include=[package, package+'.*']),
     scripts              = scripts,

@@ -11,7 +11,7 @@ identification of noninformative model parameters by sequential
 screening, *Water Resources Research* 51, 6417-6441,
 doi:`10.1002/2015WR016907 <http://doi.org/10.1002/2015WR016907>`_.
 
-The numerical models are simply passed to functions :func:`~pyeee.screening.ee` and
+The numerical models are simply passed to functions `ee` and
 :func:`~pyeee.eee.eee` to perform Elementary Effects or Efficient/Sequential Elementary Effects,
 respectively.
 
@@ -51,7 +51,7 @@ Elementary Effects can be calculated, using 20 trajectories, as follows:
 
 .. code-block:: python
 
-   from pyeee import ee
+   from pyjams import ee
 
    # function
    func  = ishigami1
@@ -66,7 +66,7 @@ Elementary Effects can be calculated, using 20 trajectories, as follows:
    np.random.seed(seed=1023) # for reproducibility of examples
    out = ee(func, lb, ub, 20)
 
-:func:`~pyeee.screening.ee` returns a `(npars,3)` ndarray with:
+:func:`ee` returns a `(npars,3)` ndarray with:
 
    1. (npars,0) the means of the absolute elementary effects over all trajectories (:math:`\mu*`)
    2. (npars,1) the means of the elementary effects over all nt trajectories (:math:`\mu`)
@@ -87,21 +87,20 @@ Chichester, UK, ISBN: 978-0470-059-975, doi:`10.1002/9780470725184
    # gives: 212.4 0.6 102.8
 
 The numerical model `func`, lower parameter boundaries `lb`, upper parameter boundaries `ub`, and
-the number of trajectories `nt` are mandatory arguments to :func:`~pyeee.screening.ee`. Further
+the number of trajectories `nt` are mandatory arguments to `ee`. Further
 optional arguments relevant to Elementary Effects are:
 
    - `nsteps` : int - Number of steps along one trajectory (default: 6)
    - `ntotal` : int - Total number of trajectories to check for the `nt` most
      different trajectories (default: `max(nt**2,10*nt)`)
 
-Note that the functions :func:`~pyeee.screening.ee` and :func:`~pyeee.screening.screening` are
-identical.
+Note that the functions `ee` and `screening` are identical.
 
 
 Exclude parameters from calculations
 ------------------------------------
 
-:func:`~pyeee.screening.ee` offers the possibility to mask some model parameters so that they will
+`ee` offers the possibility to mask some model parameters so that they will
 not be changed during calculation of Elementary Effects. Inital values `x0` must be given that will
 be taken where `mask==False`, i.e. `mask` could be called an include-mask. Note that the size of
 `x0` must be the size of `lb`, `ub` and `mask`, i.e. one has to give initial values even if an
@@ -175,7 +174,7 @@ Consider the following code in a script (e.g. `eeetest.py`):
       csize = 1
       crank = 0
 
-   from pyeee import ee
+   from pyjams import ee
 
    # function
    func  = ishigami1
@@ -385,7 +384,7 @@ sensitive parameters, to minimize the possibility that the parameters are sensit
 of the parameter space, which was missed due to a little sample.
 
 The call of :func:`~pyeee.screening.eee` (or the identical function :func:`~pyeee.screening.see`)
-is very similar to standard Elementary effects :func:`~pyeee.screening.ee`:
+is very similar to standard Elementary effects `ee`:
 
 .. code-block:: python
 
@@ -441,7 +440,7 @@ interesting. Cuntz *et al.* (2015) argued that weighting by standard deviation :
 equivalent to flux weighting because parameter variations yield larger variances for large fluxes
 than for small fluxes in most computer models.
 
-:func:`~pyeee.screening.eee` offers the same parallel mechanism as `~pyeee.screening.ee`, using the
+:func:`~pyeee.screening.eee` offers the same parallel mechanism as `ee`, using the
 :func:keywords `processes` and `pool`, which is again a :mod:`schwimmbad` `pool` object.
 
 :func:`~pyeee.screening.eee` also offers the possibility to sample parameters from different
@@ -544,7 +543,7 @@ wrapper function :func:`~partialwrap.exe_wrapper`:
    lb = np.ones(npars) * (-np.pi)
    ub = np.ones(npars) * np.pi
 
-   from pyeee import ee
+   from pyjams import ee
    out = ee(func, lb, ub, 10)
 
 :func:`~partialwrap.standard_parameter_reader` and `~partialwrap.standard_parameter_writer` are
@@ -844,7 +843,7 @@ which would then be used:
    npars = 3
    lb = np.ones(npars) * (-np.pi)
    ub = np.ones(npars) * np.pi
-   from pyeee import ee
+   from pyjams import ee
    out = ee(func, lb, ub, 10, processes=8)
 
 The `User Guide <https://partialwrap.readthedocs.io/en/latest/userguide.html>`_ of

@@ -5,7 +5,7 @@ Provide version number for pyeee library.
 This module was written by Matthias Cuntz while at Institut National de Recherche
 pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy, France.
 
-Copyright (c) 2019-2020 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2019-2021 Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 * Written Oct 2019 by Matthias Cuntz (mc (at) macu (dot) de)
@@ -24,10 +24,11 @@ Released under the MIT License; see LICENSE file for details.
 * v1.2, Sample not only from uniform distribution but allow all distributions of scipy.stats, Apr 2020, Matthias Cuntz
 * v2.0, Restructure: take wrappers and I/O from partialwrap, take function directory from jams, Jun 2020, Matthias Cuntz
 * v2.1, include subpackages in const, functions in setup.py, Sep 2020, Matthias Cuntz
+* v3.0, use pyjams package, Oct 2021, Matthias Cuntz
 
 .. moduleauthor:: Matthias Cuntz
 """
 from __future__ import division, absolute_import, print_function
 
 __author__  = "Matthias Cuntz"
-__version__ = "2.1"
+__version__ = "3.0"

@@ -28,12 +28,6 @@ doi:`10.1002/2015WR016907 <http://doi.org/10.1002/2015WR016907>`_.
 :mod:`partialwrap`. Function evaluation can be distributed with Python's multiprocessing or via
 MPI.
 
-The package uses several functions of the JAMS Python package
-
-   https://github.com/mcuntz/jams_python
-
-The JAMS package and hesseflux are synchronised irregularly.
-
 The complete documentation for ``pyeee`` is available from Read The Docs.
 
    http://pyeee.readthedocs.org/en/latest/
@@ -69,7 +63,7 @@ Morris' Elementary Effects can then be calculated like:
     ub = np.ones(npars) * np.pi
 
     # Elementary Effects
-    from pyeee import ee
+    from pyjams import ee
     np.random.seed(seed=1023) # for reproducibility of examples
     out = ee(ishigami1, lb, ub, 10)
 
@@ -176,7 +170,7 @@ License
 ``pyeee`` is distributed under the MIT License.  
 See the `LICENSE <https://github.com/mcuntz/pyeee/LICENSE>`_ file for details.
 
-Copyright (c) 2013-2020 Matthias Cuntz, Juliane Mai
+Copyright (c) 2013-2021 Matthias Cuntz, Juliane Mai
 
 The project structure is based on a `template
 <https://github.com/MuellerSeb/template>`_ provided by `Sebastian

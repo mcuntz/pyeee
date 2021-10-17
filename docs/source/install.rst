@@ -56,7 +56,7 @@ to the command:
 Dependencies
 ------------
 
-``pyeee`` uses the packages :mod:`numpy`, :mod:`scipy` and :mod:`schwimmbad`.
-They are all available in PyPI and ``pip`` should install them
-automatically. Installations via `setup.py` might need to install
-the three dependencies first.
+``pyeee`` uses the packages :mod:`numpy`, :mod:`scipy`, :mod:`schwimmbad`,
+:mod:`pyjams`. They are all available in PyPI and ``pip`` should install them
+automatically. Installations via `setup.py` might need to install the three
+dependencies first.
