@@ -3,7 +3,9 @@
 All notable changes after its initial development up to January 2020 (v0.2) are documented in this file.
 
 ### v3.0 (Oct 2021)
-    - Use `pyjams` package.
+    - Use `pyjams` package. Remove all modules, functions, tests, and docs
+      of routines that are now in pyjams.
+    - Move from travis-ci.org to travis-ci.com.
 
 ### v2.1 (Sep 2020)
     - Included subpackages const, functions in automatic packaging.
