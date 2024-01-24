@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pyeee.eee &#8212; pyeee</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script src="_static/documentation_options.js?v=352e9ff0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'eee';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="pyeee API" href="package.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="contents.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pyeee</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">Quickstart</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="package.html">pyeee API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">pyeee.eee</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee/edit/main/docs/eee.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee/issues/new?title=Issue%20on%20page%20%2Feee.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/eee.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>pyeee.eee</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyeee.eee.eee"><code class="docutils literal notranslate"><span class="pre">eee()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyeee.eee.see"><code class="docutils literal notranslate"><span class="pre">see()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pyeee.eee">
+<span id="pyeee-eee"></span><h1>pyeee.eee<a class="headerlink" href="#module-pyeee.eee" title="Link to this heading">#</a></h1>
+<p>Function eee for Efficient/Sequential Elementary Effects, an extension of
+Morris’ method of Elementary Effects by Cuntz, Mai et al. (Water Res Research,
+2015).</p>
+<p>This function was written by Matthias Cuntz while at Institut National de
+Recherche pour l’Agriculture, l’Alimentation et l’Environnement (INRAE), Nancy,
+France.</p>
+<p>Copyright (c) 2017-2021 Matthias Cuntz - mc (at) macu (dot) de
+Released under the MIT License; see LICENSE file for details.</p>
+<p>The following functions are provided</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyeee.eee.see" title="pyeee.eee.see"><code class="xref py py-obj docutils literal notranslate"><span class="pre">see</span></code></a>(func, *args, **kwargs)</p></td>
+<td><p>Wrapper function for <a class="reference internal" href="#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eee</span></code></a>(func, *args, **kwargs)</p></td>
+<td><p>Parameter screening using Efficient/Sequential Elementary Effects of Cuntz, Mai et al. (Water Res Research, 2015).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>History</dt><dd><ul class="simple">
+<li><p>Written Nov 2017 by Matthias Cuntz (mc (at) macu (dot) de)</p></li>
+<li><p>Added <cite>weight</cite> option, Jan 2018, Matthias Cuntz</p></li>
+<li><p>Added <cite>plotfile</cite> and made docstring sphinx compatible option,
+Jan 2018, Matthias Cuntz</p></li>
+<li><p>x0 optional; added verbose keyword; distinguish iterable and array_like
+parameter types, Jan 2020, Matthias Cuntz</p></li>
+<li><p>Rename ntsteps to nsteps to be consistent with screening/ee; and check if
+logfile is string rather thean checking for file handle, Feb 2020,
+Matthias Cuntz</p></li>
+<li><p>Sample not only from uniform distribution but allow all distributions of
+scipy.stats, Mar 2020, Matthias Cuntz</p></li>
+<li><p>Use pyjams package, Oct 2021, Matthias Cuntz</p></li>
+<li><p>Make flake8 compatible, Oct 2021, Matthias Cuntz</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyeee.eee.eee">
+<span class="sig-name descname"><span class="pre">eee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyeee/eee.html#eee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyeee.eee.eee" title="Link to this definition">#</a></dt>
+<dd><p>Parameter screening using Efficient/Sequential Elementary Effects of
+Cuntz, Mai et al. (Water Res Research, 2015).</p>
+<p>Note, the input function must be callable as <cite>func(x)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>callable</em>) – Python function callable as <cite>func(x)</cite> with <cite>x</cite> the function parameters.</p></li>
+<li><p><strong>lb</strong> (<em>array_like</em>) – <p>Lower bounds of parameters or lower fraction of percent point function
+<cite>ppf</cite> if distribution given.</p>
+<p>Be aware that the percent point function <cite>ppf</cite> of most continuous
+distributions is infinite at 0.</p>
+</p></li>
+<li><p><strong>ub</strong> (<em>array_like</em>) – <p>Upper bounds of parameters or upper fraction of percent point function
+<cite>ppf</cite> if distribution given.</p>
+<p>Be aware that the percent point function <cite>ppf</cite> of most continuous
+distributions is infinite at 1.</p>
+</p></li>
+<li><p><strong>x0</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Parameter values used with <cite>mask==0</cite>.</p></li>
+<li><p><strong>mask</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Include (1,True) or exclude (0,False) parameters in screening
+(default: include all parameters).</p></li>
+<li><p><strong>ntfirst</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of trajectories in first step of sequential elementary effects
+(default: 5).</p></li>
+<li><p><strong>ntlast</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of trajectories in last step of sequential elementary effects
+(default: 5).</p></li>
+<li><p><strong>nsteps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of intervals for each trajectory (default: 6)</p></li>
+<li><p><strong>dist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – <p>List of None or scipy.stats distribution objects for each factor
+having the method <cite>ppf</cite>, Percent Point Function (Inverse of CDF)
+(default: None)</p>
+<p>If None, the uniform distribution will be sampled from lower bound <cite>lb</cite>
+to upper bound <cite>ub</cite>.</p>
+<p>If <cite>dist</cite> is scipy.stats.uniform, the <cite>ppf</cite> will be sampled from the
+lower fraction given in <cite>lb</cite> and the upper fraction in <cite>ub</cite>. The
+sampling interval is then given by the parameters <cite>loc=lower</cite> and
+<cite>scale=interval=upper-lower</cite> in distparam. This means
+<cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite>
+corresponds to
+<cite>lb=0</cite>, <cite>ub=1</cite>, <cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite></p>
+</p></li>
+<li><p><strong>distparam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – <p>List with tuples with parameters as required for <cite>dist</cite>
+(default: (0,1)).</p>
+<p>All distributions of scipy.stats have location and scale parameters, at
+least. <cite>loc</cite> and <cite>scale</cite> are implemented as keyword arguments in
+scipy.stats. Other parameters such as the shape parameter of the gamma
+distribution must hence be given first, e.g. <cite>(shape,loc,scale)</cite> for
+the gamma distribution.</p>
+<p><cite>distparam</cite> is ignored if <cite>dist</cite> is None.</p>
+<p>The percent point function <cite>ppf</cite> is called like this:
+<cite>dist(*distparam).ppf(x)</cite></p>
+</p></li>
+<li><p><strong>weight</strong> (<em>boolean</em><em>, </em><em>optional</em>) – <p>If False, use the arithmetic mean mu* for each parameter if function
+has multiple outputs, such as the mean mu* of each time step of a time
+series (default).</p>
+<p>If True, return weighted mean <cite>mu*</cite>, weighted by <cite>sd</cite>.</p>
+</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><em>array_like</em>) – Seed for numpy’s random number generator (default: None).</p></li>
+<li><p><strong>processes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optinal</em>) – The number of processes to use to evaluate objective function and
+constraints (default: 1).</p></li>
+<li><p><strong>pool</strong> (<cite>schwimmbad</cite> pool object, optinal) – <p>Generic map function used from module <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/">schwimmbad</a>, which provides,
+serial, multiprocessor, and MPI mapping functions (default: None).</p>
+<p>The pool is chosen with:</p>
+<blockquote>
+<div><p>schwimmbad.choose_pool(mpi=True/False, processes=processes).</p>
+</div></blockquote>
+<p>The pool will be chosen automatically if <cite>pool</cite> is None.</p>
+<p>MPI pools can only be opened and closed once. If you want to use
+screening several times in one program, then you have to choose the
+<cite>pool</cite>, pass it to <cite>eee</cite>, and later close the <cite>pool</cite> in the calling
+program.</p>
+</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Print progress report during execution if <cite>verbose&gt;0</cite> (default: 0).</p></li>
+<li><p><strong>logfile</strong> (<em>File handle</em><em> or </em><em>logfile name</em>) – File name of possible log file
+(default: None = no logfile will be written).</p></li>
+<li><p><strong>plotfile</strong> (<em>Plot file name</em>) – File name of possible plot file with fit of logistic function to <cite>mu*</cite>
+of first trajectories (default: None = no plot produced).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mask</strong> – (len(lb),) mask with 1=informative and 0=uninformative model
+parameters, to be used with ‘&amp;’ on input mask.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">G</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span>   <span class="o">=</span> <span class="n">G</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npars</span>  <span class="o">=</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">78.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">97.</span><span class="p">,</span> <span class="mf">33.</span><span class="p">]</span> <span class="c1"># G</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arg</span>   <span class="o">=</span> <span class="p">[</span><span class="n">params</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kwarg</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obj</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">function_wrapper</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">kwarg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ntfirst</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ntlast</span>  <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nsteps</span>  <span class="o">=</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="n">ntfirst</span><span class="p">,</span> <span class="n">ntlast</span><span class="o">=</span><span class="n">ntlast</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">out</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">[2 3 4 6]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyeee.eee.see">
+<span class="sig-name descname"><span class="pre">see</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyeee/eee.html#see"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyeee.eee.see" title="Link to this definition">#</a></dt>
+<dd><p>Wrapper function for <a class="reference internal" href="#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a>.</p>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="package.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pyeee API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="changelog.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Changelog</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyeee.eee.eee"><code class="docutils literal notranslate"><span class="pre">eee()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyeee.eee.see"><code class="docutils literal notranslate"><span class="pre">see()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2016-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

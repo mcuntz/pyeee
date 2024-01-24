@@ -1,0 +1,1338 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyeee.eee &#8212; pyeee</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script src="../../_static/documentation_options.js?v=352e9ff0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyeee/eee';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../contents.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pyeee</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">Quickstart</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">pyeee API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../eee.html">pyeee.eee</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee/issues/new?title=Issue%20on%20page%20%2F_modules/pyeee/eee.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyeee.eee</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function eee for Efficient/Sequential Elementary Effects, an extension of</span>
+<span class="sd">Morris&#39; method of Elementary Effects by Cuntz, Mai et al. (Water Res Research,</span>
+<span class="sd">2015).</span>
+
+<span class="sd">This function was written by Matthias Cuntz while at Institut National de</span>
+<span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
+<span class="sd">France.</span>
+
+<span class="sd">Copyright (c) 2017-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">Released under the MIT License; see LICENSE file for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   see</span>
+<span class="sd">   eee</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Nov 2017 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Added `weight` option, Jan 2018, Matthias Cuntz</span>
+<span class="sd">    * Added `plotfile` and made docstring sphinx compatible option,</span>
+<span class="sd">      Jan 2018, Matthias Cuntz</span>
+<span class="sd">    * x0 optional; added verbose keyword; distinguish iterable and array_like</span>
+<span class="sd">      parameter types, Jan 2020, Matthias Cuntz</span>
+<span class="sd">    * Rename ntsteps to nsteps to be consistent with screening/ee; and check if</span>
+<span class="sd">      logfile is string rather thean checking for file handle, Feb 2020,</span>
+<span class="sd">      Matthias Cuntz</span>
+<span class="sd">    * Sample not only from uniform distribution but allow all distributions of</span>
+<span class="sd">      scipy.stats, Mar 2020, Matthias Cuntz</span>
+<span class="sd">    * Use pyjams package, Oct 2021, Matthias Cuntz</span>
+<span class="sd">    * Make flake8 compatible, Oct 2021, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">screening</span><span class="p">,</span> <span class="n">tee</span>
+<span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">cost_square</span><span class="p">,</span> <span class="n">curvature</span><span class="p">,</span> <span class="n">logistic_offset_p</span>
+<span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">dlogistic</span><span class="p">,</span> <span class="n">d2logistic</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eee&#39;</span><span class="p">,</span> <span class="s1">&#39;see&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="n">lfile</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">ipool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; Helper function closing logfile and pool if open. &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ipool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="c1"># Python 3</span>
+<span class="c1"># def eee(func, lb, ub,</span>
+<span class="c1">#         x0=None, mask=None, ntfirst=5, ntlast=5, nsteps=6, weight=False,</span>
+<span class="c1">#         seed=None, processes=1, pool=None,</span>
+<span class="c1">#         verbose=0, logfile=None, plotfile=None):</span>
+<div class="viewcode-block" id="eee">
+<a class="viewcode-back" href="../../eee.html#pyeee.eee.eee">[docs]</a>
+<span class="k">def</span> <span class="nf">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameter screening using Efficient/Sequential Elementary Effects of</span>
+<span class="sd">    Cuntz, Mai et al. (Water Res Research, 2015).</span>
+
+<span class="sd">    Note, the input function must be callable as `func(x)`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func : callable</span>
+<span class="sd">        Python function callable as `func(x)` with `x` the function parameters.</span>
+<span class="sd">    lb : array_like</span>
+<span class="sd">        Lower bounds of parameters or lower fraction of percent point function</span>
+<span class="sd">        `ppf` if distribution given.</span>
+
+<span class="sd">        Be aware that the percent point function `ppf` of most continuous</span>
+<span class="sd">        distributions is infinite at 0.</span>
+<span class="sd">    ub : array_like</span>
+<span class="sd">        Upper bounds of parameters or upper fraction of percent point function</span>
+<span class="sd">        `ppf` if distribution given.</span>
+
+<span class="sd">        Be aware that the percent point function `ppf` of most continuous</span>
+<span class="sd">        distributions is infinite at 1.</span>
+<span class="sd">    x0 : array_like, optional</span>
+<span class="sd">        Parameter values used with `mask==0`.</span>
+<span class="sd">    mask : array_like, optional</span>
+<span class="sd">        Include (1,True) or exclude (0,False) parameters in screening</span>
+<span class="sd">        (default: include all parameters).</span>
+<span class="sd">    ntfirst : int, optional</span>
+<span class="sd">        Number of trajectories in first step of sequential elementary effects</span>
+<span class="sd">        (default: 5).</span>
+<span class="sd">    ntlast : int, optional</span>
+<span class="sd">        Number of trajectories in last step of sequential elementary effects</span>
+<span class="sd">        (default: 5).</span>
+<span class="sd">    nsteps : int, optional</span>
+<span class="sd">        Number of intervals for each trajectory (default: 6)</span>
+<span class="sd">    dist : list, optional</span>
+<span class="sd">        List of None or scipy.stats distribution objects for each factor</span>
+<span class="sd">        having the method `ppf`, Percent Point Function (Inverse of CDF)</span>
+<span class="sd">        (default: None)</span>
+
+<span class="sd">        If None, the uniform distribution will be sampled from lower bound `lb`</span>
+<span class="sd">        to upper bound `ub`.</span>
+
+<span class="sd">        If `dist` is scipy.stats.uniform, the `ppf` will be sampled from the</span>
+<span class="sd">        lower fraction given in `lb` and the upper fraction in `ub`. The</span>
+<span class="sd">        sampling interval is then given by the parameters `loc=lower` and</span>
+<span class="sd">        `scale=interval=upper-lower` in distparam. This means</span>
+<span class="sd">        `dist=None`, `lb=a`, `ub=b`</span>
+<span class="sd">        corresponds to</span>
+<span class="sd">        `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`</span>
+<span class="sd">    distparam : list, optional</span>
+<span class="sd">        List with tuples with parameters as required for `dist`</span>
+<span class="sd">        (default: (0,1)).</span>
+
+<span class="sd">        All distributions of scipy.stats have location and scale parameters, at</span>
+<span class="sd">        least. `loc` and `scale` are implemented as keyword arguments in</span>
+<span class="sd">        scipy.stats. Other parameters such as the shape parameter of the gamma</span>
+<span class="sd">        distribution must hence be given first, e.g. `(shape,loc,scale)` for</span>
+<span class="sd">        the gamma distribution.</span>
+
+<span class="sd">        `distparam` is ignored if `dist` is None.</span>
+
+<span class="sd">        The percent point function `ppf` is called like this:</span>
+<span class="sd">        `dist(*distparam).ppf(x)`</span>
+<span class="sd">    weight : boolean, optional</span>
+<span class="sd">        If False, use the arithmetic mean mu* for each parameter if function</span>
+<span class="sd">        has multiple outputs, such as the mean mu* of each time step of a time</span>
+<span class="sd">        series (default).</span>
+
+<span class="sd">        If True, return weighted mean `mu*`, weighted by `sd`.</span>
+<span class="sd">    seed : int or array_like</span>
+<span class="sd">        Seed for numpy&#39;s random number generator (default: None).</span>
+<span class="sd">    processes : int, optinal</span>
+<span class="sd">        The number of processes to use to evaluate objective function and</span>
+<span class="sd">        constraints (default: 1).</span>
+<span class="sd">    pool : `schwimmbad` pool object, optinal</span>
+<span class="sd">        Generic map function used from module `schwimmbad</span>
+<span class="sd">        &lt;https://schwimmbad.readthedocs.io/en/latest/&gt;`_, which provides,</span>
+<span class="sd">        serial, multiprocessor, and MPI mapping functions (default: None).</span>
+
+<span class="sd">        The pool is chosen with:</span>
+
+<span class="sd">            schwimmbad.choose_pool(mpi=True/False, processes=processes).</span>
+
+<span class="sd">        The pool will be chosen automatically if `pool` is None.</span>
+
+<span class="sd">        MPI pools can only be opened and closed once. If you want to use</span>
+<span class="sd">        screening several times in one program, then you have to choose the</span>
+<span class="sd">        `pool`, pass it to `eee`, and later close the `pool` in the calling</span>
+<span class="sd">        program.</span>
+
+<span class="sd">    verbose : int, optional</span>
+<span class="sd">        Print progress report during execution if `verbose&gt;0` (default: 0).</span>
+<span class="sd">    logfile : File handle or logfile name</span>
+<span class="sd">        File name of possible log file</span>
+<span class="sd">        (default: None = no logfile will be written).</span>
+<span class="sd">    plotfile : Plot file name</span>
+<span class="sd">        File name of possible plot file with fit of logistic function to `mu*`</span>
+<span class="sd">        of first trajectories (default: None = no plot produced).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mask : ndarray</span>
+<span class="sd">        (len(lb),) mask with 1=informative and 0=uninformative model</span>
+<span class="sd">        parameters, to be used with &#39;&amp;&#39; on input mask.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from functools import partial</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import scipy.stats as stats</span>
+<span class="sd">    &gt;&gt;&gt; from pyjams.functions import G</span>
+<span class="sd">    &gt;&gt;&gt; from partialwrap import function_wrapper</span>
+<span class="sd">    &gt;&gt;&gt; seed = 1234</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(seed=seed)</span>
+<span class="sd">    &gt;&gt;&gt; func   = G</span>
+<span class="sd">    &gt;&gt;&gt; npars  = 6</span>
+<span class="sd">    &gt;&gt;&gt; params = [78., 12., 0.5, 2., 97., 33.] # G</span>
+<span class="sd">    &gt;&gt;&gt; arg   = [params]</span>
+<span class="sd">    &gt;&gt;&gt; kwarg = {}</span>
+<span class="sd">    &gt;&gt;&gt; obj = partial(function_wrapper, func, arg, kwarg)</span>
+<span class="sd">    &gt;&gt;&gt; lb = np.zeros(npars)</span>
+<span class="sd">    &gt;&gt;&gt; ub = np.ones(npars)</span>
+<span class="sd">    &gt;&gt;&gt; ntfirst = 10</span>
+<span class="sd">    &gt;&gt;&gt; ntlast  = 5</span>
+<span class="sd">    &gt;&gt;&gt; nsteps  = 6</span>
+<span class="sd">    &gt;&gt;&gt; out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast,</span>
+<span class="sd">    ...           nsteps=nsteps, processes=4)</span>
+<span class="sd">    &gt;&gt;&gt; print(np.where(out)[0] + 1)</span>
+<span class="sd">    [2 3 4 6]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get keyword arguments This allows mixing keyword arguments of eee and</span>
+    <span class="c1"># keyword arguments to be passed to optimiser. The mixed syntax eee(func,</span>
+    <span class="c1"># *args, logfile=None, **kwargs) is only working in Python 3 so need a</span>
+    <span class="c1"># workaround in Python 2, i.e. read all as keyword args and take out the</span>
+    <span class="c1"># keywords for eee.</span>
+    <span class="n">x0</span>        <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">mask</span>      <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">ntfirst</span>   <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ntfirst&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">ntlast</span>    <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ntlast&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">nsteps</span>    <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;nsteps&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">dist</span>      <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;dist&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">distparam</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;distparam&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">weight</span>    <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">seed</span>      <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">processes</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;processes&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pool</span>      <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pool&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">verbose</span>   <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">logfile</span>   <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;logfile&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">plotfile</span>  <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;plotfile&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># Set up MPI if available</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+        <span class="n">comm</span>  <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+        <span class="n">csize</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+        <span class="n">crank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="n">comm</span>  <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">csize</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">crank</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Logfile</span>
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lfile</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># haswrite = getattr(logfile, &quot;write&quot;, None)</span>
+            <span class="c1"># if haswrite is None:</span>
+            <span class="c1">#     lfile = open(logfile, &quot;w&quot;)</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     if not callable(haswrite):</span>
+            <span class="c1">#         lfile = logfile</span>
+            <span class="c1">#     else:</span>
+            <span class="c1">#         raise InputError(&#39;x0 must be given if mask is set&#39;)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">logfile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">lfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">logfile</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lfile</span> <span class="o">=</span> <span class="n">logfile</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lfile</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Start</span>
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Start screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Start screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+    <span class="c1"># Check</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;lb and ub must be given as arguments.&#39;</span>
+    <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">npara</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ub</span><span class="p">),</span> <span class="p">(</span>
+            <span class="s1">&#39;Lower and upper bounds have not the same size.&#39;</span><span class="p">)</span>
+    <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span>
+    <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ub</span><span class="p">)</span>
+
+    <span class="c1"># mask</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ix0</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npara</span><span class="p">)</span>
+        <span class="n">imask</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npara</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">iimask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">npara</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">nmask</span>  <span class="o">=</span> <span class="n">npara</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;x0 must be given if mask is set&#39;</span><span class="p">)</span>
+        <span class="n">ix0</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">imask</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">iimask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">nmask</span>  <span class="o">=</span> <span class="n">iimask</span><span class="o">.</span><span class="n">size</span>
+        <span class="k">if</span> <span class="n">nmask</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">All parameters masked, nothing to do.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                    <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">All parameters masked, nothing to do.&#39;</span><span class="p">,</span>
+                              <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">logfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">lfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="c1"># Return all true</span>
+            <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">mask</span>
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Screen unmasked parameters: &#39;</span><span class="p">,</span> <span class="n">nmask</span><span class="p">,</span> <span class="n">iimask</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Screen unmasked parameters: &#39;</span><span class="p">,</span> <span class="n">nmask</span><span class="p">,</span> <span class="n">iimask</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+    <span class="c1"># Seed random number generator</span>
+    <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># same on all ranks because trajectories are sampled on all ranks</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="c1"># Choose the right mapping function: single, multiprocessor or mpi</span>
+    <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">schwimmbad</span>
+        <span class="n">ipool</span> <span class="o">=</span> <span class="n">schwimmbad</span><span class="o">.</span><span class="n">choose_pool</span><span class="p">(</span><span class="n">mpi</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">csize</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
+                                       <span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ipool</span> <span class="o">=</span> <span class="n">pool</span>
+
+    <span class="c1"># Step 1 of Cuntz et al. (2015) - first screening with ntfirst</span>
+    <span class="c1"># trajectories, calc mu*</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span>  <span class="c1"># returns (npara,3) with mu*, mu, std if nt&gt;1</span>
+        <span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="p">,</span>
+        <span class="n">x0</span><span class="o">=</span><span class="n">ix0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">imask</span><span class="p">,</span>
+        <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">ntfirst</span><span class="p">,</span>
+        <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">,</span>
+        <span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">ipool</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+            <span class="n">mustar</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mustar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mustar</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Step 2 of Cuntz et al. (2015) - calc eta*</span>
+    <span class="n">mumax</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">mustar</span><span class="p">)</span>
+    <span class="n">xx</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nmask</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nmask</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">iisort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">mustar</span><span class="p">)</span>
+    <span class="n">yy</span>     <span class="o">=</span> <span class="n">mustar</span><span class="p">[</span><span class="n">iisort</span><span class="p">]</span> <span class="o">/</span> <span class="n">mumax</span>
+
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Sorted means of absolute elementary effects (mu*): &#39;</span><span class="p">,</span>
+                <span class="n">mustar</span><span class="p">[</span><span class="n">iisort</span><span class="p">],</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Normalised mu* = eta*: &#39;</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Corresponding to parameters: &#39;</span><span class="p">,</span> <span class="n">iimask</span><span class="p">[</span><span class="n">iisort</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Sorted means of absolute elementary effects (mu*): &#39;</span><span class="p">,</span>
+                      <span class="n">mustar</span><span class="p">[</span><span class="n">iisort</span><span class="p">],</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Normalised mu* = eta*: &#39;</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Corresponding to parameters: &#39;</span><span class="p">,</span> <span class="n">iimask</span><span class="p">[</span><span class="n">iisort</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                      <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+    <span class="c1"># Step 3.1 of Cuntz et al. (2015) - fit logistic function</span>
+    <span class="c1">#               [y-max, steepness, inflection point, offset]</span>
+    <span class="n">pini</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">yy</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="p">(</span><span class="n">yy</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">yy</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">/</span> <span class="n">xx</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                     <span class="mf">0.5</span> <span class="o">*</span> <span class="n">xx</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+    <span class="n">plogistic</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">fmin_l_bfgs_b</span><span class="p">(</span><span class="n">cost_square</span><span class="p">,</span>
+                                        <span class="n">pini</span><span class="p">,</span>
+                                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">logistic_offset_p</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">),</span>
+                                        <span class="n">approx_grad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                        <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                                <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)],</span>
+                                        <span class="n">iprint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                        <span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Step 3.2 of Cuntz et al. (2015) - determine point of steepest curvature</span>
+    <span class="c1"># -&gt; eta*_thresh</span>
+    <span class="k">def</span> <span class="nf">mcurvature</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">curvature</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">x_K</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">brent</span><span class="p">(</span><span class="n">mcurvature</span><span class="p">,</span>                     <span class="c1"># x_K</span>
+                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">dlogistic</span><span class="p">,</span> <span class="n">d2logistic</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">plogistic</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                          <span class="n">plogistic</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                    <span class="n">brack</span><span class="o">=</span><span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">curvmax</span>    <span class="o">=</span> <span class="n">logistic_offset_p</span><span class="p">(</span><span class="n">x_K</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">)</span>  <span class="c1"># L(x_K)</span>
+    <span class="c1"># eta*_thresh = L(x_K) # in range 0-1</span>
+    <span class="n">eta_thresh</span> <span class="o">=</span> <span class="n">curvmax</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curvmax</span> <span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">x_K</span> <span class="o">&lt;</span> <span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">x_scaled</span>   <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                   <span class="c1"># x_K = min(x)</span>
+        <span class="n">eta_thresh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">mustar</span><span class="p">)</span> <span class="o">/</span> <span class="n">mumax</span>  <span class="c1"># eta*_thresh = min(mu*)/max(mu*)</span>
+    <span class="n">mu_thresh</span> <span class="o">=</span> <span class="n">eta_thresh</span> <span class="o">*</span> <span class="n">mumax</span>  <span class="c1"># mu*_thresh = eta*_thresh*max(mu*)</span>
+
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Threshold eta*_thresh, mu*_tresh: &#39;</span><span class="p">,</span> <span class="n">eta_thresh</span><span class="p">,</span> <span class="n">mu_thresh</span><span class="p">,</span>
+                <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;L(x_K): &#39;</span><span class="p">,</span> <span class="n">logistic_offset_p</span><span class="p">(</span><span class="n">x_K</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;p_opt of L: &#39;</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Threshold eta*_thresh, mu*_tresh: &#39;</span><span class="p">,</span> <span class="n">eta_thresh</span><span class="p">,</span>
+                      <span class="n">mu_thresh</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;L(x_K): &#39;</span><span class="p">,</span> <span class="n">logistic_offset_p</span><span class="p">(</span><span class="n">x_K</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">),</span>
+                      <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p_opt of L: &#39;</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+    <span class="c1"># Plot first mu* of elementary effects with logistic function and threshold</span>
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">plotfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+                <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
+                <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+                <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
+                <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Arial&#39;</span>  <span class="c1"># Arial, Verdana</span>
+                <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">npara</span> <span class="o">&gt;</span> <span class="mi">99</span><span class="p">:</span>
+                    <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+                <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+                <span class="n">xx</span> <span class="o">=</span> <span class="n">xx</span>
+                <span class="n">yy</span> <span class="o">=</span> <span class="n">mustar</span><span class="p">[</span><span class="n">iisort</span><span class="p">]</span>
+                <span class="n">line1</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+                <span class="n">nn</span> <span class="o">=</span> <span class="mi">1000</span>
+                <span class="n">xx2</span> <span class="o">=</span> <span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nn</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                       <span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xx</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+                <span class="n">yy2</span> <span class="o">=</span> <span class="n">logistic_offset_p</span><span class="p">(</span><span class="n">xx2</span><span class="p">,</span> <span class="n">plogistic</span><span class="p">)</span> <span class="o">*</span> <span class="n">mumax</span>
+                <span class="n">line2</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx2</span><span class="p">,</span> <span class="n">yy2</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+                <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+                <span class="n">line3</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">],</span> <span class="p">[</span><span class="n">mu_thresh</span><span class="p">,</span> <span class="n">mu_thresh</span><span class="p">],</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">npara</span> <span class="o">&gt;</span> <span class="mi">99</span><span class="p">:</span>
+                    <span class="n">xnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{:03d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iimask</span><span class="p">[</span><span class="n">iisort</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">xnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{:02d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iimask</span><span class="p">[</span><span class="n">iisort</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="n">xx</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">xnames</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Parameter&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mu*$&#39;</span><span class="p">)</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">plotfile</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+                            <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.035</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="c1"># Step 4 of Cuntz et al. (2015) - Discard from next steps all parameters</span>
+    <span class="c1"># with  eta* &gt;= eta*_tresh, i.e. mu* &gt;= mu*_tresh</span>
+    <span class="n">imask</span><span class="p">[</span><span class="n">iimask</span><span class="p">]</span> <span class="o">=</span> <span class="n">imask</span><span class="p">[</span><span class="n">iimask</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mustar</span> <span class="o">&lt;</span> <span class="n">mu_thresh</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">~</span><span class="n">imask</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No more parameters to screen, i.e. all &#39;</span>
+                    <span class="s1">&#39;(unmasked) parameters are informative.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No more parameters to screen, i.e. all &#39;</span>
+                          <span class="s1">&#39;(unmasked) parameters are informative.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">_cleanup</span><span class="p">(</span><span class="n">lfile</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">ipool</span><span class="p">)</span>
+        <span class="c1"># Return all true</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mask</span>
+
+    <span class="c1"># Step 5 and 6 of Cuntz et al. (2015)</span>
+    <span class="c1">#     - Next trajectory with remaining parameters.</span>
+    <span class="c1">#       Discard all parameters with |EE| &gt;= mu*_tresh</span>
+    <span class="c1">#     - Repeat until no |EE| &gt;= mu*_tresh</span>
+    <span class="n">niter</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">donext</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">while</span> <span class="n">donext</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Parameters remaining for iteration &#39;</span><span class="p">,</span> <span class="n">niter</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Parameters remaining for iteration &#39;</span><span class="p">,</span> <span class="n">niter</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                          <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="n">iimask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span>  <span class="c1"># returns EE(parameters) if nt=1</span>
+            <span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">x0</span><span class="o">=</span><span class="n">ix0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">imask</span><span class="p">,</span>
+            <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">,</span>
+            <span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">ipool</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># absolute EE</span>
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+                <span class="n">mustar</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                          <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mustar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mustar</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Absolute elementary effects |EE|: &#39;</span><span class="p">,</span> <span class="n">mustar</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Absolute elementary effects |EE|: &#39;</span><span class="p">,</span> <span class="n">mustar</span><span class="p">,</span>
+                          <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+        <span class="n">imask</span><span class="p">[</span><span class="n">iimask</span><span class="p">]</span> <span class="o">=</span> <span class="n">imask</span><span class="p">[</span><span class="n">iimask</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mustar</span> <span class="o">&lt;</span> <span class="n">mu_thresh</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">~</span><span class="n">imask</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No more parameters to screen, i.e. all &#39;</span>
+                        <span class="s1">&#39;(unmasked) parameters are informative.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                    <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No more parameters to screen, i.e. all &#39;</span>
+                              <span class="s1">&#39;(unmasked) parameters are informative.&#39;</span><span class="p">,</span>
+                              <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="n">_cleanup</span><span class="p">(</span><span class="n">lfile</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">ipool</span><span class="p">)</span>
+            <span class="c1"># Return all true</span>
+            <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">mask</span>
+
+        <span class="c1"># Step 6 of Cuntz et al. (2015) - Repeat until no |EE| &gt;= mu*_tresh</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">mustar</span> <span class="o">&lt;</span> <span class="n">mu_thresh</span><span class="p">):</span>
+            <span class="n">donext</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">niter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Step 7 of Cuntz et al. (2015)</span>
+    <span class="c1">#     - last screening with ntlast trajectories all parameters with</span>
+    <span class="c1">#       mu* &lt; mu*_thresh are final noninformative parameters</span>
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Parameters remaining for last screening:&#39;</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Parameters remaining for last screening:&#39;</span><span class="p">,</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+    <span class="n">iimask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span>  <span class="c1"># (npara,3) with mu*, mu, std if nt&gt;1</span>
+        <span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntlast</span><span class="p">,</span>
+        <span class="n">x0</span><span class="o">=</span><span class="n">ix0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">imask</span><span class="p">,</span>
+        <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">ntlast</span><span class="p">,</span>
+        <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">,</span>
+        <span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">ipool</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+            <span class="n">mustar</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mustar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mustar</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">iimask</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ntlast</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Final mu*: &#39;</span><span class="p">,</span> <span class="n">mustar</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final mu*: &#39;</span><span class="p">,</span> <span class="n">mustar</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Final absolute elementary effects |EE|: &#39;</span><span class="p">,</span> <span class="n">mustar</span><span class="p">,</span>
+                    <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final absolute elementary effects |EE|: &#39;</span><span class="p">,</span> <span class="n">mustar</span><span class="p">,</span>
+                          <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+
+    <span class="n">imask</span><span class="p">[</span><span class="n">iimask</span><span class="p">]</span> <span class="o">=</span> <span class="n">imask</span><span class="p">[</span><span class="n">iimask</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mustar</span> <span class="o">&lt;</span> <span class="n">mu_thresh</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">~</span><span class="n">imask</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No more parameters left after screening, i.e. all &#39;</span>
+                    <span class="s1">&#39;(unmasked) parameters are informative.&#39;</span><span class="p">,</span>
+                    <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">No more parameters left after screening, &#39;</span>
+                          <span class="s1">&#39;i.e. all (unmasked) parameters are informative.&#39;</span><span class="p">,</span>
+                          <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">_cleanup</span><span class="p">(</span><span class="n">lfile</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">ipool</span><span class="p">)</span>
+        <span class="c1"># Return all true</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mask</span>
+
+    <span class="c1"># Return mask with unmasked informative model parameters (to be used with</span>
+    <span class="c1"># &#39;and&#39; on initial mask)</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="o">~</span><span class="n">imask</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># (true where now zero, i.e. were masked or informative) and (initial</span>
+        <span class="c1"># mask)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">imask</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">mask</span>
+
+    <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Final informative parameters:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">out</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">out</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;Final noninformative parameters:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imask</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+            <span class="n">tee</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Final informative parameters:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">out</span><span class="p">),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">out</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final noninformative parameters:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imask</span><span class="p">),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Finished screening in eee.&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">lfile</span><span class="p">)</span>
+        <span class="c1"># Close logfile and pool</span>
+        <span class="n">_cleanup</span><span class="p">(</span><span class="n">lfile</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">ipool</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="see">
+<a class="viewcode-back" href="../../eee.html#pyeee.eee.see">[docs]</a>
+<span class="k">def</span> <span class="nf">see</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`~pyeee.eee.eee`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+
+    <span class="c1"># # from pyjams import tee</span>
+    <span class="c1"># # from pyjams.functions import fmorris</span>
+
+    <span class="c1"># # # Morris with MPI</span>
+
+    <span class="c1"># # import time as ptime</span>
+    <span class="c1"># # t1 = ptime.time()</span>
+
+    <span class="c1"># # try:</span>
+    <span class="c1"># #     from mpi4py import MPI</span>
+    <span class="c1"># #     comm  = MPI.COMM_WORLD</span>
+    <span class="c1"># #     csize = comm.Get_size()</span>
+    <span class="c1"># #     crank = comm.Get_rank()</span>
+    <span class="c1"># # except ImportError:</span>
+    <span class="c1"># #     comm  = None</span>
+    <span class="c1"># #     csize = 1</span>
+    <span class="c1"># #     crank = 0</span>
+
+    <span class="c1"># # seed = None # 1025</span>
+
+    <span class="c1"># # if seed is not None:</span>
+    <span class="c1"># #     np.random.seed(seed=seed)</span>
+
+    <span class="c1"># # func = fmorris</span>
+    <span class="c1"># # npars = 20</span>
+    <span class="c1"># # lb    = np.zeros(npars)</span>
+    <span class="c1"># # ub    = np.ones(npars)</span>
+    <span class="c1"># # beta0              = 0.</span>
+    <span class="c1"># # beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1"># # beta1[:10]         = 20.</span>
+    <span class="c1"># # beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1"># # beta2[:6,:6]       = -15.</span>
+    <span class="c1"># # beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1"># # beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1"># # beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1"># # beta4[:4,:4,:4,:4] = 5.</span>
+    <span class="c1"># # args = [beta0, beta1, beta2, beta3, beta4] # Morris</span>
+    <span class="c1"># # ntfirst = 10</span>
+    <span class="c1"># # ntlast  = 5</span>
+    <span class="c1"># # nsteps  = 6</span>
+    <span class="c1"># # verbose = 1</span>
+
+    <span class="c1"># # out = eee(func, lb, ub, *args, x0=None, mask=None, ntfirst=ntfirst,</span>
+    <span class="c1"># #           ntlast=ntlast, nsteps=nsteps, processes=4)</span>
+
+    <span class="c1"># # t2    = ptime.time()</span>
+
+    <span class="c1"># # if crank == 0:</span>
+    <span class="c1"># #     strin = (&#39;[m]: {:.1f}&#39;.format((t2-t1)/60.)</span>
+    <span class="c1"># #              if (t2-t1)&gt;60. else &#39;[s]: {:d}&#39;.format(int(t2-t1)))</span>
+    <span class="c1"># #     tee(&#39;Time elapsed: &#39;, strin)</span>
+    <span class="c1"># #     tee(&#39;mask (1: informative, 0: noninformative): &#39;, out)</span>
+
+    <span class="c1"># # PYEEE</span>
+    <span class="c1"># from functools import partial</span>
+    <span class="c1"># import numpy as np</span>
+    <span class="c1"># import scipy.stats as stats</span>
+    <span class="c1"># from pyjams.functions import G, Gstar, K, fmorris</span>
+    <span class="c1"># from partialwrap import function_wrapper</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # G function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = G</span>
+    <span class="c1"># npars  = 6</span>
+    <span class="c1"># params = [78., 12., 0.5, 2., 97., 33.] # G</span>
+
+    <span class="c1"># # Partialise function with fixed parameters</span>
+    <span class="c1"># arg   = [params]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast,</span>
+    <span class="c1">#           nsteps=nsteps, processes=4, plotfile=&#39;g.png&#39;)</span>
+    <span class="c1"># print(&#39;G&#39;)</span>
+    <span class="c1"># print(np.where(out)[0] + 1)</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Gstar function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = Gstar</span>
+    <span class="c1"># npars  = 10</span>
+    <span class="c1"># params = [[np.ones(npars),     np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]], # G*</span>
+    <span class="c1">#           [np.ones(npars),     np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],</span>
+    <span class="c1">#           [np.ones(npars)*0.5, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],</span>
+    <span class="c1">#           [np.ones(npars)*0.5, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],</span>
+    <span class="c1">#           [np.ones(npars)*2.0, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],</span>
+    <span class="c1">#           [np.ones(npars)*2.0, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]]</span>
+    <span class="c1">#          ]</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># for ii in range(len(params)):</span>
+    <span class="c1">#     # Partialise function with fixed parameters</span>
+    <span class="c1">#     arg   = params[ii]</span>
+    <span class="c1">#     kwarg = {}</span>
+    <span class="c1">#     obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1">#     out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast,</span>
+    <span class="c1">#               nsteps=nsteps, processes=4,</span>
+    <span class="c1">#               plotfile=&#39;gstar&#39;+str(ii)+&#39;.png&#39;,logfile=&#39;log&#39;+str(ii)+&#39;.txt&#39;)</span>
+    <span class="c1">#     print(&#39;G* &#39;, ii)</span>
+    <span class="c1">#     print(np.where(out)[0] + 1)</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Bratley / K function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = K</span>
+    <span class="c1"># npars  = 10</span>
+    <span class="c1"># params = [] # K</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = eee(func, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast,</span>
+    <span class="c1">#           nsteps=nsteps, processes=4, plotfile=&#39;k.png&#39;)</span>
+    <span class="c1"># print(&#39;K&#39;)</span>
+    <span class="c1"># print(np.where(out)[0] + 1)</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Morris function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func = fmorris</span>
+    <span class="c1"># npars = 20</span>
+    <span class="c1"># beta0              = 0.</span>
+    <span class="c1"># beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1"># beta1[:10]         = 20.</span>
+    <span class="c1"># beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1"># beta2[:6,:6]       = -15.</span>
+    <span class="c1"># beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1"># beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1"># beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1"># beta4[:4,:4,:4,:4] = 5.</span>
+
+    <span class="c1"># # Partialise Morris function with fixed parameters beta0-4</span>
+    <span class="c1"># arg   = [beta0, beta1, beta2, beta3, beta4]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast,</span>
+    <span class="c1">#           nsteps=nsteps, processes=4, plotfile=&#39;morris.png&#39;, verbose=1)</span>
+    <span class="c1"># print(&#39;Morris&#39;)</span>
+    <span class="c1"># print(np.where(out)[0] + 1)</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Morris function with distributions</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func = fmorris</span>
+    <span class="c1"># npars = 20</span>
+    <span class="c1"># beta0              = 0.</span>
+    <span class="c1"># beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1"># beta1[:10]         = 20.</span>
+    <span class="c1"># beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1"># beta2[:6,:6]       = -15.</span>
+    <span class="c1"># beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1"># beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1"># beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1"># beta4[:4,:4,:4,:4] = 5.</span>
+
+    <span class="c1"># # Partialise Morris function with fixed parameters beta0-4</span>
+    <span class="c1"># arg   = [beta0, beta1, beta2, beta3, beta4]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># dist      = [ stats.uniform for i in range(npars) ]</span>
+    <span class="c1"># distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = eee(obj, lb, ub, mask=None, ntfirst=ntfirst, ntlast=ntlast,</span>
+    <span class="c1">#           nsteps=nsteps, dist=dist, distparam=distparam, processes=4)</span>
+    <span class="c1"># print(&#39;Morris dist&#39;)</span>
+    <span class="c1"># print(np.where(out)[0] + 1)</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Morris function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func = fmorris</span>
+    <span class="c1"># npars = 20</span>
+    <span class="c1"># beta0              = 0.</span>
+    <span class="c1"># beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1"># beta1[:10]         = 20.</span>
+    <span class="c1"># beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1"># beta2[:6,:6]       = -15.</span>
+    <span class="c1"># beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1"># beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1"># beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1"># beta4[:4,:4,:4,:4] = 5.</span>
+
+    <span class="c1"># # Partialise Morris function with fixed parameters beta0-4</span>
+    <span class="c1"># arg   = [beta0, beta1, beta2, beta3, beta4]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># x0   = np.ones(npars)*0.5</span>
+    <span class="c1"># mask = np.ones(npars, dtype=bool)</span>
+    <span class="c1"># mask[1] = False</span>
+
+    <span class="c1"># out = eee(obj, lb, ub, x0=x0, mask=mask, ntfirst=ntfirst,</span>
+    <span class="c1">#           ntlast=ntlast, nsteps=nsteps, processes=4)</span>
+    <span class="c1"># print(&#39;Morris mask&#39;)</span>
+    <span class="c1"># print(np.where(out)[0] + 1)</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Morris function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func = fmorris</span>
+    <span class="c1"># npars = 20</span>
+    <span class="c1"># beta0              = 0.</span>
+    <span class="c1"># beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1"># beta1[:10]         = 20.</span>
+    <span class="c1"># beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1"># beta2[:6,:6]       = -15.</span>
+    <span class="c1"># beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1"># beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1"># beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1"># beta4[:4,:4,:4,:4] = 5.</span>
+
+    <span class="c1"># # Partialise Morris function with fixed parameters beta0-4</span>
+    <span class="c1"># arg   = [beta0, beta1, beta2, beta3, beta4]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># dist      = [ stats.uniform for i in range(npars) ]</span>
+    <span class="c1"># distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># ntfirst = 10</span>
+    <span class="c1"># ntlast  = 5</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># x0   = np.ones(npars)*0.5</span>
+    <span class="c1"># mask = np.ones(npars, dtype=bool)</span>
+    <span class="c1"># mask[1] = False</span>
+
+    <span class="c1"># out = eee(obj, lb, ub, x0=x0, mask=mask, ntfirst=ntfirst, ntlast=ntlast,</span>
+    <span class="c1">#           nsteps=nsteps, dist=dist, distparam=distparam, processes=4)</span>
+    <span class="c1"># print(&#39;Morris dist mask&#39;)</span>
+    <span class="c1"># print(np.where(out)[0] + 1)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2016-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

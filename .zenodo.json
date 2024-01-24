@@ -1,0 +1,78 @@
+{
+    "language": "eng",
+    "license": "MIT",
+    "title": "pyeee: Parameter screening using Efficient/Sequential Elementary Effects, an extension of Morris' method.",
+    "references": [
+	{
+            "reference": "Cuntz, Mai et al. (2015) Computationally inexpensive identification of noninformative model parameters by sequential screening, Water Resources Research 51, 6417-6441, doi:10.1002/2015WR016907"
+	}
+    ],
+    "related_identifiers": [
+	{
+            "scheme": "doi",
+            "identifier": "10.1002/2015WR016907",
+            "relation_type": {
+		"id": "isderivedfrom",
+		"title": {
+		    "de": "Wird abgeleitet von",
+		    "en": "Is derived from"
+		}
+            },
+            "resource_type": {
+		"id": "publication-article",
+		"title": {
+		    "de": "Zeitschriftenartikel",
+		    "en": "Journal article"
+		}
+            }
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://github.com/mcuntz/pyeee/",
+            "relation": "isDerivedFrom",
+            "resource_type": "software"
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://mcuntz.github.io/pyeee/",
+            "relation": "isDocumentedBy",
+            "resource_type": "publication-softwaredocumentation"
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://pypi.org/project/pyeee/",
+            "relation": "isIdenticalTo",
+            "resource_type": "software"
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://anaconda.org/conda-forge/pyeee",
+            "relation": "isIdenticalTo",
+            "resource_type": "software"
+	}
+    ],
+    "upload_type": "software",
+    "keywords": [
+        "Python utilities",
+        "Optimization",
+        "Screening",
+        "Morris",
+        "Elementary Effects",
+        "Morris method",
+        "Python",
+    ],
+    "creators": [
+        {
+        "orcid": "0000-0002-5966-1829",
+        "affiliation": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement - INRAE, Nancy, France",
+        "name": "Matthias Cuntz"
+	},
+        {
+        "orcid": "0000-0002-1132-2342",
+        "affiliation": "University of Waterloo, ON, Canada",
+        "name": "Juliane Mai"
+	}
+    ],
+    "access_right": "open",
+    "description": "<p><strong>pyeee</strong> is a Python library for performing parameter screening of computational models. It uses Efficient or Sequential Elementary Effects, an extension of Morris&#39; method of Elementary Effects, published by:</p>\n\n<p>Cuntz M, Mai J, Zink M, Thober S, Kumar R, Sch&auml;fer D, Schr&ouml;n M, Craven J, Rakovec O, Spieler D, Prykhodko V, Dalmasso G, Musuuza J, Langenberg B, Attinger A, and Samaniego L (2015) Computationally inexpensive identification of noninformative model parameters by sequential screening, <em>Water Resources Research</em> 51, 6417-6441, doi:<a href=\"https://doi.org/10.1002/2015WR016907\">10.1002/2015WR016907</a></p>\n\n<p><strong>pyeee</strong> can be used with Python functions as well as external executables using libraries such as <a href=\"https://github.org/mcuntz/partialwrap/\">partialwrap</a>. Function evaluations can be distributed with Python&#39;s multiprocessing or via MPI.</p>\n\n<p>The complete documentation of pyeee is available at: <a href=\"https://mcuntz.github.io/pyeee/\">https://mcuntz.github.io/pyeee/</a></p>\n\n<p>A similar package (EEE) using a combination of bash and Python scripts is presented at: <a href=\"https://doi.org/10.5281/zenodo.3620894\">https://doi.org/10.5281/zenodo.3620894</a></p>\n\n<p>The current version 4.0 modernised code structure and documentation, moving everything to Github.</p>"
+}

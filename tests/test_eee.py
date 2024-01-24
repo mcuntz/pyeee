@@ -2,16 +2,16 @@
 """
 This is the unittest for the Efficient/Sequential Elementary Effects module.
 
-python -m unittest -v test_eee.py
-python -m pytest --cov-report term-missing -v tests/test_eee.py
+python -m unittest -v tests/test_eee.py
+python -m pytest --cov=pyeee --cov-report term-missing -v tests/test_eee.py
+
 """
-from __future__ import division, absolute_import, print_function
 import unittest
 
 
 # --------------------------------------------------------------------
 # eee.py
-# Missing coverage:
+# Missing coverage (line numbers are approximate):
 #    217-220: ImportError MPI
 #    240: crank!=0 <- MPI
 #    267: mask is not None but x0 is None
@@ -63,11 +63,12 @@ class TestEee(unittest.TestCase):
         ub = np.ones(npars)
 
         out = eee(obj, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast,
+                  nsteps=self.nsteps,
                   processes=1)
 
         # Check
-        self.assertEqual(list(np.where(out)[0]+1), [2, 3, 4, 6])
+        self.assertEqual(list(np.where(out)[0] + 1), [2, 3, 4, 6])
 
     # Gstar function with different interactions
     def test_see_gstar(self):
@@ -80,17 +81,17 @@ class TestEee(unittest.TestCase):
         # Function and parameters
         func   = Gstar
         npars  = 10
-        params = [[[1]*npars,          np.random.random(npars),
-                   [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],  # G*
-                  [np.ones(npars),     np.random.random(npars),
+        params = [[[1] * npars, np.random.random(npars),
+                   [0., 0., 9., 9., 9., 9., 9., 9., 9., 9.]],  # G*
+                  [np.ones(npars), np.random.random(npars),
                    [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],
-                  [np.ones(npars)*0.5, np.random.random(npars),
-                   [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],
-                  [np.ones(npars)*0.5, np.random.random(npars),
+                  [np.ones(npars) * 0.5, np.random.random(npars),
+                   [0., 0., 9., 9., 9., 9., 9., 9., 9., 9.]],
+                  [np.ones(npars) * 0.5, np.random.random(npars),
                    [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],
-                  [np.ones(npars)*2.0, np.random.random(npars),
-                   [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],
-                  [np.ones(npars)*2.0, np.random.random(npars),
+                  [np.ones(npars) * 2.0, np.random.random(npars),
+                   [0., 0., 9., 9., 9., 9., 9., 9., 9., 9.]],
+                  [np.ones(npars) * 2.0, np.random.random(npars),
                    [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]]
                   ]
         iiout  = [[1, 2, 3, 8, 9],
@@ -114,7 +115,7 @@ class TestEee(unittest.TestCase):
                       nsteps=self.nsteps, processes=1, verbose=1)
             # , plotfile='gstar'+str(ii)+'.png')
             # Check
-            self.assertEqual(list(np.where(out)[0]+1), iiout[ii])
+            self.assertEqual(list(np.where(out)[0] + 1), iiout[ii])
 
     # Bratley / K function
     def test_eee_k(self):
@@ -127,7 +128,7 @@ class TestEee(unittest.TestCase):
         # Function and parameters
         func   = bratley
         npars  = 10
-        params = []  # k
+        # params = []  # k
 
         # Screening
         lb = np.zeros(npars)
@@ -136,12 +137,13 @@ class TestEee(unittest.TestCase):
         nprocs = 4
         ipool = schwimmbad.choose_pool(mpi=False, processes=nprocs)
         out = eee(func, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast,
+                  nsteps=self.nsteps,
                   processes=nprocs, pool=ipool, logfile='tlog.txt')
         ipool.close()
 
         # Check
-        self.assertEqual(list(np.where(out)[0]+1),
+        self.assertEqual(list(np.where(out)[0] + 1),
                          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         self.assertTrue(os.path.exists('tlog.txt'))
 
@@ -183,11 +185,12 @@ class TestEee(unittest.TestCase):
         # Check
         ff = open('tlog.txt', 'w')
         out = eee(obj, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast,
+                  nsteps=self.nsteps,
                   processes=4, logfile=ff, verbose=1)
         ff.close()
 
-        self.assertEqual(list(np.where(out)[0]+1),
+        self.assertEqual(list(np.where(out)[0] + 1),
                          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
         self.assertTrue(os.path.exists('tlog.txt'))
 
@@ -226,17 +229,18 @@ class TestEee(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
         dist      = [ stats.uniform for i in range(npars) ]
-        distparam = [ (lb[i], ub[i]-lb[i]) for i in range(npars) ]
+        distparam = [ (lb[i], ub[i] - lb[i]) for i in range(npars) ]
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
         # Check
         out = eee(obj, lb, ub, mask=None,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast,
+                  nsteps=self.nsteps,
                   dist=dist, distparam=distparam,
                   processes=4)
 
-        self.assertEqual(list(np.where(out)[0]+1),
+        self.assertEqual(list(np.where(out)[0] + 1),
                          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 20])
 
     # G function, mask
@@ -261,16 +265,17 @@ class TestEee(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
-        x0   = np.ones(npars)*0.5
+        x0   = np.ones(npars) * 0.5
         mask = np.ones(npars, dtype=bool)
         mask[1] = False
 
         out = eee(obj, lb, ub, x0=x0, mask=mask,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast,
+                  nsteps=self.nsteps,
                   processes=1)
 
         # Check
-        self.assertEqual(list(np.where(out)[0]+1), [3, 4])
+        self.assertEqual(list(np.where(out)[0] + 1), [3, 4])
 
     # G function, dist, mask
     def test_eee_g_dist_mask(self):
@@ -295,21 +300,22 @@ class TestEee(unittest.TestCase):
         lb = np.zeros(npars)
         ub = np.ones(npars)
         dist      = [ stats.uniform for i in range(npars) ]
-        distparam = [ (lb[i], ub[i]-lb[i]) for i in range(npars) ]
+        distparam = [ (lb[i], ub[i] - lb[i]) for i in range(npars) ]
         lb = np.zeros(npars)
         ub = np.ones(npars)
 
-        x0   = np.ones(npars)*0.5
+        x0   = np.ones(npars) * 0.5
         mask = np.ones(npars, dtype=bool)
         mask[1] = False
 
         out = eee(obj, lb, ub, x0=x0, mask=mask,
-                  ntfirst=self.ntfirst, ntlast=self.ntlast, nsteps=self.nsteps,
+                  ntfirst=self.ntfirst, ntlast=self.ntlast,
+                  nsteps=self.nsteps,
                   dist=dist, distparam=distparam,
                   processes=1)
 
         # Check
-        self.assertEqual(list(np.where(out)[0]+1), [3, 4])
+        self.assertEqual(list(np.where(out)[0] + 1), [3, 4])
 
 
 if __name__ == "__main__":
