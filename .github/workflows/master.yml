@@ -67,7 +67,6 @@ jobs:
           python -m coveralls --service=github
 
       - name: Build sdist
-        if: matrix.os == 'ubuntu-latest'
         run: |
           python -m build
 
@@ -81,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v2
         with:
           name: artifact
           path: dist
