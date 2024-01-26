@@ -10,7 +10,6 @@ Effects by Cuntz, Mai et al. (Water Res Research, 2015).
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mcuntz/pyeee/blob/master/LICENSE)
 [![Build Status](https://app.travis-ci.com/mcuntz/pyeee.svg?branch=master)](https://app.travis-ci.com/mcuntz/pyeee)
 [![Coverage Status](https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master)](https://coveralls.io/github/mcuntz/pyeee?branch=master)
-[![Documentation Status](https://readthedocs.org/projects/pyeee/badge/?version=latest)](https://pyeee.readthedocs.io/en/latest/?badge=latest)
 
 ## About pyeee
 
