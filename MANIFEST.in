@@ -2,5 +2,5 @@ prune **
 graft src
 graft tests
 
-include AUTHORS.rst CHANGELOG.rst README.md LICENSE pyproject.toml setup.cfg
+include AUTHORS.rst CHANGELOG.rst README.rst LICENSE pyproject.toml setup.cfg
 global-exclude __pycache__ *.py[cod] .*
