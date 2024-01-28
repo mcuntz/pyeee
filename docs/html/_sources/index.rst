@@ -1,195 +1,206 @@
-==========
 Quickstart
 ==========
 
-``pyeee``: A Python library for parameter screening of computational models using Morris' method of
-Elementary Effects or its extension of Efficient or Sequential Elementary Effects by Cuntz, Mai et
-al. (Water Res Research, 2015).
+``pyeee``: a Python library for parameter screening of computational
+models using the extension of Morris' method of Elementary Effects
+called Efficient or Sequential Elementary Effects by
+`Cuntz, Mai et al.`_ (Water Res Research, 2015).
 
-.. toctree::
-   :maxdepth: 3
-   :caption: Contents:
+|DOI| |PyPI version| |License| |Build Status| |Coverage Status|
 
 
-About
-============
+About pyeee
+-----------
 
-``pyeee`` is a Python library for performing parameter screening of computational models. It uses
-Morris' method of Elementary Effects and also its extension of Efficient or Sequential Elementary
-Effects published by:
+``pyeee`` is a Python library for performing parameter screening of
+computational models. It uses the extension of Morris' method of
+Elementary Effects of so-called Efficient or Sequential Elementary
+Effects published by
 
-Cuntz M, Mai J *et al.* (2015)  
-Computationally inexpensive identification of noninformative model
-parameters by sequential screening  
-*Water Resources Research* 51, 6417-6441,
-doi:`10.1002/2015WR016907 <http://doi.org/10.1002/2015WR016907>`_.
+Cuntz, Mai `et al.` (2015) Computationally inexpensive identification
+of noninformative model parameters by sequential screening,
+`Water Resources Research` 51, 6417-6441, doi: `10.1002/2015WR016907`_.
 
-``pyeee`` can be used with Python functions and external programs, using for example the package
-:mod:`partialwrap`. Function evaluation can be distributed with Python's multiprocessing or via
-MPI.
+``pyeee`` can be used with Python functions but also with external
+programs, using for example the library :mod:`partialwrap`. Function
+evaluation can be distributed with Python's :mod:`multiprocessing`
+module or via the Message Passing Interface (MPI) :mod:`mpi4py`.
 
-The complete documentation for ``pyeee`` is available from Read The Docs.
 
-   http://pyeee.readthedocs.org/en/latest/
-
-   
 Quick usage guide
-=================
+-----------------
 
 Simple Python function
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
-Consider the Ishigami-Homma function: :math:`y = \sin(x_0) + a\,\sin(x_1)^2 + b\,x_2^4\sin(x_0)`.
+Consider the Ishigami-Homma function:
+:math:`y = sin(x_0) + a * sin(x_1)^2 + b * x_2^4 * sin(x_0)`.
 
 Taking :math:`a = b = 1` gives:
 
-.. code-block:: python
+.. code:: python
 
-    import numpy as np
-    def ishigami1(x):
-        return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
+   import numpy as np
+   def ishigami1(x):
+       return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
 
-The three parameters :math:`x_0, x_1, x_2` follow uniform distributions between :math:`-\pi` and
-:math:`+\pi`.
+The three paramters :math:`x_0`, :math:`x_1`, :math:`x_2` follow
+uniform distributions between :math:`-\pi` and :math:`+\pi`.
 
-Morris' Elementary Effects can then be calculated like:
+Morris' Elementary Effects can then be calculated using, for example,
+the Python library :mod:`pyjams`, giving the Elementary Effects
+(:math:`\mu*`):
 
-.. code-block:: python
+.. code:: python
 
-    npars = 3
-    # lower boundaries
-    lb = np.ones(npars) * (-np.pi)
-    # upper boundaries
-    ub = np.ones(npars) * np.pi
+   from pyjams import ee
 
-    # Elementary Effects
-    from pyjams import ee
-    np.random.seed(seed=1023) # for reproducibility of examples
-    out = ee(ishigami1, lb, ub, 10)
+   npars = 3
+   # lower boundaries
+   lb = np.ones(npars) * (-np.pi)
+   # upper boundaries
+   ub = np.ones(npars) * np.pi
+   # Elementary Effects
+   np.random.seed(seed=1023)  # for reproducibility of examples
+   out = ee(ishigami1, lb, ub, 10)   # mu*
+   print("{:.1f} {:.1f} {:.1f}".format(*out[:, 0]))
+   # gives: 173.1 0.6 61.7
 
-which gives the Elementary Effects (:math:`\mu*`):
+Sequential Elementary Effects distinguish between informative and
+uninformative parameters using several times Morris' Elementary
+Effects, returning a logical ndarray with True for the informative
+parameters and False for the uninformative parameters:
 
-.. code-block:: python
+.. code:: python
 
-    # mu*
-    print("{:.1f} {:.1f} {:.1f}".format(*out[:,0]))
-    # gives: 173.1 0.6 61.7
+   from pyeee import eee
 
-Sequential Elementary Effects distinguish between informative and uninformative parameters using
-several times Morris' Elementary Effects:
+   # screen
+   np.random.seed(seed=1023)  # for reproducibility of examples
+   out = eee(ishigami1, lb, ub, ntfirst=10)
+   print(out)
+   [ True False  True]
 
-.. code-block:: python
 
-    # screen
-    from pyeee import eee
-    np.random.seed(seed=1021) # for reproducibility of examples
-    out = eee(ishigami1, lb, ub)
-
-which returns a logical ndarray with True for the informative parameters and False for the
-uninformative parameters:
-
-.. code-block:: python
-
-    print(out)
-    # gives: [ True False  True]
-
-    
 Python function with extra parameters
--------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The function for ``pyeee`` must be of the form `func(x)`. Use Python's :func:`functools.partial`
-from the :mod:`functools` module to pass other function parameters.
+The function for ``pyeee`` must be of the form :math:`func(x)`. Use
+Python's :py:func:`~functools.partial` from the :py:mod:`functools`
+module to pass other function parameters. For example pass the
+parameters :math:`a` and :math:`b` to the Ishigami-Homma function.
 
-For example pass the parameters :math:`a` and :math:`b` to the Ishigami-Homma function:
+.. code:: python
 
-.. code-block:: python
+   import numpy as np
+   from pyeee import eee
+   from functools import partial
 
-    from functools import partial
+   def ishigami(x, a, b):
+      return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
 
-    def ishigami(x, a, b):
-        return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
+   def call_func_ab(func, a, b, x):
+      return func(x, a, b)
 
-    def call_func_ab(func, a, b, x):
-        return func(x, a, b)
+   # Partialise function with fixed parameters
+   a = 0.5
+   b = 2.0
+   func  = partial(call_func_ab, ishigami, a, b)
 
-    # Partialise function with fixed parameters a and b
-    a = 0.5
-    b = 2.0
-    func  = partial(call_func_ab, ishigami, a, b)
-    npars = 3
+   npars = 3
+   # lower boundaries
+   lb = np.ones(npars) * (-np.pi)
+   # upper boundaries
+   ub = np.ones(npars) * np.pi
+   # Elementary Effects
+   np.random.seed(seed=1023)  # for reproducibility of examples
+   out = eee(func, lb, ub, ntfirst=10)
 
-    # lower boundaries
-    lb = np.ones(npars) * (-np.pi)
-    # upper boundaries
-    ub = np.ones(npars) * np.pi
-
-    # Elementary Effects
-    np.random.seed(seed=1021) # for reproducibility of examples
-    out = ee(func, lb, ub, 10)
-
-Figuratively speaking, `partial` passes :math:`a` and :math:`b` to the function `call_func_ab`
-already during definition so that ``pyeee`` can then simply call it as `func(x)`, so that `x` is
-passed to `call_func_ab` as well.
+Figuratively speaking, :py:func:`~functools.partial` passes `a` and
+`b` to the function `call_func_ab` already during definition so that
+``eee`` can then simply call it as `func(x)`, where `x` is passed to
+`call_func_ab` then as well.
 
 
 Function wrappers
------------------
+^^^^^^^^^^^^^^^^^
 
-We recommend to use the package :mod:`partialwrap`, which provides wrappers to use with partial.
+We recommend to use our package :mod:`partialwrap` for external
+executables, which allows easy use of external programs and also their
+parallel execution. See the `User Guide <userguide.html>`_ for
+details. A trivial example is the use of :mod:`partialwrap` for the
+above function wrapping:
 
-.. code-block:: python
+.. code:: python
 
-    from partialwrap import function_wrapper
-    args = [a, b]
-    kwargs = {}
-    func = partial(function_wrapper, ishigami, args, kwargs)
-
-    # screen
-    np.random.seed(seed=1021) # for reproducibility of examples
-    out = eee(func, lb, ub)
-
-There are wrappers to use with Python functions with or without
-masking parameters, as well as wrappers for external programs.
+   from partialwrap import function_wrapper
+   
+   args = [a, b]
+   kwargs = {}
+   func = partial(func_wrapper, ishigami, args, kwargs)
+   # screen
+   out = eee(func, lb, ub, ntfirst=10)
 
 
 Installation
-============
+------------
 
 The easiest way to install is via `pip`:
 
 .. code-block:: bash
 
-    pip install pyeee
+   pip install pyeee
 
-See the `installation instructions <install.html>`_ for more information.
+..
+   or via `conda`:
+
+   .. code-block:: bash
+
+      conda install -c conda-forge pyeee
+
+
+Requirements
+------------
+
+-  :mod:`numpy`
+-  :mod:`scipy`
+-  :mod:`schwimmbad`
+-  :mod:`pyjams`
 
 
 License
-=======
+-------
 
-``pyeee`` is distributed under the MIT License.  
-See the `LICENSE <https://github.com/mcuntz/pyeee/LICENSE>`_ file for details.
+``pyeee`` is distributed under the MIT License. See the
+`LICENSE`_ file for details.
 
-Copyright (c) 2013-2021 Matthias Cuntz, Juliane Mai
+Copyright (c) 2019-2024 Matthias Cuntz, Juliane Mai
 
-The project structure is based on a `template
-<https://github.com/MuellerSeb/template>`_ provided by `Sebastian
-Müller <https://github.com/MuellerSeb>`_ .
+The project structure is based on a `template`_ provided by `Sebastian Müller`_.
 
 
-Contributing to pyeee
-=====================
-
-Users are welcome to submit bug reports, feature requests, and code
-contributions to this project through GitHub.
-
-More information is available in the
-`Contributing <contributing.html>`_
-guidelines.
-
-
-Indices and tables
-==================
+Index and Tables
+----------------
 
 * :ref:`genindex`
 * :ref:`modindex`
+
+
+.. |DOI| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3620909.svg
+   :target: https://doi.org/10.5281/zenodo.3620909
+.. |PyPI version| image:: https://badge.fury.io/py/pyeee.svg
+   :target: https://badge.fury.io/py/pyeee
+.. |Conda version| image:: https://anaconda.org/conda-forge/pyeee/badges/version.svg
+   :target: https://anaconda.org/conda-forge/pyeee
+.. |License| image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+   :target: https://github.com/mcuntz/pyeee/blob/master/LICENSE
+.. |Build Status| image:: https://github.com/mcuntz/pyeee/workflows/Continuous%20Integration/badge.svg?branch=master
+   :target: https://github.com/mcuntz/pyeee/actions
+.. |Coverage Status| image:: https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master
+   :target: https://coveralls.io/github/mcuntz/pyeee?branch=master
+
+.. _10.1002/2015WR016907: http://doi.org/10.1002/2015WR016907
+.. _Cuntz, Mai et al.: http://doi.org/10.1002/2015WR016907
+.. _LICENSE: https://github.com/mcuntz/pyeee/LICENSE
+.. _Sebastian Müller: https://github.com/MuellerSeb
+.. _template: https://github.com/MuellerSeb/template

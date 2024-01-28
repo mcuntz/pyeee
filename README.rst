@@ -153,10 +153,6 @@ example is the use of `partialwrap`_ for the above function wrapping:
 Installation
 ------------
 
-
-Installation
-------------
-
 The easiest way to install is via `pip`:
 
 .. code-block:: bash
@@ -186,7 +182,7 @@ License
 **pyeee** is distributed under the MIT License. See the
 `LICENSE`_ file for details.
 
-Copyright (c) 2013-2024 Matthias Cuntz, Juliane Mai
+Copyright (c) 2019-2024 Matthias Cuntz, Juliane Mai
 
 The project structure is based on a `template`_ provided by `Sebastian Müller`_.
 
@@ -206,15 +202,11 @@ The project structure is based on a `template`_ provided by `Sebastian Müller`_
 .. _10.1002/2015WR016907: http://doi.org/10.1002/2015WR016907
 .. _LICENSE: https://github.com/mcuntz/pyeee/LICENSE
 .. _MPI: https://bitbucket.org/mpi4py/mpi4py
-.. _Rastrigin function: https://en.wikipedia.org/wiki/Rastrigin_function
 .. _Sebastian Müller: https://github.com/MuellerSeb
-.. _emcee: https://github.com/dfm/emcee
 .. _functools: https://docs.python.org/3/library/functools.html
-.. _functools.partial: https://docs.python.org/3/library/functools.html#functools.partial
 .. _multiprocessing: https://docs.python.org/3/library/multiprocessing.html
 .. _partial: https://docs.python.org/3/library/functools.html#functools.partial
 .. _partialwrap: https://mcuntz.github.io/partialwrap/
 .. _pyjams: https://mcuntz.github.io/pyjams/
-.. _scipy.optimize: https://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html
 .. _template: https://github.com/MuellerSeb/template
 .. _userguide: https://mcuntz.github.io/pyeee/html/userguide.html
