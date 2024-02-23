@@ -482,321 +482,170 @@ to `ishigami`.
 Efficient screening of external computer models
 -----------------------------------------------
 
+**Note: this section is pretty much a repetition of the** `User
+Guide`_ **of** :mod:`partialwrap`, **which itself is not limited to be
+used with** ``pyeee`` **but can be used with any package that calls
+functions in the form** `func(x)`. **The finer notions of**
+:mod:`partialwrap` **might be better explained in its** `User Guide`_.
 
-!!!
+``pyeee`` can be used to screen parameters from external computer
+models written in any (compiled) language such as C, Fortran or
+similar. We use our package :mod:`partialwrap` for this.
+:mod:`partialwrap` provides wrapper functions that basically launch
+external executables using Python's :mod:`subprocess` module, while
+providing functionality to write parameter files for the external
+executables and read in output from the executables in return.
 
+This means that the wrappers of :mod:`partialwrap` need a function
+`parameterwriter` that writes the parameters in the parameter file(s)
+`parameterfile`. The wrappers also need to read model output from
+`outputfile` with the function `outputreader`. The latter can also do
+further calculations such as calculating an objective function from
+the model output.
 
-Python functions with additional parameters
--------------------------------------------
-
-We recommend the package :mod:`partialwrap` that provides wrapper
-functions to work with :func:`functools.partial`. `call_func_ab` can
-be replaced by the wrapper function of :mod:`partialwrap`:
-:func:`~partialwrap.function_wrapper`:
-
-.. code-block:: python
-
-   from partialwrap import function_wrapper
-   arg   = [a, b]
-   kwarg = {}
-   func  = partial(function_wrapper, ishigami, arg, kwarg)
-   out   = ee(func, lb, ub, 10)
-
-where all arguments of the function but the first one must be given as
-a :any:`list` and keyword arguments as a :any:`dict`. The function
-wrapper finally passes `x`, `arg` and `kwarg` to `func(x, *arg,
-**kwarg)`.
-
-:mod:`partialwrap` provides also a wrapper function to work with masks
-as above. To exclude the second parameter :math:`x_1` from screening
-of the Ishigami-Homma function, `x0` and `mask` must be given to
-:func:`~partialwrap.function_mask_wrapper`. Then Elementary Effects
-will be calculated only for the remaining parameters, between
-`lb[mask]` and `ub[mask]`. All other non-masked parameters will be
-taken as `x0`. Remember that `mask` is an include-mask, i.e. all
-`mask==True` will be screened and all `mask==False` will not be
-screened.
+Take an external program that calculates the Ishigami-Homma function
+with :math:`a = b = 1`, reading in the parameters :math:`x_0, x_1,
+x_2` from a `parameterfile = params.txt` and writing its output into
+an `outputfile = out.txt`. Take for simplicity a Python program first
+(e.g. `ishigami1.py`):
 
 .. code-block:: python
 
-   from partialwrap import function_mask_wrapper
-   func = partial(function_mask_wrapper, ishigami, x0, mask, arg, kwarg)
-   out  = ee(func, lb[mask], ub[mask], 10)
-
-Note if you use :func:`~partialwrap.function_mask_wrapper`, `out` has
-the dimension of the `mask==True` elements:
-
-.. code-block:: python
-
-   from partialwrap import function_mask_wrapper
-   func = partial(function_mask_wrapper, ishigami, x0, mask, arg, kwarg)
-   out  = eee(func, lb[mask], ub[mask])
-
-   # update mask
-   mask[mask] = mask[mask] & out
-
-
-External computer models
-========================
-
-**Note that this section is pretty much a repetition of the** `User Guide
-<https://partialwrap.readthedocs.io/en/latest/userguide.html>`_ **of** :mod:`partialwrap`, **which is not
-limited to be used with** ``pyeee`` **but can be used with any package that calls functions in
-the form** `func(x)`. **The notions of** :mod:`partialwrap` **might be better explained in its** `user guide
-<https://partialwrap.readthedocs.io/en/latest/userguide.html>`_.
-
-:mod:`partialwrap` provides wrapper functions to work with external executables. :mod:`partialwrap`
-writes the sampled parameter sets into files that can be read by the external program. The program
-writes its result to a file that will then be read by :mod:`partialwrap` in return. The processing
-steps are:
-
-.. code-block:: python
-
-   parameterwriter(parameterfile, parameters)
-   err = subprocess.check_output(exe)
-   obj = outputreader(outputfile)
-   os.remove(parameterfile)
-   os.remove(outputfile)
-
-That means :mod:`partialwrap` needs to have a function `parameterwriter` that writes the parameter
-file `parameterfile` needed by the executable `exe`. It then needs to have a function
-`outputreader` for reading the output file `outputfile` of `exe`, reading or calculating the
-objective value used by Elementary Effects.
-
-
-Simple executables
-------------------
-
-Consider for simplicity an external Python program (e.g. `ishiexe.py`)
-that calculates the Ishigami-Homma function with :math:`a = b = 1`,
-reading in the three parameters :math:`x_0, x_1, x_2` from a
-`parameterfile = params.txt` and writing its output into an
-`outputfile = obj.txt`:
-
-.. code-block:: python
-
-   # File: ishiexe.py
+   # File: ishigami1.py
+   import numpy as np
 
    # Ishigami-Homma function a=b=1
-   import numpy as np
    def ishigami1(x):
        return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
 
    # read parameters
-   from partialwrap import standard_parameter_reader
-   pfile = 'params.txt'
-   x = standard_parameter_reader(pfile)
+   x = np.loadtxt('params.txt')
 
    # calc function
    y = ishigami1(x)
 
-   # write objective
-   ofile = 'obj.txt'
-   with open(ofile, 'w') as ff:
-       print(y, file=ff)
+   # write output file
+   np.savetxt('out.txt', y)
 
-This program can be called on the command line with:
-
-.. code-block:: bash
-
-    python ishiexe.py
-
-The external program can be used in ``pyeee`` with :func:`functools.partial` and the
-wrapper function :func:`~partialwrap.exe_wrapper`:
+The external program, which is in full `python3 ishigami1.py`, can be
+used with the wrapper function
+:func:`~partialwrap.wrappers.exe_wrapper` of :mod:`partialwrap`:
 
 .. code-block:: python
 
    from functools import partial
-   from partialwrap import exe_wrapper, standard_parameter_writer, standard_output_reader
-
-   ishi = ['python', 'ishiexe.py']
-   parameterfile = 'params.txt'
-   outputfile = 'obj.txt'
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, standard_parameter_writer,
-                  outputfile, standard_output_reader, {})
+   import numpy as np
+   import scipy.optimize as opt
+   from partialwrap import exe_wrapper
+   from pyeee import eee
+        
+   ishigami1_exe   = ['python3', 'ishigami1.py']
+   parameterfile   = 'params.txt'
+   parameterwriter = np.savetxt
+   outputfile      = 'out.txt'
+   outputreader    = np.loadtxt
+   ishigami1_wrap  = partial(exe_wrapper, ishigami1_exe,
+                             parameterfile, parameterwriter,
+                             outputfile, outputreader, {})
 
    npars = 3
    lb = np.ones(npars) * (-np.pi)
    ub = np.ones(npars) * np.pi
+   out = eee(ishigami1_wrap, lb, ub, ntfirst=10)
 
-   from pyjams import ee
-   out = ee(func, lb, ub, 10)
+The empty dictionary at the end of the partial statement is explained
+below.
 
-:func:`~partialwrap.standard_parameter_reader` and `~partialwrap.standard_parameter_writer` are
-convenience functions that read and write one parameter per line in a file without a header. The
-function :func:`~partialwrap.standard_output_reader` simply reads one value from a file without
-header. The empty dictionary at the end will be explained below at `Further arguments of
-wrappers`_.
+One can see that the external Ishigami-Homma program could have been
+written in a compiled language such as C, Fortran or similar, and then
+used with ``pyeee``. A Fortran program could look like this:
 
-One can easily imagine to replace the python program `ishiexe.py` by any compiled executable from
-C, Fortran or alike.
+.. code-block:: fortran
 
+   program ishigami1
 
-Exclude parameters from screening
----------------------------------
+       implicit none
 
-Similar to :func:`~partialwrap.function_mask_wrapper`, there is also a wrapper to work with masks
-and external executables: :func:`~partialwrap.exe_mask_wrapper`. To exclude the second parameter
-:math:`x_1` from screening of the Ishigami-Homma function, `x0` and `mask` must be given to
-:func:`~partialwrap.exe_mask_wrapper` as well. Remember that `mask` is an include-mask, i.e. all
-`mask==True` will be screened and all `mask==False` will not be screened:
+       integer, parameter :: dp = kind(1.0d0)
 
-.. code-block:: python
+       character(len=*), parameter :: pfile = 'params.txt'
+       character(len=*), parameter :: ofile = 'out.txt'
 
-   mask    = np.ones(npars, dtype=bool) # True  -> include
-   mask[1] = False                      # False -> exclude
-   x0      = np.ones(npars) * 0.5
-   func = partial(exe_mask_wrapper, ishi, x0, mask,
-                  parameterfile, standard_parameter_writer,
-                  outputfile, standard_output_reader, {})
-   out = ee(func, lb[mask], ub[mask], 10)
+       integer, parameter :: punit = 99
+       integer, parameter :: ounit = 101
 
-:math:`x_1` will then always be the second element of `x0`.
+       real(dp), dimension(3) :: x ! parameters x_0, x_1, x_2
+       real(dp) :: out             ! output value
+       integer  :: n
 
+       integer  :: ios
 
-Additional arguments for external executables
----------------------------------------------
+       ! read parameters
+       open(punit, file=pfile, status='old', action='read')
+       ios = 0
+       n = 1
+       do while (ios==0)
+           read(punit, fmt=*, iostat=ios) x(n)
+           n = n + 1
+       end do
+       n = n - 2
+       close(punit)
 
-Further arguments to the external executable can be given simply by adding it to the call string.
-For example, if :math:`a` and :math:`b` were command line arguments to `ishiexe.py`, they could
-simply be given in the function name:
+       ! calc function
+       out = sin(x(1)) + sin(x(2))**2 + x(3)**4 * sin(x(1))
 
-.. code-block:: python
+       ! write output file
+       open(ounit, file=ofile)
+       write(ounit,*) out
+       close(ounit)
 
-   ishi = ['python3', 'ishiexe.py', '-a '+str(a), '-b '+str(b)]
+   end program ishigami1
 
+This program can be compiled like:
 
-Further arguments of wrappers
------------------------------
+.. code-block:: bash
 
-The user can pass further arguments to :func:`~partialwrap.exe_wrapper` and
-:func:`~partialwrap.exe_mask_wrapper` via a dictionary at the end of the call. Setting the key
-`shell` to `True` passes `shell=True` to :func:`subprocess.check_output`, which makes
-:func:`subprocess.check_output` open a shell for running the external executable. Note that the
-`args` in :mod:`subprocess` must be a string if `shell=True` and a list if `shell=False`. Setting
-the key `debug` to `True` uses :func:`subprocess.check_call` so that any output of the external
-executable will be written to the screen (precisely :any:`subprocess.STDOUT`). This especially
-prints out also any errors that might have occured during execution:
+   gfortran -o ishigami1.exe ishigami1.f90
+
+and used in Python:
 
 .. code-block:: python
 
-   ishi = 'python ishiexe.py'
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, standard_parameter_writer,
-                  outputfile, standard_output_reader,
-                  {'shell':True, 'debug':True})
-   out  = ee(func, lb, ub, 10)
+   from functools import partial
+   import numpy as np
+   import scipy.optimize as opt
+   from partialwrap import exe_wrapper
+   from pyeee import eee
+        
+   ishigami1_exe   = ['ishigami1.exe']
+   parameterfile   = 'params.txt'
+   parameterwriter = np.savetxt
+   outputfile      = 'out.txt'
+   outputreader    = np.loadtxt
+   ishigami1_wrap  = partial(exe_wrapper, ishigami1_exe,
+                             parameterfile, parameterwriter,
+                             outputfile, outputreader, {})
 
-This mechanism allows passing also additional arguments and keyword arguments to the
-`parameterwriter`. Setting `pargs` to a list of arguments and `pkwargs` to a dictionary with
-keyword arguments passes them to the `parameterwriter` as:
+   npars = 3
+   lb = np.ones(npars) * (-np.pi)
+   ub = np.ones(npars) * np.pi
+   out = eee(ishigami1_wrap, lb, ub, ntfirst=10)
 
-.. code-block:: python
+Where the only difference to the Python version is that
+`ishigami1_exe = ['./ishigami1.exe']` instead of
+`ishigami1_exe = ['python3', 'ishigami1.py']`.
 
-    parameterwriter(parameterfile, x, *pargs, **pkwargs)
 
-Say an external program uses a `parameterfile` that has five
-informations per line: 1. identifier, 2. current parameter value, 3. minimum
-parameter value, 4. maximum parameter value, 5. parameter mask, e.g.:
+Parallel evaluation of external executables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: none
 
-    # value min max mask
-    1 0.5 -3.1415 3.1415 1
-    2 0.0 -3.1415 3.1415 0
-    3 1.0 -3.1415 3.1415 1
 
-One can use :func:`~partialwrap.standard_parameter_reader_bounds_mask` in this case. Parameter
-bounds and mask can be passed via `pargs`:
+Using launch scripts
+^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: python
 
-   from partialwrap import standard_parameter_reader_bounds_mask
-
-   ishi = ['python', 'ishiexe.py']
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, standard_parameter_reader_bounds_mask,
-                  outputfile, standard_output_reader,
-                  {'pargs':[lb,ub,mask]})
-   out  = ee(func, lb, ub, 10)
-
-Or in case of exclusion of :math:`x_1`:
-
-.. code-block:: python
-
-   from partialwrap import standard_parameter_reader_bounds_mask
-   func = partial(exe_mask_wrapper, ishi, x0, mask,
-                  parameterfile, standard_parameter_reader_bounds_mask,
-                  outputfile, standard_output_reader,
-                  {'pargs':[lb,ub,mask]})
-   out  = ee(func, lb[mask], ub[mask], 10)
-
-Another common case is that the parameters are given in the form `parameter = value`, e.g. in
-Fortran namelists. :mod:`partialwrap` provides a function that searches parameter names on the
-left-hand-side of an equal sign and replaces the values on the right-hand-side of the equal sign
-with the sampled parameter values. The `parameterfile` might look like:
-
-.. code-block:: Fortran
-
-   &params
-       x0 = 0.5
-       x1 = 0.0
-       x2 = 1.0
-   /
-
-The function :func:`~partialwrap.sub_params_names` (which is identical to
-:func:`~partialwrap.sub_params_names_ignorecase`) can be used and parameter names are passed via
-`pargs`:
-
-.. code-block:: python
-
-   from partialwrap import sub_params_names
-
-   pnames = ['x0', 'x1', 'x2']
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, sub_params_names,
-                  outputfile, standard_output_reader,
-                  {'pargs':[pnames], 'pid':True})
-   out = ee(func, lb, ub, 10)
-
-`parameterfile` can be a list of parameterfiles in case of :func:`~partialwrap.sub_params_names`.
-`pid` will be explained in the next section. Note that `pargs` is set to `[pnames]`. Setting
-`'pargs':pnames` would give `*pnames` to the `parameterwriter`, that means each parameter name as
-an individual argument, which would be wrong because :func:`~partialwrap.sub_params_names` wants to
-have a list of parameter names. The docstring of :func:`~partialwrap.exe_wrapper` states:
-
-.. code-block:: none
-
-   Wrapper function for external programs using a `parameterwriter` and `outputreader`
-   with the interfaces:
-       `parameterwriter(parameterfile, x, *pargs, **pkwargs)`
-       `outputreader(outputfile, *oargs, **okwargs)`
-   or if `pid==True`:
-       `parameterwriter(parameterfile, x, *pargs, pid=pid, **pkwargs)`
-       `outputreader(outputfile, *oargs, pid=pid, **okwargs)`
-
-And the definition of :func:`~partialwrap.sub_params_names` is:
-
-.. code-block:: python
-
-   def sub_params_names_ignorecase(files, params, names, pid=None):
-
-This means that `*pargs` passes `*[pnames]`, which is `pnames`, as an argument after the
-parameters `x` to :func:`~partialwrap.sub_params_names`.
-
-Excluding :math:`x_1` would then be achieved by simply excluding `x1` from `pnames`:
-
-.. code-block:: python
-
-   from partialwrap import sub_params_names
-
-   pnames = ['x0', 'x2']
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, sub_params_names,
-                  outputfile, standard_output_reader,
-                  {'pargs':[pnames], 'pid':True})
-   out  = ee(func, lb[mask], ub[mask], 10)
+!!!
 
 
 Parallel processing of external executables
@@ -923,8 +772,9 @@ which would then be used:
    from pyjams import ee
    out = ee(func, lb, ub, 10, processes=8)
 
-The `User Guide <https://partialwrap.readthedocs.io/en/latest/userguide.html>`_ of
-:mod:`partialwrap` gives a similar script written in Python, which could be used if the bash shell is not available, for example on Windows.
+The `User Guide`_ of :mod:`partialwrap` gives a similar script written
+in Python, which could be used if the bash shell is not available, for
+example on Windows.
 
 That's all Folks!
 
@@ -935,3 +785,4 @@ That's all Folks!
 .. _LICENSE: https://github.com/mcuntz/pyeee/LICENSE
 .. _Sebastian Müller: https://github.com/MuellerSeb
 .. _template: https://github.com/MuellerSeb/template
+.. _User Guide: https://mcuntz.github.io/partialwrap/html/userguide.html
