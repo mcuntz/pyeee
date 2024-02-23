@@ -108,13 +108,13 @@ to the Ishigami-Homma function.
    def ishigami(x, a, b):
       return np.sin(x[0]) + a * np.sin(x[1])**2 + b * x[2]**4 * np.sin(x[0])
 
-   def call_func_ab(func, a, b, x):
+   def call_ishigami(func, a, b, x):
       return func(x, a, b)
 
    # Partialise function with fixed parameters
    a = 0.5
    b = 2.0
-   func  = partial(call_func_ab, ishigami, a, b)
+   func  = partial(call_ishigami, ishigami, a, b)
 
    npars = 3
    # lower boundaries
@@ -126,9 +126,9 @@ to the Ishigami-Homma function.
    out = eee(func, lb, ub, ntfirst=10)
 
 Figuratively speaking, `partial`_ passes ``a`` and ``b`` to the
-function ``call_func_ab`` already during definition so that ``eee``
+function ``call_ishigami`` already during definition so that ``eee``
 can then simply call it as ``func(x)``, where ``x`` is passed to
-``call_func_ab`` then as well.
+``call_ishigami`` then as well.
 
 
 Function wrappers
