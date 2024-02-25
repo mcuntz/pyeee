@@ -479,8 +479,8 @@ definition. :func:`~pyeee.eee.eee` can then simply call it as
 to `ishigami`.
 
 
-Efficient screening of external computer models
------------------------------------------------
+Screening of external computer models
+-------------------------------------
 
 **Note: this section is pretty much a repetition of the** `User
 Guide`_ **of** :mod:`partialwrap`, **which itself is not limited to be
@@ -639,142 +639,162 @@ Where the only difference to the Python version is that
 Parallel evaluation of external executables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Elementary Effects run the computational model `nt * (npars + 1)`
+times. All model runs are independent and can be executated at the
+same time if computing ressources permit. Even simple personal
+computers have several computing cores nowadays.
+
+However, using 4 worker with `processes=4`, for example, writes 4
+times `parameterfile = params.txt` thus overwriting itself. Here the
+`pid` keyword of :mod:`partialwrap` comes in handy. Each invocation
+would have its own random number `pid` associated, writing
+`parameterfile.pid` and reading `outfile.pid`. The Ishigami-Homma
+program would need to be changed to (the Python version here):
+
+.. code-block:: python
+
+   # File: ishigami1_pid.py
+   import numpy as np
+   from partialwrap import standard_parameter_reader, standard_parameter_writer
+
+   # Ishigami-Homma function a=b=1
+   def ishigami1(x):
+       return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
+
+   # get pid
+   if len(sys.argv) > 1:
+       pid = int(sys.argv[1])
+   else:
+       pid = None
+
+   # read parameters
+   x = standard_parameter_reader('params.txt', pid=pid)
+
+   # calc function
+   y = ishigami1(x)
+
+   # write output file
+   standard_parameter_writer('out.txt', pid=pid)
+
+:func:`~partialwrap.std_io.standard_parameter_reader` and
+:func:`~partialwrap.std_io.standard_parameter_writer` are convenience
+functions that reads and writes parameters from a file just like
+:func:`numpy.loadtxt` and :func:`numpy.savetxt`. The difference the
+functions support the `pid` keyword. If `True`,
+:func:`~partialwrap.std_io.standard_parameter_reader` reads from files
+such as `params.txt.158398716` rather than from `params.txt`. To achieve this, the
+`pid` keyword simply has to be set to *True* in the call of `partial`:
+
+.. code-block:: python
+
+   from functools import partial
+   import numpy as np
+   import scipy.optimize as opt
+   from partialwrap import exe_wrapper
+   from partialwrap import standard_parameter_reader, standard_parameter_writer
+   from pyeee import eee
+        
+   ishigami1_exe   = ['python3', 'ishigami1.py']
+   parameterfile   = 'params.txt'
+   parameterwriter = standard_parameter_writer
+   outputfile      = 'out.txt'
+   outputreader    = standard_parameter_reader
+   ishigami1_wrap  = partial(exe_wrapper, ishigami1_exe,
+                             parameterfile, parameterwriter,
+                             outputfile, outputreader,
+			     {'pid': True})
+
+   npars = 3
+   lb = np.ones(npars) * (-np.pi)
+   ub = np.ones(npars) * np.pi
+   out = eee(ishigami1_wrap, lb, ub, ntfirst=10. processes=4)
 
 
 Using launch scripts
 ^^^^^^^^^^^^^^^^^^^^
 
-
-!!!
-
-
-Parallel processing of external executables
--------------------------------------------
-
-Elementary Effects run the computational model `nt*(npars+1)` times. All model runs are independent
-and can be executated at the same time if computing ressources permit. Even simple personal
-computers have several computing cores nowadays. If the computational model is run several times in the
-same directory at the same time, all model runs would read the same parameter file and overwrite
-the output of each other.
-
-:func:`~partialwrap.exe_wrapper` concatenates an individual integer number to the function string
-(or list, see :mod:`subprocess`), adds the integer to call of `parameterwrite` and of
-`outputreader`, like:
+If you cannot change your computational model to deal with `pid`, you
+can use, for example, a `bash` script or a Python script that launches
+each model run in a separate directory. A bash script would be
+appropriate on Linux, of course, but a Python script work on Windows
+as well. Here we give a Python script as an example but look at the
+`User Guide`_ of :mod:`partialwrap` for an example of a `bash` script:
 
 .. code-block:: python
 
-   pid = str(randst.randint())
-   parameterwriter(parameterfile, x, *pargs, pid=pid, **pkwargs)
-   err = subprocess.check_output([func, pid])
-   obj = outputreader(outputfile, *oargs, pid=pid, **okwargs)
-   os.remove(parameterfile+'.'+pid)
-   os.remove(outputfile+'.'+pid)
-
-The `parameterwriter` is assumed to write `parameterfile.pid` and the external model is assumed to
-write `outputfile.pid`. Only these filenames are cleaned up by :func:`~partialwrap.exe_wrapper`. If
-different filenames are used, the user has to clean up herself.
-
-`ishiexe.py` would hence need to read the number from the command line:
-
-.. code-block:: python
-
-   # File: ishiexe1.py
-
-   # read pid if given
+   # File: run_ishigami1.py
+   import os
+   import shutil
+   import subprocess
    import sys
-   pid = None
-   if len(sys.argv) > 1:
-       pid = sys.argv[1]
-
-   # Ishigami-Homma function a=b=1
-   import numpy as np
-   def ishigami1(x):
-       return np.sin(x[0]) + np.sin(x[1])**2 + x[2]**4 * np.sin(x[0])
-
-   # read parameters
-   from partialwrap import standard_parameter_reader
-   pfile = 'params.txt'
-   x = standard_parameter_reader(pfile, pid=pid)
-
-   # calc function
-   y = ishigami1(x)
-
-   # write objective
-   ofile = 'obj.txt'
-   if pid:
-       ofile = ofile+'.'+pid
-   with open(ofile, 'w') as ff:
-       print(y, file=ff)
-
-:func:`~partialwrap.exe_wrapper` would then be used with `'pid':True` and one can use several
-parallel processes:
-
-.. code-block:: python
-
-   from partialwrap import exe_wrapper, standard_parameter_writer, standard_output_reader
-
-   ishi = ['python3', 'ishiexe1.py']
-   parameterfile = 'params.txt'
-   outputfile    = 'obj.txt'
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, standard_parameter_writer,
-                  outputfile, standard_output_reader, {'pid':True})
-   npars = 3
-   lb  = np.ones(npars) * (-np.pi)
-   ub  = np.ones(npars) * np.pi
-   out = ee(func, lb, ub, 10, processes=8)
-
-If you cannot change your computational model, you can use, for example, a bash script that
-launches each model run in a separate directory, like:
-
-.. code-block:: bash
-
-   #!/bin/bash
-
-   # File: ishiexe.sh
 
    # get pid
-   pid=${1}
+   if len(sys.argv) > 1:
+       pid = sys.argv[1]
+   else:
+       pid = None
+
+   exe   = 'ishigami1.py'
+   pfile = 'params.txt'
+   ofile = 'out.txt'
 
    # make individual run directory
-   mkdir tmp.${pid}
+   if pid is None:
+       rundir = 'tmp'
+   else:
+       rundir = f'tmp.{pid}'
+   os.mkdir(rundir)
+
+   # copy individual parameter file
+   if pid is None:
+       os.rename(f'{pfile}', f'{rundir}/{pfile}')
+   else:
+       os.rename(f'{pfile}.{pid}', f'{rundir}/{pfile}')
 
    # run in individual directory
-   cp ishiexe.py tmp.${pid}/
-   mv params.txt.${pid} tmp.${pid}/params.txt
-   cd tmp.${pid}
-   python ishiexe.py
+   shutil.copyfile(exe, f'{rundir}/{exe}')
+   os.chdir(rundir)
+   err = subprocess.check_output(['python3', exe],
+                                 stderr=subprocess.STDOUT)
 
-   # make output available to pyeee
-   mv obj.txt ../obj.txt.${pid}
+   # make output available to exe_wrapper
+   if pid is None:
+       os.rename(ofile, f'../{ofile}')
+   else:
+       os.rename(ofile, f'../{ofile}.{pid}')
 
    # clean up
-   cd ..
-   rm -r tmp.${pid}
+   os.chdir('..')
+   shutil.rmtree(rundir)
 
-which would then be used:
+Note: `exe = 'ishigami1.py'` rather than `exe = ishigami1_pid.py` here
+because this example assumes that the executable cannot account for
+the `pid` keyword. This Python script can be used with ``pyeee``
+exactly like all the scripts above:
 
 .. code-block:: python
 
    from functools import partial
-   from partialwrap import exe_wrapper, standard_parameter_writer, standard_output_reader
+   import numpy as np
+   import scipy.optimize as opt
+   from partialwrap import exe_wrapper
+   from partialwrap import standard_parameter_reader, standard_parameter_writer
+   from pyeee import eee
+        
+   ishigami1_exe   = ['python3', 'run_ishigami1.py']
+   parameterfile   = 'params.txt'
+   parameterwriter = standard_parameter_writer
+   outputfile      = 'out.txt'
+   outputreader    = standard_parameter_reader
+   ishigami1_wrap  = partial(exe_wrapper, ishigami1_exe,
+                             parameterfile, parameterwriter,
+                             outputfile, outputreader,
+			     {'pid': True})
 
-   ishi = './ishiexe.sh'
-   parameterfile = 'params.txt'
-   outputfile = 'obj.txt'
-   func = partial(exe_wrapper, ishi,
-                  parameterfile, standard_parameter_writer,
-                  outputfile, standard_output_reader,
-                  {'pid':True, 'shell':True})
    npars = 3
    lb = np.ones(npars) * (-np.pi)
    ub = np.ones(npars) * np.pi
-   from pyjams import ee
-   out = ee(func, lb, ub, 10, processes=8)
-
-The `User Guide`_ of :mod:`partialwrap` gives a similar script written
-in Python, which could be used if the bash shell is not available, for
-example on Windows.
+   out = eee(ishigami1_wrap, lb, ub, ntfirst=10. processes=4)
 
 That's all Folks!
 

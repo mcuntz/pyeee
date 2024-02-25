@@ -4,7 +4,7 @@ Changelog
 All notable changes after its initial development up to January 2020
 (v0.2) are documented in this file.
 
-v4.0 (??? 2024)
+v4.0 (Feb 2024)
     * Moved all Markdown files to reStructuredText.
     * Moved documentation to sphinxbook.
     * Moved documentation to Github pages.

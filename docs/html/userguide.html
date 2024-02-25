@@ -374,21 +374,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-effects">Elementary Effects</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-python-functions">Simple Python functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-effects">Elementary Effects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-sequential-elementary-effects">Efficient/Sequential Elementary Effects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-initial-fit">Check initial fit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">Logging</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-parameters-from-calculations">Exclude parameters from calculations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-multiple-outputs">Function with multiple outputs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-model-evaluation">Parallel model evaluation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-functions-with-additional-parameters">Python functions with additional parameters</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-parameters-with-other-distributions-than-the-uniform-distribution">Sampling parameters with other distributions than the uniform distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-function-with-extra-parameters">Python function with extra parameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-sequential-elementary-effects">Efficient/Sequential Elementary Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-computer-models">External computer models</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-executables">Simple executables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-parameters-from-screening">Exclude parameters from screening</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-arguments-for-external-executables">Additional arguments for external executables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-arguments-of-wrappers">Further arguments of wrappers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-processing-of-external-executables">Parallel processing of external executables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#screening-of-external-computer-models">Screening of external computer models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-evaluation-of-external-executables">Parallel evaluation of external executables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-launch-scripts">Using launch scripts</a></li>
 </ul>
 </li>
 </ul>
@@ -404,29 +403,23 @@ document.write(`
                   
   <section id="user-guide">
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> is a Python library for performing parameter screening of computational models. It uses
-Morris’ method of Elementary Effects (<em>EE</em>) and also its extension of Efficient or Sequential
-Elementary Effects (<em>EEE</em> or <em>SEE</em>) published by:</p>
-<p>Cuntz, Mai <em>et al.</em> (2015) Computationally inexpensive
-identification of noninformative model parameters by sequential
-screening, <em>Water Resources Research</em> 51, 6417-6441,
-doi:<a class="reference external" href="http://doi.org/10.1002/2015WR016907">10.1002/2015WR016907</a>.</p>
-<p>The numerical models are simply passed to functions <cite>ee</cite> and
-<a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> to perform Elementary Effects or Efficient/Sequential Elementary Effects,
-respectively.</p>
-<p>The numerical models must be callable as <cite>func(x)</cite>. Use <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> from Python’s
-standard library to make any function callable as <cite>func(x)</cite>. One can use the package
-<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> to use external programs with <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> and hence <code class="docutils literal notranslate"><span class="pre">pyeee</span></code>.</p>
-<p>The package uses several functions of the JAMS Python package</p>
-<blockquote>
-<div><p><a class="github reference external" href="https://github.com/mcuntz/jams_python">mcuntz/jams_python</a></p>
-</div></blockquote>
-<p>The JAMS package and hesseflux are synchronised irregularly.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> is a Python library for performing parameter screening of
+computational models. It uses an extension of Morris’ method of
+Elementary Effects called Efficient or Sequential Elementary Effects
+published by:</p>
+<p>Cuntz, Mai <cite>et al.</cite> (2015) Computationally inexpensive identification
+of noninformative model parameters by sequential screening,
+<cite>Water Resources Research</cite> 51, 6417-6441, doi:
+<a class="reference external" href="http://doi.org/10.1002/2015WR016907">10.1002/2015WR016907</a>.</p>
+<p>The numerical models must be callable as <cite>func(x)</cite>. Use
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> from Python’s standard library to make any
+function callable as <cite>func(x)</cite>. One can use the package
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> to use external programs with
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> and hence <code class="docutils literal notranslate"><span class="pre">pyeee</span></code>.</p>
 <section id="elementary-effects">
 <h2>Elementary Effects<a class="headerlink" href="#elementary-effects" title="Link to this heading">#</a></h2>
-<section id="simple-python-functions">
-<h3>Simple Python functions<a class="headerlink" href="#simple-python-functions" title="Link to this heading">#</a></h3>
-<p>Consider the Ishigami-Homma function: <span class="math notranslate nohighlight">\(y = \sin(x_0) + a\,\sin(x_1)^2 + b\,x_2^4\sin(x_0)\)</span>.</p>
+<p>Consider the Ishigami-Homma function:
+<span class="math notranslate nohighlight">\(y = \sin(x_0) + a \sin(x_1)^2 + b x_2^4 \sin(x_0)\)</span>.</p>
 <p>Taking <span class="math notranslate nohighlight">\(a = b = 1\)</span> gives:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -435,10 +428,12 @@ standard library to make any function callable as <cite>func(x)</cite>. One can 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>The three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> follow uniform distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and
-<span class="math notranslate nohighlight">\(+\pi\)</span>.</p>
-<p>Elementary Effects can be calculated, using 20 trajectories, as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">ee</span>
+<p>The three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> follow uniform
+distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(+\pi\)</span>.</p>
+<p>Morris’ Elementary Effects can then be calculated using, for example,
+the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
+(<span class="math notranslate nohighlight">\(\mu*\)</span>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">screening</span>
 
 <span class="c1"># function</span>
 <span class="n">func</span>  <span class="o">=</span> <span class="n">ishigami1</span>
@@ -449,95 +444,200 @@ standard library to make any function callable as <cite>func(x)</cite>. One can 
 <span class="c1"># upper boundaries</span>
 <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 
-<span class="c1"># Elementary Effects</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1023</span><span class="p">)</span> <span class="c1"># for reproducibility of examples</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1"># Elementary Effects with 20 trajectories</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1023</span><span class="p">)</span>  <span class="c1"># for reproducibility of examples</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># mu*</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="c1"># gives: 72.6 0.6 14.3</span>
 </pre></div>
 </div>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code> returns a <cite>(npars,3)</cite> ndarray with:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>(npars,0) the means of the absolute elementary effects over all trajectories (<span class="math notranslate nohighlight">\(\mu*\)</span>)</p></li>
-<li><p>(npars,1) the means of the elementary effects over all nt trajectories (<span class="math notranslate nohighlight">\(\mu\)</span>)</p></li>
-<li><p>(npars,2) the standard deviations of the elementary effects over all trajectories (<span class="math notranslate nohighlight">\(\sigma\)</span>)</p></li>
-</ol>
-</div></blockquote>
-<p>For Elementary Effects and its sensititvity measures, see
+<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> returns an <cite>(npars, 3)</cite> ndarray,
+with <cite>(npars, 0)</cite> being the means of the absolute Elementary Effects
+over all trajectories (<span class="math notranslate nohighlight">\(\mu*\)</span>).</p>
+<p>For Elementary Effects and its sensitivity measures, see
 <a class="reference external" href="https://en.wikipedia.org/wiki/Elementary_effects_method">https://en.wikipedia.org/wiki/Elementary_effects_method</a>, or</p>
-<p>Saltelli <em>et al.</em> (2007)
-Global Sensitivity Analysis. The Primer, John Wiley &amp; Sons Ltd,
-Chichester, UK, ISBN: 978-0470-059-975, doi:<a class="reference external" href="http://doi.org/10.1002/9780470725184">10.1002/9780470725184</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mu*</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
-<span class="c1"># gives: 212.4 0.6 102.8</span>
+<p>Saltelli <cite>et al.</cite> (2007) Global Sensitivity Analysis. The Primer, John
+Wiley &amp; Sons Ltd, Chichester, UK, ISBN: 978-0470-059-975, doi:
+<a class="reference external" href="http://doi.org/10.1002/9780470725184">10.1002/9780470725184</a>.</p>
+</section>
+<section id="efficient-sequential-elementary-effects">
+<h2>Efficient/Sequential Elementary Effects<a class="headerlink" href="#efficient-sequential-elementary-effects" title="Link to this heading">#</a></h2>
+<p>Morris’ method of Elementary Effects is not a full sensitivity
+analysis. The sensititvity measures of Elementary Effects are rather
+used for preliminary screening for noninformative model parameters for
+a given model output, so that fewer parameters are needed during a
+full sensitivity analysis or during model optimisation.</p>
+<p>The numerical model <cite>func</cite> will be evaluated <cite>nt * (npars + 1)</cite> times
+for calculating Elementary Effects. The user chooses the number of
+trajectories <cite>nt</cite>. A large number of <cite>nt</cite> might be computationally
+expensive and a small number might miss areas of the parameter space,
+where certain parameters become sensitive. Typical values for <cite>nt</cite> in
+the literature are on the order of tens to hundreds. This means that
+the method of Elementary Effects needs between 500 and 5000 model
+evaluations for a model with 50 parameters.</p>
+<p>The extension of Efficient or Sequential Elementary Effects can be
+used if one uses Elementary Effects <cite>only</cite> to distinguish between
+sensitive (informative) and insensitive (noninformative) model
+parameters. It follows the idea: if one knows that a model is
+sensitive to a certain parameter, this parameter does not has to be
+included anymore in further screening. If a parameter has a large
+Elementary Effect in one trajectory it will most probably be
+influential. So one does not have to calculate another Elementary
+Effect for this parameter and it can be discarded from further
+trajectories, saving model evaluations.</p>
+<p>The method starts hence with a limited number of trajectories
+<cite>ntfirst</cite> for all model parameters, i.e. it performs
+<cite>ntfirst * (npars + 1)</cite> model evaluations. Further trajectories are
+sampled, calculating Elementary Effects, but without the parameters
+that were already found sensitive. This means that subsequent
+trajectories need less and less function evaluations. The algorithm
+ends if a subsequent trajectory did not yield any sensitive parameters
+anymore. A last <cite>ntlast</cite> trajectories are finally sampled, and
+Elementary Effects calculated, to assure a large sample for parameters
+with little sensitivity, to minimize the possibility that the
+parameters are sensitive in a small part of the parameter space, which
+was missed due to a small sample.</p>
+<p>The call of <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> (or the identical function
+<a class="reference internal" href="eee.html#pyeee.eee.see" title="pyeee.eee.see"><code class="xref py py-func docutils literal notranslate"><span class="pre">see()</span></code></a>) is very similar to standard Elementary effects
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> (or the identical function
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.ee" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a> ;-):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
+
+<span class="c1"># Ishigami-Homma function a=b=1</span>
+<span class="k">def</span> <span class="nf">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">func</span>  <span class="o">=</span> <span class="n">ishigami1</span>
+<span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># lower boundaries</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="c1"># upper boundaries</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+<span class="c1"># Sequential Elementary Effects</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1025</span><span class="p">)</span>  <span class="c1"># for reproducibility of examples</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="c1"># gives: [ True False  True]</span>
 </pre></div>
 </div>
-<p>The numerical model <cite>func</cite>, lower parameter boundaries <cite>lb</cite>, upper parameter boundaries <cite>ub</cite>, and
-the number of trajectories <cite>nt</cite> are mandatory arguments to <cite>ee</cite>. Further
-optional arguments relevant to Elementary Effects are:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><cite>nsteps</cite> : int - Number of steps along one trajectory (default: 6)</p></li>
-<li><p><cite>ntotal</cite> : int - Total number of trajectories to check for the <cite>nt</cite> most
-different trajectories (default: <cite>max(nt**2,10*nt)</cite>)</p></li>
-</ul>
-</div></blockquote>
-<p>Note that the functions <cite>ee</cite> and <cite>screening</cite> are identical.</p>
+<p><a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> returns an include-mask, being <cite>True</cite> for
+sensitive parameters and <cite>False</cite> for noninformative parameters. The
+mask can be combined by <cite>logical_and</cite> with an incoming mask.</p>
+<section id="check-initial-fit">
+<h3>Check initial fit<a class="headerlink" href="#check-initial-fit" title="Link to this heading">#</a></h3>
+<p>Efficient/Sequential Elementary Effects fits a logistic function to
+the output of the <cite>ntfirst</cite> trajectories, which determines the
+threshold between informative and uninformative parameters for the
+following (shorter) trajectories. One can check this initial,
+important step by passing the name of an output file to
+<a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> with the keyword <cite>plotfile</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">plotfile</span><span class="o">=</span><span class="s1">&#39;ishigami.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.8.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a> must be installed to produce the
+<cite>plotfile</cite>. The file format of <cite>plotfile</cite> is always <cite>png</cite> independent
+on the file name.</p>
+</section>
+<section id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h3>
+<p>Following the same idea, the user can also log progress and
+intermediate results in a text file giving the <cite>logfile</cite> keyword:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">plotfile</span><span class="o">=</span><span class="s1">&#39;ishigami.png&#39;</span><span class="p">,</span>
+          <span class="n">logfile</span><span class="o">=</span><span class="s1">&#39;ishigami.log&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="exclude-parameters-from-calculations">
 <h3>Exclude parameters from calculations<a class="headerlink" href="#exclude-parameters-from-calculations" title="Link to this heading">#</a></h3>
-<p><cite>ee</cite> offers the possibility to mask some model parameters so that they will
-not be changed during calculation of Elementary Effects. Inital values <cite>x0</cite> must be given that will
-be taken where <cite>mask==False</cite>, i.e. <cite>mask</cite> could be called an include-mask. Note that the size of
-<cite>x0</cite> must be the size of <cite>lb</cite>, <cite>ub</cite> and <cite>mask</cite>, i.e. one has to give initial values even if an
-element is included in the screening, which means <cite>mask[i]==True</cite>.</p>
-<p>For example, if one wants to exclude the second parameter <span class="math notranslate nohighlight">\(x_1\)</span> of the above Ishigami-Homma
-function in the calculation of the Elementary Effects:</p>
+<p><code class="docutils literal notranslate"><span class="pre">eee</span></code> offers the possibility to mask some model parameters so that
+they will not be changed during calculation of Elementary
+Effects. Inital values <cite>x0</cite> must be given that will be taken where
+<cite>mask == False</cite>, i.e. <cite>mask</cite> could be called an include-mask (opposite
+of the exclude-mask of numpy’s masked arrays). Note that the size of
+<cite>x0</cite> must be the size of <cite>lb</cite>, <cite>ub</cite> and <cite>mask</cite>, i.e. one has to give
+initial values even if an element is included in the screening, which
+means <cite>mask[i] == True</cite>.</p>
+<p>For example, if one wants to exclude the second parameter <span class="math notranslate nohighlight">\(x_0\)</span>
+of the above Ishigami-Homma function in the calculation of the
+Elementary Effects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># function</span>
-<span class="n">mask</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span> <span class="c1"># True  -&gt; include</span>
-<span class="n">mask</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                      <span class="c1"># False -&gt; exclude</span>
+<span class="n">mask</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># True  -&gt; include</span>
+<span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                       <span class="c1"># False -&gt; exclude</span>
 
 <span class="c1"># initial values</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
 
-<span class="c1"># Elementary Effects</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span> <span class="c1"># for reproducibility of examples</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Efficient Elementary Effects</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>  <span class="c1"># for reproducibility of examples</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="c1"># gives: [False False  True]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
-<span class="c1"># gives: 114.8 0.0 26.6</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">&amp;</span> <span class="n">out</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+<span class="c1"># gives: [False False  True]</span>
 </pre></div>
 </div>
 </section>
+<section id="function-with-multiple-outputs">
+<h3>Function with multiple outputs<a class="headerlink" href="#function-with-multiple-outputs" title="Link to this heading">#</a></h3>
+<p>The numerical model <cite>func</cite> might return several outputs per model run,
+e.g. a time series. The Morris’ sensitivity measures are calculated
+hence for each output, e.g. for each point in time. Efficient/Sequential
+Elementary Effects <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> can either take the
+arithmetic mean of all <span class="math notranslate nohighlight">\(\mu*\)</span> or a weighted mean <span class="math notranslate nohighlight">\(\mu*\)</span>,
+weighted by <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>The keyword <cite>weight=False</cite> is probably appropriate if each single
+output is equally important. An example is river runoff where high
+flows might be floods and low flows might be droughts. One might want
+that the computer model reproduces both circumstances.</p>
+<p>An example for <cite>weight=True</cite> are fluxes to and from the atmosphere
+such as evapotranspiration. The atmosphere is more strongly influenced
+by larger fluxes so that sensitivity measures during periods of little
+atmospheric exchange are less interesting. <a class="reference external" href="http://doi.org/10.1002/2015WR016907">Cuntz, Mai et al.</a> (2015)
+argued that weighting by standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is
+equivalent to flux weighting because parameter variations yield larger
+variances for larger fluxes than they yield for smaller fluxes in most
+computer models.</p>
+</section>
 <section id="parallel-model-evaluation">
 <h3>Parallel model evaluation<a class="headerlink" href="#parallel-model-evaluation" title="Link to this heading">#</a></h3>
-<p>The numerical model <cite>func</cite> will be evaluated <cite>nt*(npars+1)</cite> times, with <cite>npars</cite> the number of
-parameters of the computational model. Multiprocessing can be used for parallel function
-evaluation. Setting <cite>processes=nprocs</cite> evaluates <cite>nprocs</cite> parameter sets in parallel:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Elementary Effects using 4 parallel processes</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span> <span class="c1"># for reproducibility of examples</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-         <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<p>The numerical model <cite>func</cite> will be evaluated <cite>npars + 1</cite> times for
+each trajectory, with <cite>npars</cite> the number of parameters of the
+computational model. Multiprocessing can be used for parallel function
+evaluation. Setting <cite>processes=nprocs</cite> evaluates <cite>nprocs</cite> parameter
+sets in parallel:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Efficient Elementary Effects using 4 parallel processes</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> uses the package <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.dev)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> for parallelisation. <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.dev)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> provides a
-uniform interface to parallel processing pools and enables switching easily between local
-development (e.g. serial processing or <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>) and deployment on a cluster or
-supercomputer (via e.g. MPI or JobLib).</p>
-<p>Consider the following code in a script (e.g. <cite>eeetest.py</cite>):</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> uses the package <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.dev)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> for
+parallelisation. <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.dev)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> provides a uniform interface to
+parallel processing pools and enables switching easily between local
+development (e.g. serial processing or <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>) and
+deployment on a cluster or supercomputer (e.g. via MPI or JobLib).</p>
+<p>Consider the following Python code in a script (e.g. <cite>eeetest.py</cite>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: eeetest.py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
+<span class="kn">import</span> <span class="nn">schwimmbad</span>
+
+<span class="c1"># Ishigami-Homma function a=b=1</span>
+<span class="k">def</span> <span class="nf">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># get number of processes</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
     <span class="n">nprocs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">nprocs</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="c1"># Ishigami-Homma function a=b=1</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">def</span> <span class="nf">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># mpi4py is an optional dependency of pyeee</span>
 <span class="k">try</span><span class="p">:</span>
@@ -545,12 +645,12 @@ supercomputer (via e.g. MPI or JobLib).</p>
    <span class="n">comm</span>  <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
    <span class="n">csize</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
    <span class="n">crank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+   <span class="k">if</span> <span class="n">csize</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+       <span class="n">nprocs</span> <span class="o">=</span> <span class="n">csize</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
    <span class="n">comm</span>  <span class="o">=</span> <span class="kc">None</span>
    <span class="n">csize</span> <span class="o">=</span> <span class="mi">1</span>
    <span class="n">crank</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">ee</span>
 
 <span class="c1"># function</span>
 <span class="n">func</span>  <span class="o">=</span> <span class="n">ishigami1</span>
@@ -562,120 +662,83 @@ supercomputer (via e.g. MPI or JobLib).</p>
 <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 
 <span class="c1"># choose the serial or parallel pool</span>
-<span class="kn">import</span> <span class="nn">schwimmbad</span>
-<span class="n">ipool</span> <span class="o">=</span> <span class="n">schwimmbad</span><span class="o">.</span><span class="n">choose_pool</span><span class="p">(</span><span class="n">mpi</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">csize</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="n">nprocs</span><span class="p">)</span>
+<span class="n">ipool</span> <span class="o">=</span> <span class="n">schwimmbad</span><span class="o">.</span><span class="n">choose_pool</span><span class="p">(</span><span class="n">mpi</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">csize</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
+                               <span class="n">processes</span><span class="o">=</span><span class="n">nprocs</span><span class="p">)</span>
 
 <span class="c1"># Elementary Effects</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1023</span><span class="p">)</span> <span class="c1"># for reproducibility of examples</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="n">nprocs</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">ipool</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1023</span><span class="p">)</span>  <span class="c1"># for reproducibility of examples</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="n">nprocs</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="n">ipool</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="n">ipool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This script can be run serially, i.e. that all function evaluations are done one after the other:</p>
+<p>The user gives the number of processors to use on the command line (<cite>ncpus</cite>).</p>
+<p>This script can be run in normal serial mode, i.e. all function
+evaluations are done one after the other:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>eeetest.py
 </pre></div>
 </div>
-<p>or</p>
+<p>One can give explicitly that the script should run one core only:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>eeetest.py<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-<p>It can use Python’s <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module, e.g. with 4 parallel processes:</p>
+<p>Or it can use Python’s <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module, e.g. with 4
+parallel processes:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>eeetest.py<span class="w"> </span><span class="m">4</span>
 </pre></div>
 </div>
-<p>or use the Message Passing Interface (MPI), e.g. with 4 parallel processes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>python<span class="w"> </span>eeetest.py<span class="w"> </span><span class="m">4</span>
+<p>or use the Message Passing Interface (MPI), e.g. with 4 parallel
+processes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>python<span class="w"> </span>eeetest.py
 </pre></div>
 </div>
-<p>Note that <a class="reference external" href="https://mpi4py.readthedocs.io/en/latest/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.0.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a> must be installed for the latter.</p>
-</section>
-<section id="python-functions-with-additional-parameters">
-<h3>Python functions with additional parameters<a class="headerlink" href="#python-functions-with-additional-parameters" title="Link to this heading">#</a></h3>
-<p>The function for <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> must be of the form <cite>func(x)</cite>. Use Python’s <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> to
-pass other function parameters.</p>
-<p>For example pass the parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to the Ishigami-Homma function. One needs a
-wrapper function that takes the function and its parameters as arguments. The variable parameters
-of the screening must be the last argument, i.e. <cite>x</cite> of <cite>func(x)</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-
-<span class="k">def</span> <span class="nf">ishigami</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="k">def</span> <span class="nf">call_func_ab</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are fixed parameters during
-screening. They are hence already passed to <cite>call_func_ab</cite> with
-<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> before start of the screening.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Partialise function with fixed parameters a and b</span>
-<span class="n">a</span>    <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">b</span>    <span class="o">=</span> <span class="mf">2.0</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">call_func_ab</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-
-<span class="n">out</span>  <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>When <cite>func</cite> is called as <cite>func(x)</cite>, the call of <cite>call_func_ab</cite> is finished and <cite>x</cite>, <cite>a</cite> and <cite>b</cite> are
-passed to <cite>ishigami</cite>.</p>
-<p>We recommend the package <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> that provides wrapper functions to work with
-<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a>. <cite>call_func_ab</cite> can be replaced by the wrapper function of
-<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>: <code class="xref py py-func docutils literal notranslate"><span class="pre">function_wrapper()</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
-<span class="n">arg</span>   <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
-<span class="n">kwarg</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">func</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">function_wrapper</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">kwarg</span><span class="p">)</span>
-<span class="n">out</span>   <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>where all arguments of the function but the first one must be given as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref any docutils literal notranslate"><span class="pre">list</span></code></a> and keyword
-arguments as a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><code class="xref any docutils literal notranslate"><span class="pre">dict</span></code></a>. The function wrapper finally passes <cite>x</cite>, <cite>arg</cite> and <cite>kwarg</cite> to <cite>func(x,
-*arg, **kwarg)</cite>.</p>
-<p><a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> provides also a wrapper function to work with masks as above. To exclude the
-second parameter <span class="math notranslate nohighlight">\(x_1\)</span> from screening of the Ishigami-Homma function, <cite>x0</cite> and <cite>mask</cite> must be
-given to <code class="xref py py-func docutils literal notranslate"><span class="pre">function_mask_wrapper()</span></code>. Then Elementary Effects will be calculated
-only for the remaining parameters, between <cite>lb[mask]</cite> and <cite>ub[mask]</cite>. All other non-masked
-parameters will be taken as <cite>x0</cite>. Remember that <cite>mask</cite> is an include-mask, i.e. all <cite>mask==True</cite>
-will be screened and all <cite>mask==False</cite> will not be screened.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_mask_wrapper</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">function_mask_wrapper</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">kwarg</span><span class="p">)</span>
-<span class="n">out</span>  <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">ub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Note that <a class="reference external" href="https://mpi4py.readthedocs.io/en/latest/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.0.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a> must be installed for the last example.</p>
 </section>
 <section id="sampling-parameters-with-other-distributions-than-the-uniform-distribution">
 <h3>Sampling parameters with other distributions than the uniform distribution<a class="headerlink" href="#sampling-parameters-with-other-distributions-than-the-uniform-distribution" title="Link to this heading">#</a></h3>
-<p>Morris’ method of Elementary Effects samples parameters along trajectories through the possible
-parameter space. It assumes uniformly distributed parameters between a lower bound and an upper
+<p>Morris’ method of Elementary Effects samples parameters along
+trajectories through the possible parameter space. It assumes
+uniformly distributed parameters between a lower bound and an upper
 bound.</p>
-<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> allows sampling parameters from other than uniform distributions. For example, a
-parameter <span class="math notranslate nohighlight">\(p\)</span> might have been determined by repeated experiments. One can hence determine the
-mean parameter <span class="math notranslate nohighlight">\(\overline{p}\)</span> and calculate the error of the mean <span class="math notranslate nohighlight">\(\epsilon_p\)</span>. This
-error of the mean is actually the standard deviation of the distribution of the mean. One would
-thus sample a normal distribution with mean <span class="math notranslate nohighlight">\(\overline{p}\)</span> and a standard deviation
-<span class="math notranslate nohighlight">\(\epsilon_p\)</span> for the parameter <span class="math notranslate nohighlight">\(p\)</span> for determining Morris’ Elementary Effects.</p>
-<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> allows all distributions of <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>, given with the keyword <cite>dist</cite>. The
-parameter of the distributions are given as tuples with the keyword <cite>distparam</cite>. The lower and
-upper bounds change their meaning if <cite>dist</cite> is given for a parameter: <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> samples uniformly
-the Percent Point Function (ppf) of the distribution between lower and upper bound. The percent
-point function is the inverse of the Cumulative Distribution Function (cdf). Lower and upper bound
-must hence be between <cite>0</cite> and <cite>1</cite>. Note the percent point functions of most continuous
-distributions will be infinite at the limits <cite>0</cite> and <cite>1</cite>.</p>
-<p>The three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> of the Ishigami-Homma function follow uniform
-distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(+\pi\)</span>. Say that <span class="math notranslate nohighlight">\(x_1\)</span> follows a Gaussian
-distribution around the mean <cite>0</cite> with a standard deviation of 1.81. We want to sample between plus
-or minus three standard deviations, which includes about 99.7% of the total distribution. This
-means that the lower bound would be 0.0015 (0.003/2.) and the upper bound 0.9985.</p>
+<p>The implementation of Morris’ Elementary Effects
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> in the Python library
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a> allows sampling parameters from other distributions than
+uniform distributions. For example, a parameter <span class="math notranslate nohighlight">\(p\)</span> might have
+been determined by repeated experiments. One can hence determine the
+mean parameter <span class="math notranslate nohighlight">\(\overline{p}\)</span> and calculate the error of the
+mean <span class="math notranslate nohighlight">\(\epsilon_p\)</span>. This error of the mean is actually the
+standard deviation of the distribution of the mean. One would thus
+sample a normal distribution with mean <span class="math notranslate nohighlight">\(\overline{p}\)</span> and a
+standard deviation <span class="math notranslate nohighlight">\(\epsilon_p\)</span> for the parameter <span class="math notranslate nohighlight">\(p\)</span> for
+determining Morris’ Elementary Effects.</p>
+<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> allows all distributions of
+mod:<cite>scipy.stats</cite>, given with the keyword <cite>dist</cite>. The parameters of
+the distributions are given as a list of tuples with the keyword
+<cite>distparam</cite>. The lower and upper bounds change their meaning if <cite>dist</cite>
+is given for a parameter: <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> samples
+uniformly the Percent Point Function (ppf) of the distribution between
+lower and upper bound. The percent point function is the inverse of
+the Cumulative Distribution Function (cdf). Lower and upper bounds
+must hence be between <cite>0</cite> and <cite>1</cite>. Note the percent point functions of
+most continuous distributions will be infinite at the limits <cite>0</cite> and
+<cite>1</cite>.</p>
+<p>The three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> of the Ishigami-Homma
+function follow uniform distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and
+<span class="math notranslate nohighlight">\(+\pi\)</span>. Say that <span class="math notranslate nohighlight">\(x_1\)</span> follows a Gaussian distribution
+around the mean <span class="math notranslate nohighlight">\(0\)</span> with a standard deviation of
+<span class="math notranslate nohighlight">\(1.81\)</span>. We want to sample between plus or minus three standard
+deviations, which includes about 99.7% of the total
+distribution. This means that the lower bound would be 0.0015
+(0.003/2.) and the upper bound 0.9985.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
 <span class="n">dist</span>      <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="p">]</span>
 <span class="n">distparam</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.81</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)]</span>
 <span class="n">lb</span>        <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0015</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
 <span class="n">ub</span>        <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.9985</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]</span>
 
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This shows that</p>
@@ -683,450 +746,367 @@ means that the lower bound would be 0.0015 (0.003/2.) and the upper bound 0.9985
 <div><ol class="arabic simple">
 <li><p>one has to give a distribution for each parameter;</p></li>
 <li><p>distributions are given as <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distribution objects;</p></li>
-<li><p>if <cite>dist</cite> is None, <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> assumes a uniform distribution and samples between lower and
-upper bound;</p></li>
-<li><p>(almost) all <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distributions take the keywords <cite>loc</cite> and <cite>scale</cite>. Their
-meaning is <em>NOT</em> mean and standard deviation in most distributions. For the uniform
-distribution <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.uniform.html#scipy.stats.uniform" title="(in SciPy v1.12.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.uniform</span></code></a>, <cite>loc</cite> is the lower limit and <cite>loc+scale</cite> the upper
-limit. This means the combination <cite>dist=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite> corresponds to
-<cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a,b-a]</cite>, <cite>lb=0</cite>, <cite>ub=1</cite>.</p></li>
+<li><p>if <cite>dist</cite> is None, <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> assumes a
+uniform distribution and samples between lower and upper bound;</p></li>
+<li><p>(almost) all <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distributions take the keywords
+<cite>loc</cite> and <cite>scale</cite>. Their meaning is <em>NOT</em> mean and standard
+deviation in most distributions. For the uniform distribution
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.uniform.html#scipy.stats.uniform" title="(in SciPy v1.12.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.uniform</span></code></a>, <cite>loc</cite> is the lower limit and
+<cite>loc + scale</cite> the upper limit. This means the combination
+<cite>dist=None</cite>, <cite>distparam=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite> corresponds to
+<cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a, b-a]</cite>, <cite>lb=0</cite>, <cite>ub=1</cite>.</p></li>
 </ol>
 </div></blockquote>
 <p>Note also that</p>
 <blockquote>
 <div><ol class="arabic simple" start="5">
 <li><p>if <cite>distparam</cite> is None, <cite>loc=0</cite> and <cite>scale=1</cite> will be taken;</p></li>
-<li><p><cite>loc</cite> and <cite>scale</cite> are implemented as keywords in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>. Other parameters such as
-for example the shape parameter of the gamma distribution <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html#scipy.stats.gamma" title="(in SciPy v1.12.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.gamma</span></code></a> must hence be
-given first, i.e. <cite>(shape,loc,scale)</cite>.</p></li>
+<li><p><cite>loc</cite> and <cite>scale</cite> are implemented as keywords in
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>. Other parameters such as for example the
+shape parameter of the gamma distribution
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html#scipy.stats.gamma" title="(in SciPy v1.12.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.gamma</span></code></a> must hence be given first,
+i.e. <cite>(shape, loc, scale)</cite>.</p></li>
 </ol>
 </div></blockquote>
-<p>Remember that Morris’ method of Elementary Effects assumes uniformly distributed parameters and
-that other distributions are an extension of the original method.</p>
+<p>Remember that Morris’ method of Elementary Effects assumes uniformly
+distributed parameters and that other distributions are an extension
+of the original method.</p>
+<p><code class="docutils literal notranslate"><span class="pre">eee</span></code> uses <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> from <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>
+internally. It consequently also offers the possibility to sample
+other distributions than uniform distributions with the keywords
+<cite>dist</cite> and <cite>distparams</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-</section>
-<section id="efficient-sequential-elementary-effects">
-<h2>Efficient/Sequential Elementary Effects<a class="headerlink" href="#efficient-sequential-elementary-effects" title="Link to this heading">#</a></h2>
-<p>Morris’ method of Elementary Effects is not a full sensitivity analysis. The sensititvity measures
-of Elementary Effects are rather used for preliminary screening for noninformative model parameters
-for a given model output, so that fewer parameters are needed during a full sensitivity analysis or
-during model optimisation.</p>
-<p>The numerical model <cite>func</cite> will be evaluated <cite>nt*(npars+1)</cite> times for calculating Elementary
-Effects. The user chooses the number of trajectories <cite>nt</cite>. A large number of <cite>nt</cite> might be
-computationally expensive and a small number might miss areas of the parameter space, where certain
-parameters become sensitive. Typical values for <cite>nt</cite> in the literature are on the order of tens to
-hundreds. This means that the method of Elementary Effects needs between 500 and 5000 model
-evaluations for a model with 50 parameters.</p>
-<p>The extension of Efficient or Sequential Elementary Effects can be used if one uses Elementary
-Effects <em>only</em> to distinguish between sensitive (informative) and insensitive (noninformative)
-model parameters. It follows the idea: if one knows that a model is sensitive to a certain
-parameter, this parameter does not has to be included anymore in the further screening. If a
-parameter has a large Elementary Effect in one trajectory it will most probably be influential. So
-one does not have to calculate another Elementary Effect for this parameter and it can be discarded
-from further trajectories.</p>
-<p>The method starts hence with a limited number of trajectories <cite>ntfirst</cite> for all model parameters,
-i.e. it performs <cite>ntfirst*(npars+1)</cite> model evaluations. Further trajectories are sampled,
-calculating Elementary Effects, but without the parameters that were already found sensitive. This
-means that subsequent trajectories need less and less function evaluations. The algorithm ends if a
-subsequent trajectory did not yield any sensitive parameters anymore. A last <cite>ntlast</cite> trajectories
-are finally sampled, and Elementary Effects calculated, to assure a large sample for little
-sensitive parameters, to minimize the possibility that the parameters are sensitive in a small part
-of the parameter space, which was missed due to a little sample.</p>
-<p>The call of <code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code> (or the identical function <code class="xref py py-func docutils literal notranslate"><span class="pre">see()</span></code>)
-is very similar to standard Elementary effects <cite>ee</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ishigami</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
-<span class="n">arg</span>   <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
-<span class="n">kwarg</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">unc</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">function_wrapper</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">kwarg</span><span class="p">)</span>
-<span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="c1"># lower boundaries</span>
-<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-<span class="c1"># upper boundaries</span>
-<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-
-<span class="c1"># Sequential Elementary Effects</span>
-<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1025</span><span class="p">)</span> <span class="c1"># for reproducibility of examples</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ntlast</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-          <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-<span class="c1"># gives: [ True False  True]</span>
-</pre></div>
-</div>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code> returns an include-mask, being <cite>True</cite> for sensitive parameters and
-<cite>False</cite> for noninformative parameters. The mask can be combined by <cite>logical_and</cite> with an incoming
-mask.</p>
-<p>Note if you use <code class="xref py py-func docutils literal notranslate"><span class="pre">function_mask_wrapper()</span></code>, <cite>out</cite> has the dimension of the
-<cite>mask==True</cite> elements:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_mask_wrapper</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">function_mask_wrapper</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">kwarg</span><span class="p">)</span>
-<span class="n">out</span>  <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">ub</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
-
-<span class="c1"># update mask</span>
-<span class="n">mask</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">out</span>
-</pre></div>
-</div>
-<p>The numerical model <cite>func</cite> might return several outputs per model run, e.g. a time series. The
-Morris’ sensitivity measures are calculated hence for each output, e.g. each point in time.
-Efficient/Sequential Elementary Effects <code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code> can either take the arithmetic
-mean of all <span class="math notranslate nohighlight">\(\mu*\)</span> or a weighted mean <span class="math notranslate nohighlight">\(\mu*\)</span>, weighted by <span class="math notranslate nohighlight">\(\sigma\)</span>. The keyword
-<cite>weight==False</cite> is probably appropriate if each single output is equally important. An example is
-river runoff where high flows might be floods and low flows might be droughts. One might want that
-the computer model reproduces both circumstances. An example for <cite>weight==True</cite> are fluxes to and
-from the atmosphere such as evapotranspiration. The atmosphere is more strongly influenced by
-larger fluxes so that sensitivity measures during periods of little atmosphere exchange are less
-interesting. Cuntz <em>et al.</em> (2015) argued that weighting by standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is
-equivalent to flux weighting because parameter variations yield larger variances for large fluxes
-than for small fluxes in most computer models.</p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code> offers the same parallel mechanism as <cite>ee</cite>, using the
-:func:keywords <cite>processes</cite> and <cite>pool</cite>, which is again a <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.dev)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> <cite>pool</cite> object.</p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code> also offers the possibility to sample parameters from different
-distributions of <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> with the keywords <cite>dist</cite> and <cite>distparam</cite>.</p>
-<p>One can give a <cite>plotfile</cite> name to check the initial fit to the <cite>ntfirst</cite> Elementary Effects.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sequential Elementary Effects using all parameters and keywords</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span>
-          <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ntlast</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-          <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1025</span><span class="p">,</span>
-          <span class="n">plotfile</span><span class="o">=</span><span class="s1">&#39;ishigami.png&#39;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="s1">&#39;ishigami.log&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Note that <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.8.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a> must be installed to produce the <cite>plotfile</cite>.</p>
-</section>
-<section id="external-computer-models">
-<h2>External computer models<a class="headerlink" href="#external-computer-models" title="Link to this heading">#</a></h2>
-<p><strong>Note that this section is pretty much a repetition of the</strong> <a class="reference external" href="https://partialwrap.readthedocs.io/en/latest/userguide.html">User Guide</a> <strong>of</strong> <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>, <strong>which is not
-limited to be used with</strong> <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> <strong>but can be used with any package that calls functions in
-the form</strong> <cite>func(x)</cite>. <strong>The notions of</strong> <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> <strong>might be better explained in its</strong> <a class="reference external" href="https://partialwrap.readthedocs.io/en/latest/userguide.html">user guide</a>.</p>
-<p><a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> provides wrapper functions to work with external executables. <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>
-writes the sampled parameter sets into files that can be read by the external program. The program
-writes its result to a file that will then be read by <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> in return. The processing
-steps are:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parameterwriter</span><span class="p">(</span><span class="n">parameterfile</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
-<span class="n">err</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">exe</span><span class="p">)</span>
-<span class="n">obj</span> <span class="o">=</span> <span class="n">outputreader</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">parameterfile</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>That means <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> needs to have a function <cite>parameterwriter</cite> that writes the parameter
-file <cite>parameterfile</cite> needed by the executable <cite>exe</cite>. It then needs to have a function
-<cite>outputreader</cite> for reading the output file <cite>outputfile</cite> of <cite>exe</cite>, reading or calculating the
-objective value used by Elementary Effects.</p>
-<section id="simple-executables">
-<h3>Simple executables<a class="headerlink" href="#simple-executables" title="Link to this heading">#</a></h3>
-<p>Consider for simplicity an external Python program (e.g. <cite>ishiexe.py</cite>)
-that calculates the Ishigami-Homma function with <span class="math notranslate nohighlight">\(a = b = 1\)</span>,
-reading in the three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> from a
-<cite>parameterfile = params.txt</cite> and writing its output into an
-<cite>outputfile = obj.txt</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: ishiexe.py</span>
-
-<span class="c1"># Ishigami-Homma function a=b=1</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">def</span> <span class="nf">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="c1"># read parameters</span>
-<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader</span>
-<span class="n">pfile</span> <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">standard_parameter_reader</span><span class="p">(</span><span class="n">pfile</span><span class="p">)</span>
-
-<span class="c1"># calc function</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="c1"># write objective</span>
-<span class="n">ofile</span> <span class="o">=</span> <span class="s1">&#39;obj.txt&#39;</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ff</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">ff</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This program can be called on the command line with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>ishiexe.py
-</pre></div>
-</div>
-<p>The external program can be used in <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> with <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> and the
-wrapper function <code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code>:</p>
+<section id="python-function-with-extra-parameters">
+<h3>Python function with extra parameters<a class="headerlink" href="#python-function-with-extra-parameters" title="Link to this heading">#</a></h3>
+<p>The function for <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> must be of the form
+<cite>func(x)</cite>. Use Python’s <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> from the Python
+module <a class="reference external" href="https://docs.python.org/3/library/functools.html#module-functools" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functools</span></code></a> to pass other function parameters.</p>
+<p>For example pass the parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to the
+Ishigami-Homma function. One needs a wrapper function that takes the
+function and its parameters as arguments. The variable parameters of
+the screening must be the last argument, i.e. it must be <cite>x</cite> of
+<cite>func(x)</cite>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span> <span class="n">standard_output_reader</span>
 
-<span class="n">ishi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;ishiexe.py&#39;</span><span class="p">]</span>
-<span class="n">parameterfile</span> <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
-<span class="n">outputfile</span> <span class="o">=</span> <span class="s1">&#39;obj.txt&#39;</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span> <span class="p">{})</span>
+<span class="k">def</span> <span class="nf">ishigami</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># x has to be the last argument</span>
+<span class="k">def</span> <span class="nf">call_ishigami</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Partialise function with fixed parameters</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">func</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">call_ishigami</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-
-<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">ee</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">standard_parameter_reader()</span></code> and <cite>~partialwrap.standard_parameter_writer</cite> are
-convenience functions that read and write one parameter per line in a file without a header. The
-function <code class="xref py py-func docutils literal notranslate"><span class="pre">standard_output_reader()</span></code> simply reads one value from a file without
-header. The empty dictionary at the end will be explained below at <a class="reference internal" href="#further-arguments-of-wrappers">Further arguments of
-wrappers</a>.</p>
-<p>One can easily imagine to replace the python program <cite>ishiexe.py</cite> by any compiled executable from
-C, Fortran or alike.</p>
+<p>The parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are fixed parameters during
+screening. Figuratively speaking, <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> passes
+<span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to the function <cite>call_ishigami</cite> already during
+definition. <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> can then simply call it as
+<cite>func(x)</cite>, where <cite>x</cite> is passed to <cite>call_ishigami</cite> then as well. This
+“finishes” the call of <cite>call_ishigami</cite> and <cite>x</cite>, <cite>a</cite> and <cite>b</cite> are passed
+to <cite>ishigami</cite>.</p>
 </section>
-<section id="exclude-parameters-from-screening">
-<h3>Exclude parameters from screening<a class="headerlink" href="#exclude-parameters-from-screening" title="Link to this heading">#</a></h3>
-<p>Similar to <code class="xref py py-func docutils literal notranslate"><span class="pre">function_mask_wrapper()</span></code>, there is also a wrapper to work with masks
-and external executables: <code class="xref py py-func docutils literal notranslate"><span class="pre">exe_mask_wrapper()</span></code>. To exclude the second parameter
-<span class="math notranslate nohighlight">\(x_1\)</span> from screening of the Ishigami-Homma function, <cite>x0</cite> and <cite>mask</cite> must be given to
-<code class="xref py py-func docutils literal notranslate"><span class="pre">exe_mask_wrapper()</span></code> as well. Remember that <cite>mask</cite> is an include-mask, i.e. all
-<cite>mask==True</cite> will be screened and all <cite>mask==False</cite> will not be screened:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span> <span class="c1"># True  -&gt; include</span>
-<span class="n">mask</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                      <span class="c1"># False -&gt; exclude</span>
-<span class="n">x0</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_mask_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span> <span class="p">{})</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">ub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><span class="math notranslate nohighlight">\(x_1\)</span> will then always be the second element of <cite>x0</cite>.</p>
 </section>
-<section id="additional-arguments-for-external-executables">
-<h3>Additional arguments for external executables<a class="headerlink" href="#additional-arguments-for-external-executables" title="Link to this heading">#</a></h3>
-<p>Further arguments to the external executable can be given simply by adding it to the call string.
-For example, if <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> were command line arguments to <cite>ishiexe.py</cite>, they could
-simply be given in the function name:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ishi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;ishiexe.py&#39;</span><span class="p">,</span> <span class="s1">&#39;-a &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="s1">&#39;-b &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">)]</span>
-</pre></div>
-</div>
-</section>
-<section id="further-arguments-of-wrappers">
-<h3>Further arguments of wrappers<a class="headerlink" href="#further-arguments-of-wrappers" title="Link to this heading">#</a></h3>
-<p>The user can pass further arguments to <code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code> and
-<code class="xref py py-func docutils literal notranslate"><span class="pre">exe_mask_wrapper()</span></code> via a dictionary at the end of the call. Setting the key
-<cite>shell</cite> to <cite>True</cite> passes <cite>shell=True</cite> to <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.check_output" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">subprocess.check_output()</span></code></a>, which makes
-<a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.check_output" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">subprocess.check_output()</span></code></a> open a shell for running the external executable. Note that the
-<cite>args</cite> in <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#module-subprocess" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">subprocess</span></code></a> must be a string if <cite>shell=True</cite> and a list if <cite>shell=False</cite>. Setting
-the key <cite>debug</cite> to <cite>True</cite> uses <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.check_call" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">subprocess.check_call()</span></code></a> so that any output of the external
-executable will be written to the screen (precisely <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.STDOUT" title="(in Python v3.12)"><code class="xref any docutils literal notranslate"><span class="pre">subprocess.STDOUT</span></code></a>). This especially
-prints out also any errors that might have occured during execution:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ishi</span> <span class="o">=</span> <span class="s1">&#39;python ishiexe.py&#39;</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span>
-               <span class="p">{</span><span class="s1">&#39;shell&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;debug&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
-<span class="n">out</span>  <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This mechanism allows passing also additional arguments and keyword arguments to the
-<cite>parameterwriter</cite>. Setting <cite>pargs</cite> to a list of arguments and <cite>pkwargs</cite> to a dictionary with
-keyword arguments passes them to the <cite>parameterwriter</cite> as:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parameterwriter</span><span class="p">(</span><span class="n">parameterfile</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">pargs</span><span class="p">,</span> <span class="o">**</span><span class="n">pkwargs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Say an external program uses a <cite>parameterfile</cite> that has five
-informations per line: 1. identifier, 2. current parameter value, 3. minimum
-parameter value, 4. maximum parameter value, 5. parameter mask, e.g.:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># value min max mask
-1 0.5 -3.1415 3.1415 1
-2 0.0 -3.1415 3.1415 0
-3 1.0 -3.1415 3.1415 1
-</pre></div>
-</div>
-<p>One can use <code class="xref py py-func docutils literal notranslate"><span class="pre">standard_parameter_reader_bounds_mask()</span></code> in this case. Parameter
-bounds and mask can be passed via <cite>pargs</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader_bounds_mask</span>
-
-<span class="n">ishi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;ishiexe.py&#39;</span><span class="p">]</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_reader_bounds_mask</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span>
-               <span class="p">{</span><span class="s1">&#39;pargs&#39;</span><span class="p">:[</span><span class="n">lb</span><span class="p">,</span><span class="n">ub</span><span class="p">,</span><span class="n">mask</span><span class="p">]})</span>
-<span class="n">out</span>  <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Or in case of exclusion of <span class="math notranslate nohighlight">\(x_1\)</span>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader_bounds_mask</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_mask_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_reader_bounds_mask</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span>
-               <span class="p">{</span><span class="s1">&#39;pargs&#39;</span><span class="p">:[</span><span class="n">lb</span><span class="p">,</span><span class="n">ub</span><span class="p">,</span><span class="n">mask</span><span class="p">]})</span>
-<span class="n">out</span>  <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">ub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Another common case is that the parameters are given in the form <cite>parameter = value</cite>, e.g. in
-Fortran namelists. <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> provides a function that searches parameter names on the
-left-hand-side of an equal sign and replaces the values on the right-hand-side of the equal sign
-with the sampled parameter values. The <cite>parameterfile</cite> might look like:</p>
-<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span><span class="n">params</span>
-<span class="w">    </span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span>
-<span class="w">    </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
-<span class="w">    </span><span class="n">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
-<span class="o">/</span>
-</pre></div>
-</div>
-<p>The function <code class="xref py py-func docutils literal notranslate"><span class="pre">sub_params_names()</span></code> (which is identical to
-<code class="xref py py-func docutils literal notranslate"><span class="pre">sub_params_names_ignorecase()</span></code>) can be used and parameter names are passed via
-<cite>pargs</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">sub_params_names</span>
-
-<span class="n">pnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">]</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">sub_params_names</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span>
-               <span class="p">{</span><span class="s1">&#39;pargs&#39;</span><span class="p">:[</span><span class="n">pnames</span><span class="p">],</span> <span class="s1">&#39;pid&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><cite>parameterfile</cite> can be a list of parameterfiles in case of <code class="xref py py-func docutils literal notranslate"><span class="pre">sub_params_names()</span></code>.
-<cite>pid</cite> will be explained in the next section. Note that <cite>pargs</cite> is set to <cite>[pnames]</cite>. Setting
-<cite>‘pargs’:pnames</cite> would give <cite>*pnames</cite> to the <cite>parameterwriter</cite>, that means each parameter name as
-an individual argument, which would be wrong because <code class="xref py py-func docutils literal notranslate"><span class="pre">sub_params_names()</span></code> wants to
-have a list of parameter names. The docstring of <code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code> states:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Wrapper function for external programs using a `parameterwriter` and `outputreader`
-with the interfaces:
-    `parameterwriter(parameterfile, x, *pargs, **pkwargs)`
-    `outputreader(outputfile, *oargs, **okwargs)`
-or if `pid==True`:
-    `parameterwriter(parameterfile, x, *pargs, pid=pid, **pkwargs)`
-    `outputreader(outputfile, *oargs, pid=pid, **okwargs)`
-</pre></div>
-</div>
-<p>And the definition of <code class="xref py py-func docutils literal notranslate"><span class="pre">sub_params_names()</span></code> is:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sub_params_names_ignorecase</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</pre></div>
-</div>
-<p>This means that <cite>*pargs</cite> passes <cite>*[pnames]</cite>, which is <cite>pnames</cite>, as an argument after the
-parameters <cite>x</cite> to <code class="xref py py-func docutils literal notranslate"><span class="pre">sub_params_names()</span></code>.</p>
-<p>Excluding <span class="math notranslate nohighlight">\(x_1\)</span> would then be achieved by simply excluding <cite>x1</cite> from <cite>pnames</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">sub_params_names</span>
-
-<span class="n">pnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">]</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">sub_params_names</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span>
-               <span class="p">{</span><span class="s1">&#39;pargs&#39;</span><span class="p">:[</span><span class="n">pnames</span><span class="p">],</span> <span class="s1">&#39;pid&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
-<span class="n">out</span>  <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">ub</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="parallel-processing-of-external-executables">
-<h3>Parallel processing of external executables<a class="headerlink" href="#parallel-processing-of-external-executables" title="Link to this heading">#</a></h3>
-<p>Elementary Effects run the computational model <cite>nt*(npars+1)</cite> times. All model runs are independent
-and can be executated at the same time if computing ressources permit. Even simple personal
-computers have several computing cores nowadays. If the computational model is run several times in the
-same directory at the same time, all model runs would read the same parameter file and overwrite
-the output of each other.</p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code> concatenates an individual integer number to the function string
-(or list, see <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#module-subprocess" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">subprocess</span></code></a>), adds the integer to call of <cite>parameterwrite</cite> and of
-<cite>outputreader</cite>, like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">randst</span><span class="o">.</span><span class="n">randint</span><span class="p">())</span>
-<span class="n">parameterwriter</span><span class="p">(</span><span class="n">parameterfile</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">pargs</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span> <span class="o">**</span><span class="n">pkwargs</span><span class="p">)</span>
-<span class="n">err</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="n">func</span><span class="p">,</span> <span class="n">pid</span><span class="p">])</span>
-<span class="n">obj</span> <span class="o">=</span> <span class="n">outputreader</span><span class="p">(</span><span class="n">outputfile</span><span class="p">,</span> <span class="o">*</span><span class="n">oargs</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span> <span class="o">**</span><span class="n">okwargs</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">parameterfile</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">pid</span><span class="p">)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">outputfile</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">pid</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The <cite>parameterwriter</cite> is assumed to write <cite>parameterfile.pid</cite> and the external model is assumed to
-write <cite>outputfile.pid</cite>. Only these filenames are cleaned up by <code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code>. If
-different filenames are used, the user has to clean up herself.</p>
-<p><cite>ishiexe.py</cite> would hence need to read the number from the command line:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: ishiexe1.py</span>
-
-<span class="c1"># read pid if given</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<section id="screening-of-external-computer-models">
+<h2>Screening of external computer models<a class="headerlink" href="#screening-of-external-computer-models" title="Link to this heading">#</a></h2>
+<p><strong>Note: this section is pretty much a repetition of the</strong> <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/userguide.html">User
+Guide</a> <strong>of</strong> <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>, <strong>which itself is not limited to be
+used with</strong> <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> <strong>but can be used with any package that calls
+functions in the form</strong> <cite>func(x)</cite>. <strong>The finer notions of</strong>
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> <strong>might be better explained in its</strong> <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/userguide.html">User Guide</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> can be used to screen parameters from external computer
+models written in any (compiled) language such as C, Fortran or
+similar. We use our package <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for this.
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> provides wrapper functions that basically launch
+external executables using Python’s <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#module-subprocess" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">subprocess</span></code></a> module, while
+providing functionality to write parameter files for the external
+executables and read in output from the executables in return.</p>
+<p>This means that the wrappers of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> need a function
+<cite>parameterwriter</cite> that writes the parameters in the parameter file(s)
+<cite>parameterfile</cite>. The wrappers also need to read model output from
+<cite>outputfile</cite> with the function <cite>outputreader</cite>. The latter can also do
+further calculations such as calculating an objective function from
+the model output.</p>
+<p>Take an external program that calculates the Ishigami-Homma function
+with <span class="math notranslate nohighlight">\(a = b = 1\)</span>, reading in the parameters <span class="math notranslate nohighlight">\(x_0, x_1,
+x_2\)</span> from a <cite>parameterfile = params.txt</cite> and writing its output into
+an <cite>outputfile = out.txt</cite>. Take for simplicity a Python program first
+(e.g. <cite>ishigami1.py</cite>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: ishigami1.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Ishigami-Homma function a=b=1</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="k">def</span> <span class="nf">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># read parameters</span>
-<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader</span>
-<span class="n">pfile</span> <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">standard_parameter_reader</span><span class="p">(</span><span class="n">pfile</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;params.txt&#39;</span><span class="p">)</span>
 
 <span class="c1"># calc function</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="c1"># write objective</span>
-<span class="n">ofile</span> <span class="o">=</span> <span class="s1">&#39;obj.txt&#39;</span>
-<span class="k">if</span> <span class="n">pid</span><span class="p">:</span>
-    <span class="n">ofile</span> <span class="o">=</span> <span class="n">ofile</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">pid</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ff</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">ff</span><span class="p">)</span>
+<span class="c1"># write output file</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;out.txt&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code> would then be used with <cite>‘pid’:True</cite> and one can use several
-parallel processes:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span> <span class="n">standard_output_reader</span>
+<p>The external program, which is in full <cite>python3 ishigami1.py</cite>, can be
+used with the wrapper function
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/wrappers.html#partialwrap.wrappers.exe_wrapper" title="(in partialwrap v1.8.dev11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">exe_wrapper()</span></code></a> of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span>
+<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
 
-<span class="n">ishi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;ishiexe1.py&#39;</span><span class="p">]</span>
-<span class="n">parameterfile</span> <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
-<span class="n">outputfile</span>    <span class="o">=</span> <span class="s1">&#39;obj.txt&#39;</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pid&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
+<span class="n">ishigami1_exe</span>   <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;ishigami1.py&#39;</span><span class="p">]</span>
+<span class="n">parameterfile</span>   <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
+<span class="n">parameterwriter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span>
+<span class="n">outputfile</span>      <span class="o">=</span> <span class="s1">&#39;out.txt&#39;</span>
+<span class="n">outputreader</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span>
+<span class="n">ishigami1_wrap</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishigami1_exe</span><span class="p">,</span>
+                          <span class="n">parameterfile</span><span class="p">,</span> <span class="n">parameterwriter</span><span class="p">,</span>
+                          <span class="n">outputfile</span><span class="p">,</span> <span class="n">outputreader</span><span class="p">,</span> <span class="p">{})</span>
+
 <span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">lb</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-<span class="n">ub</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">ishigami1_wrap</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If you cannot change your computational model, you can use, for example, a bash script that
-launches each model run in a separate directory, like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<p>The empty dictionary at the end of the partial statement is explained
+below.</p>
+<p>One can see that the external Ishigami-Homma program could have been
+written in a compiled language such as C, Fortran or similar, and then
+used with <code class="docutils literal notranslate"><span class="pre">pyeee</span></code>. A Fortran program could look like this:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">ishigami1</span>
 
-<span class="c1"># File: ishiexe.sh</span>
+<span class="w">    </span><span class="k">implicit none</span>
+
+<span class="k">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">kind</span><span class="p">(</span><span class="mf">1.0d0</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">pfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;params.txt&#39;</span>
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ofile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;out.txt&#39;</span>
+
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">punit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">99</span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ounit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">101</span>
+
+<span class="w">    </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="c">! parameters x_0, x_1, x_2</span>
+<span class="w">    </span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">out</span><span class="w">             </span><span class="c">! output value</span>
+<span class="w">    </span><span class="kt">integer</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span>
+
+<span class="w">    </span><span class="kt">integer</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">ios</span>
+
+<span class="w">    </span><span class="c">! read parameters</span>
+<span class="w">    </span><span class="k">open</span><span class="p">(</span><span class="n">punit</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="n">pfile</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;read&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">do while</span><span class="w"> </span><span class="p">(</span><span class="n">ios</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">read</span><span class="p">(</span><span class="n">punit</span><span class="p">,</span><span class="w"> </span><span class="n">fmt</span><span class="o">=*</span><span class="p">,</span><span class="w"> </span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">end do</span>
+<span class="k">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="k">close</span><span class="p">(</span><span class="n">punit</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c">! calc function</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="w">    </span><span class="c">! write output file</span>
+<span class="w">    </span><span class="k">open</span><span class="p">(</span><span class="n">ounit</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="n">ofile</span><span class="p">)</span>
+<span class="w">    </span><span class="k">write</span><span class="p">(</span><span class="n">ounit</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">out</span>
+<span class="w">    </span><span class="k">close</span><span class="p">(</span><span class="n">ounit</span><span class="p">)</span>
+
+<span class="k">end program </span><span class="n">ishigami1</span>
+</pre></div>
+</div>
+<p>This program can be compiled like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gfortran<span class="w"> </span>-o<span class="w"> </span>ishigami1.exe<span class="w"> </span>ishigami1.f90
+</pre></div>
+</div>
+<p>and used in Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span>
+<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
+
+<span class="n">ishigami1_exe</span>   <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ishigami1.exe&#39;</span><span class="p">]</span>
+<span class="n">parameterfile</span>   <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
+<span class="n">parameterwriter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span>
+<span class="n">outputfile</span>      <span class="o">=</span> <span class="s1">&#39;out.txt&#39;</span>
+<span class="n">outputreader</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span>
+<span class="n">ishigami1_wrap</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishigami1_exe</span><span class="p">,</span>
+                          <span class="n">parameterfile</span><span class="p">,</span> <span class="n">parameterwriter</span><span class="p">,</span>
+                          <span class="n">outputfile</span><span class="p">,</span> <span class="n">outputreader</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">ishigami1_wrap</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where the only difference to the Python version is that
+<cite>ishigami1_exe = [‘./ishigami1.exe’]</cite> instead of
+<cite>ishigami1_exe = [‘python3’, ‘ishigami1.py’]</cite>.</p>
+<section id="parallel-evaluation-of-external-executables">
+<h3>Parallel evaluation of external executables<a class="headerlink" href="#parallel-evaluation-of-external-executables" title="Link to this heading">#</a></h3>
+<p>Elementary Effects run the computational model <cite>nt * (npars + 1)</cite>
+times. All model runs are independent and can be executated at the
+same time if computing ressources permit. Even simple personal
+computers have several computing cores nowadays.</p>
+<p>However, using 4 worker with <cite>processes=4</cite>, for example, writes 4
+times <cite>parameterfile = params.txt</cite> thus overwriting itself. Here the
+<cite>pid</cite> keyword of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> comes in handy. Each invocation
+would have its own random number <cite>pid</cite> associated, writing
+<cite>parameterfile.pid</cite> and reading <cite>outfile.pid</cite>. The Ishigami-Homma
+program would need to be changed to (the Python version here):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: ishigami1_pid.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader</span><span class="p">,</span> <span class="n">standard_parameter_writer</span>
+
+<span class="c1"># Ishigami-Homma function a=b=1</span>
+<span class="k">def</span> <span class="nf">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># get pid</span>
-<span class="nv">pid</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="c1"># make individual run directory</span>
-mkdir<span class="w"> </span>tmp.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span>
+<span class="c1"># read parameters</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">standard_parameter_reader</span><span class="p">(</span><span class="s1">&#39;params.txt&#39;</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span>
 
-<span class="c1"># run in individual directory</span>
-cp<span class="w"> </span>ishiexe.py<span class="w"> </span>tmp.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span>/
-mv<span class="w"> </span>params.txt.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span><span class="w"> </span>tmp.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span>/params.txt
-<span class="nb">cd</span><span class="w"> </span>tmp.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span>
-python<span class="w"> </span>ishiexe.py
+<span class="c1"># calc function</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">ishigami1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="c1"># make output available to pyeee</span>
-mv<span class="w"> </span>obj.txt<span class="w"> </span>../obj.txt.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span>
-
-<span class="c1"># clean up</span>
-<span class="nb">cd</span><span class="w"> </span>..
-rm<span class="w"> </span>-r<span class="w"> </span>tmp.<span class="si">${</span><span class="nv">pid</span><span class="si">}</span>
+<span class="c1"># write output file</span>
+<span class="n">standard_parameter_writer</span><span class="p">(</span><span class="s1">&#39;out.txt&#39;</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>which would then be used:</p>
+<p><a class="reference external" href="https://mcuntz.github.io/partialwrap/html/std_io.html#partialwrap.std_io.standard_parameter_reader" title="(in partialwrap v1.8.dev11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">standard_parameter_reader()</span></code></a> and
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/std_io.html#partialwrap.std_io.standard_parameter_writer" title="(in partialwrap v1.8.dev11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">standard_parameter_writer()</span></code></a> are convenience
+functions that reads and writes parameters from a file just like
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.loadtxt.html#numpy.loadtxt" title="(in NumPy v1.26)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.loadtxt()</span></code></a> and <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html#numpy.savetxt" title="(in NumPy v1.26)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savetxt()</span></code></a>. The difference the
+functions support the <cite>pid</cite> keyword. If <cite>True</cite>,
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/std_io.html#partialwrap.std_io.standard_parameter_reader" title="(in partialwrap v1.8.dev11)"><code class="xref py py-func docutils literal notranslate"><span class="pre">standard_parameter_reader()</span></code></a> reads from files
+such as <cite>params.txt.158398716</cite> rather than from <cite>params.txt</cite>. To achieve this, the
+<cite>pid</cite> keyword simply has to be set to <em>True</em> in the call of <cite>partial</cite>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span> <span class="n">standard_output_reader</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader</span><span class="p">,</span> <span class="n">standard_parameter_writer</span>
+<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
 
-<span class="n">ishi</span> <span class="o">=</span> <span class="s1">&#39;./ishiexe.sh&#39;</span>
-<span class="n">parameterfile</span> <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
-<span class="n">outputfile</span> <span class="o">=</span> <span class="s1">&#39;obj.txt&#39;</span>
-<span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishi</span><span class="p">,</span>
-               <span class="n">parameterfile</span><span class="p">,</span> <span class="n">standard_parameter_writer</span><span class="p">,</span>
-               <span class="n">outputfile</span><span class="p">,</span> <span class="n">standard_output_reader</span><span class="p">,</span>
-               <span class="p">{</span><span class="s1">&#39;pid&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;shell&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
+<span class="n">ishigami1_exe</span>   <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;ishigami1.py&#39;</span><span class="p">]</span>
+<span class="n">parameterfile</span>   <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
+<span class="n">parameterwriter</span> <span class="o">=</span> <span class="n">standard_parameter_writer</span>
+<span class="n">outputfile</span>      <span class="o">=</span> <span class="s1">&#39;out.txt&#39;</span>
+<span class="n">outputreader</span>    <span class="o">=</span> <span class="n">standard_parameter_reader</span>
+<span class="n">ishigami1_wrap</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishigami1_exe</span><span class="p">,</span>
+                          <span class="n">parameterfile</span><span class="p">,</span> <span class="n">parameterwriter</span><span class="p">,</span>
+                          <span class="n">outputfile</span><span class="p">,</span> <span class="n">outputreader</span><span class="p">,</span>
+                          <span class="p">{</span><span class="s1">&#39;pid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
 <span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">ee</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">ishigami1_wrap</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mf">10.</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <a class="reference external" href="https://partialwrap.readthedocs.io/en/latest/userguide.html">User Guide</a> of
-<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> gives a similar script written in Python, which could be used if the bash shell is not available, for example on Windows.</p>
+</section>
+<section id="using-launch-scripts">
+<h3>Using launch scripts<a class="headerlink" href="#using-launch-scripts" title="Link to this heading">#</a></h3>
+<p>If you cannot change your computational model to deal with <cite>pid</cite>, you
+can use, for example, a <cite>bash</cite> script or a Python script that launches
+each model run in a separate directory. A bash script would be
+appropriate on Linux, of course, but a Python script work on Windows
+as well. Here we give a Python script as an example but look at the
+<a class="reference external" href="https://mcuntz.github.io/partialwrap/html/userguide.html">User Guide</a> of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for an example of a <cite>bash</cite> script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># File: run_ishigami1.py</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># get pid</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">exe</span>   <span class="o">=</span> <span class="s1">&#39;ishigami1.py&#39;</span>
+<span class="n">pfile</span> <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
+<span class="n">ofile</span> <span class="o">=</span> <span class="s1">&#39;out.txt&#39;</span>
+
+<span class="c1"># make individual run directory</span>
+<span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">rundir</span> <span class="o">=</span> <span class="s1">&#39;tmp&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">rundir</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;tmp.</span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">rundir</span><span class="p">)</span>
+
+<span class="c1"># copy individual parameter file</span>
+<span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rundir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">pfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pfile</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rundir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">pfile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># run in individual directory</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rundir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">exe</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">rundir</span><span class="p">)</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="n">exe</span><span class="p">],</span>
+                              <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">)</span>
+
+<span class="c1"># make output available to exe_wrapper</span>
+<span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;../</span><span class="si">{</span><span class="n">ofile</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;../</span><span class="si">{</span><span class="n">ofile</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># clean up</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">rundir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: <cite>exe = ‘ishigami1.py’</cite> rather than <cite>exe = ishigami1_pid.py</cite> here
+because this example assumes that the executable cannot account for
+the <cite>pid</cite> keyword. This Python script can be used with <code class="docutils literal notranslate"><span class="pre">pyeee</span></code>
+exactly like all the scripts above:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">exe_wrapper</span>
+<span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">standard_parameter_reader</span><span class="p">,</span> <span class="n">standard_parameter_writer</span>
+<span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
+
+<span class="n">ishigami1_exe</span>   <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;run_ishigami1.py&#39;</span><span class="p">]</span>
+<span class="n">parameterfile</span>   <span class="o">=</span> <span class="s1">&#39;params.txt&#39;</span>
+<span class="n">parameterwriter</span> <span class="o">=</span> <span class="n">standard_parameter_writer</span>
+<span class="n">outputfile</span>      <span class="o">=</span> <span class="s1">&#39;out.txt&#39;</span>
+<span class="n">outputreader</span>    <span class="o">=</span> <span class="n">standard_parameter_reader</span>
+<span class="n">ishigami1_wrap</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exe_wrapper</span><span class="p">,</span> <span class="n">ishigami1_exe</span><span class="p">,</span>
+                          <span class="n">parameterfile</span><span class="p">,</span> <span class="n">parameterwriter</span><span class="p">,</span>
+                          <span class="n">outputfile</span><span class="p">,</span> <span class="n">outputreader</span><span class="p">,</span>
+                          <span class="p">{</span><span class="s1">&#39;pid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+<span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">ishigami1_wrap</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mf">10.</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>That’s all Folks!</p>
 </section>
 </section>
@@ -1177,21 +1157,20 @@ rm<span class="w"> </span>-r<span class="w"> </span>tmp.<span class="si">${</spa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-effects">Elementary Effects</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-python-functions">Simple Python functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-effects">Elementary Effects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-sequential-elementary-effects">Efficient/Sequential Elementary Effects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-initial-fit">Check initial fit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">Logging</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-parameters-from-calculations">Exclude parameters from calculations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-multiple-outputs">Function with multiple outputs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-model-evaluation">Parallel model evaluation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-functions-with-additional-parameters">Python functions with additional parameters</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-parameters-with-other-distributions-than-the-uniform-distribution">Sampling parameters with other distributions than the uniform distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-function-with-extra-parameters">Python function with extra parameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-sequential-elementary-effects">Efficient/Sequential Elementary Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-computer-models">External computer models</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-executables">Simple executables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-parameters-from-screening">Exclude parameters from screening</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-arguments-for-external-executables">Additional arguments for external executables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-arguments-of-wrappers">Further arguments of wrappers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-processing-of-external-executables">Parallel processing of external executables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#screening-of-external-computer-models">Screening of external computer models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-evaluation-of-external-executables">Parallel evaluation of external executables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-launch-scripts">Using launch scripts</a></li>
 </ul>
 </li>
 </ul>

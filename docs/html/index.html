@@ -413,7 +413,7 @@ Effects published by</p>
 of noninformative model parameters by sequential screening,
 <cite>Water Resources Research</cite> 51, 6417-6441, doi: <a class="reference external" href="http://doi.org/10.1002/2015WR016907">10.1002/2015WR016907</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> can be used with Python functions but also with external
-programs, using for example the library <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>. Function
+programs, using for example the library <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a>. Function
 evaluation can be distributed with Python’s <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>
 module or via the Message Passing Interface (MPI) <a class="reference external" href="https://mpi4py.readthedocs.io/en/latest/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.0.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a>.</p>
 </section>
@@ -432,7 +432,7 @@ module or via the Message Passing Interface (MPI) <a class="reference external" 
 <p>The three paramters <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> follow
 uniform distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(+\pi\)</span>.</p>
 <p>Morris’ Elementary Effects can then be calculated using, for example,
-the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v1.33)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
+the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
 (<span class="math notranslate nohighlight">\(\mu*\)</span>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">ee</span>
 
@@ -475,13 +475,13 @@ parameters <span class="math notranslate nohighlight">\(a\)</span> and <span cla
 <span class="k">def</span> <span class="nf">ishigami</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="k">def</span> <span class="nf">call_func_ab</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">call_ishigami</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="c1"># Partialise function with fixed parameters</span>
 <span class="n">a</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="n">func</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">call_func_ab</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">func</span>  <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">call_ishigami</span><span class="p">,</span> <span class="n">ishigami</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="c1"># lower boundaries</span>
@@ -494,16 +494,16 @@ parameters <span class="math notranslate nohighlight">\(a\)</span> and <span cla
 </pre></div>
 </div>
 <p>Figuratively speaking, <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">partial()</span></code></a> passes <cite>a</cite> and
-<cite>b</cite> to the function <cite>call_func_ab</cite> already during definition so that
+<cite>b</cite> to the function <cite>call_ishigami</cite> already during definition so that
 <code class="docutils literal notranslate"><span class="pre">eee</span></code> can then simply call it as <cite>func(x)</cite>, where <cite>x</cite> is passed to
-<cite>call_func_ab</cite> then as well.</p>
+<cite>call_ishigami</cite> then as well.</p>
 </section>
 <section id="function-wrappers">
 <h3>Function wrappers<a class="headerlink" href="#function-wrappers" title="Link to this heading">#</a></h3>
-<p>We recommend to use our package <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for external
+<p>We recommend to use our package <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for external
 executables, which allows easy use of external programs and also their
 parallel execution. See the <a class="reference external" href="userguide.html">User Guide</a> for
-details. A trivial example is the use of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for the
+details. A trivial example is the use of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for the
 above function wrapping:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">partialwrap</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
 
@@ -529,7 +529,7 @@ above function wrapping:</p>
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.26)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/index.html#module-scipy" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.dev)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a></p></li>
-<li><p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v1.33)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a></p></li>
+<li><p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a></p></li>
 </ul>
 </section>
 <section id="license">
