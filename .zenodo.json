@@ -1,2 +1,10 @@
 {
+    "language": "eng",
+    "license": "MIT",
+    "title": "pyeee: Parameter screening using Efficient/Sequential Elementary Effects, an extension of Morris' method",
+    "references": [
+	{
+            "reference": "Cuntz, Mai et al. (2015) Computationally inexpensive identification of noninformative model parameters by sequential screening, Water Resources Research 51, 6417-6441, doi:10.1002/2015WR016907"
+	}
+    ]
 }
