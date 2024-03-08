@@ -8,7 +8,7 @@ the extension of Morris' method of Elementary Effects called Efficient
 or Sequential Elementary Effects by Cuntz, Mai et al. (Water Res
 Research, 2015).
 
-|DOI| |PyPI version| |License| |Build Status| |Coverage Status|
+|DOI| |PyPI version| |Conda version| |License| |Build Status| |Coverage Status|
 
 
 About pyeee
@@ -159,21 +159,20 @@ The easiest way to install is via `pip`:
 
    pip install pyeee
 
-..
-   or via `conda`:
+or via `conda`:
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      conda install -c conda-forge pyeee
+   conda install -c conda-forge pyeee
 
 
 Requirements
 ------------
 
--  `NumPy <https://www.numpy.org>`__
--  `SciPy <https://www.numpy.org>`__
--  `schwimmbad <https://github.com/adrn/schwimmbad>`__
--  `pyjams <https://github.com/mcuntz/pyjams>`__
+- `NumPy <https://www.numpy.org>`__
+- `SciPy <https://www.numpy.org>`__
+- `schwimmbad <https://github.com/adrn/schwimmbad>`__
+- `pyjams <https://github.com/mcuntz/pyjams>`__
 
 
 License
@@ -190,7 +189,7 @@ The project structure is based on a `template`_ provided by `Sebastian Müller`_
    :target: https://doi.org/10.5281/zenodo.3620909
 .. |PyPI version| image:: https://badge.fury.io/py/pyeee.svg
    :target: https://badge.fury.io/py/pyeee
-.. |Conda version| image:: https://anaconda.org/conda-forge/pyeee/badges/version.svg
+.. |Conda version| image:: https://img.shields.io/conda/vn/conda-forge/pyeee.svg
    :target: https://anaconda.org/conda-forge/pyeee
 .. |License| image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
    :target: https://github.com/mcuntz/pyeee/blob/master/LICENSE

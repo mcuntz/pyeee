@@ -28,23 +28,24 @@ History
       Feb 2020, Matthias Cuntz
     * v0.7, systematically logistic_p versions, and keep formatting with
       substitution functions, Feb 2020, Matthias Cuntz
-    * v0.8, Split tests into individual files per module, and small bug fixes
+    * v0.8, split tests into individual files per module, and small bug fixes
       in tests and error handling, Feb 2020, Matthias Cuntz
-    * v0.9, Renamed morris.py to morris_method.py and adapted args and kwargs
+    * v0.9, renamed morris.py to morris_method.py and adapted args and kwargs
       to common names in pyeee, Feb 2020, Matthias Cuntz
-    * v1.0, Restructured package with functions and utils subpackages,
+    * v1.0, restructured package with functions and utils subpackages,
       Feb 2020, Matthias Cuntz
-    * v1.1, Number of final trajectories is argument instead of keyword,
+    * v1.1, number of final trajectories is argument instead of keyword,
       Feb 2020, Matthias Cuntz
-    * v1.2, Sample not only from uniform distribution but allow all
+    * v1.2, sample not only from uniform distribution but allow all
       distributions of scipy.stats, Apr 2020, Matthias Cuntz
-    * v2.0, Restructure: take wrappers and I/O from partialwrap, take function
+    * v2.0, restructure: take wrappers and I/O from partialwrap, take function
       directory from jams, Jun 2020, Matthias Cuntz
     * v2.1, include subpackages in const, functions in setup.py,
       Sep 2020, Matthias Cuntz
     * v3.0, use pyjams package, Oct 2021, Matthias Cuntz
     * v4.0, modernise code structure and documentation,
       Feb 2024, Matthias Cuntz
+    * v4.1, add pyeee to conda-forge, Mar 2024, Matthias Cuntz
 
 """
 # version, author

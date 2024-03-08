@@ -6,7 +6,7 @@ models using the extension of Morris' method of Elementary Effects
 called Efficient or Sequential Elementary Effects by
 `Cuntz, Mai et al.`_ (Water Res Research, 2015).
 
-|DOI| |PyPI version| |License| |Build Status| |Coverage Status|
+|DOI| |PyPI version| |Conda version| |License| |Build Status| |Coverage Status|
 
 
 About pyeee
@@ -151,21 +151,20 @@ The easiest way to install is via `pip`:
 
    pip install pyeee
 
-..
-   or via `conda`:
+or via `conda`:
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      conda install -c conda-forge pyeee
+   conda install -c conda-forge pyeee
 
 
 Requirements
 ------------
 
--  :mod:`numpy`
--  :mod:`scipy`
--  :mod:`schwimmbad`
--  :mod:`pyjams`
+- :mod:`numpy`
+- :mod:`scipy`
+- :mod:`schwimmbad`
+- :mod:`pyjams`
 
 
 License
@@ -190,7 +189,7 @@ Index and Tables
    :target: https://doi.org/10.5281/zenodo.3620909
 .. |PyPI version| image:: https://badge.fury.io/py/pyeee.svg
    :target: https://badge.fury.io/py/pyeee
-.. |Conda version| image:: https://anaconda.org/conda-forge/pyeee/badges/version.svg
+.. |Conda version| image:: https://img.shields.io/conda/vn/conda-forge/pyeee.svg
    :target: https://anaconda.org/conda-forge/pyeee
 .. |License| image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
    :target: https://github.com/mcuntz/pyeee/blob/master/LICENSE
