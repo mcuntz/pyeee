@@ -59,18 +59,18 @@
         "Morris",
         "Elementary Effects",
         "Morris method",
-        "Python",
+        "Python"
     ],
     "creators": [
         {
-        "orcid": "0000-0002-5966-1829",
-        "affiliation": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement - INRAE, Nancy, France",
-        "name": "Matthias Cuntz"
+            "orcid": "0000-0002-5966-1829",
+            "affiliation": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement - INRAE, Nancy, France",
+            "name": "Matthias Cuntz"
 	},
         {
-        "orcid": "0000-0002-1132-2342",
-        "affiliation": "University of Waterloo, ON, Canada",
-        "name": "Juliane Mai"
+            "orcid": "0000-0002-1132-2342",
+            "affiliation": "University of Waterloo, ON, Canada",
+            "name": "Juliane Mai"
 	}
     ],
     "access_right": "open",
