@@ -31,6 +31,24 @@
             "identifier": "https://anaconda.org/conda-forge/pyeee/",
             "relation": "isIdenticalTo",
             "resource_type": "software"
+	},
+	{
+            "identifier": "10.1002/2015WR016907",
+            "relation_type": {
+		"id": "isderivedfrom",
+		"title": {
+		    "de": "Wird abgeleitet von",
+		    "en": "Is derived from"
+		}
+            },
+            "resource_type": {
+		"id": "publication-article",
+		"title": {
+		    "de": "Zeitschriftenartikel",
+		    "en": "Journal article"
+		}
+            },
+            "scheme": "doi"
 	}
     ],
     "upload_type": "software",
