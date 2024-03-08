@@ -6,5 +6,49 @@
 	{
             "reference": "Cuntz, Mai et al. (2015) Computationally inexpensive identification of noninformative model parameters by sequential screening, Water Resources Research 51, 6417-6441, doi:10.1002/2015WR016907"
 	}
+    ],
+    "related_identifiers": [
+	{
+            "scheme": "doi",
+            "identifier": "10.1002/2015WR016907",
+            "relation_type": {
+		"id": "isderivedfrom",
+		"title": {
+		    "de": "Wird abgeleitet von",
+		    "en": "Is derived from"
+		}
+            },
+            "resource_type": {
+		"id": "publication-article",
+		"title": {
+		    "de": "Zeitschriftenartikel",
+		    "en": "Journal article"
+		}
+            }
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://github.com/mcuntz/pyeee/",
+            "relation_type": "isDerivedFrom",
+            "resource_type": "software"
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://mcuntz.github.io/pyeee/",
+            "relation_type": "isDocumentedBy",
+            "resource_type": "publication-softwaredocumentation"
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://pypi.org/project/pyeee/",
+            "relation": "isIdenticalTo",
+            "resource_type": "software"
+	},
+        {
+            "scheme": "url",
+            "identifier": "https://anaconda.org/conda-forge/pyeee",
+            "relation_type": "isIdenticalTo",
+            "resource_type": "software"
+	}
     ]
 }
