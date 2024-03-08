@@ -25,7 +25,13 @@
             "identifier": "https://pypi.org/project/pyeee/",
             "relation": "isIdenticalTo",
             "resource_type": "software"
-        }
+        },
+        {
+            "scheme": "url",
+            "identifier": "https://anaconda.org/conda-forge/pyeee/",
+            "relation": "isIdenticalTo",
+            "resource_type": "software"
+	}
     ],
     "upload_type": "software",
     "keywords": [
