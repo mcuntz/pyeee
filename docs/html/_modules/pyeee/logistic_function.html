@@ -1,0 +1,979 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyeee.logistic_function &#8212; pyeee</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=d9c31d6a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyeee/logistic_function';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../contents.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pyeee</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">pyeee API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../eee.html">eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../functions.html">General functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../logistic_function.html">Logistic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../screening.html">screening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tee.html">tee</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee/issues/new?title=Issue%20on%20page%20%2F_modules/pyeee/logistic_function.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyeee.logistic_function</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Several forms of the logistic function and their first and second derivatives</span>
+
+<span class="sd">The current functions are the following. Each function has a second form with</span>
+<span class="sd">`_p` appended to the name, where parameters are given as an iterable, e.g.</span>
+<span class="sd">`logistic` and `logistic_p` = `logistic(x, *p)`:</span>
+
+<span class="sd">.. list-table::</span>
+<span class="sd">   :widths: 15 50</span>
+<span class="sd">   :header-rows: 1</span>
+
+<span class="sd">   * - Function</span>
+<span class="sd">     - Description</span>
+<span class="sd">   * - logistic</span>
+<span class="sd">     - Logistic function `L/(1+exp(-k(x-x0)))`</span>
+<span class="sd">   * - dlogistic</span>
+<span class="sd">     - First derivative of logistic function</span>
+<span class="sd">   * - d2logistic</span>
+<span class="sd">     - Second derivative of logistic function</span>
+<span class="sd">   * - logistic_offset</span>
+<span class="sd">     - logistic function with offset `L/(1+exp(-k(x-x0))) + a`</span>
+<span class="sd">   * - dlogistic_offset</span>
+<span class="sd">     - First derivative of logistic function with offset</span>
+<span class="sd">   * - d2logistic_offset</span>
+<span class="sd">     - Second derivative of logistic function with offset</span>
+<span class="sd">   * - logistic2_offset</span>
+<span class="sd">     - Double logistic function with offset</span>
+<span class="sd">       `L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a`</span>
+<span class="sd">   * - dlogistic2_offset</span>
+<span class="sd">     - First derivative of double logistic function with offset</span>
+<span class="sd">   * - d2logistic2_offset</span>
+<span class="sd">     - Second derivative of double logistic function with offset</span>
+
+<span class="sd">This module was written by Matthias Cuntz while at Department of</span>
+<span class="sd">Computational Hydrosystems, Helmholtz Centre for Environmental</span>
+<span class="sd">Research - UFZ, Leipzig, Germany, and continued while at Institut</span>
+<span class="sd">National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et</span>
+<span class="sd">l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2015-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">Functions:</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   logistic</span>
+<span class="sd">   logistic_p</span>
+<span class="sd">   dlogistic</span>
+<span class="sd">   dlogistic_p</span>
+<span class="sd">   d2logistic</span>
+<span class="sd">   d2logistic_p</span>
+<span class="sd">   logistic_offset</span>
+<span class="sd">   logistic_offset_p</span>
+<span class="sd">   dlogistic_offset</span>
+<span class="sd">   dlogistic_offset_p</span>
+<span class="sd">   d2logistic_offset</span>
+<span class="sd">   d2logistic_offset_p</span>
+<span class="sd">   logistic2_offset</span>
+<span class="sd">   logistic2_offset_p</span>
+<span class="sd">   dlogistic2_offset</span>
+<span class="sd">   dlogistic2_offset_p</span>
+<span class="sd">   d2logistic2_offset</span>
+<span class="sd">   d2logistic2_offset_p</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Mar 2015 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Added functions logistic_p and logistic_offset_p,</span>
+<span class="sd">      Dec 2017, Matthias Cuntz</span>
+<span class="sd">    * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz</span>
+<span class="sd">    * Distinguish iterable and array_like parameter types,</span>
+<span class="sd">      Jan 2020, Matthias Cuntz</span>
+<span class="sd">    * Make systematically function_p versions of all logistic functions and its</span>
+<span class="sd">      derivatives, Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Split logistic and curvature into separate files,</span>
+<span class="sd">      May 2020, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span> <span class="k">as</span> <span class="nn">sp</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;logistic_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;dlogistic&#39;</span><span class="p">,</span> <span class="s1">&#39;dlogistic_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;d2logistic&#39;</span><span class="p">,</span> <span class="s1">&#39;d2logistic_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;logistic_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;logistic_offset_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;dlogistic_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;dlogistic_offset_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;d2logistic_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;d2logistic_offset_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;logistic2_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;logistic2_offset_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;dlogistic2_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;dlogistic2_offset_p&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;d2logistic2_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;d2logistic2_offset_p&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># a/(1+exp(-b(x-c))) - logistic function</span>
+<div class="viewcode-block" id="logistic">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.logistic">[docs]</a>
+<span class="k">def</span> <span class="nf">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logistic function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L/(1+exp(-k(x-x0)))</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute logistic function</span>
+<span class="sd">    L : float</span>
+<span class="sd">        Maximum of logistic function</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Steepness of logistic function</span>
+<span class="sd">    x0 : float</span>
+<span class="sd">        Inflection point of logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        Logistic function at *x* with maximum *L*, steepness *k* and inflection</span>
+<span class="sd">        point *x0*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">L</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">expit</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="logistic_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.logistic_p">[docs]</a>
+<span class="k">def</span> <span class="nf">logistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`logistic`: `logistic(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># 1st derivative of logistic functions</span>
+<div class="viewcode-block" id="dlogistic">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.dlogistic">[docs]</a>
+<span class="k">def</span> <span class="nf">dlogistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    First derivative of :func:`logistic` function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L/(1+exp(-k(x-x0)))</span>
+
+<span class="sd">    which is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       k.L/(2(cosh(k(x-x0))+1))</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute derivative of logistic function</span>
+<span class="sd">    L : float</span>
+<span class="sd">        Maximum of logistic function</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Steepness of logistic function</span>
+<span class="sd">    x0 : float</span>
+<span class="sd">        Inflection point of logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        First derivative of logistic function at *x* with maximum *L*,</span>
+<span class="sd">        steepness *k* and inflection point *x0*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">k</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="dlogistic_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.dlogistic_p">[docs]</a>
+<span class="k">def</span> <span class="nf">dlogistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`dlogistic`: `dlogistic(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dlogistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># 2nd derivative of logistic functions</span>
+<div class="viewcode-block" id="d2logistic">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.d2logistic">[docs]</a>
+<span class="k">def</span> <span class="nf">d2logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Second derivative of :func:`logistic` function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L/(1+exp(-k(x-x0)))</span>
+
+<span class="sd">    which is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       -k^2.L.sinh(k(x-x0))/(2(cosh(k(x-x0))+1)^2)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute derivative of logistic function</span>
+<span class="sd">    L : float</span>
+<span class="sd">        Maximum of logistic function</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Steepness of logistic function</span>
+<span class="sd">    x0 : float</span>
+<span class="sd">        Inflection point of logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        Second derivative of logistic function at *x* with maximum *L*,</span>
+<span class="sd">        steepness *k* and inflection point *x0*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="o">-</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">/</span>
+             <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="d2logistic_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.d2logistic_p">[docs]</a>
+<span class="k">def</span> <span class="nf">d2logistic_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`d2logistic`: `d2logistic(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">d2logistic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># L/(1+exp(-k(x-x0))) + a - logistic function with offset</span>
+<div class="viewcode-block" id="logistic_offset">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.logistic_offset">[docs]</a>
+<span class="k">def</span> <span class="nf">logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logistic function with offset</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L/(1+exp(-k(x-x0))) + a</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute logistic function</span>
+<span class="sd">    L : float</span>
+<span class="sd">        Maximum of logistic function</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Steepness of logistic function</span>
+<span class="sd">    x0 : float</span>
+<span class="sd">        Inflection point of logistic function</span>
+<span class="sd">    a : float</span>
+<span class="sd">        Offset of logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        Logistic function at *x* with maximum *L*, steepness *k*, inflection</span>
+<span class="sd">        point *x0* and offset *a*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">L</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">expit</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">+</span> <span class="n">a</span></div>
+
+
+
+<div class="viewcode-block" id="logistic_offset_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.logistic_offset_p">[docs]</a>
+<span class="k">def</span> <span class="nf">logistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`logistic_offset`: `logistic_offset(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># 1st derivative of logistic functions with offset</span>
+<div class="viewcode-block" id="dlogistic_offset">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.dlogistic_offset">[docs]</a>
+<span class="k">def</span> <span class="nf">dlogistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    First derivative of :func:`logistic_offset` function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L/(1+exp(-k(x-x0))) + a</span>
+
+<span class="sd">    which is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       k.L/(2(cosh(k(x-x0))+1))</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute derivative of logistic function</span>
+<span class="sd">    L : float</span>
+<span class="sd">        Maximum of logistic function</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Steepness of logistic function</span>
+<span class="sd">    x0 : float</span>
+<span class="sd">        Inflection point of logistic function</span>
+<span class="sd">    a : float</span>
+<span class="sd">        Offset of logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        First derivative of logistic function with offset at *x* with maximum</span>
+<span class="sd">        *L*, steepness *k*, inflection point *x0*, and offset *a*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">k</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="dlogistic_offset_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.dlogistic_offset_p">[docs]</a>
+<span class="k">def</span> <span class="nf">dlogistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`dlogistic_offset`: `dlogistic_offset(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dlogistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># 2nd derivative of logistic functions with offset</span>
+<div class="viewcode-block" id="d2logistic_offset">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.d2logistic_offset">[docs]</a>
+<span class="k">def</span> <span class="nf">d2logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Second derivative of :func:`logistic_offset` function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L/(1+exp(-k(x-x0))) + a</span>
+
+<span class="sd">    which is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       -k^2.L.sinh(k(x-x0))/(2(cosh(k(x-x0))+1)^2)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute derivative of logistic function</span>
+<span class="sd">    L : float</span>
+<span class="sd">        Maximum of logistic function</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Steepness of logistic function</span>
+<span class="sd">    x0 : float</span>
+<span class="sd">        Inflection point of logistic function</span>
+<span class="sd">    a : float</span>
+<span class="sd">        Offset of logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        Second derivative of logistic function at *x* with maximum *L*,</span>
+<span class="sd">        steepness *k*, inflection point *x0*, and offset *a*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="o">-</span><span class="n">k</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">/</span>
+             <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="d2logistic_offset_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.d2logistic_offset_p">[docs]</a>
+<span class="k">def</span> <span class="nf">d2logistic_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`d2logistic_offset`: `d2logistic_offset(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">d2logistic_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># L/(1+exp(-k(x-x0))) + a - logistic function with offset</span>
+<div class="viewcode-block" id="logistic2_offset">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.logistic2_offset">[docs]</a>
+<span class="k">def</span> <span class="nf">logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Double logistic function with offset</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute logistic function</span>
+<span class="sd">    L1 : float</span>
+<span class="sd">        Maximum of first logistic function</span>
+<span class="sd">    k1 : float</span>
+<span class="sd">        Steepness of first logistic function</span>
+<span class="sd">    x01 : float</span>
+<span class="sd">        Inflection point of first logistic function</span>
+<span class="sd">    L2 : float</span>
+<span class="sd">        Maximum of second logistic function</span>
+<span class="sd">    k2 : float</span>
+<span class="sd">        Steepness of second logistic function</span>
+<span class="sd">    x02 : float</span>
+<span class="sd">        Inflection point of second logistic function</span>
+<span class="sd">    a : float</span>
+<span class="sd">        Offset of double logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        Double Logistic function at *x*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">expit</span><span class="p">(</span><span class="n">k1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x01</span><span class="p">))</span> <span class="o">-</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">expit</span><span class="p">(</span><span class="n">k2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x02</span><span class="p">))</span> <span class="o">+</span> <span class="n">a</span></div>
+
+
+
+<div class="viewcode-block" id="logistic2_offset_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.logistic2_offset_p">[docs]</a>
+<span class="k">def</span> <span class="nf">logistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`logistic2_offset`: `logistic2_offset(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># 1st derivative of logistic functions with offset</span>
+<div class="viewcode-block" id="dlogistic2_offset">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.dlogistic2_offset">[docs]</a>
+<span class="k">def</span> <span class="nf">dlogistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    First derivative of :func:`logistic2_offset` function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a</span>
+
+<span class="sd">    which is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       k1.L1/(2(cosh(k1(x-x01))+1)) - k2.L2/(2(cosh(k2(x-x02))+1))</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute logistic function</span>
+<span class="sd">    L1 : float</span>
+<span class="sd">        Maximum of first logistic function</span>
+<span class="sd">    k1 : float</span>
+<span class="sd">        Steepness of first logistic function</span>
+<span class="sd">    x01 : float</span>
+<span class="sd">        Inflection point of first logistic function</span>
+<span class="sd">    L2 : float</span>
+<span class="sd">        Maximum of second logistic function</span>
+<span class="sd">    k2 : float</span>
+<span class="sd">        Steepness of second logistic function</span>
+<span class="sd">    x02 : float</span>
+<span class="sd">        Inflection point of second logistic function</span>
+<span class="sd">    a : float</span>
+<span class="sd">        Offset of double logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        First derivative of double logistic function with offset at *x*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="n">k1</span> <span class="o">*</span> <span class="n">L1</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x01</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">))</span> <span class="o">-</span>
+             <span class="n">k2</span> <span class="o">*</span> <span class="n">L2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x02</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">))</span> <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="dlogistic2_offset_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.dlogistic2_offset_p">[docs]</a>
+<span class="k">def</span> <span class="nf">dlogistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`dlogistic2_offset`: `dlogistic2_offset(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dlogistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+<span class="c1"># 2nd derivative of logistic functions with offset</span>
+<div class="viewcode-block" id="d2logistic2_offset">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.d2logistic2_offset">[docs]</a>
+<span class="k">def</span> <span class="nf">d2logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">x01</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">x02</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Second derivative of :func:`logistic_offset` function</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       L1/(1+exp(-k1(x-x01))) - L2/(1+exp(-k2(x-x02))) + a</span>
+
+<span class="sd">    which is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       - k1^2.L1.sinh(k1(x-x01)) / (2(cosh(k1(x-x01))+1)^2)</span>
+<span class="sd">       + k2^2.L2.sinh(k2(x-x02)) / (2(cosh(k2(x-x02))+1)^2)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        Independent variable to evalute logistic function</span>
+<span class="sd">    L1 : float</span>
+<span class="sd">        Maximum of first logistic function</span>
+<span class="sd">    k1 : float</span>
+<span class="sd">        Steepness of first logistic function</span>
+<span class="sd">    x01 : float</span>
+<span class="sd">        Inflection point of first logistic function</span>
+<span class="sd">    L2 : float</span>
+<span class="sd">        Maximum of second logistic function</span>
+<span class="sd">    k2 : float</span>
+<span class="sd">        Steepness of second logistic function</span>
+<span class="sd">    x02 : float</span>
+<span class="sd">        Inflection point of second logistic function</span>
+<span class="sd">    a : float</span>
+<span class="sd">        Offset of double logistic function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or ndarray</span>
+<span class="sd">        Second derivative of double logistic function with offset at *x*</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="o">-</span><span class="n">k1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">k1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x01</span><span class="p">))</span> <span class="o">/</span>
+             <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x01</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+             <span class="n">k2</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">k2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x02</span><span class="p">))</span> <span class="o">/</span>
+             <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">k2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x02</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="d2logistic2_offset_p">
+<a class="viewcode-back" href="../../logistic_function.html#pyeee.logistic_function.d2logistic2_offset_p">[docs]</a>
+<span class="k">def</span> <span class="nf">d2logistic2_offset_p</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for</span>
+<span class="sd">    :func:`d2logistic2_offset`: `d2logistic2_offset(x, *p)`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">d2logistic2_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -----------------------------------------------------------</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+
+    <span class="c1"># logistic(1., 1., 0., 2.)</span>
+    <span class="c1"># # 0.5</span>
+    <span class="c1"># logistic(1., 1., 2., 1.)</span>
+    <span class="c1"># # 0.5</span>
+    <span class="c1"># logistic(2., 1., 1., 1.)</span>
+    <span class="c1"># # 1./(1.+np.exp(-1.))</span>
+    <span class="c1"># # 0.7310585786300049</span>
+    <span class="c1"># logistic_p(1., [1., 0., 2.])</span>
+    <span class="c1"># logistic_p(1., [1., 2., 1.])</span>
+    <span class="c1"># logistic_p(2., [1., 1., 1.])</span>
+    <span class="c1"># logistic_offset(1., 1., 0., 2., 1.)</span>
+    <span class="c1"># logistic_offset(1., 1., 2., 1., 1.)</span>
+    <span class="c1"># # 1.5</span>
+    <span class="c1"># logistic_offset(2., 1., 1., 1., 1.)</span>
+    <span class="c1"># # 1./(1.+np.exp(-1.)) + 1.</span>
+    <span class="c1"># # 1.7310585786300049</span>
+    <span class="c1"># logistic_offset_p(1., [1., 0., 2., 1.])</span>
+    <span class="c1"># logistic_offset_p(1., [1., 2., 1., 1.])</span>
+    <span class="c1"># logistic_offset_p(2., [1., 1., 1., 1.])</span>
+    <span class="c1"># logistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.)</span>
+    <span class="c1"># # 0.5</span>
+    <span class="c1"># logistic2_offset_p(1.,  [1., 2., 1.,  2., 2., 1.,  1.])</span>
+    <span class="c1"># dlogistic(1., 1., 2., 1.)</span>
+    <span class="c1"># # 0.5</span>
+    <span class="c1"># dlogistic_offset(1., 1., 2., 1., 1.)</span>
+    <span class="c1"># # 0.5</span>
+    <span class="c1"># dlogistic2_offset(1.,  1., 2., 1.,  2., 2., 1.,  1.)</span>
+    <span class="c1"># # -0.5</span>
+    <span class="c1"># print(np.around(d2logistic(1., 1., 2., 2.),4))</span>
+    <span class="c1"># # 0.3199</span>
+    <span class="c1"># print(np.around(d2logistic_offset(1., 1., 2., 2., 1.),4))</span>
+    <span class="c1"># # 0.3199</span>
+    <span class="c1"># print(np.around(d2logistic2_offset(1., 1., 2., 2.,  2., 2., 2.,  1.),4))</span>
+    <span class="c1"># # -0.3199</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2016-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

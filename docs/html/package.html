@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -33,18 +33,18 @@
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="_static/documentation_options.js?v=352e9ff0"></script>
+    <script src="_static/documentation_options.js?v=d9c31d6a"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'package';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyeee.eee" href="eee.html" />
+    <link rel="next" title="eee" href="eee.html" />
     <link rel="prev" title="User Guide" href="userguide.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -58,7 +58,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -98,13 +97,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -154,7 +150,12 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">pyeee API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="eee.html">pyeee.eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eee.html">eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">General functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html">Logistic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screening.html">screening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tee.html">tee</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -424,32 +425,74 @@ Feb 2020, Matthias Cuntz</p></li>
 Feb 2020, Matthias Cuntz</p></li>
 <li><p>v0.7, systematically logistic_p versions, and keep formatting with
 substitution functions, Feb 2020, Matthias Cuntz</p></li>
-<li><p>v0.8, Split tests into individual files per module, and small bug fixes
+<li><p>v0.8, split tests into individual files per module, and small bug fixes
 in tests and error handling, Feb 2020, Matthias Cuntz</p></li>
-<li><p>v0.9, Renamed morris.py to morris_method.py and adapted args and kwargs
+<li><p>v0.9, renamed morris.py to morris_method.py and adapted args and kwargs
 to common names in pyeee, Feb 2020, Matthias Cuntz</p></li>
-<li><p>v1.0, Restructured package with functions and utils subpackages,
+<li><p>v1.0, restructured package with functions and utils subpackages,
 Feb 2020, Matthias Cuntz</p></li>
-<li><p>v1.1, Number of final trajectories is argument instead of keyword,
+<li><p>v1.1, number of final trajectories is argument instead of keyword,
 Feb 2020, Matthias Cuntz</p></li>
-<li><p>v1.2, Sample not only from uniform distribution but allow all
+<li><p>v1.2, sample not only from uniform distribution but allow all
 distributions of scipy.stats, Apr 2020, Matthias Cuntz</p></li>
-<li><p>v2.0, Restructure: take wrappers and I/O from partialwrap, take function
+<li><p>v2.0, restructure: take wrappers and I/O from partialwrap, take function
 directory from jams, Jun 2020, Matthias Cuntz</p></li>
 <li><p>v2.1, include subpackages in const, functions in setup.py,
 Sep 2020, Matthias Cuntz</p></li>
 <li><p>v3.0, use pyjams package, Oct 2021, Matthias Cuntz</p></li>
 <li><p>v4.0, modernise code structure and documentation,
 Feb 2024, Matthias Cuntz</p></li>
+<li><p>v4.1, add pyeee to conda-forge, Mar 2024, Matthias Cuntz</p></li>
+<li><p>v5.0, remove dependency to pyjams, Mar 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
 </section>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="eee.html">pyeee.eee</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="eee.html">eee</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="eee.html#pyeee.eee.eee"><code class="docutils literal notranslate"><span class="pre">eee()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="eee.html#pyeee.eee.see"><code class="docutils literal notranslate"><span class="pre">see()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">General functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyeee.functions.cost_square"><code class="docutils literal notranslate"><span class="pre">cost_square()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#pyeee.functions.curvature"><code class="docutils literal notranslate"><span class="pre">curvature()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logistic_function.html">Logistic function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.d2logistic"><code class="docutils literal notranslate"><span class="pre">d2logistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.d2logistic2_offset"><code class="docutils literal notranslate"><span class="pre">d2logistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.d2logistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">d2logistic2_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.d2logistic_offset"><code class="docutils literal notranslate"><span class="pre">d2logistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.d2logistic_offset_p"><code class="docutils literal notranslate"><span class="pre">d2logistic_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.d2logistic_p"><code class="docutils literal notranslate"><span class="pre">d2logistic_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.dlogistic"><code class="docutils literal notranslate"><span class="pre">dlogistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.dlogistic2_offset"><code class="docutils literal notranslate"><span class="pre">dlogistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.dlogistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">dlogistic2_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.dlogistic_offset"><code class="docutils literal notranslate"><span class="pre">dlogistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.dlogistic_offset_p"><code class="docutils literal notranslate"><span class="pre">dlogistic_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.dlogistic_p"><code class="docutils literal notranslate"><span class="pre">dlogistic_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.logistic"><code class="docutils literal notranslate"><span class="pre">logistic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.logistic2_offset"><code class="docutils literal notranslate"><span class="pre">logistic2_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.logistic2_offset_p"><code class="docutils literal notranslate"><span class="pre">logistic2_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.logistic_offset"><code class="docutils literal notranslate"><span class="pre">logistic_offset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.logistic_offset_p"><code class="docutils literal notranslate"><span class="pre">logistic_offset_p()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html#pyeee.logistic_function.logistic_p"><code class="docutils literal notranslate"><span class="pre">logistic_p()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html#pyeee.morris_method.elementary_effects"><code class="docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html#pyeee.morris_method.morris_sampling"><code class="docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="screening.html">screening</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="screening.html#pyeee.screening.ee"><code class="docutils literal notranslate"><span class="pre">ee()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="screening.html#pyeee.screening.screening"><code class="docutils literal notranslate"><span class="pre">screening()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tee.html">tee</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tee.html#pyeee.tee.tee"><code class="docutils literal notranslate"><span class="pre">tee()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -481,7 +524,7 @@ Feb 2024, Matthias Cuntz</p></li>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">pyeee.eee</p>
+        <p class="prev-next-title">eee</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -551,8 +594,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

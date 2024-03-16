@@ -3,7 +3,7 @@
 This is the unittest for the Efficient/Sequential Elementary Effects module.
 
 python -m unittest -v tests/test_eee.py
-python -m pytest --cov=pyeee --cov-report term-missing -v tests/test_eee.py
+python -m pytest --cov=. --cov-report term-missing -v tests/test_eee.py
 
 """
 import unittest
@@ -46,7 +46,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         from pyeee import eee
         from partialwrap import function_wrapper
-        from pyjams.functions import G
+        from .sa_test_functions import G
 
         # Function and parameters
         func   = G
@@ -76,7 +76,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         from pyeee import see
         from partialwrap import function_wrapper
-        from pyjams.functions import Gstar
+        from .sa_test_functions import Gstar
 
         # Function and parameters
         func   = Gstar
@@ -123,7 +123,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         import schwimmbad
         from pyeee import eee
-        from pyjams.functions import bratley
+        from .sa_test_functions import bratley
 
         # Function and parameters
         func   = bratley
@@ -158,7 +158,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         from pyeee import eee
         from partialwrap import function_wrapper
-        from pyjams.functions import fmorris
+        from .sa_test_functions import fmorris
 
         # Function and parameters
         func = fmorris
@@ -205,7 +205,7 @@ class TestEee(unittest.TestCase):
         import scipy.stats as stats
         from pyeee import eee
         from partialwrap import function_wrapper
-        from pyjams.functions import fmorris
+        from .sa_test_functions import fmorris
 
         # Function and parameters
         func = fmorris
@@ -249,7 +249,7 @@ class TestEee(unittest.TestCase):
         import numpy as np
         from pyeee import eee
         from partialwrap import function_wrapper
-        from pyjams.functions import G
+        from .sa_test_functions import G
 
         # Function and parameters
         func   = G
@@ -284,7 +284,7 @@ class TestEee(unittest.TestCase):
         import scipy.stats as stats
         from pyeee import eee
         from partialwrap import function_wrapper
-        from pyjams.functions import G
+        from .sa_test_functions import G
 
         # Function and parameters
         func   = G

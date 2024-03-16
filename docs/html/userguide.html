@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -33,11 +33,11 @@
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="_static/documentation_options.js?v=352e9ff0"></script>
+    <script src="_static/documentation_options.js?v=d9c31d6a"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -59,7 +59,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -99,20 +98,15 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -157,7 +151,12 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Quickstart</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">User Guide</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="package.html">pyeee API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="eee.html">pyeee.eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eee.html">eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">General functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logistic_function.html">Logistic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screening.html">screening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tee.html">tee</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -431,7 +430,7 @@ function callable as <cite>func(x)</cite>. One can use the package
 <p>The three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> follow uniform
 distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(+\pi\)</span>.</p>
 <p>Morris’ Elementary Effects can then be calculated using, for example,
-the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
+the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
 (<span class="math notranslate nohighlight">\(\mu*\)</span>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">screening</span>
 
@@ -453,7 +452,7 @@ the Python library <a class="reference external" href="https://mcuntz.github.io/
 <span class="c1"># gives: 72.6 0.6 14.3</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> returns an <cite>(npars, 3)</cite> ndarray,
+<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> returns an <cite>(npars, 3)</cite> ndarray,
 with <cite>(npars, 0)</cite> being the means of the absolute Elementary Effects
 over all trajectories (<span class="math notranslate nohighlight">\(\mu*\)</span>).</p>
 <p>For Elementary Effects and its sensitivity measures, see
@@ -501,8 +500,8 @@ parameters are sensitive in a small part of the parameter space, which
 was missed due to a small sample.</p>
 <p>The call of <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> (or the identical function
 <a class="reference internal" href="eee.html#pyeee.eee.see" title="pyeee.eee.see"><code class="xref py py-func docutils literal notranslate"><span class="pre">see()</span></code></a>) is very similar to standard Elementary effects
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> (or the identical function
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.ee" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a> ;-):</p>
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> (or the identical function
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.ee" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a> ;-):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
 
@@ -617,8 +616,8 @@ sets in parallel:</p>
 <span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> uses the package <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.1.dev5)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> for
-parallelisation. <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.1.dev5)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> provides a uniform interface to
+<p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> uses the package <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.2.dev2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> for
+parallelisation. <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.2.dev2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> provides a uniform interface to
 parallel processing pools and enables switching easily between local
 development (e.g. serial processing or <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>) and
 deployment on a cluster or supercomputer (e.g. via MPI or JobLib).</p>
@@ -703,8 +702,8 @@ trajectories through the possible parameter space. It assumes
 uniformly distributed parameters between a lower bound and an upper
 bound.</p>
 <p>The implementation of Morris’ Elementary Effects
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> in the Python library
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a> allows sampling parameters from other distributions than
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> in the Python library
+<a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a> allows sampling parameters from other distributions than
 uniform distributions. For example, a parameter <span class="math notranslate nohighlight">\(p\)</span> might have
 been determined by repeated experiments. One can hence determine the
 mean parameter <span class="math notranslate nohighlight">\(\overline{p}\)</span> and calculate the error of the
@@ -713,11 +712,11 @@ standard deviation of the distribution of the mean. One would thus
 sample a normal distribution with mean <span class="math notranslate nohighlight">\(\overline{p}\)</span> and a
 standard deviation <span class="math notranslate nohighlight">\(\epsilon_p\)</span> for the parameter <span class="math notranslate nohighlight">\(p\)</span> for
 determining Morris’ Elementary Effects.</p>
-<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> allows all distributions of
+<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> allows all distributions of
 mod:<cite>scipy.stats</cite>, given with the keyword <cite>dist</cite>. The parameters of
 the distributions are given as a list of tuples with the keyword
 <cite>distparam</cite>. The lower and upper bounds change their meaning if <cite>dist</cite>
-is given for a parameter: <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> samples
+is given for a parameter: <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> samples
 uniformly the Percent Point Function (ppf) of the distribution between
 lower and upper bound. The percent point function is the inverse of
 the Cumulative Distribution Function (cdf). Lower and upper bounds
@@ -746,7 +745,7 @@ distribution. This means that the lower bound would be 0.0015
 <div><ol class="arabic simple">
 <li><p>one has to give a distribution for each parameter;</p></li>
 <li><p>distributions are given as <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distribution objects;</p></li>
-<li><p>if <cite>dist</cite> is None, <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> assumes a
+<li><p>if <cite>dist</cite> is None, <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> assumes a
 uniform distribution and samples between lower and upper bound;</p></li>
 <li><p>(almost) all <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distributions take the keywords
 <cite>loc</cite> and <cite>scale</cite>. Their meaning is <em>NOT</em> mean and standard
@@ -771,7 +770,7 @@ i.e. <cite>(shape, loc, scale)</cite>.</p></li>
 <p>Remember that Morris’ method of Elementary Effects assumes uniformly
 distributed parameters and that other distributions are an extension
 of the original method.</p>
-<p><code class="docutils literal notranslate"><span class="pre">eee</span></code> uses <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> from <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>
+<p><code class="docutils literal notranslate"><span class="pre">eee</span></code> uses <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> from <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>
 internally. It consequently also offers the possibility to sample
 other distributions than uniform distributions with the keywords
 <cite>dist</cite> and <cite>distparams</cite>.</p>
@@ -1221,8 +1220,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

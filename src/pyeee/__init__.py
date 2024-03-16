@@ -46,6 +46,7 @@ History
     * v4.0, modernise code structure and documentation,
       Feb 2024, Matthias Cuntz
     * v4.1, add pyeee to conda-forge, Mar 2024, Matthias Cuntz
+    * v5.0, remove dependency to pyjams, Mar 2024, Matthias Cuntz
 
 """
 # version, author
@@ -56,8 +57,38 @@ except ImportError:  # pragma: nocover
     __version__ = "0.0.0.dev0"
 __author__  = "Matthias Cuntz, Juliane Mai"
 
-# pyeee routines
+# Efficient Elementary Effects
 from .eee import eee, see
+# helper functions
+from .functions import cost_square, curvature
+# logistic functions with first and second derivatives
+from .logistic_function import logistic, logistic_p
+from .logistic_function import dlogistic, dlogistic_p
+from .logistic_function import d2logistic, d2logistic_p
+from .logistic_function import logistic_offset, logistic_offset_p
+from .logistic_function import dlogistic_offset, dlogistic_offset_p
+from .logistic_function import d2logistic_offset, d2logistic_offset_p
+from .logistic_function import logistic2_offset, logistic2_offset_p
+from .logistic_function import dlogistic2_offset, dlogistic2_offset_p
+from .logistic_function import d2logistic2_offset, d2logistic2_offset_p
+# Morris' Method
+from .morris_method import morris_sampling, elementary_effects
+from . screening import screening, ee
+# like *nix tee utility
+from .tee import tee
 
 
-__all__ = ['eee', 'see']
+__all__ = ['eee', 'see',
+           'cost_square', 'curvature',
+           'logistic', 'logistic_p',
+           'dlogistic', 'dlogistic_p',
+           'd2logistic', 'd2logistic_p',
+           'logistic_offset', 'logistic_offset_p',
+           'dlogistic_offset', 'dlogistic_offset_p',
+           'd2logistic_offset', 'd2logistic_offset_p',
+           'logistic2_offset', 'logistic2_offset_p',
+           'dlogistic2_offset', 'dlogistic2_offset_p',
+           'd2logistic2_offset', 'd2logistic2_offset_p',
+           'morris_sampling', 'elementary_effects',
+           'screening', 'ee',
+           'tee']

@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyeee.screening &#8212; pyeee</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=d9c31d6a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyeee/screening';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../contents.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pyeee</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">pyeee API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../eee.html">eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../functions.html">General functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../logistic_function.html">Logistic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../screening.html">screening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tee.html">tee</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee/issues/new?title=Issue%20on%20page%20%2F_modules/pyeee/screening.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyeee.screening</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function for Morris&#39; method of Elementary Effects.</span>
+
+<span class="sd">This function was written by Matthias Cuntz while at Institut National de</span>
+<span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
+<span class="sd">France.</span>
+
+<span class="sd">:copyright: Copyright 2017-2022 Matthias Cuntz, see AUTHORS.rst for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following functions are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   ee</span>
+<span class="sd">   screening</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written Dec 2017 by Matthias Cuntz (mc (at) macu (dot) de)</span>
+<span class="sd">    * Output also (npara,3)-array for nt=1, Dec 2017, Matthias Cuntz</span>
+<span class="sd">    * Removed call to external programs: use exe_wrappers,</span>
+<span class="sd">      Jan 2018, Matthias Cuntz</span>
+<span class="sd">    * Function can return multiple outputs, e.g. time series,</span>
+<span class="sd">      Jan 2018, Matthias Cuntz</span>
+<span class="sd">    * Python 3: map returns iterator, so list(map), Jul 2018, Fabio Gennaretti</span>
+<span class="sd">    * Bug: default ntotal was not set if ntotal&lt;0 (but nt instead),</span>
+<span class="sd">      Dec 2019, Matthias Cuntz</span>
+<span class="sd">    * Make numpy docstring format, Dec 2019, Matthias Cuntz</span>
+<span class="sd">    * x0 optional, Jan 2020, Matthias Cuntz</span>
+<span class="sd">    * Distinguish iterable and array_like parameter types;</span>
+<span class="sd">      added seed keyword to screening/ee, Jan 2020, Matthias Cuntz</span>
+<span class="sd">    * InputError does not exist, use TypeError, Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Use new names of kwargs of morris_sampling and elementary_effects,</span>
+<span class="sd">      Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Make number of final trajectories an argument instead of a keyword</span>
+<span class="sd">      argument, Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Sample not only from uniform distribution but allow all distributions of</span>
+<span class="sd">      scipy.stats, Mar 2020, Matthias Cuntz</span>
+<span class="sd">    * Code refactoring, Sep 2021, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.morris_method</span> <span class="kn">import</span> <span class="n">morris_sampling</span><span class="p">,</span> <span class="n">elementary_effects</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;screening&#39;</span><span class="p">,</span> <span class="s1">&#39;ee&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="screening">
+<a class="viewcode-back" href="../../screening.html#pyeee.screening.screening">[docs]</a>
+<span class="k">def</span> <span class="nf">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">nsteps</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">dist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">processes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameter screening using Morris&#39; method of Elementary Effects.</span>
+
+<span class="sd">    Note, the input function must be callable as `func(x)`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func : callable</span>
+<span class="sd">        Python function callable as `func(x)` with the function parameters *x*.</span>
+<span class="sd">    lb : array_like</span>
+<span class="sd">        Lower bounds of parameters</span>
+<span class="sd">        or lower fraction of percent point function ppf if distribution given.</span>
+<span class="sd">        Be aware that the percent point function *ppf* of most continuous</span>
+<span class="sd">        distributions is infinite at 0.</span>
+<span class="sd">    ub : array_like</span>
+<span class="sd">        Upper bounds of parameters</span>
+<span class="sd">        or upper fraction of percent point function ppf if distribution given.</span>
+<span class="sd">        Be aware that the percent point function *ppf* of most continuous</span>
+<span class="sd">        distributions is infinite at 1.</span>
+<span class="sd">    nt : int</span>
+<span class="sd">        Number of trajectories used for screening.</span>
+<span class="sd">    x0 : array_like, optional</span>
+<span class="sd">        Parameter values used with `mask==0`.</span>
+<span class="sd">    mask : array_like, optional</span>
+<span class="sd">        Include (1,True) or exclude (0,False) parameters in screening (default:</span>
+<span class="sd">        include all parameters).</span>
+<span class="sd">    nsteps : int, optional</span>
+<span class="sd">        Number of steps along one trajectory (default: 6)</span>
+<span class="sd">    ntotal : int, optional</span>
+<span class="sd">        Total number of sampled trajectories to select the nt most different</span>
+<span class="sd">        trajectories.</span>
+<span class="sd">        If None: `max(nt**2,10*nt)` (default: None)</span>
+<span class="sd">    dist : list, optional</span>
+<span class="sd">        List of None or scipy.stats distribution objects for each factor having</span>
+<span class="sd">        the method ppf, Percent Point Function (Inverse of CDF) (default: None).</span>
+<span class="sd">        If None, the uniform distribution will be sampled from lower bound `lb`</span>
+<span class="sd">        to upper bound `ub`.</span>
+<span class="sd">        If dist is scipy.stats.uniform, the ppf will be sampled from the lower</span>
+<span class="sd">        fraction given in `lb` and the upper fraction in `ub`. The sampling</span>
+<span class="sd">        interval is then given by the parameters `loc=lower` and</span>
+<span class="sd">        `scale=interval=upper-lower` in distparam. This means</span>
+<span class="sd">        `dist=None`, `lb=a`, `ub=b`</span>
+<span class="sd">        corresponds to</span>
+<span class="sd">        `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`</span>
+<span class="sd">    distparam : list, optional</span>
+<span class="sd">        List with tuples with parameters as required for `dist` (default:</span>
+<span class="sd">        (0, 1)).</span>
+<span class="sd">        All distributions of scipy.stats have location and scale parameters, at</span>
+<span class="sd">        least. `loc` and `scale` are implemented as keyword arguments in</span>
+<span class="sd">        scipy.stats. Other parameters such as the shape parameter of the gamma</span>
+<span class="sd">        distribution must hence be given first, e.g. `(shape,loc,scale)` for</span>
+<span class="sd">        the gamma distribution.</span>
+<span class="sd">        `distparam` is ignored if `dist` is None.</span>
+<span class="sd">        The percent point function *ppf* is called like this:</span>
+<span class="sd">        `dist(*distparam).ppf(x)`</span>
+<span class="sd">    seed : int or array_like</span>
+<span class="sd">        Seed for numpy&#39;s random number generator (default: None).</span>
+<span class="sd">    processes : int, optional</span>
+<span class="sd">        The number of processes to use to evaluate objective function and</span>
+<span class="sd">        constraints (default: 1).</span>
+<span class="sd">    pool : `schwimmbad` pool object, optional</span>
+<span class="sd">        Generic map function used from module `schwimmbad</span>
+<span class="sd">        &lt;https://schwimmbad.readthedocs.io/en/latest/&gt;`_, which provides,</span>
+<span class="sd">        serial, multiprocessor, and MPI mapping functions (default: None).</span>
+<span class="sd">        The pool will be chosen automatically if `pool` is None. It is chosen</span>
+<span class="sd">        with:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           schwimmbad.choose_pool(mpi=True/False, processes=processes).</span>
+
+<span class="sd">        MPI pools can only be opened and closed once. If you want to use</span>
+<span class="sd">        screening several times in one program, then you have to choose the</span>
+<span class="sd">        pool, pass it to screening, and later close the pool in the calling</span>
+<span class="sd">        program.</span>
+
+<span class="sd">    verbose : int, optional</span>
+<span class="sd">        Print progress report during execution if `verbose&gt;0` (default: 0).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (nparameter, 3) ndarray</span>
+<span class="sd">        2D-array with 3 entries per parameters:</span>
+
+<span class="sd">            1. mean of absolute elementary effects over all nt trajectories</span>
+<span class="sd">               (`mu*`)</span>
+<span class="sd">            2. mean of elementary effects over all nt trajectories (`mu`)</span>
+<span class="sd">            3. standard deviation of elementary effects over all</span>
+<span class="sd">               nt trajectories (`sigma`) or zero if `nt==1`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from functools import partial</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from partialwrap import function_wrapper</span>
+<span class="sd">    &gt;&gt;&gt; from pyjams.functions import fmorris</span>
+<span class="sd">    &gt;&gt;&gt; seed = 1023</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(seed=seed)</span>
+<span class="sd">    &gt;&gt;&gt; npars = 20</span>
+<span class="sd">    &gt;&gt;&gt; beta0              = 0.</span>
+<span class="sd">    &gt;&gt;&gt; beta1              = np.random.standard_normal(npars)</span>
+<span class="sd">    &gt;&gt;&gt; beta1[:10]         = 20.</span>
+<span class="sd">    &gt;&gt;&gt; beta2              = np.random.standard_normal((npars,npars))</span>
+<span class="sd">    &gt;&gt;&gt; beta2[:6,:6]       = -15.</span>
+<span class="sd">    &gt;&gt;&gt; beta3              = np.zeros((npars,npars,npars))</span>
+<span class="sd">    &gt;&gt;&gt; beta3[:5,:5,:5]    = -10.</span>
+<span class="sd">    &gt;&gt;&gt; beta4              = np.zeros((npars,npars,npars,npars))</span>
+<span class="sd">    &gt;&gt;&gt; beta4[:4,:4,:4,:4] = 5.</span>
+<span class="sd">    &gt;&gt;&gt; arg   = [beta0, beta1, beta2, beta3, beta4]</span>
+<span class="sd">    &gt;&gt;&gt; kwarg = {}</span>
+<span class="sd">    &gt;&gt;&gt; func  = partial(function_wrapper, fmorris, arg, kwarg)</span>
+<span class="sd">    &gt;&gt;&gt; lb    = np.zeros(npars)</span>
+<span class="sd">    &gt;&gt;&gt; ub    = np.ones(npars)</span>
+<span class="sd">    &gt;&gt;&gt; nt      = 20</span>
+<span class="sd">    &gt;&gt;&gt; ntotal  = 10*nt</span>
+<span class="sd">    &gt;&gt;&gt; nsteps  = 6</span>
+<span class="sd">    &gt;&gt;&gt; verbose = 0</span>
+<span class="sd">    &gt;&gt;&gt; out = screening(func, lb, ub, nt, x0=None, mask=None,</span>
+<span class="sd">    ...                 nsteps=nsteps, ntotal=ntotal, processes=4,</span>
+<span class="sd">    ...                 verbose=verbose)</span>
+<span class="sd">    &gt;&gt;&gt; print(out[0:3,0])</span>
+<span class="sd">    [60.7012889  67.33372626 48.46673528]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get MPI communicator</span>
+    <span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+        <span class="n">comm</span>  <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+        <span class="n">csize</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+        <span class="n">crank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="n">comm</span>  <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">csize</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">crank</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Checks</span>
+    <span class="c1"># Bounds</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ub</span><span class="p">),</span> <span class="p">(</span>
+        <span class="s1">&#39;Lower- and upper-bounds must have the same lengths.&#39;</span><span class="p">)</span>
+    <span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span>
+    <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ub</span><span class="p">)</span>
+    <span class="c1"># Mask</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">ub</span> <span class="o">&gt;=</span> <span class="n">lb</span><span class="p">),</span> <span class="p">(</span>
+            <span class="s1">&#39;All upper-bounds must be greater or equal than lower-bounds.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ub</span><span class="p">),</span> <span class="p">(</span>
+            <span class="s1">&#39;Mask and bounds must have the same lengths.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;x0 must be given if mask is set&#39;</span><span class="p">)</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span> <span class="p">(</span>
+                <span class="s1">&#39;Mask and x0 must have the same lengths.&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">ub</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">lb</span><span class="p">[</span><span class="n">mask</span><span class="p">]),</span> <span class="p">(</span>
+            <span class="s1">&#39;All unmasked upper-bounds must be greater or equal than&#39;</span>
+            <span class="s1">&#39; lower-bounds.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Set defaults</span>
+    <span class="n">npara</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">imask</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npara</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">imask</span>  <span class="o">=</span> <span class="n">mask</span>
+    <span class="n">nmask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imask</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ntotal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ntotal</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nt</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">nt</span><span class="p">)</span>
+
+    <span class="c1"># Seed random number generator</span>
+    <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="c1"># same on all ranks because trajectories are sampled on all ranks</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="c1"># Sample trajectories</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sample trajectories&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dist</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">idist</span>      <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">idistparam</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">idist</span>      <span class="o">=</span> <span class="p">[</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+        <span class="n">idistparam</span> <span class="o">=</span> <span class="p">[</span> <span class="n">distparam</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">imask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+    <span class="n">tmatrix</span><span class="p">,</span> <span class="n">tvec</span> <span class="o">=</span> <span class="n">morris_sampling</span><span class="p">(</span><span class="n">nmask</span><span class="p">,</span> <span class="n">lb</span><span class="p">[</span><span class="n">imask</span><span class="p">],</span> <span class="n">ub</span><span class="p">[</span><span class="n">imask</span><span class="p">],</span> <span class="n">nt</span><span class="p">,</span>
+                                    <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="n">ntotal</span><span class="p">,</span>
+                                    <span class="n">dist</span><span class="o">=</span><span class="n">idist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">idistparam</span><span class="p">,</span>
+                                    <span class="n">Diagnostic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tmatrix</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Set input vector to trajectories and masked elements = x0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">tvec</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tvec</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">npara</span><span class="p">)</span>  <span class="c1"># default to x0</span>
+        <span class="n">x</span><span class="p">[:,</span> <span class="n">imask</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmatrix</span>  <span class="c1"># replaced unmasked with trajectorie values</span>
+
+    <span class="c1"># Choose the right mapping function: single, multiprocessor or mpi</span>
+    <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">schwimmbad</span>
+        <span class="n">ipool</span> <span class="o">=</span> <span class="n">schwimmbad</span><span class="o">.</span><span class="n">choose_pool</span><span class="p">(</span><span class="n">mpi</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">csize</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
+                                       <span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ipool</span> <span class="o">=</span> <span class="n">pool</span>
+
+    <span class="c1"># Calculate all model runs</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculate objective functions&#39;</span><span class="p">)</span>
+    <span class="n">fx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ipool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+
+    <span class="c1"># Calc elementary effects</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">crank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculate elementary effects&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fx</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">fx</span>  <span class="o">=</span> <span class="n">fx</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">nfx</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nfx</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nfx</span><span class="p">,</span> <span class="n">npara</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nfx</span><span class="p">):</span>
+        <span class="n">sa</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">elementary_effects</span><span class="p">(</span><span class="n">nmask</span><span class="p">,</span> <span class="n">tmatrix</span><span class="p">,</span> <span class="n">tvec</span><span class="p">,</span> <span class="n">fx</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span>
+                                     <span class="n">nsteps</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Output with zero for all masked parameters</span>
+        <span class="k">if</span> <span class="n">nt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">imask</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sa</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">imask</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sa</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">imask</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">res</span>
+
+    <span class="k">if</span> <span class="n">nfx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ipool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="ee">
+<a class="viewcode-back" href="../../screening.html#pyeee.screening.ee">[docs]</a>
+<span class="k">def</span> <span class="nf">ee</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper function for :func:`screening`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">screening</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+
+    <span class="c1"># import schwimmbad</span>
+    <span class="c1"># import jams</span>
+
+    <span class="c1"># import time as ptime</span>
+    <span class="c1"># t1 = ptime.time()</span>
+
+    <span class="c1"># try:</span>
+    <span class="c1">#     from mpi4py import MPI</span>
+    <span class="c1">#     comm  = MPI.COMM_WORLD</span>
+    <span class="c1">#     csize = comm.Get_size()</span>
+    <span class="c1">#     crank = comm.Get_rank()</span>
+    <span class="c1"># except ImportError:</span>
+    <span class="c1">#     comm  = None</span>
+    <span class="c1">#     csize = 1</span>
+    <span class="c1">#     crank = 0</span>
+
+    <span class="c1"># seed = 1025</span>
+
+    <span class="c1"># if seed is not None:</span>
+    <span class="c1">#     np.random.seed(seed=seed)</span>
+
+    <span class="c1"># if False:</span>
+    <span class="c1">#     # work with global parameters</span>
+    <span class="c1">#     def morris(X):</span>
+    <span class="c1">#         return jams.functions.morris(</span>
+    <span class="c1">#             X, beta0, beta1, beta2, beta3, beta4)</span>
+    <span class="c1">#     func = morris</span>
+    <span class="c1">#     npars = 20</span>
+    <span class="c1">#     beta0              = 0.</span>
+    <span class="c1">#     beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1">#     beta1[:10]         = 20.</span>
+    <span class="c1">#     beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1">#     beta2[:6,:6]       = -15.</span>
+    <span class="c1">#     beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1">#     beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1">#     beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1">#     beta4[:4,:4,:4,:4] = 5.</span>
+    <span class="c1">#     lb    = np.zeros(npars)</span>
+    <span class="c1">#     ub    = np.ones(npars)</span>
+    <span class="c1">#     nt      = 20</span>
+    <span class="c1">#     ntotal  = 10*nt</span>
+    <span class="c1">#     nsteps  = 6</span>
+    <span class="c1">#     verbose = 1</span>
+
+    <span class="c1">#     out = screening(func, lb, ub, nt, x0=None, mask=None, nsteps=nsteps,</span>
+    <span class="c1">#                     ntotal=ntotal, processes=4, verbose=1)</span>
+
+    <span class="c1">#     t2    = ptime.time()</span>
+
+    <span class="c1">#     if crank == 0:</span>
+    <span class="c1">#         strin = (&#39;[m]: {:.1f}&#39;.format(</span>
+    <span class="c1">#             (t2-t1)/60.)</span>
+    <span class="c1">#             if (t2-t1)&gt;60. else &#39;[s]: {:d}&#39;.format(int(t2-t1)))</span>
+    <span class="c1">#         print(&#39;Time elapsed: &#39;, strin)</span>
+    <span class="c1">#         print(&#39;mu*, mu, std: &#39;, out)</span>
+    <span class="c1">#         out1 = out / out.max(axis=0)</span>
+    <span class="c1">#         mustar = out1[:,0]</span>
+    <span class="c1">#         mustar = np.sort(mustar)</span>
+    <span class="c1">#         import matplotlib.pyplot as plt</span>
+    <span class="c1">#         plt.plot(mustar, &#39;ro&#39;)</span>
+    <span class="c1">#         plt.show()</span>
+
+    <span class="c1"># if False:</span>
+    <span class="c1">#     # pass parameters</span>
+    <span class="c1">#     func = jams.functions.morris</span>
+    <span class="c1">#     npars = 20</span>
+    <span class="c1">#     lb    = np.zeros(npars)</span>
+    <span class="c1">#     ub    = np.ones(npars)</span>
+    <span class="c1">#     beta0              = 0.</span>
+    <span class="c1">#     beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1">#     beta1[:10]         = 20.</span>
+    <span class="c1">#     beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1">#     beta2[:6,:6]       = -15.</span>
+    <span class="c1">#     beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1">#     beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1">#     beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1">#     beta4[:4,:4,:4,:4] = 5.</span>
+    <span class="c1">#     args = [beta0, beta1, beta2, beta3, beta4] # Morris</span>
+    <span class="c1">#     nt = 20</span>
+    <span class="c1">#     ntotal  = 10*nt</span>
+    <span class="c1">#     nsteps = 6</span>
+    <span class="c1">#     verbose = 1</span>
+
+    <span class="c1">#     out = screening(func, lb, ub, nt, arg=args, mask=None, nsteps=nsteps,</span>
+    <span class="c1">#                     ntotal=ntotal, processes=4, verbose=1)</span>
+    <span class="c1">#     t2    = ptime.time()</span>
+
+    <span class="c1">#     if crank == 0:</span>
+    <span class="c1">#         strin = (&#39;[m]: {:.1f}&#39;.format(</span>
+    <span class="c1">#                  (t2-t1)/60.)</span>
+    <span class="c1">#                  if (t2-t1)&gt;60. else &#39;[s]: {:d}&#39;.format(int(t2-t1)))</span>
+    <span class="c1">#         print(&#39;Time elapsed: &#39;, strin)</span>
+    <span class="c1">#         print(&#39;mu*, mu, std: &#39;, out)</span>
+    <span class="c1">#         out1 = out / out.max(axis=0)</span>
+    <span class="c1">#         mustar = out1[:,0]</span>
+    <span class="c1">#         mustar = np.sort(mustar)</span>
+    <span class="c1">#         import matplotlib.pyplot as plt</span>
+    <span class="c1">#         plt.plot(mustar, &#39;ro&#39;)</span>
+    <span class="c1">#         plt.show()</span>
+
+    <span class="c1"># if False:</span>
+    <span class="c1">#     # pass parameters and pool</span>
+    <span class="c1">#     processes = 4</span>
+    <span class="c1">#     pool = schwimmbad.choose_pool(mpi=False if csize==1 else True,</span>
+    <span class="c1">#                                   processes=processes)</span>
+    <span class="c1">#     func = jams.functions.morris</span>
+    <span class="c1">#     npars = 20</span>
+    <span class="c1">#     lb    = np.zeros(npars)</span>
+    <span class="c1">#     ub    = np.ones(npars)</span>
+    <span class="c1">#     beta0              = 0.</span>
+    <span class="c1">#     beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1">#     beta1[:10]         = 20.</span>
+    <span class="c1">#     beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1">#     beta2[:6,:6]       = -15.</span>
+    <span class="c1">#     beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1">#     beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1">#     beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1">#     beta4[:4,:4,:4,:4] = 5.</span>
+    <span class="c1">#     args = [beta0, beta1, beta2, beta3, beta4] # Morris</span>
+    <span class="c1">#     nt = 20</span>
+    <span class="c1">#     ntotal  = 10*nt</span>
+    <span class="c1">#     nsteps = 6</span>
+    <span class="c1">#     verbose = 1</span>
+
+    <span class="c1">#     out = screening(func, lb, ub, nt, arg=args, mask=None,</span>
+    <span class="c1">#                     nsteps=nsteps, ntotal=ntotal,</span>
+    <span class="c1">#                     processes=processes, pool=pool, verbose=1)</span>
+    <span class="c1">#     t2    = ptime.time()</span>
+
+    <span class="c1">#     if crank == 0:</span>
+    <span class="c1">#         strin = (&#39;[m]: {:.1f}&#39;.format(</span>
+    <span class="c1">#                  (t2-t1)/60.)</span>
+    <span class="c1">#                  if (t2-t1)&gt;60. else &#39;[s]: {:d}&#39;.format(int(t2-t1)))</span>
+    <span class="c1">#         print(&#39;Time elapsed: &#39;, strin)</span>
+    <span class="c1">#         print(&#39;mu*, mu, std: &#39;, out)</span>
+    <span class="c1">#         out1 = out / out.max(axis=0)</span>
+    <span class="c1">#         mustar = out1[:,0]</span>
+    <span class="c1">#         mustar = np.sort(mustar)</span>
+    <span class="c1">#         import matplotlib.pyplot as plt</span>
+    <span class="c1">#         plt.plot(mustar, &#39;ro&#39;)</span>
+    <span class="c1">#         plt.show()</span>
+    <span class="c1">#     pool.close()</span>
+
+    <span class="c1"># # PYJAMS</span>
+    <span class="c1"># from functools import partial</span>
+    <span class="c1"># import numpy as np</span>
+    <span class="c1"># from pyjams.functions import G, Gstar, K, fmorris</span>
+    <span class="c1"># from partialwrap import function_wrapper</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # G function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = G</span>
+    <span class="c1"># npars  = 6</span>
+    <span class="c1"># params = [78., 12., 0.5, 2., 97., 33.] # G</span>
+
+    <span class="c1"># # Partialise function with fixed parameters</span>
+    <span class="c1"># arg   = [params]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># nt      = 10</span>
+    <span class="c1"># ntotal  = 50</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal,</span>
+    <span class="c1">#          nsteps=nsteps, processes=4)</span>
+    <span class="c1"># print(&#39;G&#39;)</span>
+    <span class="c1"># print(np.around(out[:,0],3))</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # G function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = G</span>
+    <span class="c1"># npars  = 6</span>
+    <span class="c1"># params = [78., 12., 0.5, 2., 97., 33.] # G</span>
+
+    <span class="c1"># # Partialise function with fixed parameters</span>
+    <span class="c1"># arg   = [params]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># nt      = 10</span>
+    <span class="c1"># ntotal  = 50</span>
+    <span class="c1"># nsteps  = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = ee(obj, lb, ub, nt, x0=None, mask=None, processes=4)</span>
+    <span class="c1"># print(&#39;G&#39;)</span>
+    <span class="c1"># print(np.around(out[:,0],3))</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Gstar function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = Gstar</span>
+    <span class="c1"># npars  = 10</span>
+    <span class="c1"># params = [[np.ones(npars),     np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],  # G*</span>
+    <span class="c1">#           [np.ones(npars),     np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],</span>
+    <span class="c1">#           [np.ones(npars)*0.5, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],</span>
+    <span class="c1">#           [np.ones(npars)*0.5, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]],</span>
+    <span class="c1">#           [np.ones(npars)*2.0, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.,  9.,  9.,  9.,  9.,  9., 9., 9., 9.]],</span>
+    <span class="c1">#           [np.ones(npars)*2.0, np.random.random(npars),</span>
+    <span class="c1">#            [0., 0.1, 0.2, 0.3, 0.4, 0.8, 1., 2., 3., 4.]]]</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># for ii in range(len(params)):</span>
+    <span class="c1">#     # Partialise function with fixed parameters</span>
+    <span class="c1">#     arg   = params[ii]</span>
+    <span class="c1">#     kwarg = {}</span>
+    <span class="c1">#     obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1">#     out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal,</span>
+    <span class="c1">#              nsteps=nsteps, processes=4)</span>
+    <span class="c1">#     print(&#39;G* &#39;, ii)</span>
+    <span class="c1">#     print(np.around(out[:,0],3))</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Bratley / K function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = K</span>
+    <span class="c1"># npars  = 10</span>
+    <span class="c1"># params = [] # K</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = ee(func, lb, ub, nt, x0=None, mask=None, ntotal=ntotal,</span>
+    <span class="c1">#          nsteps=nsteps, processes=4)</span>
+    <span class="c1"># print(&#39;K&#39;)</span>
+    <span class="c1"># print(np.around(out[:,0],3))</span>
+
+    <span class="c1"># #</span>
+    <span class="c1"># # Morris function</span>
+    <span class="c1"># # seed for reproducible results</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func = fmorris</span>
+    <span class="c1"># npars = 20</span>
+    <span class="c1"># beta0              = 0.</span>
+    <span class="c1"># beta1              = np.random.standard_normal(npars)</span>
+    <span class="c1"># beta1[:10]         = 20.</span>
+    <span class="c1"># beta2              = np.random.standard_normal((npars,npars))</span>
+    <span class="c1"># beta2[:6,:6]       = -15.</span>
+    <span class="c1"># beta3              = np.zeros((npars,npars,npars))</span>
+    <span class="c1"># beta3[:5,:5,:5]    = -10.</span>
+    <span class="c1"># beta4              = np.zeros((npars,npars,npars,npars))</span>
+    <span class="c1"># beta4[:4,:4,:4,:4] = 5.</span>
+
+    <span class="c1"># # Partialise Morris function with fixed parameters beta0-4</span>
+    <span class="c1"># arg   = [beta0, beta1, beta2, beta3, beta4]</span>
+    <span class="c1"># kwarg = {}</span>
+    <span class="c1"># obj = partial(function_wrapper, func, arg, kwarg)</span>
+
+    <span class="c1"># # eee parameters</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># verbose = 1</span>
+
+    <span class="c1"># out = ee(obj, lb, ub, nt, x0=None, mask=None, ntotal=ntotal,</span>
+    <span class="c1">#          nsteps=nsteps, processes=4)</span>
+    <span class="c1"># print(&#39;Morris&#39;)</span>
+    <span class="c1"># print(np.around(out[:,0],3))</span>
+
+    <span class="c1"># from functools import partial</span>
+    <span class="c1"># import numpy as np</span>
+    <span class="c1"># from pyjams.functions import ishigami_homma</span>
+    <span class="c1"># from partialwrap import function_mask_wrapper</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = ishigami_homma</span>
+    <span class="c1"># npars  = 3</span>
+
+    <span class="c1"># x0   = np.ones(npars)</span>
+    <span class="c1"># mask = np.ones(npars, dtype=bool)</span>
+    <span class="c1"># mask[1] = False</span>
+
+    <span class="c1"># arg   = [1., 3.]</span>
+    <span class="c1"># kwarg = {}</span>
+
+    <span class="c1"># obj = partial(function_mask_wrapper, func, x0, mask, arg, kwarg)</span>
+
+    <span class="c1"># lb = np.ones(npars) * (-np.pi)</span>
+    <span class="c1"># ub = np.ones(npars) * np.pi</span>
+    <span class="c1"># nt      = 10</span>
+    <span class="c1"># ntotal  = 50</span>
+    <span class="c1"># nsteps  = 6</span>
+
+    <span class="c1"># out = ee(obj, lb[mask], ub[mask],</span>
+    <span class="c1">#          nt, ntotal=ntotal, nsteps=nsteps,</span>
+    <span class="c1">#          processes=1)</span>
+
+    <span class="c1"># print(&#39;Ishigami-Homma&#39;)</span>
+    <span class="c1"># print(np.around(out[:,0],3))</span>
+
+    <span class="c1"># from functools import partial</span>
+    <span class="c1"># import numpy as np</span>
+    <span class="c1"># import scipy.stats as stats</span>
+    <span class="c1"># from pyjams.functions import ishigami_homma</span>
+    <span class="c1"># from partialwrap import function_mask_wrapper</span>
+    <span class="c1"># seed = 1234</span>
+    <span class="c1"># np.random.seed(seed=seed)</span>
+
+    <span class="c1"># func   = ishigami_homma</span>
+    <span class="c1"># npars  = 3</span>
+
+    <span class="c1"># x0   = np.ones(npars)</span>
+    <span class="c1"># mask = np.ones(npars, dtype=bool)</span>
+    <span class="c1"># mask[1] = False</span>
+
+    <span class="c1"># arg   = [1., 3.]</span>
+    <span class="c1"># kwarg = {}</span>
+
+    <span class="c1"># obj = partial(function_mask_wrapper, func, x0, mask, arg, kwarg)</span>
+
+    <span class="c1"># lb = np.ones(npars) * (-np.pi)</span>
+    <span class="c1"># ub = np.ones(npars) * np.pi</span>
+    <span class="c1"># dist      = [ stats.uniform for i in range(npars) ]</span>
+    <span class="c1"># distparam = [ (lb[i],ub[i]-lb[i]) for i in range(npars) ]</span>
+    <span class="c1"># lb = np.zeros(npars)</span>
+    <span class="c1"># ub = np.ones(npars)</span>
+    <span class="c1"># nt      = 10</span>
+    <span class="c1"># ntotal  = 50</span>
+    <span class="c1"># nsteps  = 6</span>
+
+    <span class="c1"># out = ee(obj, lb[mask], ub[mask],</span>
+    <span class="c1">#          nt, ntotal=ntotal, nsteps=nsteps,</span>
+    <span class="c1">#          dist=[ dist[i] for i in np.where(mask)[0] ],</span>
+    <span class="c1">#          distparam=[ distparam[i] for i in np.where(mask)[0] ],</span>
+    <span class="c1">#          processes=1)</span>
+
+    <span class="c1"># print(&#39;Ishigami-Homma dist&#39;)</span>
+    <span class="c1"># print(np.around(out[:,0],3))</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2016-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

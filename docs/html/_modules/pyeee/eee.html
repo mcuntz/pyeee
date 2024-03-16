@@ -17,12 +17,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
@@ -32,11 +32,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../../_static/documentation_options.js?v=352e9ff0"></script>
+    <script src="../../_static/documentation_options.js?v=d9c31d6a"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -55,7 +55,6 @@
   <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -95,13 +94,10 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <header>
   
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
-  </header>
 
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
@@ -153,7 +149,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../userguide.html">User Guide</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">pyeee API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../eee.html">pyeee.eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../eee.html">eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../functions.html">General functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../logistic_function.html">Logistic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../screening.html">screening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tee.html">tee</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -318,7 +319,7 @@ document.write(`
 <span class="sd">Recherche pour l&#39;Agriculture, l&#39;Alimentation et l&#39;Environnement (INRAE), Nancy,</span>
 <span class="sd">France.</span>
 
-<span class="sd">Copyright (c) 2017-2021 Matthias Cuntz - mc (at) macu (dot) de</span>
+<span class="sd">Copyright (c) 2017- Matthias Cuntz - mc (at) macu (dot) de</span>
 <span class="sd">Released under the MIT License; see LICENSE file for details.</span>
 
 <span class="sd">.. moduleauthor:: Matthias Cuntz</span>
@@ -343,14 +344,15 @@ document.write(`
 <span class="sd">      scipy.stats, Mar 2020, Matthias Cuntz</span>
 <span class="sd">    * Use pyjams package, Oct 2021, Matthias Cuntz</span>
 <span class="sd">    * Make flake8 compatible, Oct 2021, Matthias Cuntz</span>
+<span class="sd">    * Use local routines of pyeee package, Mar 2024, Matthias Cuntz</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
-<span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">screening</span><span class="p">,</span> <span class="n">tee</span>
-<span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">cost_square</span><span class="p">,</span> <span class="n">curvature</span><span class="p">,</span> <span class="n">logistic_offset_p</span>
-<span class="kn">from</span> <span class="nn">pyjams.functions</span> <span class="kn">import</span> <span class="n">dlogistic</span><span class="p">,</span> <span class="n">d2logistic</span>
+<span class="kn">from</span> <span class="nn">.screening</span> <span class="kn">import</span> <span class="n">screening</span>
+<span class="kn">from</span> <span class="nn">.tee</span> <span class="kn">import</span> <span class="n">tee</span>
+<span class="kn">from</span> <span class="nn">.functions</span> <span class="kn">import</span> <span class="n">cost_square</span><span class="p">,</span> <span class="n">curvature</span>
+<span class="kn">from</span> <span class="nn">.logistic_function</span> <span class="kn">import</span> <span class="n">dlogistic</span><span class="p">,</span> <span class="n">d2logistic</span><span class="p">,</span> <span class="n">logistic_offset_p</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eee&#39;</span><span class="p">,</span> <span class="s1">&#39;see&#39;</span><span class="p">]</span>
@@ -951,7 +953,7 @@ document.write(`
     <span class="kn">import</span> <span class="nn">doctest</span>
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
 
-    <span class="c1"># # from pyjams import tee</span>
+    <span class="c1"># # from pyeee import tee</span>
     <span class="c1"># # from pyjams.functions import fmorris</span>
 
     <span class="c1"># # # Morris with MPI</span>
@@ -1327,8 +1329,8 @@ By Matthias Cuntz
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

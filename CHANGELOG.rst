@@ -4,6 +4,10 @@ Changelog
 All notable changes after its initial development up to January 2020
 (v0.2) are documented in this file.
 
+v5.0 (??? 2024)
+    * Remove dependency to `pyjams` by copying all utilities to `pyeee`.
+      Screening and Morris' Method will be deprecated in `pyjams`.
+
 v4.1 (Mar 2024)
     * Added to conda-forge.
 

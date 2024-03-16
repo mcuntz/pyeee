@@ -1,0 +1,1555 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyeee.morris_method &#8212; pyeee</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=628480d8" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=d9c31d6a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pyeee/morris_method';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../contents.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pyeee</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../package.html">pyeee API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../eee.html">eee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../functions.html">General functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../logistic_function.html">Logistic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../screening.html">screening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tee.html">tee</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mcuntz/pyeee/issues/new?title=Issue%20on%20page%20%2F_modules/pyeee/morris_method.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pyeee.morris_method</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Morris&#39; Method of Elementary Effects.</span>
+
+<span class="sd">Module includes optimised sampling of trajectories including optional groups as</span>
+<span class="sd">well as calculation of the Morris measures mu, stddev and mu*.</span>
+
+<span class="sd">Saltelli, A., Chan, K., &amp; Scott, E. M. (2000). Sensitivity Analysis. Wiley</span>
+<span class="sd">Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504,</span>
+<span class="sd">pages 68ff</span>
+
+<span class="sd">Provided functions are:</span>
+<span class="sd">    morris_sampling - Sample trajectories in parameter space</span>
+
+<span class="sd">    elementary_effects - Calculate Elementary Effects from model</span>
+<span class="sd">    output on trajectories</span>
+
+<span class="sd">Note that the functions morris_sampling and elementary_effects are wrappers for</span>
+<span class="sd">the functions Optimized_Groups and Morris_Measure_Groups of F. Campolongo and</span>
+<span class="sd">J. Cariboni ported to Python by Stijn Van Hoey.</span>
+
+<span class="sd">This module was originally written by Stijn Van Hoey as a translation</span>
+<span class="sd">from an original Matlab code of F. Campolongo and J. Cariboni, JRC -</span>
+<span class="sd">IPSC Ispra, Varese, IT. It was adapted by Matthias Cuntz while at</span>
+<span class="sd">Department of Computational Hydrosystems, Helmholtz Centre for</span>
+<span class="sd">Environmental Research - UFZ, Leipzig, Germany, and continued while at</span>
+<span class="sd">Institut National de Recherche pour l&#39;Agriculture, l&#39;Alimentation et</span>
+<span class="sd">l&#39;Environnement (INRAE), Nancy, France.</span>
+
+<span class="sd">:copyright: Copyright 2012-2022 Stijn Van Hoey, Matthias Cuntz, see AUTHORS.rst</span>
+<span class="sd">            for details.</span>
+<span class="sd">:license: MIT License, see LICENSE for details.</span>
+
+<span class="sd">.. moduleauthor:: Matthias Cuntz</span>
+
+<span class="sd">The following wrappers are provided</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   morris_sampling</span>
+<span class="sd">   elementary_effects</span>
+
+<span class="sd">History</span>
+<span class="sd">    * Written in Matlab by F. Campolongo, J. Cariboni,</span>
+<span class="sd">      JRC - IPSC Ispra, Varese, IT.</span>
+<span class="sd">      Last Update 15 November 2005 by J. Cariboni:</span>
+<span class="sd">      http://sensitivity-analysis.jrc.ec.europa.eu/software/index.htm</span>
+<span class="sd">      now at: https://ec.europa.eu/jrc/en/samo/simlab</span>
+<span class="sd">    * Translated to Python in May 2012 by Stijn Van Hoey.</span>
+<span class="sd">    * Adapted to Python 3, etc., Oct 2013, Matthias Cuntz</span>
+<span class="sd">    * Went from exponential time increase with number of trajectories to linear</span>
+<span class="sd">      increase by using in Optimised_Groups one call to cdist from</span>
+<span class="sd">      scipy.spatial.distance and removed one loop in a loop over total number</span>
+<span class="sd">      of trajectories.</span>
+<span class="sd">      Several further little improvements on speed, Dec 2017, Matthias Cuntz</span>
+<span class="sd">    * Allow single trajectories, Dec 2017, Matthias Cuntz</span>
+<span class="sd">    * Catch degenerated case where lower bound==upper bound, return 0,</span>
+<span class="sd">      Feb 2018, Matthias Cuntz</span>
+<span class="sd">    * Use integer division operator // instead of / for trajectory length r,</span>
+<span class="sd">      Jul 2018, Fabio Genaretti</span>
+<span class="sd">    * Distance matrix is not done for all trajectories at once because of very</span>
+<span class="sd">      large memory requirement, Aug 2018, Matthias Cuntz &amp; Fabio Gennaretti</span>
+<span class="sd">    * Changed to Sphinx docstring and numpydoc, Dec 2019, Matthias Cuntz</span>
+<span class="sd">    * Distinguish iterable and array_like parameter types,</span>
+<span class="sd">      Jan 2020, Matthias Cuntz</span>
+<span class="sd">    * Remove np.matrix in Sampling_Function_2, called in Optimized_Groups to</span>
+<span class="sd">      remove numpy deprecation warnings, Jan 2020, Matthias Cuntz</span>
+<span class="sd">    * Plot diagnostic figures in png files if matplotlib installed, Feb 2020,</span>
+<span class="sd">      Matthias Cuntz</span>
+<span class="sd">    * Renamed file to morris_method.py, Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Adjusted argument and keyword argument names to be consistent with</span>
+<span class="sd">      pyeee, Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Make number of final trajectories an argument instead of a keyword</span>
+<span class="sd">      argument and sample default of 10*final trajectories,</span>
+<span class="sd">      Feb 2020, Matthias Cuntz</span>
+<span class="sd">    * Sample not only from uniform distribution but allow all distributions of</span>
+<span class="sd">      scipy.stats, Mar 2020, Matthias Cuntz</span>
+<span class="sd">    * More consistent docstrings, Jan 2022, Matthias Cuntz</span>
+<span class="sd">    * Raise Error if more than one component changed at once,</span>
+<span class="sd">      Jul 2023, Matthias Cuntz</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;morris_sampling&#39;</span><span class="p">,</span> <span class="s1">&#39;elementary_effects&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">Sampling_Function_2</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Morris sampling function</span>
+
+
+<span class="sd">    Definition</span>
+<span class="sd">    ----------</span>
+<span class="sd">    def  Sampling_Function_2(p, k, r, lb, ub, GroupMat=np.array([])):</span>
+
+
+<span class="sd">    Input</span>
+<span class="sd">    -----</span>
+<span class="sd">    p : int</span>
+<span class="sd">        number of intervals considered in [0,1]</span>
+<span class="sd">    k : int</span>
+<span class="sd">        number of factors examined (``sizea=k``).</span>
+<span class="sd">        In case groups are chosen the number of factors is stored in</span>
+<span class="sd">        ``NumFact`` and ``sizea`` becomes the number of created groups</span>
+<span class="sd">        (``sizea=GroupMat.shape[1]``).</span>
+<span class="sd">    r : int</span>
+<span class="sd">        sample size</span>
+<span class="sd">    lb : array-like of size (``sizea``,)</span>
+<span class="sd">        Lower Bound for each factor in list or array</span>
+<span class="sd">    ub : array-like of size (``sizea``,)</span>
+<span class="sd">        Upper Bound for each factor in list or array</span>
+
+
+<span class="sd">    Optional Input</span>
+<span class="sd">    --------------</span>
+<span class="sd">    GroupMat : ndarray with size (``NumFact``, ``GroupNumber``)</span>
+<span class="sd">        Array which describes the chosen groups. (default: ``np.array([])``)</span>
+<span class="sd">        Each column represents a group and its elements are set to 1</span>
+<span class="sd">        in correspondence of the factors that belong to the fixed group. All</span>
+<span class="sd">        the other elements are zero.</span>
+
+
+<span class="sd">    Output</span>
+<span class="sd">    ------</span>
+<span class="sd">    list</span>
+<span class="sd">        [``Outmatrix``, ``OutFact``]</span>
+<span class="sd">        ``Outmatrix(sizeb*r, sizea)`` for the entire sample size computed</span>
+<span class="sd">            ``In(i,j)`` matrices</span>
+<span class="sd">        ``OutFact(sizea*r)` `for the entire sample size computed ``Fact(i,1)``</span>
+<span class="sd">            vectors</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Local Variables</span>
+<span class="sd">        NumFact : number of factors examined in the case when groups are chosen</span>
+<span class="sd">        GroupNumber : Number of groups (eventually 0)</span>
+<span class="sd">        sizeb : sizea+1</span>
+<span class="sd">        randmult(sizea) : vector of random +1 and -1</span>
+<span class="sd">        perm_e(sizea) : vector of sizea random permutated indeces</span>
+<span class="sd">        fact(sizea) : vector containing the factor varied within each traj</span>
+<span class="sd">        DDo(sizea,sizea) : D* in Morris, 1991</span>
+<span class="sd">        A(sizeb,sizea) : Jk+1,k in Morris, 1991</span>
+<span class="sd">        B(sizeb,sizea) : B in Morris, 1991</span>
+<span class="sd">        Po(sizea,sizea) : P* in Morris, 1991</span>
+<span class="sd">        Bo(sizeb,sizea) : B* in Morris, 1991</span>
+<span class="sd">        Ao(sizeb) : Jk+1 in Morris, 1991</span>
+<span class="sd">        xo(sizea) : x* in Morris, 1991 (starting point for the trajectory)</span>
+<span class="sd">        In(sizeb,sizea) : for each loop orientation matrix. It corresponds to</span>
+<span class="sd">            a trajectory of k step in the parameter space and it provides a</span>
+<span class="sd">            single elementary effect per factor</span>
+<span class="sd">        Fact(sizea) : For each loop vector indicating which factor or group of</span>
+<span class="sd">            factors has been changed in each step of the trajectory</span>
+<span class="sd">        AuxMat(sizeb,sizea) : Delta*0.5*((2*B - A) * DD0 + A) in Morris, 1991.</span>
+<span class="sd">            The AuxMat is used as in Morris design for single factor analysis,</span>
+<span class="sd">            while it constitutes an intermediate step for the group analysis.</span>
+
+<span class="sd">    Note: B0 is constructed as in Morris design when groups are not considered.</span>
+
+<span class="sd">        When groups are considered the routine follows the following steps:</span>
+
+<span class="sd">           1. Creation of P0 and DD0 matrices defined in Morris for the</span>
+<span class="sd">              groups. This means that the dimensions of these 2 matrices are</span>
+<span class="sd">              (GroupNumber,GroupNumber).</span>
+
+<span class="sd">           2. Creation of AuxMat matrix with (GroupNumber+1,GroupNumber)</span>
+<span class="sd">              elements.</span>
+
+<span class="sd">           3. Definition of GroupB0 starting from AuxMat, GroupMat and P0.</span>
+
+<span class="sd">           4. The final B0 for groups is obtained as [ones(sizeb,1)*x0&#39; +</span>
+<span class="sd">              GroupB0]. The P0 permutation is present in GroupB0 and it&#39;s</span>
+<span class="sd">              not necessary to permute the matrix (ones(sizeb,1)*x0&#39;)</span>
+<span class="sd">              because it&#39;s already randomly created.</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Saltelli, A., Chan, K., &amp; Scott, E. M. (2000). Sensitivity Analysis.</span>
+<span class="sd">        Wiley Series in Probability and Statistics, John Wiley &amp; Sons,</span>
+<span class="sd">        New York, 1-504. - on page 68ff</span>
+
+
+<span class="sd">    History</span>
+<span class="sd">    -------</span>
+<span class="sd">    Written original Matlab code by F. Campolongo, J. Cariboni,</span>
+<span class="sd">        JRC - IPSC Ispra, Varese, IT</span>
+<span class="sd">        Last Update: 15 November 2005 by J.Cariboni</span>
+<span class="sd">        http://sensitivity-analysis.jrc.ec.europa.eu/software/index.htm</span>
+<span class="sd">        now at: https://ec.europa.eu/jrc/en/samo/simlab</span>
+<span class="sd">    Modified, Stijn Van Hoey, May 2012 - ported to Python</span>
+<span class="sd">              Matthias Cuntz, Oct 2013</span>
+<span class="sd">                  - adapted to JAMS Python package and ported to Python 3</span>
+<span class="sd">              Matthias Cuntz, Jan 2020 - remove np.matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Parameters and initialisation of the output matrix</span>
+    <span class="n">sizea</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="n">Delta</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">))</span>
+    <span class="n">NumFact</span> <span class="o">=</span> <span class="n">sizea</span>
+    <span class="k">if</span> <span class="n">GroupMat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">GroupMat</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="n">Groupnumber</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Groupnumber</span> <span class="o">=</span> <span class="n">GroupMat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># size(GroupMat,2)</span>
+        <span class="n">sizea</span> <span class="o">=</span> <span class="n">GroupMat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">sizeb</span> <span class="o">=</span> <span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">Outmatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(((</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">))</span>
+    <span class="n">OutFact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(((</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># For each i generate a trajectory</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="n">Fact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Construct DD0</span>
+        <span class="n">DD0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Construct B (lower triangular)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tri</span><span class="p">((</span><span class="n">sizeb</span><span class="p">),</span> <span class="n">sizea</span><span class="p">,</span> <span class="n">k</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Construct A0, A</span>
+        <span class="n">A0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">sizeb</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">A</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">sizeb</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">))</span>
+
+        <span class="c1"># Construct the permutation matrix P0. In each column of P0 one</span>
+        <span class="c1"># randomly chosen element equals 1 while all the others equal zero. P0</span>
+        <span class="c1"># tells the order in which order factors are changed in each Note that</span>
+        <span class="c1"># P0 is then used reading it by rows.</span>
+        <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">sizea</span><span class="p">)</span>
+        <span class="n">P0</span> <span class="o">=</span> <span class="n">I</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">sizea</span><span class="p">)]</span>
+
+        <span class="c1"># When groups are present the random permutation is done only on B. The</span>
+        <span class="c1"># effect is the same since the added part (A0*x0&#39;) is completely</span>
+        <span class="c1"># random.</span>
+        <span class="k">if</span> <span class="n">Groupnumber</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">GroupMat</span><span class="p">,</span> <span class="n">P0</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c1"># Compute AuxMat both for single factors and groups analysis. For</span>
+        <span class="c1"># Single factors analysis AuxMat is added to (A0*X0) and then</span>
+        <span class="c1"># permutated through P0. When groups are active AuxMat is used to build</span>
+        <span class="c1"># GroupB0. AuxMat is created considering DD0. If the element on DD0</span>
+        <span class="c1"># diagonal is 1 then AuxMat will start with zero and add Delta. If the</span>
+        <span class="c1"># element on DD0 diagonal is -1 then DD0 will start Delta and goes to</span>
+        <span class="c1"># zero.</span>
+        <span class="n">AuxMat</span> <span class="o">=</span> <span class="n">Delta</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">B</span> <span class="o">-</span> <span class="n">A</span><span class="p">,</span> <span class="n">DD0</span><span class="p">)</span> <span class="o">+</span> <span class="n">A</span><span class="p">)</span>
+
+        <span class="c1"># a --&gt; Define the random vector x0 for the factors. Note that x0 takes</span>
+        <span class="c1"># value in the hypercube</span>
+        <span class="c1"># [0,...,1-Delta]*[0,...,1-Delta]*[0,...,1-Delta]*[0,...,1-Delta]</span>
+        <span class="c1"># Original in Stijn Van Hoey&#39;s version</span>
+        <span class="c1"># xset=np.arange(0.0,1.0-Delta,1.0/(p-1))</span>
+        <span class="c1"># Jule&#39;s version from The Primer</span>
+        <span class="c1"># xset=np.arange(0.0,1.0-1.0/(p-1),1.0/(p-1))</span>
+        <span class="c1"># Matthias thinks that the difference between Python and Matlab is that</span>
+        <span class="c1"># Python is not taking the last element; therefore the following</span>
+        <span class="c1"># version</span>
+        <span class="n">xset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.00000001</span> <span class="o">-</span> <span class="n">Delta</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">xset</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># b --&gt; Compute the matrix B*, here indicated as B0. Each row in B0 is</span>
+        <span class="c1"># a trajectory for Morris Calculations. The dimension of B0 is</span>
+        <span class="c1"># (Numfactors+1,Numfactors)</span>
+        <span class="k">if</span> <span class="n">Groupnumber</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">B0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">x0</span><span class="p">)</span> <span class="o">+</span> <span class="n">AuxMat</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">B0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A0</span><span class="p">,</span> <span class="n">x0</span><span class="p">)</span> <span class="o">+</span> <span class="n">AuxMat</span><span class="p">,</span> <span class="n">P0</span><span class="p">)</span>
+
+        <span class="c1"># c --&gt; Compute values in the original intervals</span>
+        <span class="c1"># B0 has values x(i,j) in [0, 1/(p -1), 2/(p -1), ... , 1].</span>
+        <span class="c1"># To obtain values in the original intervals [lb, ub] we compute</span>
+        <span class="c1"># lb(j) + x(i,j)*(ub(j)-lb(j))</span>
+        <span class="n">In</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="p">(</span><span class="n">sizeb</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">B0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">((</span><span class="n">ub</span> <span class="o">-</span> <span class="n">lb</span><span class="p">),</span> <span class="p">(</span><span class="n">sizeb</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Create the Factor vector. Each component of this vector indicates</span>
+        <span class="c1"># which factor or group of factors has been changed in each step of the</span>
+        <span class="c1"># trajectory.</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sizea</span><span class="p">):</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ii</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;More than one component changed per step&#39;</span><span class="p">)</span>
+            <span class="n">Fact</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ii</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Enkel om vorm logisch te houden. of Fact kleiner maken</span>
+        <span class="n">Fact</span><span class="p">[</span><span class="n">sizea</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># append the create traject to the others</span>
+        <span class="n">Outmatrix</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">In</span>
+        <span class="n">OutFact</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">Fact</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">Outmatrix</span><span class="p">,</span> <span class="n">OutFact</span>
+
+
+<span class="k">def</span> <span class="nf">Optimized_Groups</span><span class="p">(</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span>
+                     <span class="n">p</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">dist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Optimisation in the choice of trajectories for Morris experiment,</span>
+<span class="sd">    that means elementary effects</span>
+
+
+<span class="sd">    Definition</span>
+<span class="sd">    ----------</span>
+<span class="sd">    def Optimized_Groups(NumFact, lb, ub, r, p=6, N=None,</span>
+<span class="sd">                         GroupMat=np.array([]), Diagnostic=0):</span>
+
+
+<span class="sd">    Input</span>
+<span class="sd">    -----</span>
+<span class="sd">    NumFact</span>
+<span class="sd">        Number of factors</span>
+<span class="sd">    lb</span>
+<span class="sd">        [NumFact] Lower bound of the uniform distribution for each factor</span>
+<span class="sd">        or lower fraction of percent point function ppf if distribution given.</span>
+<span class="sd">    ub</span>
+<span class="sd">        [NumFact] Upper bound of the uniform distribution for each factor</span>
+<span class="sd">        or upper fraction of percent point function ppf if distribution given.</span>
+<span class="sd">    r</span>
+<span class="sd">        Final number of optimal trajectories</span>
+
+
+<span class="sd">    Optional Input</span>
+<span class="sd">    --------------</span>
+<span class="sd">    p</span>
+<span class="sd">        Number of levels (default: 6)</span>
+<span class="sd">    N</span>
+<span class="sd">        Total number of trajectories. If None: N=10*r (default: None)</span>
+<span class="sd">    dist</span>
+<span class="sd">        List of None or scipy.stats distribution objects for each factor</span>
+<span class="sd">        having the method ppf, Percent Point Function (Inverse of CDF)</span>
+<span class="sd">        (default: None).</span>
+
+<span class="sd">        If None, the uniform distribution will be sampled from lower bound lb</span>
+<span class="sd">        to upper bound ub.</span>
+
+<span class="sd">        If dist is scipy.stats.uniform, the ppf will be sampled from the lower</span>
+<span class="sd">        fraction given in lb and the upper fraction in ub. The sampling</span>
+<span class="sd">        interval is then given by the parameters loc=lower and</span>
+<span class="sd">        scale=interval=upper-lower in param.</span>
+<span class="sd">    distparam</span>
+<span class="sd">        List with tuples with parameters as required for dist (default: (0,1)).</span>
+<span class="sd">        All distributions of scipy.stats have location and scale parameters,</span>
+<span class="sd">        at least. loc and scale are implemented as keyword arguments in</span>
+<span class="sd">        scipy.stats. Other parameters such as the shape parameter of the gamma</span>
+<span class="sd">        distribution must hence be given first,</span>
+<span class="sd">        e.g. (shape,loc,scale) for the gamma distribution.</span>
+<span class="sd">        distparam is ignored if dist is None.</span>
+<span class="sd">        The percent point function ppf is called like this:</span>
+<span class="sd">        dist(*distparam).ppf(x)</span>
+<span class="sd">    GroupMat</span>
+<span class="sd">        [NumFact,NumGroups] Matrix describing the groups.</span>
+<span class="sd">        (default: np.array([]))</span>
+
+<span class="sd">        Each column represents a group and its elements are set to 1 in</span>
+<span class="sd">        correspondence of the factors that belong to the fixed group. All the</span>
+<span class="sd">        other elements are zero.</span>
+<span class="sd">    Diagnostic</span>
+<span class="sd">        1=plot the histograms and compute the efficiency of the sampling or</span>
+<span class="sd">        not, 0 otherwise (default)</span>
+
+
+<span class="sd">    Output</span>
+<span class="sd">    ------</span>
+<span class="sd">    [OptMatrix, OptOutVec]</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Saltelli, A., Chan, K., &amp; Scott, E. M. (2000). Sensitivity Analysis. Wiley</span>
+<span class="sd">    Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504. -</span>
+<span class="sd">    on page 68ff</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+    <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+
+    <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">r</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span> <span class="o">==</span> <span class="n">NumFact</span><span class="p">,</span> <span class="s1">&#39;Lower bound must have length NumFact.&#39;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ub</span><span class="p">)</span> <span class="o">==</span> <span class="n">NumFact</span><span class="p">,</span> <span class="s1">&#39;Upper bound must have length NumFact.&#39;</span>
+    <span class="k">if</span> <span class="n">dist</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">dist</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;scipy.stats distribution object or&#39;</span>
+                                      <span class="s1">&#39; None has to be given for each&#39;</span>
+                                      <span class="s1">&#39; parameter.&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">dist</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span>
+                                  <span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">rv_discrete</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dd</span><span class="si">}</span><span class="s1"> is not a scipy.stats distribution&#39;</span>
+                                    <span class="sa">f</span><span class="s1">&#39; object.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># np.random.seed(seed=1025)</span>
+    <span class="c1"># Sample trajectorie between 0 and 1. Will be rescaled to specific</span>
+    <span class="c1"># distributions later.</span>
+    <span class="n">lbt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+    <span class="n">ubt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+    <span class="c1"># Version with Groups</span>
+    <span class="n">OutMatrix</span><span class="p">,</span> <span class="n">OutFact</span> <span class="o">=</span> <span class="n">Sampling_Function_2</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">lbt</span><span class="p">,</span> <span class="n">ubt</span><span class="p">,</span> <span class="n">GroupMat</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">Groupnumber</span> <span class="o">=</span> <span class="n">GroupMat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">Groupnumber</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">Groupnumber</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sizeb</span> <span class="o">=</span> <span class="n">Groupnumber</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sizeb</span> <span class="o">=</span> <span class="n">NumFact</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># Compute the distance between all pair of trajectories (sum of the</span>
+    <span class="c1"># distances between points) The distance matrix is a matrix N*N The</span>
+    <span class="c1"># distance is defined as the sum of the distances between all pairs of</span>
+    <span class="c1"># points if the two trajectories differ, 0 otherwise</span>
+    <span class="n">Dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+    <span class="n">Diff_Traj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="c1"># combine all trajectories: eg N=3: 0&amp;1; 0&amp;2; 1&amp;2 (is not dependent from</span>
+    <span class="c1"># sequence)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="n">MyDist</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span>
+                <span class="n">OutMatrix</span><span class="p">[</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">j</span><span class="p">:</span><span class="n">sizeb</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:],</span>
+                <span class="n">OutMatrix</span><span class="p">[</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">z</span><span class="p">:</span><span class="n">sizeb</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:])</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">MyDist</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">sizeb</span><span class="p">:</span>
+                <span class="c1"># Same trajectory. If the number of zeros in Dist matrix is</span>
+                <span class="c1"># equal to (NumFact+1) then the trajectory is a replica. In</span>
+                <span class="c1"># fact (NumFact+1) is the maximum number of points that two</span>
+                <span class="c1"># trajectories can have in common</span>
+                <span class="n">Dist</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+                <span class="n">Dist</span><span class="p">[</span><span class="n">z</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+                <span class="c1"># Memorise the replicated trajectory</span>
+                <span class="n">Diff_Traj</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>  <span class="c1"># the z value identifies the duplicate</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Define the distance between two trajectories as</span>
+                <span class="c1"># the minimum distance among their points</span>
+                <span class="n">dd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">MyDist</span><span class="p">)</span>
+                <span class="n">Dist</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span>
+                <span class="n">Dist</span><span class="p">[</span><span class="n">z</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span>
+
+    <span class="c1"># prepare array with excluded duplicates (alternative would be deleting</span>
+    <span class="c1"># rows)</span>
+    <span class="c1"># iidup = np.where(Diff_Traj == -1.)[0]</span>
+    <span class="c1"># dupli = iidup.size</span>
+    <span class="n">iiind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Diff_Traj</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">New_N</span> <span class="o">=</span> <span class="n">iiind</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># N - iidup.size</span>
+    <span class="n">New_OutMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">New_N</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">))</span>
+    <span class="n">New_OutFact</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">New_N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Eliminate replicated trajectories in the sampled matrix</span>
+    <span class="n">ID</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Diff_Traj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1.</span><span class="p">:</span>
+            <span class="n">New_OutMatrix</span><span class="p">[</span><span class="n">ID</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">ID</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">OutMatrix</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:])</span>
+            <span class="n">New_OutFact</span><span class="p">[</span><span class="n">ID</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">ID</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">OutFact</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:])</span>
+            <span class="n">ID</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Select in the distance matrix only the rows and columns of different</span>
+    <span class="c1">#   trajectories Dist_Diff =</span>
+    <span class="c1">#   np.delete(Dist_Diff,np.where(Diff_Traj==-1.)[0])</span>
+    <span class="c1"># moet 2D matrix zijn... wis rijen ipv hou bij</span>
+    <span class="n">Dist_Diff</span> <span class="o">=</span> <span class="n">Dist</span><span class="p">[</span><span class="n">iiind</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">Dist_Diff</span> <span class="o">=</span> <span class="n">Dist_Diff</span><span class="p">[:,</span> <span class="n">iiind</span><span class="p">]</span>
+
+    <span class="c1"># Select the optimal set of trajectories</span>
+    <span class="n">Traj_Vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">New_N</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">OptDist</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">New_N</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">New_N</span><span class="p">):</span>  <span class="c1"># each row in Traj_Vec</span>
+        <span class="n">Traj_Vec</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span>
+        <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>  <span class="c1"># elements in columns after first</span>
+            <span class="n">New_Dist_Diff</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Dist_Diff</span><span class="p">[</span><span class="n">Traj_Vec</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="p">:</span><span class="n">z</span><span class="p">],</span> <span class="p">:]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                                            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="n">New_Dist_Diff</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+            <span class="n">Traj_Vec</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">ii</span>
+            <span class="n">OptDist</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>  <span class="o">=</span> <span class="n">New_Dist_Diff</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+
+    <span class="c1"># Construct optimal matrix</span>
+    <span class="n">SumOptDist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">OptDist</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Find the maximum distance</span>
+    <span class="n">Pluto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">SumOptDist</span> <span class="o">==</span> <span class="n">SumOptDist</span><span class="o">.</span><span class="n">max</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Opt_Traj_Vec</span> <span class="o">=</span> <span class="n">Traj_Vec</span><span class="p">[</span><span class="n">Pluto</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
+
+    <span class="n">OptMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">))</span>
+    <span class="n">OptOutVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="n">OptMatrix</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">New_OutMatrix</span><span class="p">[</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">Opt_Traj_Vec</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+                          <span class="n">sizeb</span> <span class="o">*</span> <span class="p">(</span><span class="n">Opt_Traj_Vec</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:])</span>
+        <span class="n">OptOutVec</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">New_OutFact</span><span class="p">[</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">Opt_Traj_Vec</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+                        <span class="n">sizeb</span> <span class="o">*</span> <span class="p">(</span><span class="n">Opt_Traj_Vec</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:])</span>
+
+    <span class="c1"># ----------------------------------------------------------------------</span>
+    <span class="c1"># Compute values in the original intervals</span>
+    <span class="c1"># Optmatrix has values x(i,j) in [0, 1/(p -1), 2/(p -1), ... , 1].</span>
+    <span class="c1"># To obtain values in the original intervals [lb, ub] we compute</span>
+    <span class="c1"># lb(j) + x(i,j)*(ub(j)-lb(j))</span>
+    <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>
+        <span class="n">OptMatrix_b</span> <span class="o">=</span> <span class="n">OptMatrix</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># save for plot</span>
+    <span class="k">if</span> <span class="n">dist</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">OptMatrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="p">(</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
+                     <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">ub</span> <span class="o">-</span> <span class="n">lb</span><span class="p">,</span> <span class="p">(</span><span class="n">sizeb</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">OptMatrix</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dd</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dist</span><span class="p">):</span>
+            <span class="n">OptMatrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">ub</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lb</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">OptMatrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">distparam</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">pars</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">distparam</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">pars</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">pars</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span> <span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">distparam</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">])</span>
+                <span class="n">OptMatrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="p">(</span><span class="o">*</span><span class="n">pars</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">OptMatrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>
+        <span class="c1"># Clean the trajectories from repetitions and plot the histograms</span>
+        <span class="n">hplot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+                <span class="c1"># select the first value of the factor</span>
+                <span class="n">hplot</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">OptMatrix_b</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+
+                <span class="c1"># search the second value</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sizeb</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="n">OptMatrix_b</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span> <span class="o">+</span> <span class="n">ii</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">!=</span>
+                         <span class="n">OptMatrix_b</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="p">):</span>
+                        <span class="n">kk</span> <span class="o">=</span> <span class="mi">1</span>
+                        <span class="n">hplot</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">kk</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">OptMatrix_b</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span> <span class="o">+</span> <span class="n">ii</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Arial&#39;</span>  <span class="c1"># Arial, Verdana</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;savefig&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;New Strategy&#39;</span><span class="p">)</span>
+            <span class="n">DimPlots</span> <span class="o">=</span> <span class="n">NumFact</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">NumFact</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">DimPlots</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">hplot</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">)</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;morris_diag_new_strategy.png&#39;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.035</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Plot the histogram for the original sampling strategy</span>
+        <span class="c1"># Select the matrix</span>
+        <span class="n">OrigSample</span> <span class="o">=</span> <span class="n">OutMatrix</span><span class="p">[:</span><span class="n">r</span> <span class="o">*</span> <span class="p">(</span><span class="n">sizeb</span><span class="p">),</span> <span class="p">:]</span>
+        <span class="n">Orihplot</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="n">NumFact</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+                <span class="c1"># select the first value of the factor</span>
+                <span class="n">Orihplot</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrigSample</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+
+                <span class="c1"># search the second value</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sizeb</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">OrigSample</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span> <span class="o">+</span> <span class="n">ii</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">OrigSample</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span>
+                                                                   <span class="n">sizeb</span><span class="p">,</span> <span class="n">i</span><span class="p">]:</span>
+                        <span class="n">kk</span> <span class="o">=</span> <span class="mi">1</span>
+                        <span class="n">Orihplot</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">kk</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrigSample</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="n">sizeb</span> <span class="o">+</span> <span class="n">ii</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Old Strategy&#39;</span><span class="p">)</span>
+            <span class="n">DimPlots</span> <span class="o">=</span> <span class="n">NumFact</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">NumFact</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">DimPlots</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Orihplot</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">)</span>
+                <span class="c1"># plt.title(&#39;Old Strategy&#39;)</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;morris_diag_old_strategy.png&#39;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.035</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Measure the quality of the sampling strategy</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">NumSPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+        <span class="n">NumSOrigPoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+                <span class="c1"># For each factor and each level count the number of times the</span>
+                <span class="c1"># factor is on the level</span>
+                <span class="c1"># This for the new and original sampling</span>
+                <span class="n">NumSPoint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">hplot</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">hplot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="o">&lt;</span> <span class="mf">1e-5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
+                <span class="n">NumSOrigPoint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Orihplot</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">Orihplot</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="o">&lt;</span> <span class="mf">1e-5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
+
+        <span class="c1"># The optimal sampling has values uniformly distributed across the</span>
+        <span class="c1"># levels</span>
+        <span class="n">OptSampl</span>       <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="n">p</span>
+        <span class="n">QualMeasure</span>    <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">QualOriMeasure</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+                <span class="n">QualMeasure</span> <span class="o">=</span> <span class="n">QualMeasure</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">NumSPoint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">OptSampl</span><span class="p">)</span>
+                <span class="n">QualOriMeasure</span> <span class="o">=</span> <span class="n">QualOriMeasure</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+                    <span class="n">NumSOrigPoint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">OptSampl</span><span class="p">)</span>
+
+        <span class="n">QualMeasure</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">QualMeasure</span> <span class="o">/</span> <span class="p">(</span><span class="n">OptSampl</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">)</span>
+        <span class="n">QualOriMeasure</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">QualOriMeasure</span> <span class="o">/</span> <span class="p">(</span><span class="n">OptSampl</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The quality of the sampling strategy changed from </span><span class="si">{:f}</span><span class="s1"> with &#39;</span>
+              <span class="s1">&#39;the old strategy to </span><span class="si">{:f}</span><span class="s1"> &#39;</span>
+              <span class="s1">&#39;for the optimized strategy&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">QualOriMeasure</span><span class="p">,</span> <span class="n">QualMeasure</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">OptMatrix</span><span class="p">,</span> <span class="n">OptOutVec</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">Morris_Measure_Groups</span><span class="p">(</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">Sample</span><span class="p">,</span> <span class="n">OutFact</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                          <span class="n">Group</span><span class="o">=</span><span class="p">[],</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the Morris sample matrix, the output values and the group matrix</span>
+<span class="sd">    compute the Morris measures.</span>
+
+
+<span class="sd">    Definition</span>
+<span class="sd">    ----------</span>
+<span class="sd">    def Morris_Measure_Groups(NumFact, Sample, OutFact, Output, p=4, Group=[],</span>
+<span class="sd">                              Diagnostic=False):</span>
+
+
+<span class="sd">    Input</span>
+<span class="sd">    -----</span>
+<span class="sd">    NumFact</span>
+<span class="sd">        Number of factors</span>
+<span class="sd">    Sample</span>
+<span class="sd">        Matrix of the Morris sampled trajectories</span>
+<span class="sd">    OutFact</span>
+<span class="sd">        Matrix with the factor changings as specified in Morris sampling</span>
+<span class="sd">    Output</span>
+<span class="sd">        Matrix of the output(s) values in correspondence of each point of each</span>
+<span class="sd">        trajectory</span>
+
+
+<span class="sd">    Optional Input</span>
+<span class="sd">    --------------</span>
+<span class="sd">    p</span>
+<span class="sd">        Number of levels</span>
+<span class="sd">    Group</span>
+<span class="sd">        [NumFact, NumGroups] Matrix describing the groups.</span>
+<span class="sd">        Each column represents one group. The element of each column are zero</span>
+<span class="sd">        if the factor is not in the group. Otherwise it is 1.</span>
+<span class="sd">    Diagnostic</span>
+<span class="sd">        True:  print out diagnostics</span>
+
+<span class="sd">        False: otherwise (default)</span>
+
+
+<span class="sd">    Output</span>
+<span class="sd">    ------</span>
+<span class="sd">    SA, OutMatrix</span>
+<span class="sd">        SA(NumFact*Output.shape[1],N) individual sensitivity measures</span>
+
+<span class="sd">        OutMatrix(NumFact*Output.shape[1], 3) = [Mu*, Mu, StDev]</span>
+<span class="sd">        Morris Measures</span>
+<span class="sd">        It gives the three measures of each factor for each output.</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Saltelli, A., Chan, K., &amp; Scott, E. M. (2000). Sensitivity Analysis. Wiley</span>
+<span class="sd">    Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504. -</span>
+<span class="sd">    on page 68ff</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">NumGroups</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1"> Groups are used&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">NumGroups</span><span class="p">))</span>
+    <span class="k">except</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">NumGroups</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No Groups are used&#39;</span><span class="p">)</span>
+
+    <span class="n">Delt</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">NumGroups</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sizea</span> <span class="o">=</span> <span class="n">NumGroups</span>
+        <span class="n">GroupMat</span> <span class="o">=</span> <span class="n">Group</span>
+        <span class="n">GroupMat</span> <span class="o">=</span> <span class="n">GroupMat</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NumGroups&#39;</span><span class="p">,</span> <span class="n">NumGroups</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sizea</span> <span class="o">=</span> <span class="n">NumFact</span>
+    <span class="n">sizeb</span> <span class="o">=</span> <span class="n">sizea</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># r = Sample.shape[0]/sizeb</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Sample</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">sizeb</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">NumOutp</span> <span class="o">=</span> <span class="n">Output</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">NumOutp</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">Output</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># For each Output</span>
+    <span class="k">if</span> <span class="n">NumGroups</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># for every output: every factor is a line, columns are mu*, mu and std</span>
+        <span class="n">OutMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumOutp</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># for every output: every factor is a line, column is mu*</span>
+        <span class="n">OutMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumOutp</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">SAmeas_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumOutp</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumOutp</span><span class="p">):</span>
+        <span class="n">OutValues</span> <span class="o">=</span> <span class="n">Output</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span>
+
+        <span class="c1"># For each trajectory</span>
+        <span class="c1"># vorm afhankelijk maken van group of niet...</span>
+        <span class="n">SAmeas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumFact</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+            <span class="c1"># For each step j in the trajectory</span>
+            <span class="c1"># Read the orientation matrix fact for the r-th sampling</span>
+            <span class="c1"># Read the corresponding output values</span>
+            <span class="c1"># Read the line of changing factors</span>
+            <span class="n">Single_Sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">Single_OutValues</span> <span class="o">=</span> <span class="n">OutValues</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">]</span>
+            <span class="c1"># gives factor in change (or group)</span>
+            <span class="n">Single_Facts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">OutFact</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sizeb</span><span class="p">],</span>
+                                    <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+            <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">Single_Sample</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">sizeb</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span>
+                 <span class="n">Single_Sample</span><span class="p">[:</span><span class="n">sizea</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">Delta</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">A</span><span class="p">)]</span>  <span class="c1"># AAN TE PASSEN?</span>
+            <span class="c1"># If upper bound==lower bound then A==0 in all trajectories. Delta</span>
+            <span class="c1"># will have not the right dimensions then because these are</span>
+            <span class="c1"># filtered out with where. Fill in Delta==0 for these cases.</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ii</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Delta</span><span class="p">,</span> <span class="n">ii</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">Diagnostic</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A: &#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Delta: &#39;</span><span class="p">,</span> <span class="n">Delta</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Single_Facts: &#39;</span><span class="p">,</span> <span class="n">Single_Facts</span><span class="p">)</span>
+
+            <span class="c1"># For each point of the fixed trajectory, i.e. for each factor,</span>
+            <span class="c1"># compute the values of the Morris function.</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sizea</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">NumGroups</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># work with groups</span>
+                    <span class="n">Auxfind</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+                    <span class="n">Change_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Auxfind</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-010</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">gk</span> <span class="ow">in</span> <span class="n">Change_factor</span><span class="p">:</span>
+                        <span class="n">SAmeas</span><span class="p">[</span><span class="n">gk</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+                            <span class="p">(</span><span class="n">Single_OutValues</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">Single_OutValues</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span>
+                            <span class="n">Delt</span><span class="p">)</span>  <span class="c1"># nog niet volledig goe</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">Delta</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+                        <span class="n">SAmeas</span><span class="p">[</span><span class="n">Single_Facts</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">Single_OutValues</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                                                       <span class="n">Single_OutValues</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">/</span>
+                                                      <span class="n">Delt</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">SAmeas</span><span class="p">[</span><span class="n">Single_Facts</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">Single_OutValues</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span>
+                                                       <span class="n">Single_OutValues</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                                                      <span class="o">/</span> <span class="n">Delt</span><span class="p">)</span>
+
+        <span class="c1"># Compute Mu AbsMu and StDev</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">SAmeas</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">AbsMu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+            <span class="n">Mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+            <span class="n">Stdev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumFact</span><span class="p">):</span>
+                <span class="n">SAm</span> <span class="o">=</span> <span class="n">SAmeas</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">SAm</span> <span class="o">=</span> <span class="n">SAm</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">SAm</span><span class="p">)]</span>
+                <span class="n">rr</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">SAm</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+                <span class="n">AbsMu</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">SAm</span><span class="p">))</span> <span class="o">/</span> <span class="n">rr</span>
+                <span class="k">if</span> <span class="n">NumGroups</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">Mu</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">SAm</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">SAm</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">Stdev</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">SAm</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">Stdev</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">AbsMu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">SAmeas</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+            <span class="k">if</span> <span class="n">NumGroups</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Mu</span> <span class="o">=</span> <span class="n">SAmeas</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">SAmeas</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">Stdev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">SAmeas</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">Stdev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">SAmeas</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+                <span class="n">Stdev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NumFact</span><span class="p">)</span>
+
+        <span class="n">OutMatrix</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">:</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span> <span class="o">+</span> <span class="n">NumFact</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">AbsMu</span>
+        <span class="k">if</span> <span class="n">NumGroups</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">OutMatrix</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">:</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span> <span class="o">+</span> <span class="n">NumFact</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mu</span>
+            <span class="n">OutMatrix</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">:</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span> <span class="o">+</span> <span class="n">NumFact</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Stdev</span>
+
+        <span class="n">SAmeas_out</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span><span class="p">:</span><span class="n">k</span> <span class="o">*</span> <span class="n">NumFact</span> <span class="o">+</span> <span class="n">NumFact</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">SAmeas</span>
+
+    <span class="k">return</span> <span class="n">SAmeas_out</span><span class="p">,</span> <span class="n">OutMatrix</span>
+
+
+<div class="viewcode-block" id="morris_sampling">
+<a class="viewcode-back" href="../../morris_method.html#pyeee.morris_method.morris_sampling">[docs]</a>
+<span class="k">def</span> <span class="nf">morris_sampling</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span>
+                    <span class="n">nsteps</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">ntotal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">dist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">GroupMat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sample trajectories in parameter space</span>
+
+<span class="sd">    Optimisation in the choice of trajectories for Morris experiment, that</span>
+<span class="sd">    means elementary effects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nparam : int</span>
+<span class="sd">        Number of parameters / factors</span>
+<span class="sd">    lb : array_like</span>
+<span class="sd">        (nparam,) Lower bound of the uniform distribution for each parameter /</span>
+<span class="sd">        factor or lower fraction of percent point function ppf if distribution</span>
+<span class="sd">        given.</span>
+<span class="sd">        Be aware that the percent point function *ppf* of most continuous</span>
+<span class="sd">        distributions is infinite at 0.</span>
+<span class="sd">    ub : array_like</span>
+<span class="sd">        (nparam,) Upper bound of the uniform distribution for each parameter /</span>
+<span class="sd">        factor or upper fraction of percent point function ppf if distribution</span>
+<span class="sd">        given.</span>
+<span class="sd">        Be aware that the percent point function *ppf* of most continuous</span>
+<span class="sd">        distributions is infinite at 1.</span>
+<span class="sd">    nt : int</span>
+<span class="sd">        Final number of optimal trajectories</span>
+<span class="sd">    nsteps : int, optional</span>
+<span class="sd">        Number of levels, i.e. intervals in trajectories (default: 6)</span>
+<span class="sd">    ntotal : int, optional</span>
+<span class="sd">        Total number of sampled trajectories. If None: `ntotal=10*nt` (default:</span>
+<span class="sd">        None)</span>
+<span class="sd">    dist : list, optional</span>
+<span class="sd">        List of None or scipy.stats distribution objects for each factor having</span>
+<span class="sd">        the method ppf, Percent Point Function (Inverse of CDF) (default: None)</span>
+<span class="sd">        If None, the uniform distribution will be sampled from lower bound `lb`</span>
+<span class="sd">        to upper bound `ub`.</span>
+<span class="sd">        If `dist` is scipy.stats.uniform, the ppf will be sampled from the</span>
+<span class="sd">        lower fraction given in `lb` and the upper fraction in `ub`. The</span>
+<span class="sd">        sampling interval is then given by the parameters `loc=lower` and</span>
+<span class="sd">        `scale=interval=upper-lower` in `distparam`. This means</span>
+<span class="sd">        `dist=None`, `lb=a`, `ub=b`</span>
+<span class="sd">        corresponds to</span>
+<span class="sd">        `lb=0`, `ub=1`, `dist=scipy.stats.uniform`, `distparam=[a,b-a]`</span>
+<span class="sd">    distparam : list, optional</span>
+<span class="sd">        List with tuples with parameters as required for `dist` (default:</span>
+<span class="sd">        (0,1)).</span>
+<span class="sd">        All distributions of scipy.stats have location and scale parameters, at</span>
+<span class="sd">        least. `loc` and `scale` are implemented as keyword arguments in</span>
+<span class="sd">        scipy.stats. Other parameters such as the shape parameter of the gamma</span>
+<span class="sd">        distribution must hence be given first, e.g. `(shape,loc,scale)` for</span>
+<span class="sd">        the gamma distribution.</span>
+<span class="sd">        `distparam` is ignored if `dist` is None.</span>
+<span class="sd">        The percent point function ppf is called like this:</span>
+<span class="sd">        `dist(*distparam).ppf(x)`</span>
+<span class="sd">    GroupMat : ndarray, optional</span>
+<span class="sd">        (nparam,ngroup) Matrix describing the groups. (default: np.array([]))</span>
+<span class="sd">        Each column represents a group. The elements of each column are zero</span>
+<span class="sd">        if the parameter / factor is not in the group, otherwise it is 1.</span>
+<span class="sd">    Diagnostic : bool, optional</span>
+<span class="sd">        Plot the histograms and compute the efficiency of the sampling if True</span>
+<span class="sd">        (default: False)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    traj : list</span>
+<span class="sd">        list [OptMatrix, OptOutVec] with `OptMatrix((nparam+1)*nt,nparam)` and</span>
+<span class="sd">        `OptOutVec(nparam*nt)`</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Saltelli, A., Chan, K., &amp; Scott, E. M. (2000). Sensitivity Analysis. Wiley</span>
+<span class="sd">    Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504. -</span>
+<span class="sd">    on page 68ff</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; seed = 1023</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(seed=seed)</span>
+<span class="sd">    &gt;&gt;&gt; npara = 10</span>
+<span class="sd">    &gt;&gt;&gt; x0    = np.ones(npara)*0.5</span>
+<span class="sd">    &gt;&gt;&gt; lb    = np.zeros(npara)</span>
+<span class="sd">    &gt;&gt;&gt; ub    = np.ones(npara)</span>
+<span class="sd">    &gt;&gt;&gt; mask  = np.ones(npara, dtype=bool)</span>
+<span class="sd">    &gt;&gt;&gt; mask[5::2] = False</span>
+<span class="sd">    &gt;&gt;&gt; nmask = np.sum(mask)</span>
+<span class="sd">    &gt;&gt;&gt; nt     = npara</span>
+<span class="sd">    &gt;&gt;&gt; ntotal = max(nt**2, 10*nt)</span>
+<span class="sd">    &gt;&gt;&gt; nsteps = 6</span>
+<span class="sd">    &gt;&gt;&gt; tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt,</span>
+<span class="sd">    ...                                 nsteps=nsteps, ntotal=ntotal,</span>
+<span class="sd">    ...                                 Diagnostic=False)</span>
+<span class="sd">    &gt;&gt;&gt; # Set input vector to trajectories and masked elements to x0</span>
+<span class="sd">    &gt;&gt;&gt; x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0</span>
+<span class="sd">    &gt;&gt;&gt; x[:,mask] = tmatrix  # replaced unmasked with trajectorie values</span>
+<span class="sd">    &gt;&gt;&gt; print(x[0,:])</span>
+<span class="sd">    [0.6 0.4 0.8 0.6 0.6 0.5 0.4 0.5 0.  0.5]</span>
+
+<span class="sd">    &gt;&gt;&gt; import scipy.stats as stats</span>
+<span class="sd">    &gt;&gt;&gt; seed = 1023</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(seed=seed)</span>
+<span class="sd">    &gt;&gt;&gt; npara = 10</span>
+<span class="sd">    &gt;&gt;&gt; x0    = np.ones(npara)*0.5</span>
+<span class="sd">    &gt;&gt;&gt; lb    = np.zeros(npara)</span>
+<span class="sd">    &gt;&gt;&gt; ub    = np.ones(npara)</span>
+<span class="sd">    &gt;&gt;&gt; dist  = [ stats.uniform for i in range(npara) ]</span>
+<span class="sd">    &gt;&gt;&gt; distparam = [ (lb[i], ub[i]-lb[i]) for i in range(npara) ]</span>
+<span class="sd">    &gt;&gt;&gt; mask  = np.ones(npara, dtype=bool)</span>
+<span class="sd">    &gt;&gt;&gt; mask[5::2] = False</span>
+<span class="sd">    &gt;&gt;&gt; nmask = np.sum(mask)</span>
+<span class="sd">    &gt;&gt;&gt; nt     = npara</span>
+<span class="sd">    &gt;&gt;&gt; ntotal = max(nt**2, 10*nt)</span>
+<span class="sd">    &gt;&gt;&gt; nsteps = 6</span>
+<span class="sd">    &gt;&gt;&gt; tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt,</span>
+<span class="sd">    ...                                 nsteps=nsteps, ntotal=ntotal,</span>
+<span class="sd">    ...                                 dist=dist, distparam=distparam,</span>
+<span class="sd">    ...                                 Diagnostic=False)</span>
+<span class="sd">    &gt;&gt;&gt; # Set input vector to trajectories and masked elements to x0</span>
+<span class="sd">    &gt;&gt;&gt; x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0</span>
+<span class="sd">    &gt;&gt;&gt; x[:,mask] = tmatrix  # replaced unmasked with trajectory values</span>
+<span class="sd">    &gt;&gt;&gt; print(x[0,:])</span>
+<span class="sd">    [0.6 0.4 0.8 0.6 0.6 0.5 0.4 0.5 0.  0.5]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Optimized_Groups</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span>
+                            <span class="n">p</span><span class="o">=</span><span class="n">nsteps</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">ntotal</span><span class="p">,</span>
+                            <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">,</span>
+                            <span class="n">GroupMat</span><span class="o">=</span><span class="n">GroupMat</span><span class="p">,</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="n">Diagnostic</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="elementary_effects">
+<a class="viewcode-back" href="../../morris_method.html#pyeee.morris_method.elementary_effects">[docs]</a>
+<span class="k">def</span> <span class="nf">elementary_effects</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">OptMatrix</span><span class="p">,</span> <span class="n">OptOutVec</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span>
+                       <span class="n">nsteps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">Group</span><span class="o">=</span><span class="p">[],</span> <span class="n">Diagnostic</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Morris measures given the Morris sample matrix, the output</span>
+<span class="sd">    values and the group matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nparam : int</span>
+<span class="sd">        Number of parameters / factors list [OptMatrix, OptOutVec] with</span>
+<span class="sd">        OptMatrix((nparam+1)*nt,nparam) and OptOutVec(nparam*nt)</span>
+<span class="sd">    OptMatrix : ndarray</span>
+<span class="sd">        ((nparam+1)*nt,nparam) Matrix of the Morris sampled trajectories from</span>
+<span class="sd">        morris_sampling</span>
+<span class="sd">    OptOutVec : ndarray</span>
+<span class="sd">        (nparam*nt,) Matrix with the parameter / factor changings from</span>
+<span class="sd">        morris_sampling</span>
+<span class="sd">    Output : ndarray</span>
+<span class="sd">        ((nparam+1)*nt,) Matrix of the output values of each point of each</span>
+<span class="sd">        trajectory</span>
+<span class="sd">    nsteps : int, optional</span>
+<span class="sd">        Number of levels, i.e. intervals in trajectories (default: 4)</span>
+<span class="sd">    Group : ndarray, optional</span>
+<span class="sd">        (nparam,NumGroups) Matrix describing the groups. (default: [])</span>
+<span class="sd">        Each column represents a group. The elements of each column are zero</span>
+<span class="sd">        if the parameter / factor is not in the group, otherwise it is 1.</span>
+<span class="sd">    Diagnostic : bool, optional</span>
+<span class="sd">        Print out diagnostics if True (default: False)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    SA, OutMatrix : list of ndarrays</span>
+<span class="sd">        SA(nparam*Output.shape[1],N) individual sensitivity measures,</span>
+<span class="sd">        OutMatrix(nparam*Output.shape[1], 3) = [Mu*, Mu, StDev] Morris Measures</span>
+
+<span class="sd">        It gives the three measures of each parameter / factor for each output.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Saltelli, A., Chan, K., &amp; Scott, E. M. (2000). Sensitivity Analysis. Wiley</span>
+<span class="sd">    Series in Probability and Statistics, John Wiley &amp; Sons, New York, 1-504. -</span>
+<span class="sd">    on page 68ff</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; seed = 1023</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(seed=seed)</span>
+<span class="sd">    &gt;&gt;&gt; npara = 10</span>
+<span class="sd">    &gt;&gt;&gt; x0    = np.ones(npara)*0.5</span>
+<span class="sd">    &gt;&gt;&gt; lb    = np.zeros(npara)</span>
+<span class="sd">    &gt;&gt;&gt; ub    = np.ones(npara)</span>
+<span class="sd">    &gt;&gt;&gt; mask  = np.ones(npara, dtype=bool)</span>
+<span class="sd">    &gt;&gt;&gt; mask[5::2] = False</span>
+<span class="sd">    &gt;&gt;&gt; nmask = np.sum(mask)</span>
+<span class="sd">    &gt;&gt;&gt; nt     = npara</span>
+<span class="sd">    &gt;&gt;&gt; ntotal = max(nt**2, 10*nt)</span>
+<span class="sd">    &gt;&gt;&gt; nsteps = 6</span>
+<span class="sd">    &gt;&gt;&gt; tmatrix, tvec = morris_sampling(nmask, lb[mask], ub[mask], nt,</span>
+<span class="sd">    ...                                 ntotal=ntotal, nsteps=nsteps,</span>
+<span class="sd">    ...                                 Diagnostic=False)</span>
+<span class="sd">    &gt;&gt;&gt; # Set input vector to trajectories and masked elements to x0</span>
+<span class="sd">    &gt;&gt;&gt; x = np.tile(x0, tvec.size).reshape(tvec.size, npara)  # default to x0</span>
+<span class="sd">    &gt;&gt;&gt; x[:,mask] = tmatrix  # replaced unmasked with trajectorie values</span>
+<span class="sd">    &gt;&gt;&gt; func = np.sum</span>
+<span class="sd">    &gt;&gt;&gt; fx = np.array(list(map(func,x)))</span>
+<span class="sd">    &gt;&gt;&gt; out = np.zeros((npara,3))</span>
+<span class="sd">    &gt;&gt;&gt; sa, res = elementary_effects(nmask, tmatrix, tvec, fx, nsteps=nsteps,</span>
+<span class="sd">    ...                              Diagnostic=False)</span>
+<span class="sd">    &gt;&gt;&gt; out[mask,:] = res</span>
+<span class="sd">    &gt;&gt;&gt; print(out[:,0])</span>
+<span class="sd">    [1. 1. 1. 1. 1. 0. 1. 0. 1. 0.]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Morris_Measure_Groups</span><span class="p">(</span><span class="n">nparam</span><span class="p">,</span> <span class="n">OptMatrix</span><span class="p">,</span> <span class="n">OptOutVec</span><span class="p">,</span>
+                                 <span class="n">Output</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Diagnostic</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
+
+    <span class="c1"># # nt = 10</span>
+    <span class="c1"># print(&#39;nt=10&#39;)</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam = 15</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># nt     = 10</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)</span>
+    <span class="c1"># print(np.around(mat[0,0:5],3))</span>
+    <span class="c1"># print(np.around(vec[0:5],3))</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters</span>
+
+    <span class="c1"># # nt = 10, nan</span>
+    <span class="c1"># print(&#39;nt=10, nan&#39;)</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam = 15</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># nt     = 10</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># out[1:nt*nparam:nparam//2] = np.nan</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)</span>
+    <span class="c1"># print(np.around(mat[0,0:5],3))</span>
+    <span class="c1"># print(np.around(vec[0:5],3))</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[~np.isnan(sa[:,1]),1],3))  #  (nparam,r) individual elementary effects for all parameters</span>
+
+    <span class="c1"># # nt = 1</span>
+    <span class="c1"># print(&#39;nt=1&#39;)</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam = 15</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># nt     = 1</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, Diagnostic=Diagnostic)</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[0:5].squeeze(),3))  #  (nparam,r) individual elementary effects for all parameters</span>
+
+    <span class="c1"># # groups</span>
+    <span class="c1"># print(&#39;groups&#39;)</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam   = 15</span>
+    <span class="c1"># ngroup = 5</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># Groups = np.random.randint(0, 4, (nparam,ngroup))</span>
+    <span class="c1"># nt     = 10</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)</span>
+    <span class="c1"># print(np.around(mat[0,0:5],3))</span>
+    <span class="c1"># print(np.around(vec[0:5],3))</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters</span>
+
+    <span class="c1"># # groups, nan</span>
+    <span class="c1"># print(&#39;groups, nan&#39;)</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam   = 15</span>
+    <span class="c1"># ngroup = 5</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># Groups = np.random.randint(0, 4, (nparam,ngroup))</span>
+    <span class="c1"># nt     = 10</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># out[1:nt*nparam:nparam//2] = np.nan</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, GroupMat=Groups, Diagnostic=Diagnostic)</span>
+    <span class="c1"># print(np.around(mat[0,0:5],3))</span>
+    <span class="c1"># print(np.around(vec[0:5],3))</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters</span>
+
+    <span class="c1"># # nt=10, dist</span>
+    <span class="c1"># print(&#39;nt=10, distributions&#39;)</span>
+    <span class="c1"># import scipy.stats as stats</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam = 15</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># lb = np.zeros(nparam)</span>
+    <span class="c1"># ub = np.ones(nparam)</span>
+    <span class="c1"># dist      = [ stats.uniform for i in range(nparam) ]</span>
+    <span class="c1"># distparam = [ (lb[i],ub[i]-lb[i]) for i in range(nparam) ]</span>
+    <span class="c1"># lb = np.zeros(nparam)</span>
+    <span class="c1"># ub = np.ones(nparam)</span>
+    <span class="c1"># nt     = 10</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, dist=dist, distparam=distparam, Diagnostic=Diagnostic)</span>
+    <span class="c1"># print(np.around(mat[0,0:5],3))</span>
+    <span class="c1"># print(np.around(vec[0:5],3))</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters</span>
+
+    <span class="c1"># # groups, dist</span>
+    <span class="c1"># print(&#39;groups, distributions&#39;)</span>
+    <span class="c1"># np.random.seed(seed=1234)</span>
+    <span class="c1"># nparam   = 15</span>
+    <span class="c1"># ngroup = 5</span>
+    <span class="c1"># lb = np.arange(nparam)</span>
+    <span class="c1"># ub = 2.*lb + 1.</span>
+    <span class="c1"># dist      = [ stats.uniform for i in range(nparam) ]</span>
+    <span class="c1"># distparam = [ (lb[i],ub[i]-lb[i]) for i in range(nparam) ]</span>
+    <span class="c1"># lb = np.zeros(nparam)</span>
+    <span class="c1"># ub = np.ones(nparam)</span>
+    <span class="c1"># Groups = np.random.randint(0, 4, (nparam,ngroup))</span>
+    <span class="c1"># nt     = 10</span>
+    <span class="c1"># nsteps = 6</span>
+    <span class="c1"># ntotal = 100</span>
+    <span class="c1"># Diagnostic = 0</span>
+    <span class="c1"># out = np.random.random(nt*(nparam+1))</span>
+    <span class="c1"># mat, vec = morris_sampling(nparam, lb, ub, nt, nsteps=nsteps, ntotal=ntotal, dist=dist, distparam=distparam, GroupMat=Groups, Diagnostic=Diagnostic)</span>
+    <span class="c1"># print(np.around(mat[0,0:5],3))</span>
+    <span class="c1"># print(np.around(vec[0:5],3))</span>
+    <span class="c1"># sa, res = elementary_effects(nparam, mat, vec, out, nsteps=nsteps, Group=Groups)</span>
+    <span class="c1"># print(np.around(res[0:5,0],3)) # (nparam,3) = AbsMu, Mu, Stddev</span>
+    <span class="c1"># print(np.around(sa[0:5,1],3))  #  (nparam,r) individual elementary effects for all parameters</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthias Cuntz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2016-2024, Matthias Cuntz.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

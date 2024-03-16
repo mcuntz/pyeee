@@ -8,7 +8,7 @@ This function was written by Matthias Cuntz while at Institut National de
 Recherche pour l'Agriculture, l'Alimentation et l'Environnement (INRAE), Nancy,
 France.
 
-Copyright (c) 2017-2021 Matthias Cuntz - mc (at) macu (dot) de
+Copyright (c) 2017- Matthias Cuntz - mc (at) macu (dot) de
 Released under the MIT License; see LICENSE file for details.
 
 .. moduleauthor:: Matthias Cuntz
@@ -33,14 +33,15 @@ History
       scipy.stats, Mar 2020, Matthias Cuntz
     * Use pyjams package, Oct 2021, Matthias Cuntz
     * Make flake8 compatible, Oct 2021, Matthias Cuntz
+    * Use local routines of pyeee package, Mar 2024, Matthias Cuntz
 
 """
-from __future__ import division, absolute_import, print_function
 import numpy as np
 import scipy.optimize as opt
-from pyjams import screening, tee
-from pyjams.functions import cost_square, curvature, logistic_offset_p
-from pyjams.functions import dlogistic, d2logistic
+from .screening import screening
+from .tee import tee
+from .functions import cost_square, curvature
+from .logistic_function import dlogistic, d2logistic, logistic_offset_p
 
 
 __all__ = ['eee', 'see']
@@ -635,7 +636,7 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE)
 
-    # # from pyjams import tee
+    # # from pyeee import tee
     # # from pyjams.functions import fmorris
 
     # # # Morris with MPI

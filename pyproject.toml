@@ -18,6 +18,7 @@ fallback_version = "0.0.0.dev0"
     omit = [
         "*docs*",
         "*tests*",
+        "tests/sa_test_functions.py",
     ]
 
     [tool.coverage.report]
