@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="eee.html">eee</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions.html">General functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logistic_function.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris’ Method / Elementary Effects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="screening.html">screening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tee.html">tee</a></li>
 </ul>
@@ -377,6 +377,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-sequential-elementary-effects">Efficient/Sequential Elementary Effects</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-initial-fit">Check initial fit</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage">Advanced usage</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-parameters-from-calculations">Exclude parameters from calculations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-multiple-outputs">Function with multiple outputs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-model-evaluation">Parallel model evaluation</a></li>
@@ -403,8 +406,8 @@ document.write(`
   <section id="user-guide">
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> is a Python library for performing parameter screening of
-computational models. It uses an extension of Morris’ method of
-Elementary Effects called Efficient or Sequential Elementary Effects
+computational models. It uses Morris’ method of Elementary Effects and
+its extension called Efficient or Sequential Elementary Effects
 published by:</p>
 <p>Cuntz, Mai <cite>et al.</cite> (2015) Computationally inexpensive identification
 of noninformative model parameters by sequential screening,
@@ -429,10 +432,9 @@ function callable as <cite>func(x)</cite>. One can use the package
 </div>
 <p>The three parameters <span class="math notranslate nohighlight">\(x_0, x_1, x_2\)</span> follow uniform
 distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(+\pi\)</span>.</p>
-<p>Morris’ Elementary Effects can then be calculated using, for example,
-the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
-(<span class="math notranslate nohighlight">\(\mu*\)</span>):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">screening</span>
+<p>Morris’ Elementary Effects can then be calculated, using 20
+trajectories, as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">screening</span>
 
 <span class="c1"># function</span>
 <span class="n">func</span>  <span class="o">=</span> <span class="n">ishigami1</span>
@@ -452,14 +454,42 @@ the Python library <a class="reference external" href="https://mcuntz.github.io/
 <span class="c1"># gives: 72.6 0.6 14.3</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> returns an <cite>(npars, 3)</cite> ndarray,
-with <cite>(npars, 0)</cite> being the means of the absolute Elementary Effects
-over all trajectories (<span class="math notranslate nohighlight">\(\mu*\)</span>).</p>
-<p>For Elementary Effects and its sensitivity measures, see
+<p><a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> returns a <cite>(npars, 3)</cite> ndarray
+with:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><cite>(npars, 0)</cite> the means of the absolute elementary effects over
+all trajectories (<span class="math notranslate nohighlight">\(\mu*\)</span>)</p></li>
+<li><p><cite>(npars, 1)</cite> the means of the elementary effects over all nt
+trajectories (<span class="math notranslate nohighlight">\(\mu\)</span>)</p></li>
+<li><p><cite>(npars, 2)</cite> the standard deviations of the elementary effects
+over all trajectories (<span class="math notranslate nohighlight">\(\sigma\)</span>)</p></li>
+</ol>
+</div></blockquote>
+<p>For Elementary Effects and its sensititvity measures, see
 <a class="reference external" href="https://en.wikipedia.org/wiki/Elementary_effects_method">https://en.wikipedia.org/wiki/Elementary_effects_method</a>, or</p>
-<p>Saltelli <cite>et al.</cite> (2007) Global Sensitivity Analysis. The Primer, John
-Wiley &amp; Sons Ltd, Chichester, UK, ISBN: 978-0470-059-975, doi:
-<a class="reference external" href="http://doi.org/10.1002/9780470725184">10.1002/9780470725184</a>.</p>
+<p>Saltelli <em>et al.</em> (2007) Global Sensitivity Analysis. The Primer,
+John Wiley &amp; Sons Ltd, Chichester, UK, ISBN: 978-0470-059-975,
+doi: <a class="reference external" href="http://doi.org/10.1002/9780470725184">10.1002/9780470725184</a>.</p>
+<p>The numerical model <cite>func</cite>, lower parameter boundaries <cite>lb</cite>, upper
+parameter boundaries <cite>ub</cite>, and the number of trajectories <cite>nt</cite> are
+mandatory arguments to <a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> (or the
+identical function <a class="reference internal" href="screening.html#pyeee.screening.ee" title="pyeee.screening.ee"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a> ;-).</p>
+<p>Further optional arguments relevant to Elementary Effects are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>nsteps</cite>: int - Number of steps along one trajectory (default: 6)</p></li>
+<li><p><cite>ntotal</cite>: int - Total number of trajectories to check for the
+<cite>nt</cite> most different trajectories (default: <cite>max(nt**2, 10 * nt)</cite>)</p></li>
+</ul>
+</div></blockquote>
+<p>Note that <a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> uses the functions
+<a class="reference internal" href="morris_method.html#pyeee.morris_method.morris_sampling" title="pyeee.morris_method.morris_sampling"><code class="xref py py-func docutils literal notranslate"><span class="pre">morris_sampling()</span></code></a> and
+<a class="reference internal" href="morris_method.html#pyeee.morris_method.elementary_effects" title="pyeee.morris_method.elementary_effects"><code class="xref py py-func docutils literal notranslate"><span class="pre">elementary_effects()</span></code></a>, which are the
+implementations of Francesca Campolongo and Jessica Cariboni written
+in Matlab and translated to Python by Stijn Van Hoey. They support the
+notion of parameter groups, which is not taken into account in
+<a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a>.</p>
 </section>
 <section id="efficient-sequential-elementary-effects">
 <h2>Efficient/Sequential Elementary Effects<a class="headerlink" href="#efficient-sequential-elementary-effects" title="Link to this heading">#</a></h2>
@@ -480,7 +510,7 @@ evaluations for a model with 50 parameters.</p>
 used if one uses Elementary Effects <cite>only</cite> to distinguish between
 sensitive (informative) and insensitive (noninformative) model
 parameters. It follows the idea: if one knows that a model is
-sensitive to a certain parameter, this parameter does not has to be
+sensitive to a certain parameter, this parameter does not have to be
 included anymore in further screening. If a parameter has a large
 Elementary Effect in one trajectory it will most probably be
 influential. So one does not have to calculate another Elementary
@@ -500,8 +530,8 @@ parameters are sensitive in a small part of the parameter space, which
 was missed due to a small sample.</p>
 <p>The call of <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> (or the identical function
 <a class="reference internal" href="eee.html#pyeee.eee.see" title="pyeee.eee.see"><code class="xref py py-func docutils literal notranslate"><span class="pre">see()</span></code></a>) is very similar to standard Elementary effects
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> (or the identical function
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.ee" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a> ;-):</p>
+<a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> (or the identical function
+<a class="reference internal" href="screening.html#pyeee.screening.ee" title="pyeee.screening.ee"><code class="xref py py-func docutils literal notranslate"><span class="pre">ee()</span></code></a> ;-):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
 
@@ -530,7 +560,7 @@ sensitive parameters and <cite>False</cite> for noninformative parameters. The
 mask can be combined by <cite>logical_and</cite> with an incoming mask.</p>
 <section id="check-initial-fit">
 <h3>Check initial fit<a class="headerlink" href="#check-initial-fit" title="Link to this heading">#</a></h3>
-<p>Efficient/Sequential Elementary Effects fits a logistic function to
+<p>Efficient/Sequential Elementary Effects fit a logistic function to
 the output of the <cite>ntfirst</cite> trajectories, which determines the
 threshold between informative and uninformative parameters for the
 following (shorter) trajectories. One can check this initial,
@@ -539,29 +569,33 @@ important step by passing the name of an output file to
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">plotfile</span><span class="o">=</span><span class="s1">&#39;ishigami.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.8.3)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a> must be installed to produce the
+<p>Note that <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.8.4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a> must be installed to produce the
 <cite>plotfile</cite>. The file format of <cite>plotfile</cite> is always <cite>png</cite> independent
 on the file name.</p>
 </section>
 <section id="logging">
 <h3>Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h3>
 <p>Following the same idea, the user can also log progress and
-intermediate results in a text file giving the <cite>logfile</cite> keyword:</p>
+intermediate results of <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> in a text file giving
+the <cite>logfile</cite> keyword:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ntfirst</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">plotfile</span><span class="o">=</span><span class="s1">&#39;ishigami.png&#39;</span><span class="p">,</span>
           <span class="n">logfile</span><span class="o">=</span><span class="s1">&#39;ishigami.log&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
+</section>
+<section id="advanced-usage">
+<h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Link to this heading">#</a></h2>
 <section id="exclude-parameters-from-calculations">
 <h3>Exclude parameters from calculations<a class="headerlink" href="#exclude-parameters-from-calculations" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">eee</span></code> offers the possibility to mask some model parameters so that
-they will not be changed during calculation of Elementary
-Effects. Inital values <cite>x0</cite> must be given that will be taken where
-<cite>mask == False</cite>, i.e. <cite>mask</cite> could be called an include-mask (opposite
-of the exclude-mask of numpy’s masked arrays). Note that the size of
-<cite>x0</cite> must be the size of <cite>lb</cite>, <cite>ub</cite> and <cite>mask</cite>, i.e. one has to give
-initial values even if an element is included in the screening, which
-means <cite>mask[i] == True</cite>.</p>
+<p><a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> and <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> offer
+the possibility to mask some model parameters so that they will not be
+changed during calculation of Elementary Effects. Inital values <cite>x0</cite>
+must be given that will be taken where <cite>mask == False</cite>, i.e. <cite>mask</cite>
+could be called an include-mask (opposite of the exclude-mask of
+numpy’s masked arrays). Note that the size of <cite>x0</cite> must be the size of
+<cite>lb</cite>, <cite>ub</cite> and <cite>mask</cite>, i.e. one has to give initial values even if an
+element is included in the screening, which means <cite>mask[i] == True</cite>.</p>
 <p>For example, if one wants to exclude the second parameter <span class="math notranslate nohighlight">\(x_0\)</span>
 of the above Ishigami-Homma function in the calculation of the
 Elementary Effects:</p>
@@ -574,6 +608,7 @@ Elementary Effects:</p>
 
 <span class="c1"># Efficient Elementary Effects</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>  <span class="c1"># for reproducibility of examples</span>
+
 <span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="c1"># gives: [False False  True]</span>
@@ -581,26 +616,32 @@ Elementary Effects:</p>
 <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">&amp;</span> <span class="n">out</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
 <span class="c1"># gives: [False False  True]</span>
+
+<span class="c1"># Elementary Effects</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="c1"># 0.0 0.0 62.2</span>
 </pre></div>
 </div>
 </section>
 <section id="function-with-multiple-outputs">
 <h3>Function with multiple outputs<a class="headerlink" href="#function-with-multiple-outputs" title="Link to this heading">#</a></h3>
 <p>The numerical model <cite>func</cite> might return several outputs per model run,
-e.g. a time series. The Morris’ sensitivity measures are calculated
-hence for each output, e.g. for each point in time. Efficient/Sequential
-Elementary Effects <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> can either take the
-arithmetic mean of all <span class="math notranslate nohighlight">\(\mu*\)</span> or a weighted mean <span class="math notranslate nohighlight">\(\mu*\)</span>,
-weighted by <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
-<p>The keyword <cite>weight=False</cite> is probably appropriate if each single
-output is equally important. An example is river runoff where high
-flows might be floods and low flows might be droughts. One might want
-that the computer model reproduces both circumstances.</p>
+e.g. returning a time series. The Morris’ sensitivity measures are
+calculated hence for each output, i.e. for each point in time in a
+time series. Efficient/Sequential Elementary Effects
+<a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> can either take the arithmetic mean of all
+<span class="math notranslate nohighlight">\(\mu*\)</span> or a weighted mean <span class="math notranslate nohighlight">\(\mu*\)</span>, weighted by
+<span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>The keyword <cite>weight=False</cite> is appropriate if each single output is
+equally important. An example is river runoff where one might be
+interested in both, high flows such as floods and low flows indicating
+droughts.</p>
 <p>An example for <cite>weight=True</cite> are fluxes to and from the atmosphere
 such as evapotranspiration. The atmosphere is more strongly influenced
 by larger fluxes so that sensitivity measures during periods of little
 atmospheric exchange are less interesting. <a class="reference external" href="http://doi.org/10.1002/2015WR016907">Cuntz, Mai et al.</a> (2015)
-argued that weighting by standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is
+argued that weighting by the standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is
 equivalent to flux weighting because parameter variations yield larger
 variances for larger fluxes than they yield for smaller fluxes in most
 computer models.</p>
@@ -612,8 +653,8 @@ each trajectory, with <cite>npars</cite> the number of parameters of the
 computational model. Multiprocessing can be used for parallel function
 evaluation. Setting <cite>processes=nprocs</cite> evaluates <cite>nprocs</cite> parameter
 sets in parallel:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Efficient Elementary Effects using 4 parallel processes</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">eee</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Elementary Effects using 4 parallel processes</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> uses the package <a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.2.dev2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a> for
@@ -673,7 +714,8 @@ deployment on a cluster or supercomputer (e.g. via MPI or JobLib).</p>
 <span class="n">ipool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The user gives the number of processors to use on the command line (<cite>ncpus</cite>).</p>
+<p>The user gives the number of processors to use on the command line
+(<cite>ncpus</cite>).</p>
 <p>This script can be run in normal serial mode, i.e. all function
 evaluations are done one after the other:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>eeetest.py
@@ -701,22 +743,22 @@ processes:</p>
 trajectories through the possible parameter space. It assumes
 uniformly distributed parameters between a lower bound and an upper
 bound.</p>
-<p>The implementation of Morris’ Elementary Effects
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> in the Python library
-<a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a> allows sampling parameters from other distributions than
-uniform distributions. For example, a parameter <span class="math notranslate nohighlight">\(p\)</span> might have
-been determined by repeated experiments. One can hence determine the
-mean parameter <span class="math notranslate nohighlight">\(\overline{p}\)</span> and calculate the error of the
-mean <span class="math notranslate nohighlight">\(\epsilon_p\)</span>. This error of the mean is actually the
-standard deviation of the distribution of the mean. One would thus
-sample a normal distribution with mean <span class="math notranslate nohighlight">\(\overline{p}\)</span> and a
-standard deviation <span class="math notranslate nohighlight">\(\epsilon_p\)</span> for the parameter <span class="math notranslate nohighlight">\(p\)</span> for
-determining Morris’ Elementary Effects.</p>
-<p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> allows all distributions of
+<p>This implementation of Morris’ Elementary Effects
+<a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> allows sampling parameters from
+other distributions than uniform distributions. For example, a
+parameter <span class="math notranslate nohighlight">\(p\)</span> might have been determined by repeated
+experiments. One can hence determine the mean parameter
+<span class="math notranslate nohighlight">\(\overline{p}\)</span> and calculate the error of the mean
+<span class="math notranslate nohighlight">\(\epsilon_p\)</span>. This error of the mean is actually the standard
+deviation of the distribution of the mean. One would thus sample a
+normal distribution with mean <span class="math notranslate nohighlight">\(\overline{p}\)</span> and a standard
+deviation <span class="math notranslate nohighlight">\(\epsilon_p\)</span> for the parameter <span class="math notranslate nohighlight">\(p\)</span> to calculate
+Morris’ Elementary Effects.</p>
+<p><a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> allows all distributions of
 mod:<cite>scipy.stats</cite>, given with the keyword <cite>dist</cite>. The parameters of
 the distributions are given as a list of tuples with the keyword
 <cite>distparam</cite>. The lower and upper bounds change their meaning if <cite>dist</cite>
-is given for a parameter: <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> samples
+is given for a parameter: <a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> samples
 uniformly the Percent Point Function (ppf) of the distribution between
 lower and upper bound. The percent point function is the inverse of
 the Cumulative Distribution Function (cdf). Lower and upper bounds
@@ -740,20 +782,23 @@ distribution. This means that the lower bound would be 0.0015
 <span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="p">,</span> <span class="n">distparam</span><span class="o">=</span><span class="n">distparam</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This shows that</p>
+<p>This example demonstrates that</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>one has to give a distribution for each parameter;</p></li>
-<li><p>distributions are given as <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distribution objects;</p></li>
-<li><p>if <cite>dist</cite> is None, <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> assumes a
+<li><p>if <cite>dist</cite> is passed, one has to give a distribution for each
+parameter;</p></li>
+<li><p>distributions are given as <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.13.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distribution
+objects;</p></li>
+<li><p>if <cite>dist</cite> is None, <a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> assumes a
 uniform distribution and samples between lower and upper bound;</p></li>
-<li><p>(almost) all <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distributions take the keywords
+<li><p>(almost) all <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.13.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> distributions take the keywords
 <cite>loc</cite> and <cite>scale</cite>. Their meaning is <em>NOT</em> mean and standard
 deviation in most distributions. For the uniform distribution
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.uniform.html#scipy.stats.uniform" title="(in SciPy v1.12.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.uniform</span></code></a>, <cite>loc</cite> is the lower limit and
-<cite>loc + scale</cite> the upper limit. This means the combination
-<cite>dist=None</cite>, <cite>distparam=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite> corresponds to
-<cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a, b-a]</cite>, <cite>lb=0</cite>, <cite>ub=1</cite>.</p></li>
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.uniform.html#scipy.stats.uniform" title="(in SciPy v1.13.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.uniform</span></code></a>, <cite>loc</cite> is the lower limit and <cite>loc +
+scale</cite> the upper limit. This means the combination <cite>dist=None</cite>,
+<cite>distparam=None</cite>, <cite>lb=a</cite>, <cite>ub=b</cite> corresponds to
+<cite>dist=scipy.stats.uniform</cite>, <cite>distparam=[a, b-a]</cite>, <cite>lb=0</cite>,
+<cite>ub=1</cite>.</p></li>
 </ol>
 </div></blockquote>
 <p>Note also that</p>
@@ -761,16 +806,16 @@ deviation in most distributions. For the uniform distribution
 <div><ol class="arabic simple" start="5">
 <li><p>if <cite>distparam</cite> is None, <cite>loc=0</cite> and <cite>scale=1</cite> will be taken;</p></li>
 <li><p><cite>loc</cite> and <cite>scale</cite> are implemented as keywords in
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>. Other parameters such as for example the
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="(in SciPy v1.13.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code></a>. Other parameters such as for example the
 shape parameter of the gamma distribution
-<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html#scipy.stats.gamma" title="(in SciPy v1.12.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.gamma</span></code></a> must hence be given first,
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html#scipy.stats.gamma" title="(in SciPy v1.13.0)"><code class="xref any docutils literal notranslate"><span class="pre">scipy.stats.gamma</span></code></a> must hence be given first,
 i.e. <cite>(shape, loc, scale)</cite>.</p></li>
 </ol>
 </div></blockquote>
 <p>Remember that Morris’ method of Elementary Effects assumes uniformly
 distributed parameters and that other distributions are an extension
 of the original method.</p>
-<p><code class="docutils literal notranslate"><span class="pre">eee</span></code> uses <a class="reference external" href="https://mcuntz.github.io/pyjams/html/screening.html#pyjams.screening.screening" title="(in pyjams v2.2.dev4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a> from <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>
+<p><a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> uses <a class="reference internal" href="screening.html#pyeee.screening.screening" title="pyeee.screening.screening"><code class="xref py py-func docutils literal notranslate"><span class="pre">screening()</span></code></a>
 internally. It consequently also offers the possibility to sample
 other distributions than uniform distributions with the keywords
 <cite>dist</cite> and <cite>distparams</cite>.</p>
@@ -780,9 +825,10 @@ other distributions than uniform distributions with the keywords
 </section>
 <section id="python-function-with-extra-parameters">
 <h3>Python function with extra parameters<a class="headerlink" href="#python-function-with-extra-parameters" title="Link to this heading">#</a></h3>
-<p>The function for <a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> must be of the form
-<cite>func(x)</cite>. Use Python’s <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> from the Python
-module <a class="reference external" href="https://docs.python.org/3/library/functools.html#module-functools" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functools</span></code></a> to pass other function parameters.</p>
+<p>The function for <code class="xref py py-func docutils literal notranslate"><span class="pre">sreening()</span></code> and
+<a class="reference internal" href="eee.html#pyeee.eee.eee" title="pyeee.eee.eee"><code class="xref py py-func docutils literal notranslate"><span class="pre">eee()</span></code></a> must be of the form <cite>func(x)</cite>. Use Python’s
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.partial()</span></code></a> from the Python module <a class="reference external" href="https://docs.python.org/3/library/functools.html#module-functools" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functools</span></code></a> to
+pass other function parameters.</p>
 <p>For example pass the parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to the
 Ishigami-Homma function. One needs a wrapper function that takes the
 function and its parameters as arguments. The variable parameters of
@@ -1160,6 +1206,9 @@ exactly like all the scripts above:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-sequential-elementary-effects">Efficient/Sequential Elementary Effects</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-initial-fit">Check initial fit</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage">Advanced usage</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-parameters-from-calculations">Exclude parameters from calculations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-multiple-outputs">Function with multiple outputs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-model-evaluation">Parallel model evaluation</a></li>

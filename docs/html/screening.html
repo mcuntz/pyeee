@@ -45,7 +45,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="tee" href="tee.html" />
-    <link rel="prev" title="Morris Method / Elementary Effects" href="morris_method.html" />
+    <link rel="prev" title="Morris’ Method / Elementary Effects" href="morris_method.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,7 +153,7 @@
 <li class="toctree-l2"><a class="reference internal" href="eee.html">eee</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions.html">General functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logistic_function.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris’ Method / Elementary Effects</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">screening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tee.html">tee</a></li>
 </ul>
@@ -434,6 +434,8 @@ argument, Feb 2020, Matthias Cuntz</p></li>
 scipy.stats, Mar 2020, Matthias Cuntz</p></li>
 <li><p>Code refactoring, Sep 2021, Matthias Cuntz</p></li>
 <li><p>More consistent docstrings, Jan 2022, Matthias Cuntz</p></li>
+<li><p>Add functions with multiple outputs such as time series in Returns
+section, Apr 2024, Matthias Cuntz</p></li>
 </ul>
 </dd>
 </dl>
@@ -508,7 +510,8 @@ program.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p>2D-array with 3 entries per parameters:</p>
+<dd class="field-even"><p><p>2D/3D-array with 3 entries per parameter and per function output,
+such as per time step in a time series:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><p>mean of absolute elementary effects over all nt trajectories
@@ -521,7 +524,7 @@ nt trajectories (<cite>sigma</cite>) or zero if <cite>nt==1</cite></p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(nparameter, 3) ndarray</p>
+<dd class="field-odd"><p>(nparameter, 3) ndarray or (nfuncout, nparameter, 3)</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -578,7 +581,7 @@ nt trajectories (<cite>sigma</cite>) or zero if <cite>nt==1</cite></p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Morris Method / Elementary Effects</p>
+        <p class="prev-next-title">Morris’ Method / Elementary Effects</p>
       </div>
     </a>
     <a class="right-next"

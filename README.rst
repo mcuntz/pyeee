@@ -4,7 +4,7 @@ pyeee - Efficient parameter screening of computational models
    pandoc -f rst -t html -o README.html README.rst
 
 A Python library for parameter screening of computational models using
-the extension of Morris' method of Elementary Effects called Efficient
+Morris' method of Elementary Effects and its extension of Efficient
 or Sequential Elementary Effects by Cuntz, Mai et al. (Water Res
 Research, 2015).
 
@@ -15,9 +15,9 @@ About pyeee
 -----------
 
 **pyeee** is a Python library for performing parameter screening of
-computational models. It uses the extension of Morris' method of
-Elementary Effects of so-called Efficient or Sequential Elementary
-Effects published by
+computational models. It uses Morris' method of Elementary Effects and
+its extension, the so-called Efficient or Sequential Elementary Effects
+published by
 
 Cuntz, Mai `et al.` (2015) Computationally inexpensive identification
 of noninformative model parameters by sequential screening,
@@ -57,12 +57,11 @@ Taking ``a = b = 1`` gives:
 The three paramters ``x_0``, ``x_1``, ``x_2`` follow
 uniform distributions between ``-pi`` and ``+pi``.
 
-Morris' Elementary Effects can then be calculated using, for example,
-the Python library `pyjams`_, giving the Elementary Effects (``mu*``):
+Morris' Elementary Effects can then be calculated as:
 
 .. code:: python
 
-   from pyjams import ee
+   from pyeee import screening
 
    npars = 3
    # lower boundaries
@@ -71,10 +70,12 @@ the Python library `pyjams`_, giving the Elementary Effects (``mu*``):
    ub = np.ones(npars) * np.pi
    # Elementary Effects
    np.random.seed(seed=1023)  # for reproducibility of examples
-   out = ee(ishigami1, lb, ub, 10)   # mu*
+   out = screening(ishigami1, lb, ub, 10)   # mu*, mu, sigma
    print("{:.1f} {:.1f} {:.1f}".format(*out[:, 0]))
    # gives: 173.1 0.6 61.7
 
+which gives the Elementary Effects ``mu*``.
+   
 Sequential Elementary Effects distinguish between informative and
 uninformative parameters using several times Morris' Elementary
 Effects, returning a logical ndarray with True for the informative
@@ -94,10 +95,10 @@ parameters and False for the uninformative parameters:
 Python function with extra parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The function for **pyeee** must be of the form ``func(x)``. Use
-Python's `partial`_ from the `functools`_ module to pass other
-function parameters. For example pass the parameters ``a`` and ``b``
-to the Ishigami-Homma function.
+The function for the routines in **pyeee** must be of the form
+``func(x)``. Use Python's `partial`_ from the `functools`_ module to
+pass other function parameters. For example pass the parameters ``a``
+and ``b`` to the Ishigami-Homma function.
 
 .. code:: python
 
@@ -135,7 +136,7 @@ Function wrappers
 ^^^^^^^^^^^^^^^^^
 
 We recommend to use our package `partialwrap`_ for external
-executables, which allows easy use of external programs and also their
+executables, which allows easy use of external programs and their
 parallel execution. See the `userguide`_ for details. A trivial
 example is the use of `partialwrap`_ for the above function wrapping:
 
@@ -172,7 +173,6 @@ Requirements
 - `NumPy <https://www.numpy.org>`__
 - `SciPy <https://www.numpy.org>`__
 - `schwimmbad <https://github.com/adrn/schwimmbad>`__
-- `pyjams <https://github.com/mcuntz/pyjams>`__
 
 
 License
@@ -206,6 +206,5 @@ The project structure is based on a `template`_ provided by `Sebastian Müller`_
 .. _multiprocessing: https://docs.python.org/3/library/multiprocessing.html
 .. _partial: https://docs.python.org/3/library/functools.html#functools.partial
 .. _partialwrap: https://mcuntz.github.io/partialwrap/
-.. _pyjams: https://mcuntz.github.io/pyjams/
 .. _template: https://github.com/MuellerSeb/template
 .. _userguide: https://mcuntz.github.io/pyeee/html/userguide.html

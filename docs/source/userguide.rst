@@ -2,8 +2,8 @@ User Guide
 ==========
 
 ``pyeee`` is a Python library for performing parameter screening of
-computational models. It uses an extension of Morris' method of
-Elementary Effects called Efficient or Sequential Elementary Effects
+computational models. It uses Morris' method of Elementary Effects and
+its extension called Efficient or Sequential Elementary Effects
 published by:
 
 Cuntz, Mai `et al.` (2015) Computationally inexpensive identification
@@ -37,13 +37,12 @@ Taking :math:`a = b = 1` gives:
 The three parameters :math:`x_0, x_1, x_2` follow uniform
 distributions between :math:`-\pi` and :math:`+\pi`.
 
-Morris' Elementary Effects can then be calculated using, for example,
-the Python library :mod:`pyjams`, giving the Elementary Effects
-(:math:`\mu*`):
+Morris' Elementary Effects can then be calculated, using 20
+trajectories, as:
 
 .. code-block:: python
 
-   from pyjams import screening
+   from pyeee import screening
 
    # function
    func  = ishigami1
@@ -62,16 +61,41 @@ the Python library :mod:`pyjams`, giving the Elementary Effects
    print("{:.1f} {:.1f} {:.1f}".format(*out[:, 0]))
    # gives: 72.6 0.6 14.3
 
-:func:`~pyjams.screening.screening` returns an `(npars, 3)` ndarray,
-with `(npars, 0)` being the means of the absolute Elementary Effects
-over all trajectories (:math:`\mu*`).
+:func:`~pyeee.screening.screening` returns a `(npars, 3)` ndarray
+with:
 
-For Elementary Effects and its sensitivity measures, see
+   1. `(npars, 0)` the means of the absolute elementary effects over
+      all trajectories (:math:`\mu*`)
+   2. `(npars, 1)` the means of the elementary effects over all nt
+      trajectories (:math:`\mu`)
+   3. `(npars, 2)` the standard deviations of the elementary effects
+      over all trajectories (:math:`\sigma`)
+
+For Elementary Effects and its sensititvity measures, see
 https://en.wikipedia.org/wiki/Elementary_effects_method, or
 
-Saltelli `et al.` (2007) Global Sensitivity Analysis. The Primer, John
-Wiley & Sons Ltd, Chichester, UK, ISBN: 978-0470-059-975, doi:
-`10.1002/9780470725184`_.
+Saltelli *et al.* (2007) Global Sensitivity Analysis. The Primer,
+John Wiley & Sons Ltd, Chichester, UK, ISBN: 978-0470-059-975,
+doi: `10.1002/9780470725184`_.
+
+The numerical model `func`, lower parameter boundaries `lb`, upper
+parameter boundaries `ub`, and the number of trajectories `nt` are
+mandatory arguments to :func:`~pyeee.screening.screening` (or the
+identical function :func:`~pyeee.screening.ee` ;-).
+
+Further optional arguments relevant to Elementary Effects are:
+
+   - `nsteps`: int - Number of steps along one trajectory (default: 6)
+   - `ntotal`: int - Total number of trajectories to check for the
+     `nt` most different trajectories (default: `max(nt**2, 10 * nt)`)
+
+Note that :func:`~pyeee.screening.screening` uses the functions
+:func:`~pyeee.morris_method.morris_sampling` and
+:func:`~pyeee.morris_method.elementary_effects`, which are the
+implementations of Francesca Campolongo and Jessica Cariboni written
+in Matlab and translated to Python by Stijn Van Hoey. They support the
+notion of parameter groups, which is not taken into account in
+:func:`~pyeee.screening.screening`.
 
 
 Efficient/Sequential Elementary Effects
@@ -96,7 +120,7 @@ The extension of Efficient or Sequential Elementary Effects can be
 used if one uses Elementary Effects `only` to distinguish between
 sensitive (informative) and insensitive (noninformative) model
 parameters. It follows the idea: if one knows that a model is
-sensitive to a certain parameter, this parameter does not has to be
+sensitive to a certain parameter, this parameter does not have to be
 included anymore in further screening. If a parameter has a large
 Elementary Effect in one trajectory it will most probably be
 influential. So one does not have to calculate another Elementary
@@ -118,8 +142,8 @@ was missed due to a small sample.
 
 The call of :func:`~pyeee.eee.eee` (or the identical function
 :func:`~pyeee.eee.see`) is very similar to standard Elementary effects
-:func:`~pyjams.screening.screening` (or the identical function
-:func:`~pyjams.screening.ee` ;-):
+:func:`~pyeee.screening.screening` (or the identical function
+:func:`~pyeee.screening.ee` ;-):
 
 .. code-block:: python
 
@@ -153,7 +177,7 @@ mask can be combined by `logical_and` with an incoming mask.
 Check initial fit
 ^^^^^^^^^^^^^^^^^
 
-Efficient/Sequential Elementary Effects fits a logistic function to
+Efficient/Sequential Elementary Effects fit a logistic function to
 the output of the `ntfirst` trajectories, which determines the
 threshold between informative and uninformative parameters for the
 following (shorter) trajectories. One can check this initial,
@@ -173,7 +197,8 @@ Logging
 ^^^^^^^
 
 Following the same idea, the user can also log progress and
-intermediate results in a text file giving the `logfile` keyword:
+intermediate results of :func:`~pyeee.eee.eee` in a text file giving
+the `logfile` keyword:
 
 .. code-block:: python
 
@@ -181,17 +206,20 @@ intermediate results in a text file giving the `logfile` keyword:
              logfile='ishigami.log')
 
 
+Advanced usage
+--------------
+
 Exclude parameters from calculations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``eee`` offers the possibility to mask some model parameters so that
-they will not be changed during calculation of Elementary
-Effects. Inital values `x0` must be given that will be taken where
-`mask == False`, i.e. `mask` could be called an include-mask (opposite
-of the exclude-mask of numpy's masked arrays). Note that the size of
-`x0` must be the size of `lb`, `ub` and `mask`, i.e. one has to give
-initial values even if an element is included in the screening, which
-means `mask[i] == True`.
+:func:`~pyeee.screening.screening` and :func:`~pyeee.eee.eee` offer
+the possibility to mask some model parameters so that they will not be
+changed during calculation of Elementary Effects. Inital values `x0`
+must be given that will be taken where `mask == False`, i.e. `mask`
+could be called an include-mask (opposite of the exclude-mask of
+numpy's masked arrays). Note that the size of `x0` must be the size of
+`lb`, `ub` and `mask`, i.e. one has to give initial values even if an
+element is included in the screening, which means `mask[i] == True`.
 
 For example, if one wants to exclude the second parameter :math:`x_0`
 of the above Ishigami-Homma function in the calculation of the
@@ -208,6 +236,7 @@ Elementary Effects:
 
    # Efficient Elementary Effects
    np.random.seed(seed=1024)  # for reproducibility of examples
+
    out = eee(func, lb, ub, x0=x0, mask=mask)
    print(out)
    # gives: [False False  True]
@@ -216,27 +245,33 @@ Elementary Effects:
    print(mask)
    # gives: [False False  True]
 
+   # Elementary Effects
+   out = screening(func, lb, ub, 20, x0=x0, mask=mask)
+   print("{:.1f} {:.1f} {:.1f}".format(*out[:, 0]))
+   # 0.0 0.0 62.2
+
 
 Function with multiple outputs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The numerical model `func` might return several outputs per model run,
-e.g. a time series. The Morris' sensitivity measures are calculated
-hence for each output, e.g. for each point in time. Efficient/Sequential
-Elementary Effects :func:`~pyeee.eee.eee` can either take the
-arithmetic mean of all :math:`\mu*` or a weighted mean :math:`\mu*`,
-weighted by :math:`\sigma`.
+e.g. returning a time series. The Morris' sensitivity measures are
+calculated hence for each output, i.e. for each point in time in a
+time series. Efficient/Sequential Elementary Effects
+:func:`~pyeee.eee.eee` can either take the arithmetic mean of all
+:math:`\mu*` or a weighted mean :math:`\mu*`, weighted by
+:math:`\sigma`.
 
-The keyword `weight=False` is probably appropriate if each single
-output is equally important. An example is river runoff where high
-flows might be floods and low flows might be droughts. One might want
-that the computer model reproduces both circumstances.
+The keyword `weight=False` is appropriate if each single output is
+equally important. An example is river runoff where one might be
+interested in both, high flows such as floods and low flows indicating
+droughts.
 
 An example for `weight=True` are fluxes to and from the atmosphere
 such as evapotranspiration. The atmosphere is more strongly influenced
 by larger fluxes so that sensitivity measures during periods of little
 atmospheric exchange are less interesting. `Cuntz, Mai et al.`_ (2015)
-argued that weighting by standard deviation :math:`\sigma` is
+argued that weighting by the standard deviation :math:`\sigma` is
 equivalent to flux weighting because parameter variations yield larger
 variances for larger fluxes than they yield for smaller fluxes in most
 computer models.
@@ -253,8 +288,8 @@ sets in parallel:
 
 .. code-block:: python
 
-   # Efficient Elementary Effects using 4 parallel processes
-   out = eee(func, lb, ub, processes=4)
+   # Elementary Effects using 4 parallel processes
+   out = screening(func, lb, ub, processes=4)
 
 ``pyeee`` uses the package :mod:`schwimmbad` for
 parallelisation. :mod:`schwimmbad` provides a uniform interface to
@@ -316,7 +351,8 @@ Consider the following Python code in a script (e.g. `eeetest.py`):
        print(out)
    ipool.close()
 
-The user gives the number of processors to use on the command line (`ncpus`). 
+The user gives the number of processors to use on the command line
+(`ncpus`).
    
 This script can be run in normal serial mode, i.e. all function
 evaluations are done one after the other:
@@ -356,23 +392,23 @@ trajectories through the possible parameter space. It assumes
 uniformly distributed parameters between a lower bound and an upper
 bound.
 
-The implementation of Morris' Elementary Effects
-:func:`~pyjams.screening.screening` in the Python library
-:mod:`pyjams` allows sampling parameters from other distributions than
-uniform distributions. For example, a parameter :math:`p` might have
-been determined by repeated experiments. One can hence determine the
-mean parameter :math:`\overline{p}` and calculate the error of the
-mean :math:`\epsilon_p`. This error of the mean is actually the
-standard deviation of the distribution of the mean. One would thus
-sample a normal distribution with mean :math:`\overline{p}` and a
-standard deviation :math:`\epsilon_p` for the parameter :math:`p` for
-determining Morris' Elementary Effects.
+This implementation of Morris' Elementary Effects
+:func:`~pyeee.screening.screening` allows sampling parameters from
+other distributions than uniform distributions. For example, a
+parameter :math:`p` might have been determined by repeated
+experiments. One can hence determine the mean parameter
+:math:`\overline{p}` and calculate the error of the mean
+:math:`\epsilon_p`. This error of the mean is actually the standard
+deviation of the distribution of the mean. One would thus sample a
+normal distribution with mean :math:`\overline{p}` and a standard
+deviation :math:`\epsilon_p` for the parameter :math:`p` to calculate
+Morris' Elementary Effects.
 
-:func:`~pyjams.screening.screening` allows all distributions of
+:func:`~pyeee.screening.screening` allows all distributions of
 mod:`scipy.stats`, given with the keyword `dist`. The parameters of
 the distributions are given as a list of tuples with the keyword
 `distparam`. The lower and upper bounds change their meaning if `dist`
-is given for a parameter: :func:`~pyjams.screening.screening` samples
+is given for a parameter: :func:`~pyeee.screening.screening` samples
 uniformly the Percent Point Function (ppf) of the distribution between
 lower and upper bound. The percent point function is the inverse of
 the Cumulative Distribution Function (cdf). Lower and upper bounds
@@ -399,19 +435,22 @@ distribution. This means that the lower bound would be 0.0015
 
    out = screening(func, lb, ub, 20, dist=dist, distparam=distparam)
 
-This shows that
+This example demonstrates that
 
-   1. one has to give a distribution for each parameter;
-   2. distributions are given as :mod:`scipy.stats` distribution objects;
-   3. if `dist` is None, :func:`~pyjams.screening.screening` assumes a
+   1. if `dist` is passed, one has to give a distribution for each
+      parameter;
+   2. distributions are given as :mod:`scipy.stats` distribution
+      objects;
+   3. if `dist` is None, :func:`~pyeee.screening.screening` assumes a
       uniform distribution and samples between lower and upper bound;
    4. (almost) all :mod:`scipy.stats` distributions take the keywords
       `loc` and `scale`. Their meaning is *NOT* mean and standard
       deviation in most distributions. For the uniform distribution
-      :any:`scipy.stats.uniform`, `loc` is the lower limit and
-      `loc + scale` the upper limit. This means the combination
-      `dist=None`, `distparam=None`, `lb=a`, `ub=b` corresponds to
-      `dist=scipy.stats.uniform`, `distparam=[a, b-a]`, `lb=0`, `ub=1`.
+      :any:`scipy.stats.uniform`, `loc` is the lower limit and `loc +
+      scale` the upper limit. This means the combination `dist=None`,
+      `distparam=None`, `lb=a`, `ub=b` corresponds to
+      `dist=scipy.stats.uniform`, `distparam=[a, b-a]`, `lb=0`,
+      `ub=1`.
 
 Note also that
 
@@ -426,7 +465,7 @@ Remember that Morris' method of Elementary Effects assumes uniformly
 distributed parameters and that other distributions are an extension
 of the original method.
 
-``eee`` uses :func:`~pyjams.screening.screening` from :mod:`pyjams`
+:func:`~pyeee.eee.eee` uses :func:`~pyeee.screening.screening`
 internally. It consequently also offers the possibility to sample
 other distributions than uniform distributions with the keywords
 `dist` and `distparams`.
@@ -439,9 +478,10 @@ other distributions than uniform distributions with the keywords
 Python function with extra parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The function for :func:`~pyeee.eee.eee` must be of the form
-`func(x)`. Use Python's :func:`functools.partial` from the Python
-module :mod:`functools` to pass other function parameters.
+The function for :func:`~pyeee.sreening.sreening` and
+:func:`~pyeee.eee.eee` must be of the form `func(x)`. Use Python's
+:func:`functools.partial` from the Python module :mod:`functools` to
+pass other function parameters.
 
 For example pass the parameters :math:`a` and :math:`b` to the
 Ishigami-Homma function. One needs a wrapper function that takes the

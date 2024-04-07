@@ -40,6 +40,8 @@ History
       scipy.stats, Mar 2020, Matthias Cuntz
     * Code refactoring, Sep 2021, Matthias Cuntz
     * More consistent docstrings, Jan 2022, Matthias Cuntz
+    * Add functions with multiple outputs such as time series in Returns
+      section, Apr 2024, Matthias Cuntz
 
 """
 import numpy as np
@@ -136,8 +138,9 @@ def screening(func, lb, ub, nt, x0=None, mask=None,
 
     Returns
     -------
-    (nparameter, 3) ndarray
-        2D-array with 3 entries per parameters:
+    (nparameter, 3) ndarray or (nfuncout, nparameter, 3)
+        2D/3D-array with 3 entries per parameter and per function output,
+        such as per time step in a time series:
 
             1. mean of absolute elementary effects over all nt trajectories
                (`mu*`)

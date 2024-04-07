@@ -46,7 +46,7 @@ History
     * v4.0, modernise code structure and documentation,
       Feb 2024, Matthias Cuntz
     * v4.1, add pyeee to conda-forge, Mar 2024, Matthias Cuntz
-    * v5.0, remove dependency to pyjams, Mar 2024, Matthias Cuntz
+    * v5.0, remove dependency to pyjams, Apr 2024, Matthias Cuntz
 
 """
 # version, author

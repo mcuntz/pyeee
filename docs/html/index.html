@@ -154,7 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="eee.html">eee</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions.html">General functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logistic_function.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris Method / Elementary Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morris_method.html">Morris’ Method / Elementary Effects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="screening.html">screening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tee.html">tee</a></li>
 </ul>
@@ -398,16 +398,16 @@ document.write(`
   <section id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code>: a Python library for parameter screening of computational
-models using the extension of Morris’ method of Elementary Effects
-called Efficient or Sequential Elementary Effects by
-<a class="reference external" href="http://doi.org/10.1002/2015WR016907">Cuntz, Mai et al.</a> (Water Res Research, 2015).</p>
+models using Morris’ method of Elementary Effects and its extension of
+Efficient or Sequential Elementary Effects by <a class="reference external" href="http://doi.org/10.1002/2015WR016907">Cuntz, Mai et al.</a>
+(Water Res Research, 2015).</p>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.3620909"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3620909.svg" /></a> <a class="reference external" href="https://badge.fury.io/py/pyeee"><img alt="PyPI version" src="https://badge.fury.io/py/pyeee.svg" /></a> <a class="reference external" href="https://anaconda.org/conda-forge/pyeee"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/pyeee.svg" /></a> <a class="reference external" href="https://github.com/mcuntz/pyeee/blob/master/LICENSE"><img alt="License" src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a> <a class="reference external" href="https://github.com/mcuntz/pyeee/actions"><img alt="Build Status" src="https://github.com/mcuntz/pyeee/workflows/Continuous%20Integration/badge.svg?branch=master" /></a> <a class="reference external" href="https://coveralls.io/github/mcuntz/pyeee?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master" /></a></p>
 <section id="about-pyeee">
 <h2>About pyeee<a class="headerlink" href="#about-pyeee" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pyeee</span></code> is a Python library for performing parameter screening of
-computational models. It uses the extension of Morris’ method of
-Elementary Effects of so-called Efficient or Sequential Elementary
-Effects published by</p>
+computational models. It uses Morris’ method of Elementary Effects and
+its extension, the so-called Efficient or Sequential Elementary Effects
+published by</p>
 <p>Cuntz, Mai <cite>et al.</cite> (2015) Computationally inexpensive identification
 of noninformative model parameters by sequential screening,
 <cite>Water Resources Research</cite> 51, 6417-6441, doi: <a class="reference external" href="http://doi.org/10.1002/2015WR016907">10.1002/2015WR016907</a>.</p>
@@ -430,10 +430,8 @@ module or via the Message Passing Interface (MPI) <a class="reference external" 
 </div>
 <p>The three paramters <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> follow
 uniform distributions between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(+\pi\)</span>.</p>
-<p>Morris’ Elementary Effects can then be calculated using, for example,
-the Python library <a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a>, giving the Elementary Effects
-(<span class="math notranslate nohighlight">\(\mu*\)</span>):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyjams</span> <span class="kn">import</span> <span class="n">ee</span>
+<p>Morris’ Elementary Effects can then be as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">screening</span>
 
 <span class="n">npars</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="c1"># lower boundaries</span>
@@ -442,11 +440,12 @@ the Python library <a class="reference external" href="https://mcuntz.github.io/
 <span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">npars</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="c1"># Elementary Effects</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1023</span><span class="p">)</span>  <span class="c1"># for reproducibility of examples</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">ee</span><span class="p">(</span><span class="n">ishigami1</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>   <span class="c1"># mu*</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">screening</span><span class="p">(</span><span class="n">ishigami1</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>   <span class="c1"># mu*, mu, sigma</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2"> </span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]))</span>
 <span class="c1"># gives: 173.1 0.6 61.7</span>
 </pre></div>
 </div>
+<p>which gives the Elementary Effects <code class="docutils literal notranslate"><span class="pre">mu*</span></code>.</p>
 <p>Sequential Elementary Effects distinguish between informative and
 uninformative parameters using several times Morris’ Elementary
 Effects, returning a logical ndarray with True for the informative
@@ -463,10 +462,11 @@ parameters and False for the uninformative parameters:</p>
 </section>
 <section id="python-function-with-extra-parameters">
 <h3>Python function with extra parameters<a class="headerlink" href="#python-function-with-extra-parameters" title="Link to this heading">#</a></h3>
-<p>The function for <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> must be of the form <span class="math notranslate nohighlight">\(func(x)\)</span>. Use
-Python’s <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">partial()</span></code></a> from the <a class="reference external" href="https://docs.python.org/3/library/functools.html#module-functools" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functools</span></code></a>
-module to pass other function parameters. For example pass the
-parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to the Ishigami-Homma function.</p>
+<p>The function for for the routines in <code class="docutils literal notranslate"><span class="pre">pyeee</span></code> must be of the form
+<span class="math notranslate nohighlight">\(func(x)\)</span>. Use Python’s <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.partial" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">partial()</span></code></a> from the
+<a class="reference external" href="https://docs.python.org/3/library/functools.html#module-functools" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">functools</span></code></a> module to pass other function parameters. For
+example pass the parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to the
+Ishigami-Homma function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pyeee</span> <span class="kn">import</span> <span class="n">eee</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
@@ -500,7 +500,7 @@ parameters <span class="math notranslate nohighlight">\(a\)</span> and <span cla
 <section id="function-wrappers">
 <h3>Function wrappers<a class="headerlink" href="#function-wrappers" title="Link to this heading">#</a></h3>
 <p>We recommend to use our package <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for external
-executables, which allows easy use of external programs and also their
+executables, which allows easy use of external programs and their
 parallel execution. See the <a class="reference external" href="userguide.html">User Guide</a> for
 details. A trivial example is the use of <a class="reference external" href="https://mcuntz.github.io/partialwrap/html/api.html#module-partialwrap" title="(in partialwrap v1.8.dev11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">partialwrap</span></code></a> for the
 above function wrapping:</p>
@@ -530,9 +530,8 @@ above function wrapping:</p>
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.26)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/index.html#module-scipy" title="(in SciPy v1.12.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/index.html#module-scipy" title="(in SciPy v1.13.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://schwimmbad.readthedocs.io/en/latest/examples/index.html#module-schwimmbad" title="(in schwimmbad v0.4.2.dev2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">schwimmbad</span></code></a></p></li>
-<li><p><a class="reference external" href="https://mcuntz.github.io/pyjams/html/api.html#module-pyjams" title="(in pyjams v2.2.dev4)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyjams</span></code></a></p></li>
 </ul>
 </section>
 <section id="license">

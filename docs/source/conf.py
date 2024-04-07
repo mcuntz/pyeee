@@ -229,24 +229,25 @@ texinfo_documents = [
 
 suppress_warnings = [
     "image.nonlocal_uri",
-    #    'app.add_directive',  # this evtl. suppresses the numpydoc induced warning
+    # # this evtl. suppresses the numpydoc induced warning
+    # 'app.add_directive',
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    "Python":      ("https://docs.python.org/3/",                    None),
-    "NumPy":       ("https://numpy.org/doc/stable/",                 None),
-    "SciPy":       ("https://docs.scipy.org/doc/scipy/reference/",   None),
-    "matplotlib":  ("https://matplotlib.org/stable/",                None),
-    "Pandas":      ("https://pandas.pydata.org/docs/",               None),
-    "Cython":      ("https://cython.readthedocs.io/en/latest/",      None),
-    "cftime":      ("https://unidata.github.io/cftime/",             None),
-    # "netcdf4-python": ("https://unidata.github.io/netcdf4-python/",  None),
-    "openpyxl":    ("https://openpyxl.readthedocs.io/en/stable/",    None),
-    "Sphinx":      ("https://www.sphinx-doc.org/en/master/",         None),
-    "schwimmbad":  ("https://schwimmbad.readthedocs.io/en/latest/",  None),
-    "mpi4py":      ("https://mpi4py.readthedocs.io/en/latest/",      None),
-    "emcee":       ("https://emcee.readthedocs.io/en/latest/",       None),
-    "partialwrap": ("https://mcuntz.github.io/partialwrap/html/",    None),
-    "pyjams":      ("https://mcuntz.github.io/pyjams/html/",         None),
+    "Python": ("https://docs.python.org/3/", None),
+    "NumPy": ("https://numpy.org/doc/stable/", None),
+    "SciPy": ("https://docs.scipy.org/doc/scipy/reference/", None),
+    "matplotlib": ("https://matplotlib.org/stable/", None),
+    "Pandas": ("https://pandas.pydata.org/docs/", None),
+    "Cython": ("https://cython.readthedocs.io/en/latest/", None),
+    "cftime": ("https://unidata.github.io/cftime/", None),
+    # "netcdf4-python": ("https://unidata.github.io/netcdf4-python/", None),
+    "openpyxl": ("https://openpyxl.readthedocs.io/en/stable/", None),
+    "Sphinx": ("https://www.sphinx-doc.org/en/master/", None),
+    "schwimmbad": ("https://schwimmbad.readthedocs.io/en/latest/", None),
+    "mpi4py": ("https://mpi4py.readthedocs.io/en/latest/", None),
+    "emcee": ("https://emcee.readthedocs.io/en/latest/", None),
+    "partialwrap": ("https://mcuntz.github.io/partialwrap/html/", None),
+    "pyjams": ("https://mcuntz.github.io/pyjams/html/", None),
 }

@@ -1,5 +1,5 @@
-Morris Method / Elementary Effects
-----------------------------------
+Morris' Method / Elementary Effects
+-----------------------------------
 
 .. automodule:: pyeee.morris_method
    :members:
