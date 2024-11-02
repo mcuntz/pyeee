@@ -193,8 +193,8 @@ The project structure is based on a `template`_ provided by `Sebastian Müller`_
    :target: https://anaconda.org/conda-forge/pyeee
 .. |License| image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
    :target: https://github.com/mcuntz/pyeee/blob/master/LICENSE
-.. |Build Status| image:: https://github.com/mcuntz/pyeee/workflows/Continuous%20Integration/badge.svg?branch=master
-   :target: https://github.com/mcuntz/pyeee/actions
+.. |Build Status| image:: https://github.com/mcuntz/pyeee/actions/workflows/master.yml/badge.svg
+   :target: https://github.com/mcuntz/pyeee/actions/workflows/master.yml
 .. |Coverage Status| image:: https://coveralls.io/repos/github/mcuntz/pyeee/badge.svg?branch=master
    :target: https://coveralls.io/github/mcuntz/pyeee?branch=master
 

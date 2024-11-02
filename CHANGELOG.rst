@@ -4,6 +4,9 @@ Changelog
 All notable changes after its initial development up to January 2020
 (v0.2) are documented in this file.
 
+v5.x (??? 2024)
+   * Changed build status.
+
 v5.0 (Apr 2024)
     * Remove dependency to `pyjams` by copying all utilities to `pyeee`.
       Screening and Morris' Method will be deprecated in `pyjams`.
